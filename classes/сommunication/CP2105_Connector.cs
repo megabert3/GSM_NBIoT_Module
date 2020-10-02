@@ -274,13 +274,13 @@ namespace GSM_NBIoT_Module.classes {
         /// Автоматический поиск портов устройства
         /// Выкидывает исключение DeviceNotFoundException()
         /// </summary>
-        private void findDevicePorts() {
+        public void findDevicePorts() {
 
             string query = "SELECT * FROM Win32_SerialPort";
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
 
-            enhabcedPort = 0;
-            standartPort = 0;
+            int enhabcedPort = 0;
+            int standartPort = 0;
 
             bool findEnha = false;
             bool findSta = false;
@@ -324,6 +324,8 @@ namespace GSM_NBIoT_Module.classes {
             if (enhabcedPort == 0 || standartPort == 0) 
                 throw new DeviceNotFoundException("Не удалось найти модем в списке подключенных устройств");
 
+            this.enhabcedPort = enhabcedPort;
+            this.standartPort = standartPort;
         }
 
         public override void SendData() {
@@ -345,13 +347,12 @@ namespace GSM_NBIoT_Module.classes {
         }
 
         public int getEnhabcedPort() {
-            findDevicePorts();
-
+            if (enhabcedPort == 0) throw new DeviceNotFoundException("Не выставленно значение Enhabced порта");
             return enhabcedPort;
         }
-        public int getStandartPort() {
-            findDevicePorts();
 
+        public int getStandartPort() {
+            if (enhabcedPort == 0) throw new DeviceNotFoundException("Не выставленно значение Standart порта");
             return standartPort;
         }
     }

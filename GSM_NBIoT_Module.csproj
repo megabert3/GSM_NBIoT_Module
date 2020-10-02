@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="classes\applicationHelper\exceptions\COMPortException.cs" />
     <Compile Include="classes\applicationHelper\exceptions\DeviceNotFoundException.cs" />
     <Compile Include="classes\applicationHelper\exceptions\DeviceError.cs" />
     <Compile Include="classes\modemBoard\Board.cs" />
