@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="classes\applicationHelper\exceptions\DeviceNotFoundException.cs" />
+    <Compile Include="classes\applicationHelper\exceptions\DeviceError.cs" />
     <Compile Include="classes\modemBoard\Board.cs" />
     <Compile Include="classes\GSM_NBIoT_Module\BC92_Module.cs" />
     <Compile Include="classes\modemBoard\GSM3_Board.cs" />
@@ -60,7 +63,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="GSM_NBIoT_Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -9,7 +9,7 @@ namespace GSM_NBIoT_Module.classes {
     /// <summary>
     /// Абстрактный класс для описания вида связи и общения с объектами на плате модема (Class.Board)
     /// </summary>
-    abstract class Connector {
+    public abstract class Connector {
 
         protected string name;
          

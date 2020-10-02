@@ -20,7 +20,7 @@ namespace GSM_NBIoT_Module.classes {
 
             bc92 = new BC92_Module();
             stm32L412cb = new STM32L412CB_Controller();
-            cp2105 = new CP2105_Connector();
+            cp2105 = CP2105_Connector.GetCP2105_ConnectorInstance();
         }
     }
 }

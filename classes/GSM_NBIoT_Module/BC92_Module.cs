@@ -15,5 +15,13 @@ namespace GSM_NBIoT_Module.classes {
         public BC92_Module() {
             base.name = "BC92";
         }
+
+        CP2105_Connector CP2105_Connector = CP2105_Connector.GetCP2105_ConnectorInstance();
+
+        public string sendATCommand(string command) {
+
+            int port = this.CP2105_Connector.getStandartPort();
+        }
+
     }
 }

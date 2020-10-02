@@ -1,11 +1,12 @@
-﻿using System;
+﻿using GSM_NBIoT_Module.classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GSM_NBIoT_Module {
-    static class Program {
+    static class GSM_NBIoT_Module {
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
@@ -14,6 +15,7 @@ namespace GSM_NBIoT_Module {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+
         }
     }
 }
