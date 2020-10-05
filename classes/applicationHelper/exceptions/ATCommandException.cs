@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GSM_NBIoT_Module.classes.applicationHelper.exceptions {
-    class COMPortException : Exception {
+    class ATCommandException : Exception {
 
-        public COMPortException() {
+        public ATCommandException() {
 
         }
 
-        public COMPortException(string mess) : base(mess) {
+        public ATCommandException(string mess) : base(mess) {
 
         }
     }
