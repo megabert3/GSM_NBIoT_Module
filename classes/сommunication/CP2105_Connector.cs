@@ -1,13 +1,10 @@
 ﻿using GSM_NBIoT_Module.classes.applicationHelper;
 using GSM_NBIoT_Module.classes.applicationHelper.exceptions;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace GSM_NBIoT_Module.classes {
 
@@ -51,29 +48,6 @@ namespace GSM_NBIoT_Module.classes {
         [MarshalAs(UnmanagedType.U4)] FileMode creationDisposition,
         [MarshalAs(UnmanagedType.U4)] FileAttributes flagsAndAttributes,
         IntPtr templateFile);
-
-        /// <summary>
-        /// Считывание состояния ножек
-        /// </summary>
-        /// <param name="cyHandle">Указатель на область</param>
-        /// <param name="lpLatch">Переменная в которую записывается состояние</param>
-        /// <returns></returns>
-        [DllImport("CP210xRuntime.dll", SetLastError = true)]
-        public static extern Int32 CP210xRT_ReadLatch(
-            IntPtr cyHandle,
-            [param: MarshalAs(UnmanagedType.U4), Out()] out uint lpLatch);
-
-        /// <summary>
-        /// Записать состояние ножек
-        /// </summary>
-        /// <param name="cyHandle">Указатель на область</param>
-        /// <param name="mask">В какие пины необходимо произвести запись</param>
-        /// <param name="latch">Значение пинов, которое нужно получить(Установка состояния пинов)</param>
-        /// <returns></returns>
-        [DllImport("CP210xRuntime.dll", SetLastError = true)]
-        public static extern Int32 CP210xRT_WriteLatch(IntPtr cyHandle, UInt16 mask, UInt16 latch);
-        //================================================================================================
-
         /// <summary>
         /// Метод необходмый для установки связи с COM-портом
         /// </summary>
@@ -89,6 +63,42 @@ namespace GSM_NBIoT_Module.classes {
                 FileAttributes.Normal,
                 IntPtr.Zero);
         }
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool CloseHandle(IntPtr hObject);
+        private static bool MyCloseHandle(IntPtr hObject) {
+            return CloseHandle(hObject);
+        }
+
+        /// <summary>
+        /// Считывание состояния ножек
+        /// </summary>
+        /// <param name="cyHandle">Указатель на область</param>
+        /// <param name="lpLatch">Переменная в которую записывается состояние</param>
+        /// <returns></returns>
+        [DllImport("CP210xRuntime.dll", SetLastError = true)]
+        public static extern Int32 CP210xRT_ReadLatch(
+            IntPtr cyHandle,
+            [param: MarshalAs(UnmanagedType.U4), Out()] out uint lpLatch);
+        private static Int32 ReadLatch(IntPtr cyHandle, out uint lpLatch) {
+            return CP210xRT_ReadLatch(cyHandle, out lpLatch);
+        }
+
+        /// <summary>
+        /// Записать состояние ножек
+        /// </summary>
+        /// <param name="cyHandle">Указатель на область</param>
+        /// <param name="mask">В какие пины необходимо произвести запись</param>
+        /// <param name="latch">Значение пинов, которое нужно получить(Установка состояния пинов)</param>
+        /// <returns></returns>
+        [DllImport("CP210xRuntime.dll", SetLastError = true)]
+        public static extern Int32 CP210xRT_WriteLatch(IntPtr cyHandle, UInt16 mask, UInt16 latch);
+        private static Int32 WriteLatch(IntPtr cyHandle, UInt16 mask, UInt16 latch) {
+            return CP210xRT_WriteLatch(cyHandle, mask, latch);
+        }
+
+        //================================================================================================
 
         /// <summary>
         /// Считывает состояние ножек CP2105 и устанавливает их значение в переменные класса.
@@ -108,11 +118,13 @@ namespace GSM_NBIoT_Module.classes {
             uint statusGPIO = 0;
 
             //Проверяю успешно ли прошла операция
-            returnCodeError(CP210xRT_ReadLatch(COM_Port, out statusGPIO));
+            returnCodeError(ReadLatch(COM_Port, out statusGPIO));
 
             //Возвращаемое число указывает на статус ножек
             //Возвращаемое число в бинарном виде это состояние ножек, подробнее в коде CP210xPortReadWrite.exe
             swithStageGPIO(Convert.ToInt32(statusGPIO));
+
+            MyCloseHandle(COM_Port);
         }
 
         public void ReadGPIOStageAndSetFlags(IntPtr COM_portPtr) {
@@ -120,7 +132,7 @@ namespace GSM_NBIoT_Module.classes {
             uint statusGPIO = 0;
 
             //Проверяю успешно ли прошла операция
-            returnCodeError(CP210xRT_ReadLatch(COM_portPtr, out statusGPIO));
+            returnCodeError(ReadLatch(COM_portPtr, out statusGPIO));
 
             //Возвращаемое число указывает на статус ножек
             //Возвращаемое число в бинарном виде это состояние ножек, подробнее в коде CP210xPortReadWrite.exe
@@ -135,7 +147,7 @@ namespace GSM_NBIoT_Module.classes {
         /// <param name="stageGPIO_0"></param>
         /// <param name="stageGPIO_1"></param>
         /// <param name="stageGPIO_2"></param>
-        public void WriteGPIOStageAndSetFlags(int COM_portNo, Boolean stageGPIO_0, Boolean stageGPIO_1, Boolean stageGPIO_2) {
+        public void WriteGPIOStageAndSetFlags(int COM_portNo, Boolean stageGPIO_0, Boolean stageGPIO_1, Boolean stageGPIO_2, int sleepMls) {
             //Просто поверьте, так надо
             string COM_portName = "\\\\.\\COM" + COM_portNo;
 
@@ -149,12 +161,16 @@ namespace GSM_NBIoT_Module.classes {
             //Охватить все возможные пины
             const ushort mask = 15;
 
-            returnCodeError(Convert.ToInt32(CP210xRT_WriteLatch(COM_Port, mask, (ushort) stageGPIO_ForWrite)));
+            returnCodeError(Convert.ToInt32(WriteLatch(COM_Port, mask, (ushort) stageGPIO_ForWrite)));
 
             ReadGPIOStageAndSetFlags(COM_Port);
+
+            MyCloseHandle(COM_Port);
+
+            Thread.Sleep(sleepMls);
         }
 
-        public void WriteGPIOStageAndSetFlags(int COM_portNo, Boolean stageGPIO_0, Boolean stageGPIO_1) {
+        public void WriteGPIOStageAndSetFlags(int COM_portNo, Boolean stageGPIO_0, Boolean stageGPIO_1, int sleepMls) {
             //Просто поверьте, так надо
             string COM_portName = "\\\\.\\COM" + COM_portNo;
 
@@ -168,9 +184,13 @@ namespace GSM_NBIoT_Module.classes {
             //Охватить все возможные пины
             const ushort mask = 15;
 
-            returnCodeError(Convert.ToInt32(CP210xRT_WriteLatch(COM_Port, mask, (ushort)stageGPIO_ForWrite)));
+            returnCodeError(Convert.ToInt32(WriteLatch(COM_Port, mask, (ushort)stageGPIO_ForWrite)));
 
             ReadGPIOStageAndSetFlags(COM_Port);
+
+            MyCloseHandle(COM_Port);
+
+            Thread.Sleep(sleepMls);
         }
 
         /// <summary>
@@ -331,7 +351,6 @@ namespace GSM_NBIoT_Module.classes {
         public override void SendData() {
             throw new NotImplementedException();
         }
-
 
         //================== getters and setters =======================
         public bool getStageGPIO_0() {

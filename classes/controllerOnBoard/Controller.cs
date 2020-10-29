@@ -9,7 +9,7 @@ namespace GSM_NBIoT_Module.classes {
     /// <summary>
     /// Абстрактный класс контроллера используемого на плате модема (Class.Board)
     /// </summary>
-    abstract class Controller {
+    public abstract class Controller {
 
         protected string name;
     }

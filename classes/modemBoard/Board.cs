@@ -12,5 +12,7 @@ namespace GSM_NBIoT_Module.classes {
     abstract class Board {
 
         protected string name;
+
+        public abstract void Reflash();
     }
 }
