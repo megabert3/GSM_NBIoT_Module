@@ -34,6 +34,17 @@ namespace GSM_NBIoT_Module.classes {
         private bool stageGPIO_1;
         private bool stageGPIO_2;
 
+        public struct StateGPIO_OnEnhabcedPort {
+            public bool stageGPIO_0;
+            public bool stageGPIO_1;
+        }
+
+        public struct StateGPIO_OnStandartPort {
+            public bool stageGPIO_0;
+            public bool stageGPIO_1;
+            public bool stageGPIO_2;
+        }
+
         //Порты
         private int enhabcedPort;
         private int standartPort;
@@ -78,10 +89,10 @@ namespace GSM_NBIoT_Module.classes {
         /// <param name="lpLatch">Переменная в которую записывается состояние</param>
         /// <returns></returns>
         [DllImport("CP210xRuntime.dll", SetLastError = true)]
-        public static extern Int32 CP210xRT_ReadLatch(
+        public static extern int CP210xRT_ReadLatch (
             IntPtr cyHandle,
             [param: MarshalAs(UnmanagedType.U4), Out()] out uint lpLatch);
-        private static Int32 ReadLatch(IntPtr cyHandle, out uint lpLatch) {
+        private static int ReadLatch(IntPtr cyHandle, out uint lpLatch) {
             return CP210xRT_ReadLatch(cyHandle, out lpLatch);
         }
 
@@ -93,12 +104,54 @@ namespace GSM_NBIoT_Module.classes {
         /// <param name="latch">Значение пинов, которое нужно получить(Установка состояния пинов)</param>
         /// <returns></returns>
         [DllImport("CP210xRuntime.dll", SetLastError = true)]
-        public static extern Int32 CP210xRT_WriteLatch(IntPtr cyHandle, UInt16 mask, UInt16 latch);
-        private static Int32 WriteLatch(IntPtr cyHandle, UInt16 mask, UInt16 latch) {
+        public static extern int CP210xRT_WriteLatch (
+            IntPtr cyHandle,
+            [param: MarshalAs(UnmanagedType.U2)] ushort mask,
+            [param: MarshalAs(UnmanagedType.U2)] ushort latch);
+        private static int WriteLatch(IntPtr cyHandle, ushort mask, ushort latch) {
             return CP210xRT_WriteLatch(cyHandle, mask, latch);
         }
 
         //================================================================================================
+
+        /// <summary>
+        /// Возвращает состояние ножек на добавочном порте
+        /// </summary>
+        /// <returns></returns>
+        public StateGPIO_OnEnhabcedPort GetStageGPIOEnhabcedPort() {
+            if (enhabcedPort != 0) {
+                FindDevicePorts();
+            }
+
+            StateGPIO_OnEnhabcedPort stateGPIO_OnEnhabcedPort = new StateGPIO_OnEnhabcedPort();
+
+            ReadGPIOStageAndSetFlags(enhabcedPort);
+
+            stateGPIO_OnEnhabcedPort.stageGPIO_0 = stageGPIO_0;
+            stateGPIO_OnEnhabcedPort.stageGPIO_1 = stageGPIO_1;
+
+            return stateGPIO_OnEnhabcedPort;
+        }
+
+        /// <summary>
+        /// Возвращает состояние ножек на стандртном порте
+        /// </summary>
+        /// <returns></returns>
+        public StateGPIO_OnStandartPort GetStageGPIOStandartPort() {
+            if (standartPort != 0) {
+                FindDevicePorts();
+            }
+
+            StateGPIO_OnStandartPort stateGPIO_OnStandartPort = new StateGPIO_OnStandartPort();
+
+            ReadGPIOStageAndSetFlags(enhabcedPort);
+
+            stateGPIO_OnStandartPort.stageGPIO_0 = stageGPIO_0;
+            stateGPIO_OnStandartPort.stageGPIO_1 = stageGPIO_1;
+            stateGPIO_OnStandartPort.stageGPIO_2 = stageGPIO_2;
+
+            return stateGPIO_OnStandartPort;
+        }
 
         /// <summary>
         /// Считывает состояние ножек CP2105 и устанавливает их значение в переменные класса.
@@ -113,7 +166,7 @@ namespace GSM_NBIoT_Module.classes {
             IntPtr COM_Port = CreateFile(COM_portName);
 
             if (COM_Port.ToInt32() == -1)
-                throw new DeviceError("Не удалось создать файл необходимый для общения по COM порту.");
+                throw new DeviceError("Не удалось открыть COM порт.");
 
             uint statusGPIO = 0;
 
@@ -122,11 +175,12 @@ namespace GSM_NBIoT_Module.classes {
 
             //Возвращаемое число указывает на статус ножек
             //Возвращаемое число в бинарном виде это состояние ножек, подробнее в коде CP210xPortReadWrite.exe
-            swithStageGPIO(Convert.ToInt32(statusGPIO));
+            swithStageGPIO((int)statusGPIO);
 
             MyCloseHandle(COM_Port);
         }
 
+        
         public void ReadGPIOStageAndSetFlags(IntPtr COM_portPtr) {
 
             uint statusGPIO = 0;
@@ -136,18 +190,18 @@ namespace GSM_NBIoT_Module.classes {
 
             //Возвращаемое число указывает на статус ножек
             //Возвращаемое число в бинарном виде это состояние ножек, подробнее в коде CP210xPortReadWrite.exe
-            swithStageGPIO(Convert.ToInt32(statusGPIO));
+            swithStageGPIO((int)statusGPIO);
         }
 
         /// <summary>
         /// Записывает новое состояние ножек CP2105
-        /// модет вернуть ошибку DeviceError()
+        /// может вернуть ошибку DeviceError()
         /// </summary>
         /// <param name="COM_portNo">Номер ком порта</param>
         /// <param name="stageGPIO_0"></param>
         /// <param name="stageGPIO_1"></param>
         /// <param name="stageGPIO_2"></param>
-        public void WriteGPIOStageAndSetFlags(int COM_portNo, Boolean stageGPIO_0, Boolean stageGPIO_1, Boolean stageGPIO_2, int sleepMls) {
+        public void WriteGPIOStageAndSetFlags(int COM_portNo, bool stageGPIO_0, bool stageGPIO_1, bool stageGPIO_2, int sleepMls) {
             //Просто поверьте, так надо
             string COM_portName = "\\\\.\\COM" + COM_portNo;
 
@@ -268,7 +322,7 @@ namespace GSM_NBIoT_Module.classes {
             else if (!stageGPIO_0 & stageGPIO_1 & stageGPIO_2) return 6;
             else if (stageGPIO_0 & stageGPIO_1 & stageGPIO_2) return 7;
 
-            else throw new IndexOutOfRangeException("Идекс больше кол-ва ножек GPIO");
+            else throw new IndexOutOfRangeException("Идекс больше количества ножек GPIO");
         }
 
         /// <summary>
@@ -294,7 +348,7 @@ namespace GSM_NBIoT_Module.classes {
         /// Автоматический поиск портов устройства
         /// Выкидывает исключение DeviceNotFoundException()
         /// </summary>
-        public void findDevicePorts() {
+        public void FindDevicePorts() {
 
             string query = "SELECT * FROM Win32_SerialPort";
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);

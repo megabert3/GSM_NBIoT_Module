@@ -9,7 +9,7 @@ namespace GSM_NBIoT_Module.classes {
     /// <summary>
     /// Абстрактный класс для описания платы модема
     /// </summary>
-    abstract class Board {
+    public abstract class Board {
 
         protected string name;
 

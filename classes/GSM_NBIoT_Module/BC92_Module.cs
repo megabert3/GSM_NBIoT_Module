@@ -3,10 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 
@@ -29,7 +26,7 @@ namespace GSM_NBIoT_Module.classes {
         /// <summary>
         /// Время ожидания ответа от модуля Quectel
         /// </summary>
-        private long timeOutAnswer = 7;
+        private long timeOutAnswer = 5;
 
         //Полученные данные с модуля
         private string dataInCOM_Port = "";
@@ -50,7 +47,7 @@ namespace GSM_NBIoT_Module.classes {
             //Файл програмы для перепрошивки модуля
             string PathTo_QMulti_DL_CMD_V1_8_EXE = Directory.GetCurrentDirectory() + "\\QMulti_DL_CMD_V1.8\\QMulti_DL_CMD_V1.8.exe";
 
-            if (!File.Exists(pathToFirmware)) throw new FileNotFoundException("Не удалось найти файл прошивки по указанному пути");
+            /*if (!File.Exists(pathToFirmware)) throw new FileNotFoundException("Не удалось найти файл прошивки по указанному пути");
 
             if (!pathToFirmware.EndsWith(".lod")) throw new FormatException("Неверное расширение файла прошивки");
 
@@ -59,6 +56,7 @@ namespace GSM_NBIoT_Module.classes {
             MatchCollection matches = regex.Matches(pathToFirmware);
 
             if (matches.Count > 0) throw new FormatException("Путь содержит русские символы или пробелы");
+            */
 
             if (!Directory.Exists(PathTo_QMulti_DL_CMD_V1_8)) throw new DirectoryNotFoundException("Не удалось найти папку с программой QMulti_DL_CMD_V1.8," +
                 " проверьте целостность программы или переустановите её и попробуйте снова");
@@ -68,6 +66,12 @@ namespace GSM_NBIoT_Module.classes {
             //Текущая прошивка модуля
             string verModFirmware = VerFirmware;
 
+            //Загружаемая прошивка модуля
+            string loadFirmware = Path.GetFileNameWithoutExtension(pathToFirmware);
+
+            //Если версия загружаемой прошивки такая же, как уже записанная, то выхожу
+            if (verFirmware.Equals(loadFirmware)) return;
+
             //=============================== Запускаю приложение для прошивки модуля ===============================================
             using (Process QMulti_DL_CMD_V1_8_Process = new Process()) {
 
@@ -75,7 +79,7 @@ namespace GSM_NBIoT_Module.classes {
                 int port = cP2105_Connector.getStandartPort();
 
                 // Скорось прошивки
-                const int band = 921699;
+                const int band = 921600;
 
                 ProcessStartInfo QMulti_DL_CMD_V1_8_Process_Info = new ProcessStartInfo();
 
@@ -84,7 +88,7 @@ namespace GSM_NBIoT_Module.classes {
 
                 //Само приложение
                 QMulti_DL_CMD_V1_8_Process_Info.FileName = PathTo_QMulti_DL_CMD_V1_8_EXE;
-
+                //Параметры для командной строки
                 QMulti_DL_CMD_V1_8_Process_Info.Arguments = port + " " + band + " " + pathToFirmware;
 
                 QMulti_DL_CMD_V1_8_Process_Info.UseShellExecute = false;
@@ -113,9 +117,6 @@ namespace GSM_NBIoT_Module.classes {
                 QMulti_DL_CMD_V1_8_Process.WaitForExit();
             }
 
-            //Получаю версию прошивки, которая должна быть записана
-            string idNewFirmware = Path.GetFileNameWithoutExtension(pathToFirmware);
-
             //Ставлю в начальное положение ножки CP2105
             cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, true, 100);
 
@@ -125,11 +126,11 @@ namespace GSM_NBIoT_Module.classes {
             cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, false, 6000);
 
             //Считываю версию прошивки с модуля и сравниваю её с той, которую необходимо было залить
-            if (!idNewFirmware.Equals(getVersionFrimware())) throw new FileLoadException("Не удалось загрузить прошивку в модуль");
+            if (!loadFirmware.Equals(getVersionFrimware())) throw new FileLoadException("Не удалось загрузить прошивку в модуль");
         }
 
         /// <summary>
-        /// Послать АТ команды для конфигурации модуля Quectel
+        /// Послать АТ команды для конфигурации модуля Quectel 
         /// Выкидывает TimeOutException, ATCommandException, Ошибки с COM протами
         /// </summary>
         /// <param name="commands"> Команды для отправки/конфигурации модуля</param>
@@ -141,8 +142,6 @@ namespace GSM_NBIoT_Module.classes {
             using (serialPort = new SerialPort(port, 9600, Parity.None, 8, StopBits.One)) {
 
                 serialPort.Open();
-
-                Thread.Sleep(300);
 
                 if (serialPort.IsOpen) {
 
@@ -156,6 +155,12 @@ namespace GSM_NBIoT_Module.classes {
                         Thread.Sleep(500);
 
                         for (int i = 0; i < timeOutAnswer; i++) {
+
+                            //Если есть данные для считывания обнуляю таймаут
+                            if (serialPort.BytesToRead != 0) {
+                                i = 0;
+                            }
+
                             //Считываю данные из ком порта
                             dataInCOM_Port += serialPort.ReadExisting();
 
@@ -169,7 +174,7 @@ namespace GSM_NBIoT_Module.classes {
                                 throw new ATCommandException("Не удалось записать следующую комманду\n:" + dataInCOM_Port);
                             }
 
-                            Thread.Sleep(1000);
+                            Thread.Sleep(1000);    
                         }
 
                         if (!answer) {
@@ -195,8 +200,6 @@ namespace GSM_NBIoT_Module.classes {
 
                 serialPort.Open();
 
-                Thread.Sleep(300);
-
                 if (serialPort.IsOpen) {
 
                     foreach (string command in commands) {
@@ -209,6 +212,12 @@ namespace GSM_NBIoT_Module.classes {
                         Thread.Sleep(500);
 
                         for (int i = 0; i < timeOutAnswer; i++) {
+
+                            //Если есть данные для считывания обнуляю таймаут
+                            if (serialPort.BytesToRead != 0) {
+                                i = 0;
+                            }
+
                             //Считываю данные из ком порта
                             dataInCOM_Port = serialPort.ReadExisting();
 
@@ -263,6 +272,11 @@ namespace GSM_NBIoT_Module.classes {
                     Thread.Sleep(500);
 
                     for (int i = 0; i < timeOutAnswer; i++) {
+
+                        //Если есть данные для считывания обнуляю таймаут
+                        if (serialPort.BytesToRead != 0) {
+                            i = 0;
+                        }
 
                         portData += serialPort.ReadExisting();
 

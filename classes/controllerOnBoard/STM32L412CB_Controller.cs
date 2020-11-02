@@ -1,15 +1,11 @@
 ﻿using GSM_NBIoT_Module.classes.applicationHelper.exceptions;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace GSM_NBIoT_Module.classes {
 
@@ -22,6 +18,12 @@ namespace GSM_NBIoT_Module.classes {
         public STM32L412CB_Controller() {
             base.name = "STM32L412CB";
         }
+
+        //Полная загружаемая прошивка прошивка
+        private SortedList<uint, List<byte>> firmwareData;
+
+        //Флаг для полной верификации прошивки
+        private bool fullVerification = true;
 
         private CP2105_Connector CP2105_Connector = CP2105_Connector.GetCP2105_ConnectorInstance();
 
@@ -45,8 +47,12 @@ namespace GSM_NBIoT_Module.classes {
         private const byte ACK = 0x79; //ОК
         private const byte NACK = 0x1F; // НЕ OK
 
+        //Стартовый адрес записи прошивки в контроллер
         private const uint startAddressForWrite = 0x08000000;
 
+        /// <summary>
+        /// Список разрешенных команд микроконтроллера
+        /// </summary>
         public struct Commands {
             public bool GET_CMD;                    //Get the version and the allowed commands supported by the current version of the boot loader
             public bool GET_VER_ROPS_CMD;           //Get the BL version and the Read Protection status of the NVM
@@ -59,7 +65,7 @@ namespace GSM_NBIoT_Module.classes {
             public bool WRITE_PROTECT_CMD;          //Enable the write protection in a permanent way for some sectors
             public bool WRITE_UNPROTECT_CMD;        //Disable the write protection in a permanent way for all NVM sectors
             public bool READOUT_PROTECT_CMD;        //Enable the readout protection in a permanent way
-            public bool READOUT_UNPROTECT_CMD; //Disable the readout protection in a temporary way
+            public bool READOUT_UNPROTECT_CMD;      //Disable the readout protection in a temporary way
         }
 
         /// <summary>
@@ -95,6 +101,9 @@ namespace GSM_NBIoT_Module.classes {
             this.timeOut = timeOut;
         }
 
+        /// <summary>
+        /// Закрывает COM порт 
+        /// </summary>
         public void ClosePort() {
             serialPort.Close();
         }
@@ -161,6 +170,7 @@ namespace GSM_NBIoT_Module.classes {
         /// Скорее всего не работает и сделана для совместимости
         /// </summary>
         public void GET_VER_ROPS() {
+            if (!PortIsOpen()) throw new COMException("COM порт закрыт, откройте COM прот и попробуйте снова");
 
             List<byte> answer = sendDataInCOM(false, 0x01, 0xFE);
 
@@ -169,12 +179,10 @@ namespace GSM_NBIoT_Module.classes {
             protectedReadWriteEnabled = answer.ElementAt(2);
 
             protectedReadWriteDisabled = answer.ElementAt(3);
-
-            Console.WriteLine(protectedReadWriteEnabled);
-            Console.WriteLine(protectedReadWriteDisabled);
         }
 
         public void GET_ID() {
+            if (!PortIsOpen()) throw new COMException("COM порт закрыт, откройте COM прот и попробуйте снова");
 
             List<byte> answer = sendDataInCOM(false, 0x02, 0xFD);
 
@@ -186,14 +194,18 @@ namespace GSM_NBIoT_Module.classes {
         /// ВНИМАНИЕ! При снятии зашиты от чтения вся флэш память отчищается
         /// </summary>
         public void READOUT_UNPROTECT() {
+            if (!PortIsOpen()) throw new COMException("COM порт закрыт, откройте COM прот и попробуйте снова");
+
             sendDataInCOM(true, 0x92, 0x6D);
         }
 
         /// <summary>
         /// Устанавливает защиту от чтения 
-        /// ВНИМАНИЕ! Перед тем как установить защиту необходимо учесть, то, что чтобы её в дальнейшем снять удалятся все данные с флеш памяти контроллера
+        /// ВНИМАНИЕ! Перед тем как установить защиту необходимо учесть то, что чтобы её в дальнейшем снять удалятся все данные с флеш памяти контроллера
         /// </summary>
         public void READOUT_PROTECT() {
+            if (!PortIsOpen()) throw new COMException("COM порт закрыт, откройте COM прот и попробуйте снова");
+
             sendDataInCOM(true, 0x82, 0x7D);
         }
 
@@ -201,6 +213,8 @@ namespace GSM_NBIoT_Module.classes {
         /// Защита от записи
         /// </summary>
         public void WRITE_PROTECT() {
+            if (!PortIsOpen()) throw new COMException("COM порт закрыт, откройте COM прот и попробуйте снова");
+
             sendDataInCOM(true, 0x63, 0x9C);
         }
 
@@ -208,31 +222,33 @@ namespace GSM_NBIoT_Module.classes {
         /// Отключение защиты от записи
         /// </summary>
         public void WRITE_UNPROTECT() {
-            List<byte> ansver = sendDataInCOM(true, 0x73, 0x8C);
+            if (!PortIsOpen()) throw new COMException("COM порт закрыт, откройте COM прот и попробуйте снова");
 
-            Console.WriteLine(BitConverter.ToString(ansver.ToArray()));
+            sendDataInCOM(true, 0x73, 0x8C);
         }
 
         /// <summary>
         /// Отчистка памяти контроллера (удаление старой прошивки)
         /// </summary>
         public void ERASE() {
-            //Отправляю контроллеру заброс на команду отчистки
-            List<byte> answer = sendDataInCOM(true, 0x44, 0xBB);
+            if (!PortIsOpen()) throw new COMException("COM порт закрыт, откройте COM прот и попробуйте снова");
 
-            Console.WriteLine(BitConverter.ToString(answer.ToArray()));
+            //Отправляю контроллеру заброс на команду отчистки
+            sendDataInCOM(true, 0x44, 0xBB);
 
             //Удаляю всё из всех секторов
-            answer = sendDataInCOM(true, 0xFF, 0xFF, 0x00);
-
-            Console.WriteLine(BitConverter.ToString(answer.ToArray()));
+            sendDataInCOM(true, 0xFF, 0xFF, 0x00);
         }
 
         public void INIT() {
+            if (!PortIsOpen()) throw new COMException("COM порт закрыт, откройте COM прот и попробуйте снова");
+
             sendDataInCOM(false, 0x7F);
         }
 
         public void GO() {
+            if (!PortIsOpen()) throw new COMException("COM порт закрыт, откройте COM прот и попробуйте снова");
+
             sendDataInCOM(true, 0x21, 0xDE);
             sendDataInCOM(true, 0x08, 0x00, 0x00, 0x00, 0x08);
         }
@@ -249,6 +265,9 @@ namespace GSM_NBIoT_Module.classes {
         }
 
         public void WRITE(string pathToHex) {
+
+            firmwareData = new SortedList<uint, List<byte>>();
+
             //Строка из HEX файла
             string line;
 
@@ -264,22 +283,20 @@ namespace GSM_NBIoT_Module.classes {
             //Структура обработки полученной строки
             DataInHEX dataInHEX;
 
-            List<byte> buffer = new List<byte>(256);
+            List<byte> buffer = new List<byte>(258);
 
             //Окрываю файл прошивки и считываю с него данные
             using (StreamReader hexFileSream = new StreamReader(pathToHex)) {
-                int k = 0;
+                
                 while(true) {
-
-                    Console.WriteLine(k);
 
                     if (buffer.Count == 256) {
 
-                        WriteBufferToMK(writeAddress, buffer);
+                        WriteBufferToMK_AndVerify(writeAddress, buffer);
 
                         writeAddress += 256;
 
-                        buffer = new List<byte>(256);
+                        buffer = new List<byte>(258);
                     }
                                         
                     line = hexFileSream.ReadLine();
@@ -287,9 +304,13 @@ namespace GSM_NBIoT_Module.classes {
                     //Если конец файла, то выхожу
                     if (line == null) {
                         //Если в буфере остались незаписанные данные flush
-                        if (buffer.Count != 0) WriteBufferToMK(writeAddress, buffer);
+                        if (buffer.Count != 0) WriteBufferToMK_AndVerify(writeAddress, buffer);
 
-                        Console.WriteLine("Конец");
+                        //Если нужна полная верификация
+                        if (fullVerification) {
+                            fullVerificationFirmwareInMK();
+                        }
+
                         break;
                     }
 
@@ -330,9 +351,9 @@ namespace GSM_NBIoT_Module.classes {
                                 }
 
                                 //Выгружаю данный буфер в МК
-                                WriteBufferToMK(writeAddress, buffer);
+                                WriteBufferToMK_AndVerify(writeAddress, buffer);
 
-                                buffer = new List<byte>(256);
+                                buffer = new List<byte>(258);
 
                                 writeAddress = currentAddress - i;
 
@@ -346,15 +367,14 @@ namespace GSM_NBIoT_Module.classes {
                         } else {
 
                             //Выгружаю всё что было до этого в буфере в контроллер
-                            WriteBufferToMK(writeAddress, buffer);
+                            WriteBufferToMK_AndVerify(writeAddress, buffer);
 
-                            buffer = new List<byte>(256);
+                            buffer = new List<byte>(258);
                             writeAddress = dataInHEX.address;
                             addressOffset = dataInHEX.address + dataInHEX.amountDataByte;
                             buffer.AddRange(dataInHEX.data);
                         }
                     }
-                    k++;
                 }
             }
         }
@@ -395,7 +415,10 @@ namespace GSM_NBIoT_Module.classes {
        /// </summary>
        /// <param name="address">Адрес куда записать</param>
        /// <param name="buffer">Сами данные (что записывать)</param>
-        private void WriteBufferToMK(uint address, List<byte> buffer) {
+        private void WriteBufferToMK_AndVerify(uint address, List<byte> buffer) {
+
+            //Добавляю этот блок записанных данных в основную мапу прошивки (Необходимо для полной верификации)
+            firmwareData.Add(address, buffer);
 
             //Даю контроллеру запрос на запись данных
             sendDataInCOM(true, 0x31, 0xCE);
@@ -417,17 +440,80 @@ namespace GSM_NBIoT_Module.classes {
             //Отправляю запрос на запись в адрес
             sendDataInCOM(true, addressAndxOR);
 
+            List<byte> byteDataOfSend = new List<byte>(buffer);
+
             //Количество передаваемых байт
-            byte amountBytes = (byte)((byte) buffer.Count - 1);
+            byte amountBytes = ((byte)(buffer.Count - 1));
 
-            buffer.Insert(0, amountBytes);
+            byteDataOfSend.Insert(0, amountBytes);
 
-            byte xorSummData = getXORsumm(buffer.ToArray());
+            byte xorSummData = getXORsumm(byteDataOfSend.ToArray());
 
-            buffer.Add(xorSummData);
+            byteDataOfSend.Add(xorSummData);
 
             //Отправляю запрос на запись данных
-            sendDataInCOM(true, buffer.ToArray());
+            sendDataInCOM(true, byteDataOfSend.ToArray());
+
+            //Получаю байты, которые записались в МК
+            byte[] readData = readDataOfMK(address, (byteDataOfSend.Count - 2));
+
+            byte[] writeData = buffer.ToArray();
+
+            for (int i = 0; i < writeData.Length; i++) {
+
+                if (writeData[i] != readData[i]) throw new MKCommandException("Прочитанные данные из микроконтроллера не совтападют с записанными");
+            }
+        }
+
+        /// <summary>
+        /// Считывает байты прошивки из контроллера
+        /// </summary>
+        /// <param name="address">адрес с которого необходимо считать</param>
+        /// <param name="amoutByte">количество байт, которые необходимо считать</param>
+        private byte[] readDataOfMK(uint address, int amoutByte) {            
+
+            byte[] addressArr = BitConverter.GetBytes(address);
+
+            Array.Reverse(addressArr);
+
+            byte xorSummAddress = getXORsumm(addressArr);
+
+            //Массив адреса и котрольной суммы
+            byte[] addressAndxOR = new byte[addressArr.Length + 1];
+
+            Array.Copy(addressArr, addressAndxOR, addressArr.Length);
+
+            //Добавляю XOR сумму
+            addressAndxOR[addressArr.Length] = xorSummAddress;
+
+            //Запрашиваю у МК чтение
+            sendDataInCOM(true, 0x11, 0xEE);
+            //Передаю адрес чтения
+            sendDataInCOM(true, addressAndxOR);
+
+            //Запрашиваю возврат байтов находящихся в МК
+            return takeDataOfCOM(amoutByte, ((byte) (amoutByte - 1)), ((byte) ~(amoutByte - 1)));
+        }
+
+        /// <summary>
+        /// Производить полную проверку записанной прошивки в МК
+        /// </summary>
+        private void fullVerificationFirmwareInMK() {
+
+            if (firmwareData.Count != 0) {
+
+                foreach (KeyValuePair<uint, List<byte>> fwBuff in firmwareData) {
+
+                    uint address = fwBuff.Key;
+                    List<byte> buffData = fwBuff.Value;
+
+                    byte[] readBytes = readDataOfMK(address, buffData.Count);
+
+                    for (int i = 0; i < buffData.Count; i++) {
+                        if (readBytes[i] != buffData.ElementAt(i)) throw new MKCommandException("Прочитанные данные из микроконтроллера не совтападют с записанными");
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -448,7 +534,7 @@ namespace GSM_NBIoT_Module.classes {
         /// <param name="onlyAck">Если нужен только ответ AСK</param>
         /// <param name="bytes">Массив байтов, которые необходимо отправить</param>
         /// <returns></returns>
-        public List<byte> sendDataInCOM(bool onlyAck, params byte[] bytes) {
+        private List<byte> sendDataInCOM(bool onlyAck, params byte[] bytes) {
 
             if (!PortIsOpen()) throw new COMException("COM порт закрыт, откройте порт");
             
@@ -459,19 +545,20 @@ namespace GSM_NBIoT_Module.classes {
 
             serialPort.Write(dataInPort, 0, dataInPort.Length);
 
-            int timeOut = this.timeOut - 100;
-
-            Thread.Sleep(100);
+            int timeOut = this.timeOut - 50;
 
             while (timeOut > 0) {
 
-                Thread.Sleep(100);
+                Thread.Sleep(50);
 
                 while (serialPort.BytesToRead != 0) {
 
+                    //Обнуляю таймаут
+                    timeOut = this.timeOut;
+
                     int data = serialPort.ReadByte();
 
-                    if (data == NACK) throw new MKCommandException();
+                    if (data == NACK) throw new MKCommandException("Не удалось выполнить команду (NACK)");
 
                     dataOutPort.Add((byte)data);
 
@@ -487,7 +574,62 @@ namespace GSM_NBIoT_Module.classes {
                     }
                 }
 
-                timeOut -= 100;
+                timeOut -= 50;
+            }
+
+            throw new COMException("Не удалось получить ответ от микроконтроллера");
+        }
+
+        /// <summary>
+        /// Отправляет байты и возвращает полный ответ, необходим для считывания байтов с памяти МК
+        /// </summary>
+        /// <param name="amountByte">Количесто ожидаеммых байтов</param>
+        /// <param name="bytes">Количество ожидаемых байтов и байт суммы после операции NOT</param>
+        /// <returns></returns>
+        private byte[] takeDataOfCOM(int amountByte, params byte[] bytes) {
+
+            if (!PortIsOpen()) throw new COMException("COM порт закрыт, откройте порт");
+
+            //Данные для отправки в COM порт
+            byte[] dataInPort = bytes;
+            //Данные из COM порта
+            List<byte> dataOutPort = new List<byte>(amountByte + 1);
+
+            bool firstByte = false;
+
+            serialPort.Write(dataInPort, 0, dataInPort.Length);
+
+            int timeOut = this.timeOut - 50;
+
+            while (timeOut > 0) {
+
+                Thread.Sleep(50);
+
+                while (serialPort.BytesToRead != 0) {
+
+                    //Обнуляю таймаут
+                    timeOut = this.timeOut;
+
+                    int data = serialPort.ReadByte();
+
+                    if (!firstByte) {
+                        if (data == NACK) throw new MKCommandException("Не удалось выполнить команду (NACK)");
+                        firstByte = true;
+                    }
+
+                    dataOutPort.Add((byte)data);
+
+                    if (dataOutPort.Count == amountByte + 1) {
+
+                        byte[] readDataOfMK = new byte[amountByte];
+
+                        Array.Copy(dataOutPort.ToArray(), 1, readDataOfMK, 0, amountByte);
+
+                        return readDataOfMK;
+                    }
+                }
+
+                timeOut -= 50;
             }
 
             throw new COMException("Не удалось получить ответ от микроконтроллера");
