@@ -1,5 +1,9 @@
 ﻿namespace GSM_NBIoT_Module {
-    partial class Form1 {
+    partial class Flasher {
+
+        //Типы модемов
+        private string[] modemsType = { "GSM3" };
+
         /// <summary>
         /// Обязательная переменная конструктора.
         /// </summary>
@@ -23,13 +27,169 @@
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
+            this.progressBarFlashing = new System.Windows.Forms.ProgressBar();
+            this.startFlashBtn = new System.Windows.Forms.Button();
+            this.pathToQuectelFirmwareTextBox = new System.Windows.Forms.TextBox();
+            this.pathToSTM32FirmwareTextBox = new System.Windows.Forms.TextBox();
+            this.pathToSTM32FirmwareBtn = new System.Windows.Forms.Button();
+            this.pathToQuectelFirmwareBtn = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.modemTypeCmBox = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.flashProcessTxtBox = new System.Windows.Forms.TextBox();
+            this.SuspendLayout();
+            // 
+            // progressBarFlashing
+            // 
+            this.progressBarFlashing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarFlashing.Location = new System.Drawing.Point(97, 592);
+            this.progressBarFlashing.Name = "progressBarFlashing";
+            this.progressBarFlashing.Size = new System.Drawing.Size(878, 39);
+            this.progressBarFlashing.TabIndex = 0;
+            // 
+            // startFlashBtn
+            // 
+            this.startFlashBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.startFlashBtn.Location = new System.Drawing.Point(981, 592);
+            this.startFlashBtn.Name = "startFlashBtn";
+            this.startFlashBtn.Size = new System.Drawing.Size(116, 39);
+            this.startFlashBtn.TabIndex = 1;
+            this.startFlashBtn.Text = "Начать";
+            this.startFlashBtn.UseVisualStyleBackColor = true;
+            // 
+            // pathToQuectelFirmwareTextBox
+            // 
+            this.pathToQuectelFirmwareTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pathToQuectelFirmwareTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.pathToQuectelFirmwareTextBox.Location = new System.Drawing.Point(215, 47);
+            this.pathToQuectelFirmwareTextBox.Name = "pathToQuectelFirmwareTextBox";
+            this.pathToQuectelFirmwareTextBox.Size = new System.Drawing.Size(807, 29);
+            this.pathToQuectelFirmwareTextBox.TabIndex = 2;
+            // 
+            // pathToSTM32FirmwareTextBox
+            // 
+            this.pathToSTM32FirmwareTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pathToSTM32FirmwareTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.pathToSTM32FirmwareTextBox.Location = new System.Drawing.Point(215, 95);
+            this.pathToSTM32FirmwareTextBox.Name = "pathToSTM32FirmwareTextBox";
+            this.pathToSTM32FirmwareTextBox.Size = new System.Drawing.Size(807, 29);
+            this.pathToSTM32FirmwareTextBox.TabIndex = 3;
+            // 
+            // pathToSTM32FirmwareBtn
+            // 
+            this.pathToSTM32FirmwareBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pathToSTM32FirmwareBtn.Location = new System.Drawing.Point(1028, 95);
+            this.pathToSTM32FirmwareBtn.Name = "pathToSTM32FirmwareBtn";
+            this.pathToSTM32FirmwareBtn.Size = new System.Drawing.Size(69, 29);
+            this.pathToSTM32FirmwareBtn.TabIndex = 4;
+            this.pathToSTM32FirmwareBtn.Text = "Выбрать";
+            this.pathToSTM32FirmwareBtn.UseVisualStyleBackColor = true;
+            this.pathToSTM32FirmwareBtn.Click += new System.EventHandler(this.pathToSTM32FirmwareBtn_Click);
+            // 
+            // pathToQuectelFirmwareBtn
+            // 
+            this.pathToQuectelFirmwareBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pathToQuectelFirmwareBtn.Location = new System.Drawing.Point(1028, 47);
+            this.pathToQuectelFirmwareBtn.Name = "pathToQuectelFirmwareBtn";
+            this.pathToQuectelFirmwareBtn.Size = new System.Drawing.Size(69, 29);
+            this.pathToQuectelFirmwareBtn.TabIndex = 5;
+            this.pathToQuectelFirmwareBtn.Text = "Выбрать";
+            this.pathToQuectelFirmwareBtn.UseVisualStyleBackColor = true;
+            this.pathToQuectelFirmwareBtn.Click += new System.EventHandler(this.pathToQuectelFirmwareBtn_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(212, 79);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(193, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Путь к прошивке микроконтроллера";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(212, 31);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(173, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Путь к прошивке модуля Quectel";
+            // 
+            // modemTypeCmBox
+            // 
+            this.modemTypeCmBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.modemTypeCmBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.modemTypeCmBox.FormattingEnabled = true;
+            this.modemTypeCmBox.Location = new System.Drawing.Point(12, 47);
+            this.modemTypeCmBox.Name = "modemTypeCmBox";
+            this.modemTypeCmBox.Size = new System.Drawing.Size(185, 24);
+            this.modemTypeCmBox.TabIndex = 8;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 31);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(42, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Модем";
+            // 
+            // flashProcessTxtBox
+            // 
+            this.flashProcessTxtBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flashProcessTxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.flashProcessTxtBox.Location = new System.Drawing.Point(97, 142);
+            this.flashProcessTxtBox.Multiline = true;
+            this.flashProcessTxtBox.Name = "flashProcessTxtBox";
+            this.flashProcessTxtBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.flashProcessTxtBox.Size = new System.Drawing.Size(1000, 432);
+            this.flashProcessTxtBox.TabIndex = 10;
+            // 
+            // Flasher
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ClientSize = new System.Drawing.Size(1150, 669);
+            this.Controls.Add(this.flashProcessTxtBox);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.pathToQuectelFirmwareTextBox);
+            this.Controls.Add(this.pathToQuectelFirmwareBtn);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.modemTypeCmBox);
+            this.Controls.Add(this.pathToSTM32FirmwareBtn);
+            this.Controls.Add(this.startFlashBtn);
+            this.Controls.Add(this.progressBarFlashing);
+            this.Controls.Add(this.pathToSTM32FirmwareTextBox);
+            this.Name = "Flasher";
+            this.Text = "Тайпит Flasher";
+            this.TopMost = true;
+            this.Load += new System.EventHandler(this.Flasher_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.ProgressBar progressBarFlashing;
+        private System.Windows.Forms.Button startFlashBtn;
+        private System.Windows.Forms.TextBox pathToQuectelFirmwareTextBox;
+        private System.Windows.Forms.TextBox pathToSTM32FirmwareTextBox;
+        private System.Windows.Forms.Button pathToSTM32FirmwareBtn;
+        private System.Windows.Forms.Button pathToQuectelFirmwareBtn;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox modemTypeCmBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox flashProcessTxtBox;
     }
 }
 
