@@ -47,17 +47,6 @@ namespace GSM_NBIoT_Module.classes {
             //Файл програмы для перепрошивки модуля
             string PathTo_QMulti_DL_CMD_V1_8_EXE = Directory.GetCurrentDirectory() + "\\QMulti_DL_CMD_V1.8\\QMulti_DL_CMD_V1.8.exe";
 
-            /*if (!File.Exists(pathToFirmware)) throw new FileNotFoundException("Не удалось найти файл прошивки по указанному пути");
-
-            if (!pathToFirmware.EndsWith(".lod")) throw new FormatException("Неверное расширение файла прошивки");
-
-            //Проверяю содержит ли путь русские символы или пробелы
-            Regex regex = new Regex("\\s, [А-Яа-я]");
-            MatchCollection matches = regex.Matches(pathToFirmware);
-
-            if (matches.Count > 0) throw new FormatException("Путь содержит русские символы или пробелы");
-            */
-
             if (!Directory.Exists(PathTo_QMulti_DL_CMD_V1_8)) throw new DirectoryNotFoundException("Не удалось найти папку с программой QMulti_DL_CMD_V1.8," +
                 " проверьте целостность программы или переустановите её и попробуйте снова");
             if (!File.Exists(PathTo_QMulti_DL_CMD_V1_8_EXE)) throw new FileNotFoundException("Не удалось найти файл QMulti_DL_CMD_V1.8.exe" +
@@ -65,12 +54,16 @@ namespace GSM_NBIoT_Module.classes {
 
             //Текущая прошивка модуля
             string verModFirmware = VerFirmware;
+            Flasher.addMessageInMainLog("Текущая прошивка модуля: " + verModFirmware);
 
             //Загружаемая прошивка модуля
             string loadFirmware = Path.GetFileNameWithoutExtension(pathToFirmware);
 
             //Если версия загружаемой прошивки такая же, как уже записанная, то выхожу
-            if (verFirmware.Equals(loadFirmware)) return;
+            if (verFirmware.Equals(loadFirmware)) {
+                Flasher.addMessageInMainLog("В модуль уже записана необходимая прошивка");
+                return;
+            }
 
             //=============================== Запускаю приложение для прошивки модуля ===============================================
             using (Process QMulti_DL_CMD_V1_8_Process = new Process()) {
@@ -92,7 +85,7 @@ namespace GSM_NBIoT_Module.classes {
                 QMulti_DL_CMD_V1_8_Process_Info.Arguments = port + " " + band + " " + pathToFirmware;
 
                 QMulti_DL_CMD_V1_8_Process_Info.UseShellExecute = false;
-                //QMulti_DL_CMD_V1_8_Process_Info.RedirectStandardOutput = true;
+                QMulti_DL_CMD_V1_8_Process_Info.RedirectStandardOutput = true;
                 QMulti_DL_CMD_V1_8_Process_Info.RedirectStandardError = true;
 
                 QMulti_DL_CMD_V1_8_Process.StartInfo = QMulti_DL_CMD_V1_8_Process_Info;
@@ -104,17 +97,24 @@ namespace GSM_NBIoT_Module.classes {
                 });*/
 
                 QMulti_DL_CMD_V1_8_Process.ErrorDataReceived += new DataReceivedEventHandler((sender, e) => {
-
-                    Console.WriteLine(e.Data);
-
+                    Flasher.addMessageInMainLog(e.Data); 
                 });
-
+                Flasher.addMessageInMainLog("\n==========================================================================================");
+                Flasher.addMessageInMainLog("Прошиваю модуль");
                 QMulti_DL_CMD_V1_8_Process.Start();
 
                 QMulti_DL_CMD_V1_8_Process.BeginErrorReadLine();
                 //QMulti_DL_CMD_V1_8_Process.BeginOutputReadLine();
 
+                string output = QMulti_DL_CMD_V1_8_Process.StandardOutput.ReadToEnd();
+
                 QMulti_DL_CMD_V1_8_Process.WaitForExit();
+
+                if (output.Contains("update fail")) throw new FileLoadException("Не удалось загрузить прошивку в модуль");
+
+                //
+                //Добавить информацио о загрузке прошивки
+                //
             }
 
             //Ставлю в начальное положение ножки CP2105

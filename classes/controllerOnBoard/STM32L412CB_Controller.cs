@@ -308,7 +308,13 @@ namespace GSM_NBIoT_Module.classes {
 
                         //Если нужна полная верификация
                         if (fullVerification) {
+                            Flasher.addMessageInMainLog("\n==========================================================================================");
+                            Flasher.addMessageInMainLog("Полная проверка записанной прошивки");
+
                             fullVerificationFirmwareInMK();
+
+                            Flasher.addMessageInMainLog("\n==========================================================================================");
+                            Flasher.addMessageInMainLog("Верификация прошивки прошла успешно");
                         }
 
                         break;
@@ -437,6 +443,7 @@ namespace GSM_NBIoT_Module.classes {
             //Добавляю XOR сумму
             addressAndxOR[addressArr.Length] = xorSummAddress;
 
+            Flasher.addMessageInMainLog("Запрашиваю запись буффера " + firmwareData.Count + " в адрес " + Convert.ToString(address, 16));
             //Отправляю запрос на запись в адрес
             sendDataInCOM(true, addressAndxOR);
 
@@ -451,10 +458,13 @@ namespace GSM_NBIoT_Module.classes {
 
             byteDataOfSend.Add(xorSummData);
 
-            //Отправляю запрос на запись данных
+            //Записываю буффер байт в контроллер
+            Flasher.addMessageInMainLog("Записываю буфер размером " + buffer.Count + " байт");
             sendDataInCOM(true, byteDataOfSend.ToArray());
+            
 
             //Получаю байты, которые записались в МК
+            Flasher.addMessageInMainLog("Проверяю данные записанные в контроллер");
             byte[] readData = readDataOfMK(address, (byteDataOfSend.Count - 2));
 
             byte[] writeData = buffer.ToArray();
@@ -463,6 +473,8 @@ namespace GSM_NBIoT_Module.classes {
 
                 if (writeData[i] != readData[i]) throw new MKCommandException("Прочитанные данные из микроконтроллера не совтападют с записанными");
             }
+
+            Flasher.addMessageInMainLog("Данные успешно записаны");
         }
 
         /// <summary>
@@ -507,11 +519,15 @@ namespace GSM_NBIoT_Module.classes {
                     uint address = fwBuff.Key;
                     List<byte> buffData = fwBuff.Value;
 
+                    Flasher.addMessageInMainLog("Считываю данные с адреса " + Convert.ToString(address, 16));
                     byte[] readBytes = readDataOfMK(address, buffData.Count);
 
+                    Flasher.addMessageInMainLog("Сверяю полученные данные с данными прошивки " + Convert.ToString(address, 16));
                     for (int i = 0; i < buffData.Count; i++) {
                         if (readBytes[i] != buffData.ElementAt(i)) throw new MKCommandException("Прочитанные данные из микроконтроллера не совтападют с записанными");
                     }
+
+                    Flasher.addMessageInMainLog("Данные записанны верно");
                 }
             }
         }
