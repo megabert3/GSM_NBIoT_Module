@@ -45,8 +45,10 @@
             this.progressBarFlashing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBarFlashing.Location = new System.Drawing.Point(97, 592);
+            this.progressBarFlashing.Maximum = 1000;
             this.progressBarFlashing.Name = "progressBarFlashing";
             this.progressBarFlashing.Size = new System.Drawing.Size(878, 39);
+            this.progressBarFlashing.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBarFlashing.TabIndex = 0;
             // 
             // startFlashBtn

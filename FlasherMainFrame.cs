@@ -17,10 +17,16 @@ namespace GSM_NBIoT_Module {
     public partial class Flasher : Form {
         public Flasher() {
             InitializeComponent();
+
+#if DEBUG 
+            TopMost = false;
+#endif
         }
 
         //Типы используемых модемов
-        private string[] modemType = { "GSM3"};
+        private string[] modemType = { "GSM3" };
+
+        private static ProgressBar progressBarFlashingStatic;
 
         private static RichTextBox flashProcessTxtBoxStatic;
 
@@ -58,78 +64,97 @@ namespace GSM_NBIoT_Module {
             //Устанавливаю статическому полю ссылку на основное окно Лога (Для статического доступа к окну поля из всей программы)
             flashProcessTxtBoxStatic = flashProcessRichTxtBox;
 
+            progressBarFlashingStatic = progressBarFlashing;
+
             modemTypeCmBox.Items.AddRange(modemType);
             modemTypeCmBox.SelectedIndex = 0;
         }
 
-        private void startFlashBtn_Click(object sender, EventArgs e)
-        {
-            
-            try { 
-
-                switch (modemTypeCmBox.SelectedItem) {
-                    //Если выбран модем GSM3
-                    case "GSM3": {
-
-                            //Получаю пути выбранные пользователем
-                            string pathToFirwareQuectel = pathToQuectelFirmwareTextBox.Text.Trim();
-                            string pathToFirwareSTM32 = pathToSTM32FirmwareTextBox.Text.Trim();
-
-                            //Проверка путей =================================================================
-                            if (String.IsNullOrEmpty(pathToFirwareQuectel)) throw new FormatException("Выберите путь к прошивке модуля Quectel");
-                            if (String.IsNullOrEmpty(pathToFirwareSTM32)) throw new FormatException("Выберите путь к прошивке микроконтроллера");
-
-                            if (!File.Exists(pathToFirwareQuectel)) throw new FileNotFoundException("Не удалось найти файл прошивки для модуля Quectel по указанному пути");
-
-                            if (!pathToFirwareQuectel.EndsWith(".lod")) throw new FormatException("Неверное расширение файла прошивки для модуля Quectel");
-
-                            //Проверяю содержит ли путь русские символы или пробелы
-                            Regex regex = new Regex("[А-Яа-я]");
-                            MatchCollection matches = regex.Matches(pathToFirwareQuectel);
-
-                            if (matches.Count > 0) throw new FormatException("Путь не должен содержать русские символы или пробельные символы");
+        private void startFlashBtn_Click(object sender, EventArgs e) {
 
 
-                            if (!File.Exists(pathToFirwareSTM32)) throw new FileNotFoundException("Не удалось найти файл прошивки для микроконтроллера по указанному пути");
+            switch (modemTypeCmBox.SelectedItem) {
+                //Если выбран модем GSM3
+                case "GSM3": {
 
-                            if (!pathToFirwareSTM32.EndsWith(".hex")) throw new FormatException("Неверное расширение файла прошивки для микроконтроллера");
+                        new Thread(new ThreadStart(reflashGSM3Modem)).Start();
 
-                            //Перепрошивка модема ===========================================================
-                            Stopwatch firmwareWriteStart = new Stopwatch();
-                            firmwareWriteStart.Start();
+                    }
+                    break;
 
-                            Board GSM3 = new GSM3_Board(pathToFirwareQuectel, pathToFirwareSTM32);
+                default: throw new NotSupportedException("В программе нет сценария работы для выбранного модена");
+            }
+        }
 
-                            GSM3.Reflash();
+        private void reflashGSM3Modem() {
 
-                            firmwareWriteStart.Stop();
+            try {
+                //Отключаю кнопку старт
+                enableStartButton(false);
 
-                            addMessageInMainLog("Общее время перепрошивки модема " + parseMlsInMMssMls(firmwareWriteStart.ElapsedMilliseconds));
+                //Получаю пути выбранные пользователем
+                string pathToFirwareQuectel = pathToQuectelFirmwareTextBox.Text.Trim();
+                string pathToFirwareSTM32 = pathToSTM32FirmwareTextBox.Text.Trim();
 
-                        }
-                        break;
+                //Проверка путей =================================================================
+                if (String.IsNullOrEmpty(pathToFirwareQuectel)) throw new FormatException("Выберите путь к прошивке модуля Quectel");
+                if (String.IsNullOrEmpty(pathToFirwareSTM32)) throw new FormatException("Выберите путь к прошивке микроконтроллера");
 
-                    default: throw new NotSupportedException("В программе нет сценария работы для выбранного модена");
-                }
-            }catch (Exception ex) {
+                if (!File.Exists(pathToFirwareQuectel)) throw new FileNotFoundException("Не удалось найти файл прошивки для модуля Quectel по указанному пути");
+
+                if (!pathToFirwareQuectel.EndsWith(".lod")) throw new FormatException("Неверное расширение файла прошивки для модуля Quectel");
+
+                //Проверяю содержит ли путь русские символы или пробелы
+                Regex regex = new Regex("[А-Яа-я]");
+                MatchCollection matches = regex.Matches(pathToFirwareQuectel);
+
+                if (matches.Count > 0) throw new FormatException("Путь не должен содержать русские символы или пробельные символы");
+
+
+                if (!File.Exists(pathToFirwareSTM32)) throw new FileNotFoundException("Не удалось найти файл прошивки для микроконтроллера по указанному пути");
+
+                if (!pathToFirwareSTM32.EndsWith(".hex")) throw new FormatException("Неверное расширение файла прошивки для микроконтроллера");
+
+                //Перепрошивка модема ===========================================================
+                Stopwatch firmwareWriteStart = new Stopwatch();
+                firmwareWriteStart.Start();
+                
+                Board GSM3 = new GSM3_Board(pathToFirwareQuectel, pathToFirwareSTM32);
+
+                GSM3.Reflash();
+
+                firmwareWriteStart.Stop();
+
+                addMessageInMainLog("Общее время перепрошивки модема " + parseMlsInMMssMls(firmwareWriteStart.ElapsedMilliseconds));
+
+                //включаю кнопку старт
+                enableStartButton(true);
+
+            } catch (Exception ex) {
                 addMessageInMainLog("\n==========================================================================================");
                 addMessageInMainLog("Тип ошибки: " + ex.GetType().ToString());
                 addMessageInMainLog("Метод: " + ex.TargetSite.ToString());
                 addMessageInMainLog("ОШИБКА: " + ex.Message);
-                exceptionDialog(ex.Message);
+                //включаю кнопку старт
+                enableStartButton(true);
+                
             }
         }
-
 
         /// <summary>
         /// Выводит сообщение в основной лог программы
         /// </summary>
         /// <param name="mess"></param>
-        public static void addMessageInMainLog (string mess) {
-
-            if (flashProcessTxtBoxStatic != null) {
+        public static void addMessageInMainLog(string mess) {
+            flashProcessTxtBoxStatic.Invoke((MethodInvoker) delegate {
                 flashProcessTxtBoxStatic.AppendText(DateTime.Now + ":    " + mess + Environment.NewLine);
-            }
+            });
+        }
+
+        private void enableStartButton(bool stateButton) {
+            startFlashBtn.Invoke((MethodInvoker) delegate {
+                startFlashBtn.Enabled = stateButton;
+            });
         }
 
         /// <summary>
@@ -156,6 +181,24 @@ namespace GSM_NBIoT_Module {
                 MessageBoxIcon.Error,
                 MessageBoxDefaultButton.Button1,
                 MessageBoxOptions.ServiceNotification);
+        }
+
+        /// <summary>
+        /// Возвращает значение прогресс бара
+        /// </summary>
+        /// <returns></returns>
+        public static int getValueProgressBarFlashingStatic() {
+            return progressBarFlashingStatic.Value;
+        }
+
+        /// <summary>
+        /// Устанавливает значение прогресс бара
+        /// </summary>
+        /// <param name="value"></param>
+        public static void setValuePogressBarFlashingStatic(int value) {
+            progressBarFlashingStatic.Invoke((MethodInvoker)delegate {
+                progressBarFlashingStatic.Value = value;
+            });
         }
     }
 }

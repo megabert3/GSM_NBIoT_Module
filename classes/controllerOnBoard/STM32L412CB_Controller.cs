@@ -309,12 +309,12 @@ namespace GSM_NBIoT_Module.classes {
                         //Если нужна полная верификация
                         if (fullVerification) {
                             Flasher.addMessageInMainLog("\n==========================================================================================");
-                            Flasher.addMessageInMainLog("Полная проверка записанной прошивки");
+                            Flasher.addMessageInMainLog("Полная проверка записанной прошивки" + Environment.NewLine);
 
                             fullVerificationFirmwareInMK();
 
                             Flasher.addMessageInMainLog("\n==========================================================================================");
-                            Flasher.addMessageInMainLog("Верификация прошивки прошла успешно");
+                            Flasher.addMessageInMainLog("Верификация прошивки прошла успешно" + Environment.NewLine);
                         }
 
                         break;
@@ -443,7 +443,7 @@ namespace GSM_NBIoT_Module.classes {
             //Добавляю XOR сумму
             addressAndxOR[addressArr.Length] = xorSummAddress;
 
-            Flasher.addMessageInMainLog("Запрашиваю запись буффера " + firmwareData.Count + " в адрес " + Convert.ToString(address, 16));
+            Flasher.addMessageInMainLog("Запрашиваю запись буффера №" + firmwareData.Count + " в адрес " + Convert.ToString(address, 16));
             //Отправляю запрос на запись в адрес
             sendDataInCOM(true, addressAndxOR);
 
@@ -474,7 +474,12 @@ namespace GSM_NBIoT_Module.classes {
                 if (writeData[i] != readData[i]) throw new MKCommandException("Прочитанные данные из микроконтроллера не совтападют с записанными");
             }
 
-            Flasher.addMessageInMainLog("Данные успешно записаны");
+            Flasher.addMessageInMainLog("Данные успешно записаны" + "\n");
+
+            int progBarValue = Flasher.getValueProgressBarFlashingStatic();
+            if (progBarValue <= 850) {
+                Flasher.setValuePogressBarFlashingStatic(progBarValue + 1);
+            }
         }
 
         /// <summary>
@@ -527,7 +532,12 @@ namespace GSM_NBIoT_Module.classes {
                         if (readBytes[i] != buffData.ElementAt(i)) throw new MKCommandException("Прочитанные данные из микроконтроллера не совтападют с записанными");
                     }
 
-                    Flasher.addMessageInMainLog("Данные записанны верно");
+                    Flasher.addMessageInMainLog("Данные записанны верно" + Environment.NewLine);
+
+                    int progBarValue = Flasher.getValueProgressBarFlashingStatic();
+                    if (progBarValue <= 990) {
+                        Flasher.setValuePogressBarFlashingStatic(progBarValue + 1);
+                    }
                 }
             }
         }

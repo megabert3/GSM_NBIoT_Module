@@ -52,29 +52,40 @@ namespace GSM_NBIoT_Module.classes {
             if (!File.Exists(PathTo_QMulti_DL_CMD_V1_8_EXE)) throw new FileNotFoundException("Не удалось найти файл QMulti_DL_CMD_V1.8.exe" +
                 " проверьте целостность программы или переустановите её и попробуйте снова");
 
-            //Текущая прошивка модуля
-            string verModFirmware = VerFirmware;
-            Flasher.addMessageInMainLog("Текущая прошивка модуля: " + verModFirmware);
-
             //Загружаемая прошивка модуля
             string loadFirmware = Path.GetFileNameWithoutExtension(pathToFirmware);
 
-            //Если версия загружаемой прошивки такая же, как уже записанная, то выхожу
-            if (verFirmware.Equals(loadFirmware)) {
-                Flasher.addMessageInMainLog("В модуль уже записана необходимая прошивка");
-                return;
+            //Текущая прошивка модуля
+            try {
+                string verModFirmware = VerFirmware;
+                Flasher.addMessageInMainLog("Текущая прошивка модуля: " + verModFirmware);
+
+                //Если версия загружаемой прошивки такая же, как уже записанная, то выхожу
+                if (verFirmware.Equals(loadFirmware)) {
+                    Flasher.addMessageInMainLog("В модуль уже записана необходимая прошивка");
+                    return;
+                }
+
+            } catch (TimeoutException ex) {
+                Flasher.addMessageInMainLog("Не удалось получить версию прошивки");
+            } catch (InvalidOperationException ex) {
+                Flasher.addMessageInMainLog("Не удалось получить версию прошивки");
             }
 
+            Flasher.setValuePogressBarFlashingStatic(180);
             //=============================== Запускаю приложение для прошивки модуля ===============================================
             using (Process QMulti_DL_CMD_V1_8_Process = new Process()) {
 
                 //Порт дял перепрошивки модема
-                int port = cP2105_Connector.getStandartPort();
+                int port = cP2105_Connector.getEnhabcedPort();
 
                 // Скорось прошивки
                 const int band = 921600;
 
                 ProcessStartInfo QMulti_DL_CMD_V1_8_Process_Info = new ProcessStartInfo();
+
+                //Скрываю окно приложения
+                QMulti_DL_CMD_V1_8_Process_Info.CreateNoWindow = true;
 
                 //Директория с приложением
                 QMulti_DL_CMD_V1_8_Process_Info.WorkingDirectory = PathTo_QMulti_DL_CMD_V1_8;
@@ -90,43 +101,57 @@ namespace GSM_NBIoT_Module.classes {
 
                 QMulti_DL_CMD_V1_8_Process.StartInfo = QMulti_DL_CMD_V1_8_Process_Info;
 
-                /*QMulti_DL_CMD_V1_8_Process.OutputDataReceived += new DataReceivedEventHandler((sender, e) => {
-
-                    Console.WriteLine("OutPut " + e.Data);
-                    
-                });*/
-
                 QMulti_DL_CMD_V1_8_Process.ErrorDataReceived += new DataReceivedEventHandler((sender, e) => {
-                    Flasher.addMessageInMainLog(e.Data); 
+                    Flasher.addMessageInMainLog(e.Data + Environment.NewLine);
+                    int progressBarValue = Flasher.getValueProgressBarFlashingStatic();
+
+                    if (progressBarValue <= 450) {
+                        Flasher.setValuePogressBarFlashingStatic(progressBarValue + 1);
+                    }
                 });
+
                 Flasher.addMessageInMainLog("\n==========================================================================================");
-                Flasher.addMessageInMainLog("Прошиваю модуль");
+                Flasher.addMessageInMainLog("ПРОШИВАЮ МОДУЛЬ QUECTEL" + Environment.NewLine);
+
+                Stopwatch quectelFirmwareWriteStart = new Stopwatch();
+                quectelFirmwareWriteStart.Start();
+
                 QMulti_DL_CMD_V1_8_Process.Start();
 
                 QMulti_DL_CMD_V1_8_Process.BeginErrorReadLine();
-                //QMulti_DL_CMD_V1_8_Process.BeginOutputReadLine();
 
                 string output = QMulti_DL_CMD_V1_8_Process.StandardOutput.ReadToEnd();
 
                 QMulti_DL_CMD_V1_8_Process.WaitForExit();
 
-                if (output.Contains("update fail")) throw new FileLoadException("Не удалось загрузить прошивку в модуль");
+                quectelFirmwareWriteStart.Stop();
 
-                //
-                //Добавить информацио о загрузке прошивки
-                //
+                if (output.Contains("Total upgrade time")) {
+                    Flasher.addMessageInMainLog("Время прошивки модуля " + Flasher.parseMlsInMMssMls(quectelFirmwareWriteStart.ElapsedMilliseconds) + Environment.NewLine);
+                } else {
+                    throw new FileLoadException("Не удалось загрузить прошивку в модуль, перезагрузите модуль и попробуйте снова");
+                }
+
+                if (Flasher.getValueProgressBarFlashingStatic() < 450) Flasher.setValuePogressBarFlashingStatic(450);
             }
 
             //Ставлю в начальное положение ножки CP2105
-            cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, true, 100);
+            cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, true, 3000);
+            Flasher.setValuePogressBarFlashingStatic(460);
 
             //Делаю ресет модуля BC92
-            cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), false, true, false, 6000);
+            cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), false, true, true, 1000);
+            Flasher.setValuePogressBarFlashingStatic(470);
             //Поднимаю модуль BC92 и не даю уснуть
-            cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, false, 6000);
+            cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, true, 3000);
+            Flasher.setValuePogressBarFlashingStatic(480);
+
+            cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, false, 2000);
+            Flasher.setValuePogressBarFlashingStatic(490);
 
             //Считываю версию прошивки с модуля и сравниваю её с той, которую необходимо было залить
-            if (!loadFirmware.Equals(getVersionFrimware())) throw new FileLoadException("Не удалось загрузить прошивку в модуль");
+            if (!loadFirmware.Equals(getVersionFrimware())) throw new FileLoadException("Имя загружаемой прошивки в модуль не соответствует записанной");
+            Flasher.setValuePogressBarFlashingStatic(500);
         }
 
         /// <summary>
@@ -174,7 +199,7 @@ namespace GSM_NBIoT_Module.classes {
                                 throw new ATCommandException("Не удалось записать следующую комманду\n:" + dataInCOM_Port);
                             }
 
-                            Thread.Sleep(1000);    
+                            Thread.Sleep(1000);
                         }
 
                         if (!answer) {
@@ -254,13 +279,11 @@ namespace GSM_NBIoT_Module.classes {
         /// <returns>Возвращает версию прошивки модуля Quectel</returns>
         private string getVersionFrimware() {
 
-            string port = "COM" + this.cP2105_Connector.getEnhabcedPort();
+            string port = "COM" + this.cP2105_Connector.getStandartPort();
 
             using (serialPort = new SerialPort(port, 9600, Parity.None, 8, StopBits.One)) {
 
                 serialPort.Open();
-
-                Thread.Sleep(300);
 
                 if (serialPort.IsOpen) {
 
