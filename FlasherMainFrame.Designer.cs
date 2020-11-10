@@ -27,6 +27,7 @@
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.progressBarFlashing = new System.Windows.Forms.ProgressBar();
             this.startFlashBtn = new System.Windows.Forms.Button();
             this.pathToQuectelFirmwareTextBox = new System.Windows.Forms.TextBox();
@@ -38,6 +39,8 @@
             this.modemTypeCmBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.flashProcessRichTxtBox = new System.Windows.Forms.RichTextBox();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // progressBarFlashing
@@ -174,8 +177,8 @@
             this.Controls.Add(this.pathToSTM32FirmwareTextBox);
             this.Name = "Flasher";
             this.Text = "Тайпит Flasher";
-            this.TopMost = true;
             this.Load += new System.EventHandler(this.Flasher_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,6 +197,7 @@
         private System.Windows.Forms.ComboBox modemTypeCmBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RichTextBox flashProcessRichTxtBox;
+        private System.Windows.Forms.BindingSource bindingSource1;
     }
 }
 

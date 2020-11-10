@@ -28,7 +28,7 @@ namespace GSM_NBIoT_Module.classes {
         private CP2105_Connector CP2105_Connector = CP2105_Connector.GetCP2105_ConnectorInstance();
 
         private SerialPort serialPort = new SerialPort();
-        private int timeOut = 5000;
+        private int timeOut = 1000;
 
         //Версия бутлоадера контроллера
         private string verBootLoader = null;
@@ -81,6 +81,7 @@ namespace GSM_NBIoT_Module.classes {
             serialPort.Parity = parity;
             serialPort.DataBits = dataBits;
             serialPort.StopBits = stopBit;
+            serialPort.ReadTimeout = timeOut;
 
             serialPort.Open();
         }
@@ -308,13 +309,13 @@ namespace GSM_NBIoT_Module.classes {
 
                         //Если нужна полная верификация
                         if (fullVerification) {
-                            Flasher.addMessageInMainLog("\n==========================================================================================");
-                            Flasher.addMessageInMainLog("Полная проверка записанной прошивки" + Environment.NewLine);
+                            Flasher.addMessInLogBuffer("\n==========================================================================================");
+                            Flasher.addMessInLogBuffer("Полная проверка записанной прошивки" + Environment.NewLine);
 
                             fullVerificationFirmwareInMK();
 
-                            Flasher.addMessageInMainLog("\n==========================================================================================");
-                            Flasher.addMessageInMainLog("Верификация прошивки прошла успешно" + Environment.NewLine);
+                            Flasher.addMessInLogBuffer("\n==========================================================================================");
+                            Flasher.addMessInLogBuffer("Верификация прошивки прошла успешно" + Environment.NewLine);
                         }
 
                         break;
@@ -443,7 +444,7 @@ namespace GSM_NBIoT_Module.classes {
             //Добавляю XOR сумму
             addressAndxOR[addressArr.Length] = xorSummAddress;
 
-            Flasher.addMessageInMainLog("Запрашиваю запись буффера №" + firmwareData.Count + " в адрес " + Convert.ToString(address, 16));
+            Flasher.addMessInLogBuffer("Запрашиваю запись буффера №" + firmwareData.Count + " в адрес " + Convert.ToString(address, 16));
             //Отправляю запрос на запись в адрес
             sendDataInCOM(true, addressAndxOR);
 
@@ -459,12 +460,12 @@ namespace GSM_NBIoT_Module.classes {
             byteDataOfSend.Add(xorSummData);
 
             //Записываю буффер байт в контроллер
-            Flasher.addMessageInMainLog("Записываю буфер размером " + buffer.Count + " байт");
+            Flasher.addMessInLogBuffer("Записываю буфер размером " + buffer.Count + " байт");
             sendDataInCOM(true, byteDataOfSend.ToArray());
             
 
             //Получаю байты, которые записались в МК
-            Flasher.addMessageInMainLog("Проверяю данные записанные в контроллер");
+            Flasher.addMessInLogBuffer("Проверяю данные записанные в контроллер");
             byte[] readData = readDataOfMK(address, (byteDataOfSend.Count - 2));
 
             byte[] writeData = buffer.ToArray();
@@ -474,7 +475,7 @@ namespace GSM_NBIoT_Module.classes {
                 if (writeData[i] != readData[i]) throw new MKCommandException("Прочитанные данные из микроконтроллера не совтападют с записанными");
             }
 
-            Flasher.addMessageInMainLog("Данные успешно записаны" + "\n");
+            Flasher.addMessInLogBuffer("Данные успешно записаны" + "\n");
 
             int progBarValue = Flasher.getValueProgressBarFlashingStatic();
             if (progBarValue <= 850) {
@@ -524,15 +525,15 @@ namespace GSM_NBIoT_Module.classes {
                     uint address = fwBuff.Key;
                     List<byte> buffData = fwBuff.Value;
 
-                    Flasher.addMessageInMainLog("Считываю данные с адреса " + Convert.ToString(address, 16));
+                    Flasher.addMessInLogBuffer("Считываю данные с адреса " + Convert.ToString(address, 16));
                     byte[] readBytes = readDataOfMK(address, buffData.Count);
 
-                    Flasher.addMessageInMainLog("Сверяю полученные данные с данными прошивки " + Convert.ToString(address, 16));
+                    Flasher.addMessInLogBuffer("Сверяю полученные данные с данными прошивки " + Convert.ToString(address, 16));
                     for (int i = 0; i < buffData.Count; i++) {
                         if (readBytes[i] != buffData.ElementAt(i)) throw new MKCommandException("Прочитанные данные из микроконтроллера не совтападют с записанными");
                     }
 
-                    Flasher.addMessageInMainLog("Данные записанны верно" + Environment.NewLine);
+                    Flasher.addMessInLogBuffer("Данные записанны верно" + Environment.NewLine);
 
                     int progBarValue = Flasher.getValueProgressBarFlashingStatic();
                     if (progBarValue <= 990) {
@@ -571,22 +572,15 @@ namespace GSM_NBIoT_Module.classes {
 
             serialPort.Write(dataInPort, 0, dataInPort.Length);
 
-            int timeOut = this.timeOut - 50;
+            while (true) {
 
-            while (timeOut > 0) {
-
-                Thread.Sleep(50);
-
-                while (serialPort.BytesToRead != 0) {
-
-                    //Обнуляю таймаут
-                    timeOut = this.timeOut;
+                while (serialPort.BytesToRead != 0) {                    
 
                     int data = serialPort.ReadByte();
 
                     if (data == NACK) throw new MKCommandException("Не удалось выполнить команду (NACK)");
 
-                    dataOutPort.Add((byte)data);
+                    dataOutPort.Add((byte) data);
 
                     //Если ответ один только ACK
                     if (onlyAck) {
@@ -599,8 +593,6 @@ namespace GSM_NBIoT_Module.classes {
                         return dataOutPort;
                     }
                 }
-
-                timeOut -= 50;
             }
 
             throw new COMException("Не удалось получить ответ от микроконтроллера");
@@ -618,6 +610,7 @@ namespace GSM_NBIoT_Module.classes {
 
             //Данные для отправки в COM порт
             byte[] dataInPort = bytes;
+
             //Данные из COM порта
             List<byte> dataOutPort = new List<byte>(amountByte + 1);
 
@@ -625,16 +618,9 @@ namespace GSM_NBIoT_Module.classes {
 
             serialPort.Write(dataInPort, 0, dataInPort.Length);
 
-            int timeOut = this.timeOut - 50;
-
-            while (timeOut > 0) {
-
-                Thread.Sleep(50);
+            while (true) {                
 
                 while (serialPort.BytesToRead != 0) {
-
-                    //Обнуляю таймаут
-                    timeOut = this.timeOut;
 
                     int data = serialPort.ReadByte();
 
@@ -654,8 +640,6 @@ namespace GSM_NBIoT_Module.classes {
                         return readDataOfMK;
                     }
                 }
-
-                timeOut -= 50;
             }
 
             throw new COMException("Не удалось получить ответ от микроконтроллера");

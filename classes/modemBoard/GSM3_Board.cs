@@ -142,6 +142,8 @@ namespace GSM_NBIoT_Module.classes {
 
                 Flasher.addMessageInMainLog("Начинаю запись" + Environment.NewLine);
                 stm32L412cb.WRITE(pathToFirmware_STM32L412CB);
+                //Выгружаю всё, что было в буфере при прошивке контроллера
+                Flasher.addInLog();
 
                 Flasher.addMessageInMainLog("Запуск записанной прошивки" + Environment.NewLine);
                 stm32L412cb.GO();

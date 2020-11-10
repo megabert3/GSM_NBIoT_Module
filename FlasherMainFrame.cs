@@ -17,10 +17,6 @@ namespace GSM_NBIoT_Module {
     public partial class Flasher : Form {
         public Flasher() {
             InitializeComponent();
-
-#if DEBUG 
-            TopMost = false;
-#endif
         }
 
         //Типы используемых модемов
@@ -29,6 +25,11 @@ namespace GSM_NBIoT_Module {
         private static ProgressBar progressBarFlashingStatic;
 
         private static RichTextBox flashProcessTxtBoxStatic;
+
+        private static Stopwatch firmwareWriteStart = new Stopwatch();
+
+        //Буфер сообщений для перепрошивки микроконтроллера
+        private static StringBuilder logBuffer;
 
         private void pathToQuectelFirmwareBtn_Click(object sender, EventArgs e) {
 
@@ -72,8 +73,8 @@ namespace GSM_NBIoT_Module {
 
         private void startFlashBtn_Click(object sender, EventArgs e) {
 
-
             switch (modemTypeCmBox.SelectedItem) {
+
                 //Если выбран модем GSM3
                 case "GSM3": {
 
@@ -87,6 +88,7 @@ namespace GSM_NBIoT_Module {
         }
 
         private void reflashGSM3Modem() {
+            logBuffer = new StringBuilder();
 
             try {
                 //Отключаю кнопку старт
@@ -116,9 +118,9 @@ namespace GSM_NBIoT_Module {
                 if (!pathToFirwareSTM32.EndsWith(".hex")) throw new FormatException("Неверное расширение файла прошивки для микроконтроллера");
 
                 //Перепрошивка модема ===========================================================
-                Stopwatch firmwareWriteStart = new Stopwatch();
+
                 firmwareWriteStart.Start();
-                
+
                 Board GSM3 = new GSM3_Board(pathToFirwareQuectel, pathToFirwareSTM32);
 
                 GSM3.Reflash();
@@ -131,13 +133,14 @@ namespace GSM_NBIoT_Module {
                 enableStartButton(true);
 
             } catch (Exception ex) {
+                addInLog();               
                 addMessageInMainLog("\n==========================================================================================");
                 addMessageInMainLog("Тип ошибки: " + ex.GetType().ToString());
                 addMessageInMainLog("Метод: " + ex.TargetSite.ToString());
                 addMessageInMainLog("ОШИБКА: " + ex.Message);
+
                 //включаю кнопку старт
                 enableStartButton(true);
-                
             }
         }
 
@@ -146,11 +149,30 @@ namespace GSM_NBIoT_Module {
         /// </summary>
         /// <param name="mess"></param>
         public static void addMessageInMainLog(string mess) {
-            flashProcessTxtBoxStatic.Invoke((MethodInvoker) delegate {
-                flashProcessTxtBoxStatic.AppendText(DateTime.Now + ":    " + mess + Environment.NewLine);
+
+            flashProcessTxtBoxStatic.Invoke((MethodInvoker)delegate {
+                flashProcessTxtBoxStatic.AppendText(parseMlsInMMssMls(firmwareWriteStart.ElapsedMilliseconds) + ":    " + mess + Environment.NewLine);
             });
         }
 
+        /// <summary>
+        /// Записывает ход выполнения контроллера во внутренний буфер (необходимо для быстродействия)
+        /// </summary>
+        /// <param name="mess"></param>
+        public static void addMessInLogBuffer(string mess) {
+            logBuffer.Append(parseMlsInMMssMls(firmwareWriteStart.ElapsedMilliseconds) + ":    " + mess + Environment.NewLine);
+        }
+
+        public static void addInLog() {
+            flashProcessTxtBoxStatic.Invoke((MethodInvoker) delegate {
+                flashProcessTxtBoxStatic.AppendText(logBuffer.ToString());
+            });
+        }
+
+        /// <summary>
+        /// Отключает кнопку старт
+        /// </summary>
+        /// <param name="stateButton"></param>
         private void enableStartButton(bool stateButton) {
             startFlashBtn.Invoke((MethodInvoker) delegate {
                 startFlashBtn.Enabled = stateButton;
