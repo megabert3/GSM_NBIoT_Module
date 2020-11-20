@@ -1,10 +1,13 @@
 ﻿using GSM_NBIoT_Module.classes.applicationHelper.exceptions;
+using GSM_NBIoT_Module.classes.controllerOnBoard.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using static GSM_NBIoT_Module.classes.CP2105_Connector;
@@ -68,115 +71,129 @@ namespace GSM_NBIoT_Module.classes {
             Flasher.addMessageInMainLog("GPIO_2 " + sta.stageGPIO_2 + Environment.NewLine);
             Flasher.setValuePogressBarFlashingStatic(90);
 
-            Flasher.addMessageInMainLog("Отключаю контроллер");
-            //Заглушаю контроллер GPIO_1 = 0;
-            cp2105.WriteGPIOStageAndSetFlags(enhadced, true, false, 100);
-            Flasher.addMessageInMainLog("Добавочный порт GPIO_1 = false" + Environment.NewLine);
-            Flasher.setValuePogressBarFlashingStatic(100);
+            //Если путь для прошивки модуля quectel не пустой, то перепрошиваю модуль
+            if (!String.IsNullOrEmpty(pathToFirmware_BC92)) {
 
-            Flasher.addMessageInMainLog("Перезагружаю модуль");
-            //Делаю ресет модуля BC92 и не даю уснуть
-            cp2105.WriteGPIOStageAndSetFlags(standart, false, true, true, 1000);
-            Flasher.addMessageInMainLog("Стандартный порт GPIO_0 = false, GPIO_1 = true, GPIO_2 = true" + Environment.NewLine);
-            Flasher.setValuePogressBarFlashingStatic(110);
+                Flasher.addMessageInMainLog("Отключаю контроллер");
+                //Заглушаю контроллер GPIO_1 = 0;
+                cp2105.WriteGPIOStageAndSetFlags(enhadced, true, false, 100);
+                Flasher.addMessageInMainLog("Добавочный порт GPIO_1 = false" + Environment.NewLine);
+                Flasher.setValuePogressBarFlashingStatic(100);
 
-            cp2105.WriteGPIOStageAndSetFlags(standart, true, true, true, 3000);
-            Flasher.addMessageInMainLog("Стандартный порт GPIO_0 = true, GPIO_1 = true, GPIO_2 = true" + Environment.NewLine);
-            Flasher.setValuePogressBarFlashingStatic(120);
+                Flasher.addMessageInMainLog("Перезагружаю модуль");
+                //Делаю ресет модуля BC92 и не даю уснуть
+                cp2105.WriteGPIOStageAndSetFlags(standart, false, true, true, 1000);
+                Flasher.addMessageInMainLog("Стандартный порт GPIO_0 = false, GPIO_1 = true, GPIO_2 = true" + Environment.NewLine);
+                Flasher.setValuePogressBarFlashingStatic(110);
 
-            Flasher.addMessageInMainLog("Не даю модулю уснуть");
-            cp2105.WriteGPIOStageAndSetFlags(standart, true, true, false, 1000);
-            Flasher.addMessageInMainLog("Стандартный порт GPIO_0 = true, GPIO_1 = true, GPIO_2 = false" + Environment.NewLine);
-            Flasher.setValuePogressBarFlashingStatic(150);
+                cp2105.WriteGPIOStageAndSetFlags(standart, true, true, true, 3000);
+                Flasher.addMessageInMainLog("Стандартный порт GPIO_0 = true, GPIO_1 = true, GPIO_2 = true" + Environment.NewLine);
+                Flasher.setValuePogressBarFlashingStatic(120);
 
-            bc92.reflashModule(pathToFirmware_BC92);
+                Flasher.addMessageInMainLog("Не даю модулю уснуть");
+                cp2105.WriteGPIOStageAndSetFlags(standart, true, true, false, 1000);
+                Flasher.addMessageInMainLog("Стандартный порт GPIO_0 = true, GPIO_1 = true, GPIO_2 = false" + Environment.NewLine);
+                Flasher.setValuePogressBarFlashingStatic(150);
 
-            //Глушу модуль BC92
-            Flasher.addMessageInMainLog("Отключаю модуль");
-            cp2105.WriteGPIOStageAndSetFlags(standart, false, true, true, 100);
-            Flasher.addMessageInMainLog("Станартный порт GPIO_0 = false, GPIO_1 = true, GPIO_2 = true" + Environment.NewLine);
-            Flasher.setValuePogressBarFlashingStatic(510);
-
-            //Включаю контроллер
-            Flasher.addMessageInMainLog("Включаю контроллер");
-            cp2105.WriteGPIOStageAndSetFlags(enhadced, true, true, 100);
-            Flasher.addMessageInMainLog("Добавочный порт GPIO_0 = true, GPIO_1 = true" + Environment.NewLine);
-            Flasher.setValuePogressBarFlashingStatic(520);
-
-            //Даю команду контроллеру при следующем включении войти в бут
-            Flasher.addMessageInMainLog("Даю команду перейти в boot режим");
-            cp2105.WriteGPIOStageAndSetFlags(enhadced, false, true, 100);
-            Flasher.addMessageInMainLog("Добавочный порт GPIO_0 = false, GPIO_1 = true" + Environment.NewLine);
-            Flasher.setValuePogressBarFlashingStatic(530);
-
-            //Выключаю контроллер
-            Flasher.addMessageInMainLog("Перезагружаю контроллер");
-            cp2105.WriteGPIOStageAndSetFlags(enhadced, false, false, 100);
-            Flasher.addMessageInMainLog("Добавочный порт GPIO_0 = false, GPIO_1 = false");
-            Flasher.setValuePogressBarFlashingStatic(540);
-
-            //Включаю контроллер
-            cp2105.WriteGPIOStageAndSetFlags(enhadced, false, true, 100);
-            Flasher.addMessageInMainLog("Добавочный порт GPIO_0 = false, GPIO_1 = true" + Environment.NewLine);
-            Flasher.setValuePogressBarFlashingStatic(550);
-
-            //Перепрошивка контроллера =================================================
-            //Открываю COM порт
-            Flasher.addMessageInMainLog("\n==========================================================================================");
-            Flasher.addMessageInMainLog("ПЕРЕПРОШИВКА КОНТРОЛЛЕРА" + Environment.NewLine);
-            Flasher.addMessageInMainLog("Открываю порт");
-            stm32L412cb.OpenSerialPort(standart, 115200, Parity.Even, 8, StopBits.One);
-
-            Stopwatch stm32FirmwareWriteStart = new Stopwatch();
-            stm32FirmwareWriteStart.Start();
-
-            try {
-                try {
-                    stm32L412cb.INIT();
-                } catch (MKCommandException) { }
-                Flasher.setValuePogressBarFlashingStatic(555);
-
-                Flasher.addMessageInMainLog("Удаляю прошлую прошивку" + Environment.NewLine);
-                stm32L412cb.ERASE();
-                Flasher.setValuePogressBarFlashingStatic(570);
-
-                Flasher.addMessageInMainLog("Начинаю запись" + Environment.NewLine);
-                stm32L412cb.WRITE(pathToFirmware_STM32L412CB);
-                //Выгружаю всё, что было в буфере при прошивке контроллера
-                Flasher.addInLog();
-
-                Flasher.addMessageInMainLog("Запуск записанной прошивки" + Environment.NewLine);
-                stm32L412cb.GO();
-                Flasher.setValuePogressBarFlashingStatic(990);
-
-                stm32FirmwareWriteStart.Stop();
-
-                Flasher.addMessageInMainLog("Время перепрошивки контроллера " + Flasher.parseMlsInMMssMls(stm32FirmwareWriteStart.ElapsedMilliseconds) + Environment.NewLine);
-
-                stm32L412cb.ClosePort();
-
-                Thread.Sleep(200);
-
-            } catch(Exception) {
-
-                throw;
-
-            } finally {
-                stm32L412cb.ClosePort();
+                bc92.reflashModule(pathToFirmware_BC92);
             }
 
-            Flasher.addMessageInMainLog("Устанавливаю значение GPIO стандартного и добавочного портов в исходное состояние");
-            cp2105.WriteGPIOStageAndSetFlags(enhadced, true, true, 100);
-            Flasher.addMessageInMainLog("Добавочный порт GPIO_0 = true, GPIO_1 = true");
-            Flasher.setValuePogressBarFlashingStatic(995);
 
-            cp2105.WriteGPIOStageAndSetFlags(standart, false, true, true, 100);
-            Flasher.addMessageInMainLog("Стандартный порт GPIO_0 = true, GPIO_1 = true, GPIO_2 = true" + Environment.NewLine);
+            if (!String.IsNullOrEmpty(pathToFirmware_STM32L412CB)) {
+
+                //Глушу модуль BC92
+                Flasher.addMessageInMainLog("Отключаю модуль");
+                cp2105.WriteGPIOStageAndSetFlags(standart, false, true, true, 100);
+                Flasher.addMessageInMainLog("Станартный порт GPIO_0 = false, GPIO_1 = true, GPIO_2 = true" + Environment.NewLine);
+                Flasher.setValuePogressBarFlashingStatic(510);
+
+                //Включаю контроллер
+                Flasher.addMessageInMainLog("Включаю контроллер");
+                cp2105.WriteGPIOStageAndSetFlags(enhadced, true, true, 100);
+                Flasher.addMessageInMainLog("Добавочный порт GPIO_0 = true, GPIO_1 = true" + Environment.NewLine);
+                Flasher.setValuePogressBarFlashingStatic(520);
+
+                //Даю команду контроллеру при следующем включении войти в бут
+                Flasher.addMessageInMainLog("Даю команду перейти в boot режим");
+                cp2105.WriteGPIOStageAndSetFlags(enhadced, false, true, 100);
+                Flasher.addMessageInMainLog("Добавочный порт GPIO_0 = false, GPIO_1 = true" + Environment.NewLine);
+                Flasher.setValuePogressBarFlashingStatic(530);
+
+                //Выключаю контроллер
+                Flasher.addMessageInMainLog("Перезагружаю контроллер");
+                cp2105.WriteGPIOStageAndSetFlags(enhadced, false, false, 100);
+                Flasher.addMessageInMainLog("Добавочный порт GPIO_0 = false, GPIO_1 = false");
+                Flasher.setValuePogressBarFlashingStatic(540);
+
+                //Включаю контроллер
+                cp2105.WriteGPIOStageAndSetFlags(enhadced, false, true, 100);
+                Flasher.addMessageInMainLog("Добавочный порт GPIO_0 = false, GPIO_1 = true" + Environment.NewLine);
+                Flasher.setValuePogressBarFlashingStatic(550);
+
+                //Перепрошивка контроллера =================================================
+                //Открываю COM порт
+                Flasher.addMessageInMainLog("\n==========================================================================================");
+                Flasher.addMessageInMainLog("ПЕРЕПРОШИВКА КОНТРОЛЛЕРА" + Environment.NewLine);
+                Flasher.addMessageInMainLog("Открываю порт");
+                stm32L412cb.OpenSerialPort(standart, 115200, Parity.Even, 8, StopBits.One);
+
+                Stopwatch stm32FirmwareWriteStart = new Stopwatch();
+                stm32FirmwareWriteStart.Start();
+
+                try {
+                    try {
+                        stm32L412cb.INIT();
+                    } catch (MKCommandException) { }
+
+                    Flasher.setValuePogressBarFlashingStatic(555);
+
+                    Flasher.addMessageInMainLog("Удаляю прошлую прошивку" + Environment.NewLine);
+                    stm32L412cb.ERASE();
+                    Flasher.setValuePogressBarFlashingStatic(570);
+
+                    Flasher.addMessageInMainLog("Начинаю запись" + Environment.NewLine);
+                    stm32L412cb.WRITE(pathToFirmware_STM32L412CB);
+                    //Выгружаю всё, что было в буфере при прошивке контроллера
+                    Flasher.addProgressFlashMKLogInMainLog();
+
+                    Flasher.addMessageInMainLog("Запуск записанной прошивки" + Environment.NewLine);
+                    stm32L412cb.GO();
+                    Flasher.setValuePogressBarFlashingStatic(990);
+
+                    stm32FirmwareWriteStart.Stop();
+
+                    Flasher.addMessageInMainLog("Время перепрошивки контроллера " + Flasher.parseMlsInMMssMls(stm32FirmwareWriteStart.ElapsedMilliseconds) + Environment.NewLine);
+
+                    stm32L412cb.ClosePort();
+
+                    Thread.Sleep(200);
+
+                } catch (Exception) {
+                    Flasher.addProgressFlashMKLogInMainLog();
+
+                    throw;
+
+                } finally {
+                    stm32L412cb.ClosePort();
+                }
+
+                Flasher.addMessageInMainLog("Устанавливаю значение GPIO стандартного и добавочного портов в исходное состояние");
+                cp2105.WriteGPIOStageAndSetFlags(enhadced, true, true, 100);
+                Flasher.addMessageInMainLog("Добавочный порт GPIO_0 = true, GPIO_1 = true");
+                Flasher.setValuePogressBarFlashingStatic(995);
+
+                cp2105.WriteGPIOStageAndSetFlags(standart, false, true, true, 100);
+                Flasher.addMessageInMainLog("Стандартный порт GPIO_0 = true, GPIO_1 = true, GPIO_2 = true" + Environment.NewLine);
 
 
-            Flasher.addMessageInMainLog("\n==========================================================================================");
-            Flasher.addMessageInMainLog("ПЕРЕРОШИВКА МОДЕМА УСПЕШНО ЗАВЕРШЕНА");
-            Flasher.setValuePogressBarFlashingStatic(1000);
+                Flasher.addMessageInMainLog("\n==========================================================================================");
+                Flasher.addMessageInMainLog("ПЕРЕРОШИВКА МОДЕМА УСПЕШНО ЗАВЕРШЕНА");
+                Flasher.setValuePogressBarFlashingStatic(1000);
+            }
+        }
+
+        public STM32L412CB_Controller getStm32L412cb() {
+            return stm32L412cb;
         }
     }
 }

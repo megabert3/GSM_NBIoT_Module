@@ -51,6 +51,8 @@
     <Compile Include="classes\applicationHelper\exceptions\MKCommandException.cs" />
     <Compile Include="classes\applicationHelper\exceptions\DeviceNotFoundException.cs" />
     <Compile Include="classes\applicationHelper\exceptions\DeviceError.cs" />
+    <Compile Include="classes\controllerOnBoard\Configuration\ConfigurationFileStorage.cs" />
+    <Compile Include="classes\controllerOnBoard\Configuration\ConfigurationFW.cs" />
     <Compile Include="classes\modemBoard\Board.cs" />
     <Compile Include="classes\GSM_NBIoT_Module\BC92_Module.cs" />
     <Compile Include="classes\modemBoard\GSM3_Board.cs" />
@@ -65,10 +67,28 @@
     <Compile Include="FlasherMainFrame.Designer.cs">
       <DependentUpon>FlasherMainFrame.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfigurationFrame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigurationFrame.Designer.cs">
+      <DependentUpon>ConfigurationFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Password.Designer.cs">
+      <DependentUpon>Password.cs</DependentUpon>
+    </Compile>
     <Compile Include="GSM_NBIoT_Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ConfigurationFrame.resx">
+      <DependentUpon>ConfigurationFrame.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FlasherMainFrame.resx">
       <DependentUpon>FlasherMainFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Password.resx">
+      <DependentUpon>Password.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

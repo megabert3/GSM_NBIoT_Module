@@ -149,8 +149,10 @@ namespace GSM_NBIoT_Module.classes {
             cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, false, 2000);
             Flasher.setValuePogressBarFlashingStatic(490);
 
-            //Считываю версию прошивки с модуля и сравниваю её с той, которую необходимо было залить
-            if (!loadFirmware.Equals(getVersionFrimware())) throw new FileLoadException("Имя загружаемой прошивки в модуль не соответствует записанной");
+            //Это было до того как я считывал результат из потока программы для перепрошивки
+            //оставленно на всякий случай
+            /*//Считываю версию прошивки с модуля и сравниваю её с той, которую необходимо было залить
+            if (!loadFirmware.Equals(getVersionFrimware())) throw new FileLoadException("Имя загружаемой прошивки в модуль не соответствует записанной");*/
             Flasher.setValuePogressBarFlashingStatic(500);
         }
 

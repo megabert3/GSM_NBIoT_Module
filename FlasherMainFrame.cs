@@ -1,4 +1,5 @@
 ﻿using GSM_NBIoT_Module.classes;
+using GSM_NBIoT_Module.classes.controllerOnBoard.Configuration;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,10 +27,15 @@ namespace GSM_NBIoT_Module {
 
         private static RichTextBox flashProcessTxtBoxStatic;
 
+        private static ComboBox configurationCmBoxStatic;
+
         private static Stopwatch firmwareWriteStart = new Stopwatch();
 
         //Буфер сообщений для перепрошивки микроконтроллера
         private static StringBuilder logBuffer;
+
+        //General_ID_Nmb необходим при конфигурации прошивки в момент записи в микроконтроллер
+        public static ushort general_ID_Nmb = 1;
 
         private void pathToQuectelFirmwareBtn_Click(object sender, EventArgs e) {
 
@@ -67,8 +73,13 @@ namespace GSM_NBIoT_Module {
 
             progressBarFlashingStatic = progressBarFlashing;
 
+            //Выгрузка типов модемов
             modemTypeCmBox.Items.AddRange(modemType);
             modemTypeCmBox.SelectedIndex = 0;
+
+            configurationCmBoxStatic = configurationCmBox;
+
+            refreshConfigurationCmBox();
         }
 
         private void startFlashBtn_Click(object sender, EventArgs e) {
@@ -94,34 +105,130 @@ namespace GSM_NBIoT_Module {
                 //Отключаю кнопку старт
                 enableStartButton(false);
 
-                //Получаю пути выбранные пользователем
-                string pathToFirwareQuectel = pathToQuectelFirmwareTextBox.Text.Trim();
-                string pathToFirwareSTM32 = pathToSTM32FirmwareTextBox.Text.Trim();
+                // Передаю конфиурационный файл
+                string selectedConfiguration = "";
 
-                //Проверка путей =================================================================
-                if (String.IsNullOrEmpty(pathToFirwareQuectel)) throw new FormatException("Выберите путь к прошивке модуля Quectel");
-                if (String.IsNullOrEmpty(pathToFirwareSTM32)) throw new FormatException("Выберите путь к прошивке микроконтроллера");
+                Invoke((MethodInvoker)delegate {
+                    selectedConfiguration = configurationCmBox.GetItemText(configurationCmBox.SelectedItem);
+                });
 
-                if (!File.Exists(pathToFirwareQuectel)) throw new FileNotFoundException("Не удалось найти файл прошивки для модуля Quectel по указанному пути");
+                ConfigurationFW configurationFW;
 
-                if (!pathToFirwareQuectel.EndsWith(".lod")) throw new FormatException("Неверное расширение файла прошивки для модуля Quectel");
+                if (!String.IsNullOrEmpty(selectedConfiguration)) {
 
-                //Проверяю содержит ли путь русские символы или пробелы
-                Regex regex = new Regex("[А-Яа-я]");
-                MatchCollection matches = regex.Matches(pathToFirwareQuectel);
+                    ConfigurationFileStorage configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
 
-                if (matches.Count > 0) throw new FormatException("Путь не должен содержать русские символы или пробельные символы");
+                    configurationFW = configurationFileStorage.getConfigurationFile(selectedConfiguration);
 
+                    //Если не создан конфигурационный файл
+                } else {
 
-                if (!File.Exists(pathToFirwareSTM32)) throw new FileNotFoundException("Не удалось найти файл прошивки для микроконтроллера по указанному пути");
+                    Invoke((MethodInvoker)delegate {
+                        exceptionDialog("Создайте конфигурационный файл");
+                        enableStartButton(true);
+                    });
 
-                if (!pathToFirwareSTM32.EndsWith(".hex")) throw new FormatException("Неверное расширение файла прошивки для микроконтроллера");
+                    return;
+                }
 
-                //Перепрошивка модема ===========================================================
+                //Пути для перепрошивки
+                string pathWFforQuectel = "";
+                string pathWFforMK = "";
 
+                //================================ проверка наличия нужных файлов для перепрошивки =======================================================
+                //Если поле названия прошивки для микроконтроллера не пустое
+                if (!String.IsNullOrEmpty(configurationFW.getFwForMKName())) {
+
+                    //Если удалена директория с файлами прошивки
+                    if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\StorageMKFW")) {
+
+                        Invoke((MethodInvoker)delegate {
+                            exceptionDialog("Программе не удалось найти папку с прошивками для микроконтроллера \"StorageMKFW\"");
+                            enableStartButton(true);
+                        });
+                        return;
+                    }
+                        
+                    //То проверяю её наличие в нужной папке созданной программой
+                    if (!File.Exists(Directory.GetCurrentDirectory() + "\\StorageMKFW" + "\\" + configurationFW.getFwForMKName() + ".hex")) {
+                        Invoke((MethodInvoker)delegate {
+                            exceptionDialog("Программе не удалось найти файл с прошивкой для микроконтроллера " + "\"" + configurationFW.getFwForMKName() + "\"");
+                            enableStartButton(true);
+                        });
+                        return;
+                    }
+
+                    pathWFforMK = Directory.GetCurrentDirectory() + "\\StorageMKFW" + "\\" + configurationFW.getFwForMKName() + ".hex";
+                    //Тупой мув, но потом доработаю это
+                    if (!pathWFforMK.EndsWith(".hex")) {
+                        Invoke((MethodInvoker)delegate {
+                            exceptionDialog("Неверное расширение файла прошивки микроконтроллера");
+                            enableStartButton(true);
+                        });
+                        return;
+                    }
+                }
+
+                //Если поле названия прошивки для модуля Quectel не пустое
+                if (!String.IsNullOrEmpty(configurationFW.getfwForQuectelName())) {
+
+                    //Если удалена директория с файлами прошивки
+                    if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\StorageQuectelFW")) {
+
+                        Invoke((MethodInvoker)delegate {
+                            exceptionDialog("Программе не удалось найти папку с прошивками для модуля Quectel \"StorageQuectelFW\"");
+                            enableStartButton(true);
+                        });
+                        return;
+                    }
+
+                    //То проверяю её наличие в нужной папке созданной программой
+                    if (!File.Exists(Directory.GetCurrentDirectory() + "\\StorageQuectelFW" + "\\" + configurationFW.getfwForQuectelName() + ".lod")) {
+                        Invoke((MethodInvoker)delegate {
+                            exceptionDialog("Программе не удалось найти файл с прошивкой для модуля Quectel " + "\"" + configurationFW.getfwForQuectelName() + "\"");
+                            enableStartButton(true);
+                        });
+                        return;
+                    }
+
+                    pathWFforQuectel = Directory.GetCurrentDirectory() + "\\StorageQuectelFW" + "\\" + configurationFW.getfwForQuectelName() + ".lod";
+                    //Тупой мув, но потом доработаю это
+                    if (!pathWFforQuectel.EndsWith(".lod")) {
+                        Invoke((MethodInvoker)delegate {
+                            exceptionDialog("Неверное расширение файла прошивки для модуля Quectel");
+                            enableStartButton(true);
+                        });
+                        return;
+                    }
+
+                    //Проверяю содержит ли путь русские символы
+                    Regex regex = new Regex("[а-я]");
+                    MatchCollection matches = regex.Matches(pathWFforQuectel.ToLower());
+
+                    if (matches.Count > 0) {
+                        Invoke((MethodInvoker)delegate {
+                            exceptionDialog("Путь не должен содержать русские символы или пробельные символы");
+                            enableStartButton(true);
+                        });
+                        return;
+                    }
+                }
+
+                //Если не указана прошивка ни для контроллера на для модуля Quectel, то выхожу
+                if (String.IsNullOrEmpty(configurationFW.getfwForQuectelName()) & String.IsNullOrEmpty(configurationFW.getFwForMKName())) {
+                    Invoke((MethodInvoker)delegate {
+                        exceptionDialog("В конфигурации не указана прошивка ни для микроконтроллера, ни для модуля Quectel");
+                    });
+                    return;
+                }
+
+                //================================== Перепрошивка модема ===========================================================
                 firmwareWriteStart.Start();
 
-                Board GSM3 = new GSM3_Board(pathToFirwareQuectel, pathToFirwareSTM32);
+                Board GSM3 = new GSM3_Board(pathWFforQuectel, pathWFforMK);
+                
+                //Устанавливаю контроллеру в модеме конфигурационный файл
+                ((GSM3_Board) GSM3).getStm32L412cb().setConfiguration(configurationFW);
 
                 GSM3.Reflash();
 
@@ -133,11 +240,13 @@ namespace GSM_NBIoT_Module {
                 enableStartButton(true);
 
             } catch (Exception ex) {
-                addInLog();               
+                addProgressFlashMKLogInMainLog();               
                 addMessageInMainLog("\n==========================================================================================");
                 addMessageInMainLog("Тип ошибки: " + ex.GetType().ToString());
                 addMessageInMainLog("Метод: " + ex.TargetSite.ToString());
                 addMessageInMainLog("ОШИБКА: " + ex.Message);
+
+                firmwareWriteStart.Stop();
 
                 //включаю кнопку старт
                 enableStartButton(true);
@@ -163,7 +272,10 @@ namespace GSM_NBIoT_Module {
             logBuffer.Append(parseMlsInMMssMls(firmwareWriteStart.ElapsedMilliseconds) + ":    " + mess + Environment.NewLine);
         }
 
-        public static void addInLog() {
+        /// <summary>
+        /// Выводит информацию при перпрошивке микроконтроллера в лог
+        /// </summary>
+        public static void addProgressFlashMKLogInMainLog() {
             flashProcessTxtBoxStatic.Invoke((MethodInvoker) delegate {
                 flashProcessTxtBoxStatic.AppendText(logBuffer.ToString());
             });
@@ -177,6 +289,27 @@ namespace GSM_NBIoT_Module {
             startFlashBtn.Invoke((MethodInvoker) delegate {
                 startFlashBtn.Enabled = stateButton;
             });
+        }
+
+
+        /// <summary>
+        /// Обновляет комбобокс с конфигурациями основоного окна при добавлении новой конфигурации
+        /// </summary>
+        public static void refreshConfigurationCmBox() {
+
+            configurationCmBoxStatic.Items.Clear();
+
+            //Выгрузка конфигурации прошивки
+            ConfigurationFileStorage configuratinFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
+
+            if (configuratinFileStorage.getAllConfigurationFiles().Count() > 0) {
+
+                foreach (ConfigurationFW configuration in configuratinFileStorage.getAllConfigurationFiles()) {
+                    configurationCmBoxStatic.Items.Add(configuration.getName());
+                }
+
+                configurationCmBoxStatic.SelectedIndex = 0;
+            }
         }
 
         /// <summary>
@@ -195,7 +328,7 @@ namespace GSM_NBIoT_Module {
         /// Выводит инофрмацию об ошибке
         /// </summary>
         /// <param name="errorMess"></param>
-        private static void exceptionDialog(string errorMess) {
+        public static void exceptionDialog(string errorMess) {
             MessageBox.Show(
                 errorMess,
                 "Ошибка",
@@ -203,6 +336,35 @@ namespace GSM_NBIoT_Module {
                 MessageBoxIcon.Error,
                 MessageBoxDefaultButton.Button1,
                 MessageBoxOptions.ServiceNotification);
+        }
+
+        public static void successfullyDialog(string mess, string heading) {
+            MessageBox.Show(
+                mess,
+                heading,
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.ServiceNotification);
+        }
+
+        /// <summary>
+        /// Создаёт диалоговое окно да или нет
+        /// </summary>
+        /// <param name="errorMess"></param>
+        /// <param name="heading"></param>
+        /// <returns></returns>
+        public static bool YesOrNoDialog(string errorMess, string heading) {
+            DialogResult result = MessageBox.Show(
+                errorMess,
+                heading,
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.ServiceNotification);
+
+            if (result == DialogResult.Yes) return true;
+            else return false;
         }
 
         /// <summary>
@@ -221,6 +383,55 @@ namespace GSM_NBIoT_Module {
             progressBarFlashingStatic.Invoke((MethodInvoker)delegate {
                 progressBarFlashingStatic.Value = value;
             });
+        }
+
+        private void editConfiguration_Click(object sender, EventArgs e) {
+
+            ConfigurationFileStorage configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
+
+            if (!String.IsNullOrEmpty(configurationFileStorage.getPass())) {
+
+                new Password().Show();
+
+            } else {
+                new ConfigurationFrame().Show();
+            }
+        }
+
+        private void configurationCmBox_SelectedValueChanged(object sender, EventArgs e) {
+
+            configurationTextBox.Clear();
+
+            string selectedConfiguration = configurationCmBox.GetItemText(configurationCmBox.SelectedItem);
+
+            if (!String.IsNullOrEmpty(selectedConfiguration)) {
+
+                ConfigurationFileStorage configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
+
+                ConfigurationFW configurationFW = configurationFileStorage.getConfigurationFile(selectedConfiguration);
+
+                string domenNameOrIPv4 = "";
+
+                if (configurationFW.getSelector() != 0) {
+                    domenNameOrIPv4 = "IP адрес: ";
+                } else {
+                    domenNameOrIPv4 = "Доменное имя: ";
+                }
+
+                configurationTextBox.AppendText("Target_ID = " + configurationFW.getTarget_ID() + Environment.NewLine);
+                configurationTextBox.AppendText(Environment.NewLine);
+                configurationTextBox.AppendText("Protocol_ID = " + configurationFW.getProtocol_ID() + Environment.NewLine);
+                configurationTextBox.AppendText(Environment.NewLine);
+                configurationTextBox.AppendText("Index = " + configurationFW.getIndex() + Environment.NewLine);
+                configurationTextBox.AppendText(Environment.NewLine);
+                configurationTextBox.AppendText("Порт: " + configurationFW.getPort() + Environment.NewLine);
+                configurationTextBox.AppendText(Environment.NewLine);
+                configurationTextBox.AppendText(domenNameOrIPv4 + configurationFW.getDomenName() + Environment.NewLine);
+                configurationTextBox.AppendText(Environment.NewLine);
+                configurationTextBox.AppendText("Имя прошивки микроконтроллера: " + configurationFW.getFwForMKName() + Environment.NewLine);
+                configurationTextBox.AppendText(Environment.NewLine);
+                configurationTextBox.AppendText("Имя прошивки Quectel: " + configurationFW.getfwForQuectelName());
+            }
         }
     }
 }

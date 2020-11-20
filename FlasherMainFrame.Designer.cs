@@ -40,6 +40,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.flashProcessRichTxtBox = new System.Windows.Forms.RichTextBox();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.configurationCmBox = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.editConfiguration = new System.Windows.Forms.Button();
+            this.configurationTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,10 +51,10 @@
             // 
             this.progressBarFlashing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarFlashing.Location = new System.Drawing.Point(97, 592);
+            this.progressBarFlashing.Location = new System.Drawing.Point(12, 592);
             this.progressBarFlashing.Maximum = 1000;
             this.progressBarFlashing.Name = "progressBarFlashing";
-            this.progressBarFlashing.Size = new System.Drawing.Size(878, 39);
+            this.progressBarFlashing.Size = new System.Drawing.Size(963, 39);
             this.progressBarFlashing.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBarFlashing.TabIndex = 0;
             // 
@@ -74,6 +78,7 @@
             this.pathToQuectelFirmwareTextBox.Name = "pathToQuectelFirmwareTextBox";
             this.pathToQuectelFirmwareTextBox.Size = new System.Drawing.Size(807, 29);
             this.pathToQuectelFirmwareTextBox.TabIndex = 2;
+            this.pathToQuectelFirmwareTextBox.Visible = false;
             // 
             // pathToSTM32FirmwareTextBox
             // 
@@ -84,6 +89,7 @@
             this.pathToSTM32FirmwareTextBox.Name = "pathToSTM32FirmwareTextBox";
             this.pathToSTM32FirmwareTextBox.Size = new System.Drawing.Size(807, 29);
             this.pathToSTM32FirmwareTextBox.TabIndex = 3;
+            this.pathToSTM32FirmwareTextBox.Visible = false;
             // 
             // pathToSTM32FirmwareBtn
             // 
@@ -94,6 +100,7 @@
             this.pathToSTM32FirmwareBtn.TabIndex = 4;
             this.pathToSTM32FirmwareBtn.Text = "Выбрать";
             this.pathToSTM32FirmwareBtn.UseVisualStyleBackColor = true;
+            this.pathToSTM32FirmwareBtn.Visible = false;
             this.pathToSTM32FirmwareBtn.Click += new System.EventHandler(this.pathToSTM32FirmwareBtn_Click);
             // 
             // pathToQuectelFirmwareBtn
@@ -105,6 +112,7 @@
             this.pathToQuectelFirmwareBtn.TabIndex = 5;
             this.pathToQuectelFirmwareBtn.Text = "Выбрать";
             this.pathToQuectelFirmwareBtn.UseVisualStyleBackColor = true;
+            this.pathToQuectelFirmwareBtn.Visible = false;
             this.pathToQuectelFirmwareBtn.Click += new System.EventHandler(this.pathToQuectelFirmwareBtn_Click);
             // 
             // label1
@@ -115,6 +123,7 @@
             this.label1.Size = new System.Drawing.Size(193, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "Путь к прошивке микроконтроллера";
+            this.label1.Visible = false;
             // 
             // label2
             // 
@@ -124,13 +133,14 @@
             this.label2.Size = new System.Drawing.Size(173, 13);
             this.label2.TabIndex = 7;
             this.label2.Text = "Путь к прошивке модуля Quectel";
+            this.label2.Visible = false;
             // 
             // modemTypeCmBox
             // 
             this.modemTypeCmBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.modemTypeCmBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.modemTypeCmBox.FormattingEnabled = true;
-            this.modemTypeCmBox.Location = new System.Drawing.Point(12, 47);
+            this.modemTypeCmBox.Location = new System.Drawing.Point(12, 68);
             this.modemTypeCmBox.Name = "modemTypeCmBox";
             this.modemTypeCmBox.Size = new System.Drawing.Size(185, 24);
             this.modemTypeCmBox.TabIndex = 8;
@@ -138,7 +148,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 31);
+            this.label3.Location = new System.Drawing.Point(12, 52);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 13);
             this.label3.TabIndex = 9;
@@ -150,13 +160,56 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flashProcessRichTxtBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.flashProcessRichTxtBox.Location = new System.Drawing.Point(97, 140);
+            this.flashProcessRichTxtBox.Location = new System.Drawing.Point(339, 113);
             this.flashProcessRichTxtBox.Name = "flashProcessRichTxtBox";
             this.flashProcessRichTxtBox.ReadOnly = true;
             this.flashProcessRichTxtBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.flashProcessRichTxtBox.Size = new System.Drawing.Size(1000, 432);
+            this.flashProcessRichTxtBox.Size = new System.Drawing.Size(758, 459);
             this.flashProcessRichTxtBox.TabIndex = 11;
             this.flashProcessRichTxtBox.Text = "";
+            // 
+            // configurationCmBox
+            // 
+            this.configurationCmBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.configurationCmBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.configurationCmBox.FormattingEnabled = true;
+            this.configurationCmBox.Location = new System.Drawing.Point(12, 23);
+            this.configurationCmBox.Name = "configurationCmBox";
+            this.configurationCmBox.Size = new System.Drawing.Size(185, 24);
+            this.configurationCmBox.TabIndex = 12;
+            this.configurationCmBox.SelectedValueChanged += new System.EventHandler(this.configurationCmBox_SelectedValueChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 8);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(80, 13);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Конфигурация";
+            // 
+            // editConfiguration
+            // 
+            this.editConfiguration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.editConfiguration.Location = new System.Drawing.Point(215, 23);
+            this.editConfiguration.Name = "editConfiguration";
+            this.editConfiguration.Size = new System.Drawing.Size(170, 24);
+            this.editConfiguration.TabIndex = 14;
+            this.editConfiguration.Text = "Настройки конфигурации";
+            this.editConfiguration.UseVisualStyleBackColor = true;
+            this.editConfiguration.Click += new System.EventHandler(this.editConfiguration_Click);
+            // 
+            // configurationTextBox
+            // 
+            this.configurationTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.configurationTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.configurationTextBox.Location = new System.Drawing.Point(12, 113);
+            this.configurationTextBox.Multiline = true;
+            this.configurationTextBox.Name = "configurationTextBox";
+            this.configurationTextBox.ReadOnly = true;
+            this.configurationTextBox.Size = new System.Drawing.Size(309, 459);
+            this.configurationTextBox.TabIndex = 15;
             // 
             // Flasher
             // 
@@ -164,6 +217,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1150, 669);
+            this.Controls.Add(this.configurationTextBox);
+            this.Controls.Add(this.editConfiguration);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.configurationCmBox);
             this.Controls.Add(this.flashProcessRichTxtBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pathToQuectelFirmwareTextBox);
@@ -176,6 +233,7 @@
             this.Controls.Add(this.progressBarFlashing);
             this.Controls.Add(this.pathToSTM32FirmwareTextBox);
             this.Name = "Flasher";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Тайпит Flasher";
             this.Load += new System.EventHandler(this.Flasher_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
@@ -198,6 +256,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RichTextBox flashProcessRichTxtBox;
         private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.ComboBox configurationCmBox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button editConfiguration;
+        private System.Windows.Forms.TextBox configurationTextBox;
     }
 }
 

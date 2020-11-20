@@ -12,5 +12,9 @@ namespace GSM_NBIoT_Module.classes {
     public abstract class Controller {
 
         protected string name;
+
+        public abstract void ERASE();
+
+        public abstract void WRITE(string pathToHex);
     }
 }

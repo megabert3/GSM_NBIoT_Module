@@ -1,10 +1,12 @@
 ﻿using GSM_NBIoT_Module.classes.applicationHelper.exceptions;
+using GSM_NBIoT_Module.classes.controllerOnBoard.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 
 namespace GSM_NBIoT_Module.classes {
@@ -19,7 +21,10 @@ namespace GSM_NBIoT_Module.classes {
             base.name = "STM32L412CB";
         }
 
-        //Полная загружаемая прошивка прошивка
+        //Обект конфигурации для прошивки
+        private ConfigurationFW configuration;
+
+        //Полная загружаемая прошивка
         private SortedList<uint, List<byte>> firmwareData;
 
         //Флаг для полной верификации прошивки
@@ -49,6 +54,9 @@ namespace GSM_NBIoT_Module.classes {
 
         //Стартовый адрес записи прошивки в контроллер
         private const uint startAddressForWrite = 0x08000000;
+
+        //Адрес начала конфигурации контроллера
+        private const uint configurationAdress = 0x08000200;
 
         /// <summary>
         /// Список разрешенных команд микроконтроллера
@@ -231,7 +239,7 @@ namespace GSM_NBIoT_Module.classes {
         /// <summary>
         /// Отчистка памяти контроллера (удаление старой прошивки)
         /// </summary>
-        public void ERASE() {
+        public override void ERASE() {
             if (!PortIsOpen()) throw new COMException("COM порт закрыт, откройте COM прот и попробуйте снова");
 
             //Отправляю контроллеру заброс на команду отчистки
@@ -265,7 +273,8 @@ namespace GSM_NBIoT_Module.classes {
             public byte[] data;
         }
 
-        public void WRITE(string pathToHex) {
+        //Старая реализация записи прошивки (без конфигурации, !!!НЕ УДАЛЯТЬ!!! сохранено для информации)
+  /*      public override void WRITE(string pathToHex) {
 
             firmwareData = new SortedList<uint, List<byte>>();
 
@@ -384,6 +393,215 @@ namespace GSM_NBIoT_Module.classes {
                     }
                 }
             }
+        }*/
+
+        public override void WRITE (string pathToHex) {
+            firmwareData = new SortedList<uint, List<byte>>();
+
+            //Строка из HEX файла
+            string line;
+
+            //Адрес записи данных накопившихся в буфере
+            uint writeAddress = 0x08000000;
+
+            //Текущий адрес считываемой линии
+            uint currentAddress = 0x08000000;
+
+            //Предполакаемый адрес линии, который должен быть
+            uint addressOffset = 0x08000000;
+
+            //Структура обработки полученной строки
+            DataInHEX dataInHEX;
+
+            //Буфер даных из прошивки для записи
+            List<byte> buffer = new List<byte>(258);
+
+            //Окрываю файл прошивки и считываю с него данные
+            using (StreamReader hexFileSream = new StreamReader(pathToHex)) {
+
+                while (true) {
+
+                    //Если буфер для записи полон отправляю его к остальным данным для записи
+                    if (buffer.Count == 256) {
+
+                        firmwareData.Add(writeAddress, buffer);
+                        //WriteBufferToMK_AndVerify(writeAddress, buffer);
+
+                        writeAddress += 256;
+
+                        buffer = new List<byte>(258);
+                    }
+
+                    //Считываю строку из HEX файла
+                    line = hexFileSream.ReadLine();
+
+                    //============================================= Если конец файла, то выхожу
+                    if (line == null) {
+                        //Если в буфере остались незаписанные данные то выгружаю их к остальным данным для записи flush
+                        if (buffer.Count != 0) {
+                            firmwareData.Add(writeAddress, buffer);
+                            //WriteBufferToMK_AndVerify(writeAddress, buffer);
+                        }
+
+                        
+                        writeDataInMK();
+
+                        //Если нужна полная верификация
+                        if (fullVerification) {
+                            Flasher.addMessInLogBuffer("\n==========================================================================================");
+                            Flasher.addMessInLogBuffer("Полная проверка записанной прошивки" + Environment.NewLine);
+
+                            fullVerificationFirmwareInMK();
+
+                            Flasher.addMessInLogBuffer("\n==========================================================================================");
+                            Flasher.addMessInLogBuffer("Верификация прошивки прошла успешно" + Environment.NewLine);
+                        }
+
+                        break;
+                    }
+
+                    //Убираю знак ":"
+                    line = line.Substring(1);
+
+                    //Получаю из стринг строки массив байт (конвертиру str байты в байты)
+                    byte[] dataLineToArr = StringToByteArray(line);
+
+                    //Если строка на запись (см. формат формирования строки HEX файла)
+                    if (dataLineToArr[3] == 0x00) {
+
+                        //Получаю адрес, байты для записи и количество байт для записи
+                        dataInHEX = ParseByteLineHEX(dataLineToArr);
+
+                        //Обновляю текущий адрес считывания
+                        currentAddress = dataInHEX.address;
+
+                        //Если следующий адрес равен тому, который должен быть (Проверка на разрыв)
+                        if (currentAddress == addressOffset) {
+
+                            //Задаю новый адрес смещения в зависимости от кол-ва принятых байт
+                            addressOffset = dataInHEX.address + dataInHEX.amountDataByte;
+
+                            //Если место в буфере есть, то записываю данные
+                            if (buffer.Count + dataInHEX.amountDataByte <= 256) {
+
+                                buffer.AddRange(dataInHEX.data);
+
+                                //Если в буфере нет места
+                            } else {
+
+                                //Создаю индекс для передачи
+                                byte i = 0;
+
+                                //Записываю часть, которая влезет в буфер
+                                while (buffer.Count < 256) {
+                                    buffer.Add(dataInHEX.data[i]);
+                                    i++;
+                                }
+
+                                //Выгружаю данный буфер в МК
+                                firmwareData.Add(writeAddress, buffer);
+                                //WriteBufferToMK_AndVerify(writeAddress, buffer);
+
+                                buffer = new List<byte>(258);
+
+                                writeAddress = currentAddress - i;
+
+                                //Догружаю в буфер оставшиеся байты
+                                for (int j = i; j < dataInHEX.data.Length; j++) {
+
+                                    buffer.Add(dataInHEX.data[j]);
+                                }
+                            }
+                            // Если предполагаемый адрес не равен текущему адресу (Разрыв)
+                        } else {
+
+                            //Выгружаю всё что было до этого в буфере в контроллер
+                            firmwareData.Add(writeAddress, buffer);
+                            //WriteBufferToMK_AndVerify(writeAddress, buffer);
+
+                            buffer = new List<byte>(258);
+                            writeAddress = dataInHEX.address;
+                            addressOffset = dataInHEX.address + dataInHEX.amountDataByte;
+                            buffer.AddRange(dataInHEX.data);
+                        }
+
+                        //============================================================ Конфигурация прошивки (записывается при чтении файла прошивки)
+                        //Если адрес равен адресу с которого необходимо начать запись конфигурации модема
+                        if (currentAddress == configurationAdress) {
+
+                            //Считываю номер версии и имя прошивки (данные записаные в загружаемой прошивке)
+                            byte[] dataNverAndFrimfareName = dataInHEX.data;
+
+                            //Номер версии
+                            byte Nver = dataNverAndFrimfareName[0];
+                            //Имя прошивки в байтах
+                            byte[] FWnameByte = new byte[5];
+                            //Заполняю массив именем прошивки
+                            Array.Copy(dataNverAndFrimfareName, 1, FWnameByte, 0, FWnameByte.Length);
+
+                            //Конвертирую байты в str имя прошивки
+                            string FWName = Encoding.GetEncoding("ASCII").GetString(FWnameByte);
+
+                            //Сравниваю имя загружаемой прошивки с тем, которое указано в самой прошивке
+                            if (!FWName.Equals(Path.GetFileNameWithoutExtension(pathToHex))) throw new MKCommandException("Имя файла прошивки не соответствует заложенной в HEX файле");
+
+                            //Получаю адрес следующей строки в HEX файле
+                            string nextLine = hexFileSream.ReadLine();
+
+                            //Получаю из неё адрес (пошаговые преобразования изложены выше в ходе выполнения функции)
+                            dataInHEX = ParseByteLineHEX(StringToByteArray(nextLine.Substring(1)));
+
+                            //Да
+                            uint nextAddress = dataInHEX.address;
+
+                            //Получаю размер пустой области в прошивке
+                            int sizeForConfiguration = (int)(nextAddress - configurationAdress);
+
+                            //Получаю байты конфигурации, которые необходимо записать в записываемую прошивку
+                            byte[] configurationBytes = configuration.formationOfConfigurationData(Nver, sizeForConfiguration, dataNverAndFrimfareName);
+
+                            //Добавляю полученные в результате конфигурации байты в буфер
+                            //Если место в буфере есть, то записываю данные
+                            if (buffer.Count + configurationBytes.Length <= 256) {
+
+                                buffer.AddRange(configurationBytes);
+
+                                //Если в буфере нет места
+                            } else {
+
+                                //Создаю индекс для передачи
+                                byte i = 0;
+
+                                //Записываю часть, которая влезет в буфер
+                                while (buffer.Count < 256) {
+                                    buffer.Add(configurationBytes[i]);
+                                    i++;
+                                }
+
+                                //Выгружаю данный буфер в МК
+                                firmwareData.Add(writeAddress, buffer);
+                                //WriteBufferToMK_AndVerify(writeAddress, buffer);
+
+                                buffer = new List<byte>(258);
+
+                                writeAddress = currentAddress - i;
+
+                                //Догружаю в буфер оставшиеся байты
+                                for (int j = i; j < configurationBytes.Length; j++) {
+
+                                    buffer.Add(configurationBytes[j]);
+                                }
+                            }
+
+                            //Смещаю адрес на значение конфигурации
+                            addressOffset = currentAddress + (uint)configurationBytes.Length;
+
+                            //Выставляю значения учитывая уже считанную линию
+                            currentAddress = dataInHEX.address;
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -417,6 +635,20 @@ namespace GSM_NBIoT_Module.classes {
             return dataInHEX;
         }
 
+        private void writeDataInMK() {
+            if (firmwareData.Count != 0) {
+
+                foreach (KeyValuePair<uint, List<byte>> fwBuff in firmwareData) {
+
+                    uint address = fwBuff.Key;
+                    List<byte> buffData = fwBuff.Value;
+
+                    WriteBufferToMK_AndVerify(address, buffData);
+                }
+            }
+        }
+
+
        /// <summary>
        /// Отправляет буфер данных в МК
        /// </summary>
@@ -425,7 +657,7 @@ namespace GSM_NBIoT_Module.classes {
         private void WriteBufferToMK_AndVerify(uint address, List<byte> buffer) {
 
             //Добавляю этот блок записанных данных в основную мапу прошивки (Необходимо для полной верификации)
-            firmwareData.Add(address, buffer);
+            //firmwareData.Add(address, buffer);
 
             //Даю контроллеру запрос на запись данных
             sendDataInCOM(true, 0x31, 0xCE);
@@ -444,7 +676,7 @@ namespace GSM_NBIoT_Module.classes {
             //Добавляю XOR сумму
             addressAndxOR[addressArr.Length] = xorSummAddress;
 
-            Flasher.addMessInLogBuffer("Запрашиваю запись буффера №" + firmwareData.Count + " в адрес " + Convert.ToString(address, 16));
+            //Flasher.addMessInLogBuffer("Запрашиваю запись буффера №" + firmwareData.Count + " в адрес " + Convert.ToString(address, 16));
             //Отправляю запрос на запись в адрес
             sendDataInCOM(true, addressAndxOR);
 
@@ -462,7 +694,6 @@ namespace GSM_NBIoT_Module.classes {
             //Записываю буффер байт в контроллер
             Flasher.addMessInLogBuffer("Записываю буфер размером " + buffer.Count + " байт");
             sendDataInCOM(true, byteDataOfSend.ToArray());
-            
 
             //Получаю байты, которые записались в МК
             Flasher.addMessInLogBuffer("Проверяю данные записанные в контроллер");
@@ -514,7 +745,7 @@ namespace GSM_NBIoT_Module.classes {
         }
 
         /// <summary>
-        /// Производить полную проверку записанной прошивки в МК
+        /// Производить полную проверку записанной прошивки в микроконтроллере
         /// </summary>
         private void fullVerificationFirmwareInMK() {
 
@@ -580,12 +811,12 @@ namespace GSM_NBIoT_Module.classes {
 
                     if (data == NACK) throw new MKCommandException("Не удалось выполнить команду (NACK)");
 
-                    dataOutPort.Add((byte) data);
-
                     //Если ответ один только ACK
                     if (onlyAck) {
                         if (data == ACK) return dataOutPort;
                     }
+
+                    dataOutPort.Add((byte)data);
                 }
 
                 if (dataOutPort.Count() > 1) {
@@ -669,10 +900,17 @@ namespace GSM_NBIoT_Module.classes {
 
                     XORsumm = (byte)(a ^ b);
                 }
-
             }
 
             return XORsumm;
-        }          
+        }
+
+        /// <summary>
+        /// Устанавливает конфигурационный файл для прошивки
+        /// </summary>
+        /// <param name="configuration"></param>
+        public void setConfiguration(ConfigurationFW configuration) {
+            this.configuration = configuration;
+        }
     }
 }
