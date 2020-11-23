@@ -569,8 +569,8 @@ namespace GSM_NBIoT_Module.classes {
                             //Получаю байты конфигурации, которые необходимо записать в записываемую прошивку
                             byte[] configurationBytes = configuration.formationOfConfigurationData(Nver, sizeForConfiguration, dataNverAndFrimfareName);
 
+                            //Имя и сценарий записи уже в буфере
                             //Добавляю полученные в результате конфигурации байты в буфер
-                            //Если место в буфере есть, то записываю данные
                             if (buffer.Count + configurationBytes.Length <= 256) {
 
                                 buffer.AddRange(configurationBytes);
@@ -601,7 +601,20 @@ namespace GSM_NBIoT_Module.classes {
                                 }
                             }
 
-                            //Выружаю байты уже считанной строки, которую считал для того, чтобы узнать размер области для записи конфигурации
+                            //Преверяю наличие разрыва между записанными конфигурационными байтами и следующей строчкой записи
+                            if ((configurationAdress + configurationBytes.Length + dataNverAndFrimfareName.Length) != dataInHEX.address) {
+
+                                firmwareData.Add(writeAddress, buffer);
+
+                                buffer = new List<byte>(258);
+                                writeAddress = dataInHEX.address;
+                                addressOffset = dataInHEX.address + dataInHEX.amountDataByte;
+                                buffer.AddRange(dataInHEX.data);
+
+                                continue;
+                            }
+
+                            //Выгружаю байты уже считанной строки, которую считал для того, чтобы узнать размер области для записи конфигурации
                             if (buffer.Count + dataInHEX.data.Length <= 256) {
 
                                 buffer.AddRange(dataInHEX.data);

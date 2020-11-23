@@ -250,12 +250,9 @@ namespace GSM_NBIoT_Module {
                                     MessageBoxDefaultButton.Button1,
                                     MessageBoxOptions.ServiceNotification);
 
-                if (res == DialogResult.Yes) answer = true;
-
-                try {
-
-                } catch (ArgumentOutOfRangeException) {
-                    return;
+                if (res == DialogResult.Yes) {
+                    res = DialogResult.None;
+                    answer = true;
                 }
 
                 if (answer) {
@@ -267,9 +264,9 @@ namespace GSM_NBIoT_Module {
 
                     Flasher.refreshConfigurationCmBox();
 
-                    this.WindowState = FormWindowState.Normal;
                 }
 
+                this.WindowState = FormWindowState.Normal;
             }
         }
 

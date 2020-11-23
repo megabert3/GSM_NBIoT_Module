@@ -176,7 +176,7 @@ namespace GSM_NBIoT_Module.classes {
                 Flasher.addMessageInMainLog("Добавочный порт GPIO_0 = true, GPIO_1 = true");
                 Flasher.setValuePogressBarFlashingStatic(995);
 
-                cp2105.WriteGPIOStageAndSetFlags(standart, false, true, true, 100);
+                cp2105.WriteGPIOStageAndSetFlags(standart, true, true, true, 100);
                 Flasher.addMessageInMainLog("Стандартный порт GPIO_0 = true, GPIO_1 = true, GPIO_2 = true" + Environment.NewLine);
 
 
