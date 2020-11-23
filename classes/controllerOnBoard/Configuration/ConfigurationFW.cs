@@ -7,13 +7,18 @@ using System.Threading.Tasks;
 
 namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
 
+    /// <summary>
+    /// Данный класс выполняет фун-ции конфигурирования прошивки микроконтроллера.
+    /// В прошивку в процессе записи добавляются необходимые параметры
+    /// </summary>
     [Serializable]
     public class ConfigurationFW {
 
         //Имя конфигурации (наименование счётчика для которого эта кнофигурация)
         private string name;
-
-        //Параметры конфигурации (Подробнее к Сергею)
+        
+        //================================================= Параметры конфигурации прошивки
+        //Подробнее в файле general_id (спрашивать у Сергея Васильева)
         private byte Target_ID;
         private byte Index;
         private byte Protocol_ID;
@@ -30,9 +35,24 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
         private string fwForMKName ="";
         private string fwForQuectelName = "";
 
+        //Для информации типы селекторов
         private byte selectorIPv4 = 0x01; //IPv4
         private byte selectorIPv6 = 0x02; //IPv6
 
+        /// <summary>
+        /// Создаёт конфигурационный файл с параметрами конфигурации
+        /// </summary>
+        /// <param name="name">Имя конфигурации</param>
+        /// <param name="Target_ID"></param>
+        /// <param name="Index"></param>
+        /// <param name="Protocol_ID"></param>
+        /// <param name="eGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit"></param>
+        /// <param name="port"></param>
+        /// <param name="selector"></param>
+        /// <param name="domenName"></param>
+        /// <param name="domenNameByteArr"></param>
+        /// <param name="fwForMKName"></param>
+        /// <param name="fwForQuectelName"></param>
         public ConfigurationFW(string name, byte Target_ID, byte Index, byte Protocol_ID, bool eGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit,
             ushort port, byte selector, string domenName, byte[] domenNameByteArr, string fwForMKName, string fwForQuectelName) {
 
@@ -50,10 +70,10 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
         }
         
         /// <summary>
-        /// Данный метод формирует конфигурацию для прошивки модема во время записи прошивки
+        /// Формирует конфигурацию для прошивки модема во время записи прошивки согласно выбранным пользователем параметрам
         /// </summary>
-        /// <param name="numbConfigScript"></param>
-        /// <param name="freeSpace"></param>
+        /// <param name="numbConfigScript">Номер скрипта формирования конфигурационных байтов</param>
+        /// <param name="freeSpace">Размер свободного места для записи</param>
         /// <returns></returns>
         public byte[] formationOfConfigurationData(byte numbConfigScript, int freeSpace, byte[] verIDAndFW_Name) {
 
@@ -64,16 +84,15 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
                 case 3: {
                         if (freeSpace < 64) throw new MKCommandException("Недостаточно места для записи выбранного сценария");
 
-                        configList = new List<byte>(64);
-
-                        //сценарий и имя проивки сразу переношу сюда
-                        configList.AddRange(verIDAndFW_Name);
+                        //Имя и номер конфигурации уже записаны в буфер
+                        configList = new List<byte>(64 - verIDAndFW_Name.Length);
 
                         //Формирую дженерал ID. Я хз зачем он нужен, посмотрел в другой программе - это просто счётчик
                         byte[] arrGeneralID = BitConverter.GetBytes(Flasher.general_ID_Nmb);
                         Array.Reverse(arrGeneralID);
 
                         configList.AddRange(arrGeneralID);
+                        //Инкрементирую для уникальности General_ID
                         Flasher.general_ID_Nmb += 1;
 
                         //Формирую байт десятилетия
@@ -132,7 +151,7 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
                         }
 
                         //Заполняю оставшееся место в листе 0x00
-                        for (int i = configList.Count; i < 64; i++) {
+                        for (int i = configList.Count; i < 64 - verIDAndFW_Name.Length; i++) {
 
                             configList.Add(0x00);
                         }

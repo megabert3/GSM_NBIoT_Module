@@ -14,6 +14,8 @@ namespace GSM_NBIoT_Module.classes {
     /// <summary>
     /// Контроллер STM32L412CB выполнеяет функцию обработки полученных данных с модуля
     ///https://www.st.com/en/microcontrollers-microprocessors/stm32l412cb.html
+    ///
+    /// Запись реализована с помощью команд BootLoader'a подробнее см. в файлах программы.
     /// </summary>
     public class STM32L412CB_Controller : Controller {
 
@@ -21,15 +23,16 @@ namespace GSM_NBIoT_Module.classes {
             base.name = "STM32L412CB";
         }
 
-        //Обект конфигурации для прошивки
+        //Обект конфигурации для прошивки контроллера
         private ConfigurationFW configuration;
 
-        //Полная загружаемая прошивка
+        //Полная загружаемая прошивка, сформированная в буферы по 256 байт (key<address>, value<buffer(256)>)
         private SortedList<uint, List<byte>> firmwareData;
 
-        //Флаг для полной верификации прошивки
+        //Необходимо ли сделать полную верификацию прошивки?
         private bool fullVerification = true;
 
+        //Получаю объект связи с контроллером
         private CP2105_Connector CP2105_Connector = CP2105_Connector.GetCP2105_ConnectorInstance();
 
         private SerialPort serialPort = new SerialPort();
@@ -55,11 +58,11 @@ namespace GSM_NBIoT_Module.classes {
         //Стартовый адрес записи прошивки в контроллер
         private const uint startAddressForWrite = 0x08000000;
 
-        //Адрес начала конфигурации контроллера
+        //Адрес начала конфигурации прошивики
         private const uint configurationAdress = 0x08000200;
 
         /// <summary>
-        /// Список разрешенных команд микроконтроллера
+        /// Список разрешенных команд bootloadera микроконтроллера
         /// </summary>
         public struct Commands {
             public bool GET_CMD;                    //Get the version and the allowed commands supported by the current version of the boot loader
@@ -79,10 +82,10 @@ namespace GSM_NBIoT_Module.classes {
         /// <summary>
         /// Открывает COM порт с параметрами
         /// </summary>
-        /// <param name="NmbPort"></param>
-        /// <param name="bandRate"></param>
-        /// <param name="parity"></param>
-        /// <param name="dataBits"></param>
+        /// <param name="NmbPort">Номер порта</param>
+        /// <param name="bandRate">Скорость передачи</param>
+        /// <param name="parity">Четность</param>
+        /// <param name="dataBits">Число стоповых битов</param>
         public void OpenSerialPort(int NmbPort, int bandRate, Parity parity, int dataBits, StopBits stopBit) {
             serialPort.PortName = "COM" + NmbPort;
             serialPort.BaudRate = bandRate;
@@ -115,10 +118,14 @@ namespace GSM_NBIoT_Module.classes {
         /// </summary>
         public void ClosePort() {
             serialPort.Close();
+
+            if (serialPort.IsOpen) {
+                throw new COMException("Не удалось закрыть COM порт " + serialPort.PortName);
+            }
         }
 
         /// <summary>
-        /// Получает список доступных команд для Контроллера
+        /// Получает список доступных команд для bootloadera микроконтроллера
         /// </summary>
         /// <returns></returns>
         public Commands GET() {
@@ -249,12 +256,18 @@ namespace GSM_NBIoT_Module.classes {
             sendDataInCOM(true, 0xFF, 0xFF, 0x00);
         }
 
+        /// <summary>
+        /// Инациализация скорости для обмена данными с контроллером
+        /// </summary>
         public void INIT() {
             if (!PortIsOpen()) throw new COMException("COM порт закрыт, откройте COM прот и попробуйте снова");
 
             sendDataInCOM(false, 0x7F);
         }
 
+        /// <summary>
+        /// Выход из состояния boot'a и переход к выполнению программы прошивки
+        /// </summary>
         public void GO() {
             if (!PortIsOpen()) throw new COMException("COM порт закрыт, откройте COM прот и попробуйте снова");
 
@@ -263,7 +276,7 @@ namespace GSM_NBIoT_Module.classes {
         }
 
 
-        //Структура, необходимая для возврата данных из распарсенной строчки HEX файла
+        //Структура, необходимая для возврата данных из распарсенной строчки HEX файла, формат строки HEX файла см. в интернете
         struct DataInHEX {
             //Адрес данных в строке
             public uint address;
@@ -407,13 +420,13 @@ namespace GSM_NBIoT_Module.classes {
             //Текущий адрес считываемой линии
             uint currentAddress = 0x08000000;
 
-            //Предполакаемый адрес линии, который должен быть
+            //Предполагаемый адрес линии, который должен быть (адрес смещения)
             uint addressOffset = 0x08000000;
 
             //Структура обработки полученной строки
             DataInHEX dataInHEX;
 
-            //Буфер даных из прошивки для записи
+            //Буфер даных для записи в МК
             List<byte> buffer = new List<byte>(258);
 
             //Окрываю файл прошивки и считываю с него данные
@@ -425,8 +438,8 @@ namespace GSM_NBIoT_Module.classes {
                     if (buffer.Count == 256) {
 
                         firmwareData.Add(writeAddress, buffer);
-                        //WriteBufferToMK_AndVerify(writeAddress, buffer);
 
+                        //Адрес записи следующего буфера увеличиваю на размер сформированного буфера
                         writeAddress += 256;
 
                         buffer = new List<byte>(258);
@@ -440,17 +453,16 @@ namespace GSM_NBIoT_Module.classes {
                         //Если в буфере остались незаписанные данные то выгружаю их к остальным данным для записи flush
                         if (buffer.Count != 0) {
                             firmwareData.Add(writeAddress, buffer);
-                            //WriteBufferToMK_AndVerify(writeAddress, buffer);
                         }
 
-                        
+                        //Записываю распарсенную и сконфигурированную прошивку в МК
                         writeDataInMK();
 
                         //Если нужна полная верификация
                         if (fullVerification) {
                             Flasher.addMessInLogBuffer("\n==========================================================================================");
                             Flasher.addMessInLogBuffer("Полная проверка записанной прошивки" + Environment.NewLine);
-
+                            
                             fullVerificationFirmwareInMK();
 
                             Flasher.addMessInLogBuffer("\n==========================================================================================");
@@ -500,7 +512,6 @@ namespace GSM_NBIoT_Module.classes {
 
                                 //Выгружаю данный буфер в МК
                                 firmwareData.Add(writeAddress, buffer);
-                                //WriteBufferToMK_AndVerify(writeAddress, buffer);
 
                                 buffer = new List<byte>(258);
 
@@ -517,7 +528,6 @@ namespace GSM_NBIoT_Module.classes {
 
                             //Выгружаю всё что было до этого в буфере в контроллер
                             firmwareData.Add(writeAddress, buffer);
-                            //WriteBufferToMK_AndVerify(writeAddress, buffer);
 
                             buffer = new List<byte>(258);
                             writeAddress = dataInHEX.address;
@@ -551,7 +561,6 @@ namespace GSM_NBIoT_Module.classes {
                             //Получаю из неё адрес (пошаговые преобразования изложены выше в ходе выполнения функции)
                             dataInHEX = ParseByteLineHEX(StringToByteArray(nextLine.Substring(1)));
 
-                            //Да
                             uint nextAddress = dataInHEX.address;
 
                             //Получаю размер пустой области в прошивке
@@ -580,7 +589,6 @@ namespace GSM_NBIoT_Module.classes {
 
                                 //Выгружаю данный буфер в МК
                                 firmwareData.Add(writeAddress, buffer);
-                                //WriteBufferToMK_AndVerify(writeAddress, buffer);
 
                                 buffer = new List<byte>(258);
 
@@ -593,8 +601,39 @@ namespace GSM_NBIoT_Module.classes {
                                 }
                             }
 
-                            //Смещаю адрес на значение конфигурации
-                            addressOffset = currentAddress + (uint)configurationBytes.Length;
+                            //Выружаю байты уже считанной строки, которую считал для того, чтобы узнать размер области для записи конфигурации
+                            if (buffer.Count + dataInHEX.data.Length <= 256) {
+
+                                buffer.AddRange(dataInHEX.data);
+
+                                //Если в буфере нет места
+                            } else {
+
+                                //Создаю индекс для передачи
+                                byte i = 0;
+
+                                //Записываю часть, которая влезет в буфер
+                                while (buffer.Count < 256) {
+                                    buffer.Add(dataInHEX.data[i]);
+                                    i++;
+                                }
+
+                                //Выгружаю данный буфер в МК
+                                firmwareData.Add(writeAddress, buffer);
+
+                                buffer = new List<byte>(258);
+
+                                writeAddress = currentAddress - i;
+
+                                //Догружаю в буфер оставшиеся байты
+                                for (int j = i; j < dataInHEX.data.Length; j++) {
+
+                                    buffer.Add(dataInHEX.data[j]);
+                                }
+                            }
+
+                            //Смещаю адрес на значение конфигурации и считанной строки
+                            addressOffset = currentAddress + (uint) (configurationBytes.Length + dataNverAndFrimfareName.Length + dataInHEX.amountDataByte);
 
                             //Выставляю значения учитывая уже считанную линию
                             currentAddress = dataInHEX.address;
@@ -635,26 +674,34 @@ namespace GSM_NBIoT_Module.classes {
             return dataInHEX;
         }
 
+        /// <summary>
+        /// Производит запись распарсенных данных из файла в микроконтроллер
+        /// </summary>
         private void writeDataInMK() {
             if (firmwareData.Count != 0) {
 
                 foreach (KeyValuePair<uint, List<byte>> fwBuff in firmwareData) {
+                    //Номер буфера
+                    int i = 1;
 
                     uint address = fwBuff.Key;
                     List<byte> buffData = fwBuff.Value;
 
-                    WriteBufferToMK_AndVerify(address, buffData);
+                    WriteBufferToMK_AndVerify(address, buffData, i);
+
+                    i++;
                 }
             }
         }
 
 
-       /// <summary>
-       /// Отправляет буфер данных в МК
-       /// </summary>
-       /// <param name="address">Адрес куда записать</param>
-       /// <param name="buffer">Сами данные (что записывать)</param>
-        private void WriteBufferToMK_AndVerify(uint address, List<byte> buffer) {
+        /// <summary>
+        /// Отправляет буфер данных в МК
+        /// </summary>
+        /// <param name="address">Адрес куда записать</param>
+        /// <param name="buffer">Сами данные (что записывать)</param>
+        /// <param name="i">Номер буфера</param>
+        private void WriteBufferToMK_AndVerify(uint address, List<byte> buffer, int k) {
 
             //Добавляю этот блок записанных данных в основную мапу прошивки (Необходимо для полной верификации)
             //firmwareData.Add(address, buffer);
@@ -676,7 +723,7 @@ namespace GSM_NBIoT_Module.classes {
             //Добавляю XOR сумму
             addressAndxOR[addressArr.Length] = xorSummAddress;
 
-            //Flasher.addMessInLogBuffer("Запрашиваю запись буффера №" + firmwareData.Count + " в адрес " + Convert.ToString(address, 16));
+            Flasher.addMessInLogBuffer("Запрашиваю запись буффера №" + k + " в адрес " + Convert.ToString(address, 16));
             //Отправляю запрос на запись в адрес
             sendDataInCOM(true, addressAndxOR);
 

@@ -235,26 +235,41 @@ namespace GSM_NBIoT_Module {
         }
 
         private void deleteConfigurationBtn_Click(object sender, EventArgs e) {
+
             if (configurationListView.Items.Count > 0) {
 
+                bool answer = false;
+
+                string conficurationName = configurationListView.SelectedItems[0].Text;
+
+                DialogResult res = MessageBox.Show(
+                                    "Удалить конфигурацию под названием: " + conficurationName + "?",
+                                    "Удаление конфигурации",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Question,
+                                    MessageBoxDefaultButton.Button1,
+                                    MessageBoxOptions.ServiceNotification);
+
+                if (res == DialogResult.Yes) answer = true;
+
                 try {
-                    string conficurationName = configurationListView.SelectedItems[0].Text;
-
-                    if (Flasher.YesOrNoDialog("Удалить конфигурацию под названием: " + conficurationName + "?",
-                        "Удаление конфигурации")) {
-
-                        configurationFileStorage.removeConfigurateFileInStorage(conficurationName);
-
-                        ConfigurationFileStorage.serializeConfigurationFileStorage();
-
-                        refreshListView();
-
-                        Flasher.refreshConfigurationCmBox();
-                    }
 
                 } catch (ArgumentOutOfRangeException) {
                     return;
                 }
+
+                if (answer) {
+                    configurationFileStorage.removeConfigurateFileInStorage(conficurationName);
+
+                    ConfigurationFileStorage.serializeConfigurationFileStorage();
+
+                    refreshListView();
+
+                    Flasher.refreshConfigurationCmBox();
+
+                    this.WindowState = FormWindowState.Normal;
+                }
+
             }
         }
 

@@ -99,13 +99,14 @@ namespace GSM_NBIoT_Module {
         }
 
         private void reflashGSM3Modem() {
+            //Лог буфер для логов прошивки микроконтроллера
             logBuffer = new StringBuilder();
 
             try {
                 //Отключаю кнопку старт
                 enableStartButton(false);
 
-                // Передаю конфиурационный файл
+                //============================================================= Передаю выбранный конфиурационный файл
                 string selectedConfiguration = "";
 
                 Invoke((MethodInvoker)delegate {
@@ -131,7 +132,7 @@ namespace GSM_NBIoT_Module {
                     return;
                 }
 
-                //Пути для перепрошивки
+                //Пути к файлам с прошивкой для модуля Quectel и Микроконтроллера
                 string pathWFforQuectel = "";
                 string pathWFforMK = "";
 
@@ -148,21 +149,12 @@ namespace GSM_NBIoT_Module {
                         });
                         return;
                     }
-                        
-                    //То проверяю её наличие в нужной папке созданной программой
-                    if (!File.Exists(Directory.GetCurrentDirectory() + "\\StorageMKFW" + "\\" + configurationFW.getFwForMKName() + ".hex")) {
-                        Invoke((MethodInvoker)delegate {
-                            exceptionDialog("Программе не удалось найти файл с прошивкой для микроконтроллера " + "\"" + configurationFW.getFwForMKName() + "\"");
-                            enableStartButton(true);
-                        });
-                        return;
-                    }
 
                     pathWFforMK = Directory.GetCurrentDirectory() + "\\StorageMKFW" + "\\" + configurationFW.getFwForMKName() + ".hex";
-                    //Тупой мув, но потом доработаю это
-                    if (!pathWFforMK.EndsWith(".hex")) {
+                    //То проверяю её наличие в нужной папке созданной программой
+                    if (!File.Exists(pathWFforMK)) {
                         Invoke((MethodInvoker)delegate {
-                            exceptionDialog("Неверное расширение файла прошивки микроконтроллера");
+                            exceptionDialog("Программе не удалось найти файл с прошивкой для микроконтроллера " + "\"" + configurationFW.getFwForMKName() + "\"");
                             enableStartButton(true);
                         });
                         return;
@@ -182,20 +174,11 @@ namespace GSM_NBIoT_Module {
                         return;
                     }
 
+                    pathWFforQuectel = Directory.GetCurrentDirectory() + "\\StorageQuectelFW" + "\\" + configurationFW.getfwForQuectelName() + ".lod";
                     //То проверяю её наличие в нужной папке созданной программой
-                    if (!File.Exists(Directory.GetCurrentDirectory() + "\\StorageQuectelFW" + "\\" + configurationFW.getfwForQuectelName() + ".lod")) {
+                    if (!File.Exists(pathWFforQuectel)) {
                         Invoke((MethodInvoker)delegate {
                             exceptionDialog("Программе не удалось найти файл с прошивкой для модуля Quectel " + "\"" + configurationFW.getfwForQuectelName() + "\"");
-                            enableStartButton(true);
-                        });
-                        return;
-                    }
-
-                    pathWFforQuectel = Directory.GetCurrentDirectory() + "\\StorageQuectelFW" + "\\" + configurationFW.getfwForQuectelName() + ".lod";
-                    //Тупой мув, но потом доработаю это
-                    if (!pathWFforQuectel.EndsWith(".lod")) {
-                        Invoke((MethodInvoker)delegate {
-                            exceptionDialog("Неверное расширение файла прошивки для модуля Quectel");
                             enableStartButton(true);
                         });
                         return;
@@ -230,6 +213,7 @@ namespace GSM_NBIoT_Module {
                 //Устанавливаю контроллеру в модеме конфигурационный файл
                 ((GSM3_Board) GSM3).getStm32L412cb().setConfiguration(configurationFW);
 
+                //Перепрошиваю
                 GSM3.Reflash();
 
                 firmwareWriteStart.Stop();
@@ -355,7 +339,9 @@ namespace GSM_NBIoT_Module {
         /// <param name="heading"></param>
         /// <returns></returns>
         public static bool YesOrNoDialog(string errorMess, string heading) {
-            DialogResult result = MessageBox.Show(
+            bool result;
+
+            DialogResult res = MessageBox.Show(
                 errorMess,
                 heading,
                 MessageBoxButtons.YesNo,
@@ -363,8 +349,11 @@ namespace GSM_NBIoT_Module {
                 MessageBoxDefaultButton.Button1,
                 MessageBoxOptions.ServiceNotification);
 
-            if (result == DialogResult.Yes) return true;
-            else return false;
+            if (res == DialogResult.Yes) {
+                result = true;
+            } else result = false;
+
+            return result;                
         }
 
         /// <summary>

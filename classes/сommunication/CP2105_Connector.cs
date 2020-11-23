@@ -34,11 +34,17 @@ namespace GSM_NBIoT_Module.classes {
         private bool stageGPIO_1;
         private bool stageGPIO_2;
 
+        /// <summary>
+        /// Структура состояния GPIO у добавочного порта
+        /// </summary>
         public struct StateGPIO_OnEnhabcedPort {
             public bool stageGPIO_0;
             public bool stageGPIO_1;
         }
 
+        /// <summary>
+        /// Структура состояния GPIO у стандартного порта
+        /// </summary>
         public struct StateGPIO_OnStandartPort {
             public bool stageGPIO_0;
             public bool stageGPIO_1;
@@ -138,13 +144,13 @@ namespace GSM_NBIoT_Module.classes {
         /// </summary>
         /// <returns></returns>
         public StateGPIO_OnStandartPort GetStageGPIOStandartPort() {
-            if (standartPort != 0) {
+            if (standartPort == 0) {
                 FindDevicePorts();
             }
 
             StateGPIO_OnStandartPort stateGPIO_OnStandartPort = new StateGPIO_OnStandartPort();
 
-            ReadGPIOStageAndSetFlags(enhabcedPort);
+            ReadGPIOStageAndSetFlags(standartPort);
 
             stateGPIO_OnStandartPort.stageGPIO_0 = stageGPIO_0;
             stateGPIO_OnStandartPort.stageGPIO_1 = stageGPIO_1;
@@ -306,7 +312,7 @@ namespace GSM_NBIoT_Module.classes {
         }
 
         /// <summary>
-        /// В зависимости от переданнаваемого состояния ножек возвращает значение которое необходимо передать в CP2105
+        /// В зависимости от переданнаваемого состояния ножек возвращает значение, которое необходимо передать в CP2105
         /// </summary>
         /// <param name="stageGPIO_0"></param>
         /// <param name="stageGPIO_1"></param>

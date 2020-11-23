@@ -1,15 +1,8 @@
 ﻿using GSM_NBIoT_Module.classes.applicationHelper.exceptions;
-using GSM_NBIoT_Module.classes.controllerOnBoard.Configuration;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 using static GSM_NBIoT_Module.classes.CP2105_Connector;
 
 namespace GSM_NBIoT_Module.classes {
@@ -153,6 +146,7 @@ namespace GSM_NBIoT_Module.classes {
 
                     Flasher.addMessageInMainLog("Начинаю запись" + Environment.NewLine);
                     stm32L412cb.WRITE(pathToFirmware_STM32L412CB);
+
                     //Выгружаю всё, что было в буфере при прошивке контроллера
                     Flasher.addProgressFlashMKLogInMainLog();
 
@@ -166,7 +160,7 @@ namespace GSM_NBIoT_Module.classes {
 
                     stm32L412cb.ClosePort();
 
-                    Thread.Sleep(200);
+                    Thread.Sleep(100);
 
                 } catch (Exception) {
                     Flasher.addProgressFlashMKLogInMainLog();

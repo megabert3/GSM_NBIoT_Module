@@ -9,23 +9,33 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
-
+    /// <summary>
+    /// Данный класс выполняет роль хранилища для создаваемых конфигураций микроконтроллера (class ConfigurationFW).
+    /// Сереализирует и десереализирует файл с объектами конфигурациы
+    /// </summary>
     [Serializable]
     class ConfigurationFileStorage {
-
+        //Контейнер для хранения
         private static ConfigurationFileStorage configurationFileStorage;
 
         //Лист с конфигурационными файлами
         List<ConfigurationFW> configurationFiles = new List<ConfigurationFW>();
 
-        //Путь для сериализации
+        //Путь для сохранения файла после сериализации
         static string pathForSerialization = Directory.GetCurrentDirectory() + "\\configuration.dat";
 
         //Пароль к конфигурационному файлу
         string password = "";
 
+        /// <summary>
+        /// Использую паттерн singleton экземпляр хранилища во всей программе должен быть один
+        /// </summary>
         private ConfigurationFileStorage() { }
 
+        /// <summary>
+        /// Предоставляет доступ к хранилищу
+        /// </summary>
+        /// <returns>Объект хранилища</returns>
         public static ConfigurationFileStorage GetConfigurationFileStorageInstanse() {
 
             if (configurationFileStorage == null) {
@@ -35,7 +45,7 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
         }
 
         /// <summary>
-        /// Возвращает необходимый файл конфигурации из списка
+        /// Возвращает необходимый файл конфигурации из храналища
         /// </summary>
         /// <param name="name">Имя необходимого конфигурационного файла</param>
         /// <returns></returns>
@@ -48,12 +58,16 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
             return null;
         }
 
+        /// <summary>
+        /// Даёт доступ ко всем конфигурационным файлам
+        /// </summary>
+        /// <returns>Возвращает лист со всеми созданными конфигурационными файлами</returns>
         public List<ConfigurationFW> getAllConfigurationFiles() {
             return configurationFiles;
         }
 
         /// <summary>
-        /// Кладёт конфигурационный файл к общим файлам в хранилище
+        /// Кладёт конфигурационный файл в хранилище
         /// </summary>
         /// <param name="configuration"></param>
         public void addConfigurateFileInStorage(ConfigurationFW configuration) {
@@ -61,7 +75,7 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
         }
 
         /// <summary>
-        /// Удаляет кофнигурацию из коллекции по объекту конфигурации
+        /// Удаляет конфигурационный файл из хранилища по объекту
         /// </summary>
         /// <param name="configuration"></param>
         public void removeConfigurateFileInStorage(ConfigurationFW configuration) {
@@ -69,7 +83,7 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
         }
 
         /// <summary>
-        /// Удаляет кофнигурацию из коллекции по имени
+        /// Удаляет конфигурационный файл из хранилища по названию
         /// </summary>
         /// <param name="configurationName"></param>
         public void removeConfigurateFileInStorage(string configurationName) {
@@ -98,9 +112,13 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
         /// </summary>
         private static void deserializeConfigurationFileStorage() {
 
+            //Если файл хранилища не существует
             if (!File.Exists(pathForSerialization)) {
                 Flasher.exceptionDialog("Не удалось найти файл с конфигурациями в корневой папке, создаю новый файл");
+
+                //Создаю новое хранилище
                 configurationFileStorage = new ConfigurationFileStorage();
+
                 serializeConfigurationFileStorage();
                 return;
             }
