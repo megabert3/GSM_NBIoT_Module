@@ -16,9 +16,11 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
 
         //Имя конфигурации (наименование счётчика для которого эта кнофигурация)
         private string name;
-        
+
         //================================================= Параметры конфигурации прошивки
         //Подробнее в файле general_id (спрашивать у Сергея Васильева)
+        private ushort general_ID_Nmb = 1;
+
         private byte Target_ID;
         private byte Index;
         private byte Protocol_ID;
@@ -35,7 +37,7 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
         private string fwForMKName ="";
         private string fwForQuectelName = "";
 
-        //Для информации типы селекторов
+        //Для информации, типы селекторов
         private byte selectorIPv4 = 0x01; //IPv4
         private byte selectorIPv6 = 0x02; //IPv6
 
@@ -86,17 +88,21 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
 
                         //Имя и номер конфигурации уже записаны в буфер
                         configList = new List<byte>(64 - verIDAndFW_Name.Length);
-
-                        //Формирую дженерал ID. Я хз зачем он нужен, посмотрел в другой программе - это просто счётчик
-                        byte[] arrGeneralID = BitConverter.GetBytes(Flasher.general_ID_Nmb);
+                        
+                        //Формирую дженерал ID
+                        byte[] arrGeneralID = BitConverter.GetBytes(general_ID_Nmb);
                         Array.Reverse(arrGeneralID);
 
+                        //Изменяю дженерал айди для его уникальности
+                        general_ID_Nmb++;
+
+                        //Сериализую изменённое значение
+                        ConfigurationFileStorage.serializeConfigurationFileStorage();
+
                         configList.AddRange(arrGeneralID);
-                        //Инкрементирую для уникальности General_ID
-                        Flasher.general_ID_Nmb += 1;
 
                         //Формирую байт десятилетия
-                        byte year = (byte)((DateTimeOffset.Now.Year % 2000) / 10);
+                        byte year = (byte) ((DateTimeOffset.Now.Year % 2000) / 10);
                         configList.Add(year);
 
                         //Вычисляю время в секундах с начала столетия
@@ -209,6 +215,14 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
 
         public string getfwForQuectelName() {
             return fwForQuectelName;
+        }
+
+        public ushort getGeneral_ID_Nmb() {
+            return general_ID_Nmb;
+        }
+
+        public void setGeneral_ID_Nmb(ushort newGeneralIdNumb) {
+            this.general_ID_Nmb = newGeneralIdNumb;
         }
     }
 }

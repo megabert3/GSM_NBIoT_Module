@@ -24,7 +24,7 @@ namespace GSM_NBIoT_Module.classes {
             this.pathToFirmware_STM32L412CB = pathToFirmware_STM32L412CB;
         }
 
-        //Пути к прошивкам компонентов
+        //Пути к прошивкам комплектующих
         private string pathToFirmware_BC92;
         private string pathToFirmware_STM32L412CB;
 
@@ -125,15 +125,16 @@ namespace GSM_NBIoT_Module.classes {
 
                 //Перепрошивка контроллера =================================================
                 //Открываю COM порт
-                Flasher.addMessageInMainLog("\n==========================================================================================");
-                Flasher.addMessageInMainLog("ПЕРЕПРОШИВКА КОНТРОЛЛЕРА" + Environment.NewLine);
-                Flasher.addMessageInMainLog("Открываю порт");
-                stm32L412cb.OpenSerialPort(standart, 115200, Parity.Even, 8, StopBits.One);
-
-                Stopwatch stm32FirmwareWriteStart = new Stopwatch();
-                stm32FirmwareWriteStart.Start();
-
                 try {
+
+                    Flasher.addMessageInMainLog("\n==========================================================================================");
+                    Flasher.addMessageInMainLog("ПЕРЕПРОШИВКА КОНТРОЛЛЕРА" + Environment.NewLine);
+                    Flasher.addMessageInMainLog("Открываю порт");
+                    stm32L412cb.OpenSerialPort(standart, 115200, Parity.Even, 8, StopBits.One);
+
+                    Stopwatch stm32FirmwareWriteStart = new Stopwatch();
+                    stm32FirmwareWriteStart.Start();
+
                     try {
                         stm32L412cb.INIT();
                     } catch (MKCommandException) { }

@@ -11,7 +11,13 @@ namespace GSM_NBIoT_Module.classes {
     /// </summary>
     public abstract class CommunicationModule {
 
-        protected string name;         
+        //Модель модуля
+        protected string name;
 
+        /// <summary>
+        /// Перепрошивает модуль Quectel
+        /// </summary>
+        /// <param name="pathToFirmware">Путь к прошивке модуля</param>
+        public abstract void reflashModule(string pathToFirmware);
     }
 }

@@ -13,6 +13,9 @@ namespace GSM_NBIoT_Module.classes {
 
         protected string name;
 
+        /// <summary>
+        /// Перепрошивает плату модема
+        /// </summary>
         public abstract void Reflash();
     }
 }

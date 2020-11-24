@@ -32,11 +32,19 @@
             this.MCLmodeClm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.portClm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.domenNameClm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.fwForMK = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.fwForQuectel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.target_IDtxtBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.protocol_idTxtBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pathToFW_QuectelBtn = new System.Windows.Forms.Button();
+            this.pathToFW_MKBtn = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.pathToFW_QuectelTxtBx = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.pathToFW_MKtxtBx = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.ConfigNameTxtBx = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -60,14 +68,6 @@
             this.indexTxtBox = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.pathToFW_MKtxtBx = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.pathToFW_QuectelTxtBx = new System.Windows.Forms.TextBox();
-            this.pathToFW_MKBtn = new System.Windows.Forms.Button();
-            this.pathToFW_QuectelBtn = new System.Windows.Forms.Button();
-            this.fwForMK = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.fwForQuectel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -140,6 +140,18 @@
             this.domenNameClm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.domenNameClm.Width = 166;
             // 
+            // fwForMK
+            // 
+            this.fwForMK.Text = "Прошивка для МК";
+            this.fwForMK.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.fwForMK.Width = 125;
+            // 
+            // fwForQuectel
+            // 
+            this.fwForQuectel.Text = "Прошивка для Quectel";
+            this.fwForQuectel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.fwForQuectel.Width = 156;
+            // 
             // target_IDtxtBox
             // 
             this.target_IDtxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -204,6 +216,60 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры конфигурации";
+            // 
+            // pathToFW_QuectelBtn
+            // 
+            this.pathToFW_QuectelBtn.Location = new System.Drawing.Point(691, 157);
+            this.pathToFW_QuectelBtn.Name = "pathToFW_QuectelBtn";
+            this.pathToFW_QuectelBtn.Size = new System.Drawing.Size(30, 20);
+            this.pathToFW_QuectelBtn.TabIndex = 22;
+            this.pathToFW_QuectelBtn.Text = "...";
+            this.pathToFW_QuectelBtn.UseVisualStyleBackColor = true;
+            this.pathToFW_QuectelBtn.Click += new System.EventHandler(this.pathToFW_QuectelBtn_Click);
+            // 
+            // pathToFW_MKBtn
+            // 
+            this.pathToFW_MKBtn.Location = new System.Drawing.Point(691, 119);
+            this.pathToFW_MKBtn.Name = "pathToFW_MKBtn";
+            this.pathToFW_MKBtn.Size = new System.Drawing.Size(30, 20);
+            this.pathToFW_MKBtn.TabIndex = 21;
+            this.pathToFW_MKBtn.Text = "...";
+            this.pathToFW_MKBtn.UseVisualStyleBackColor = true;
+            this.pathToFW_MKBtn.Click += new System.EventHandler(this.pathToFW_MKBtn_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(485, 144);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(160, 13);
+            this.label10.TabIndex = 20;
+            this.label10.Text = "Имя прошивки подуля Quectel";
+            // 
+            // pathToFW_QuectelTxtBx
+            // 
+            this.pathToFW_QuectelTxtBx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.pathToFW_QuectelTxtBx.Location = new System.Drawing.Point(488, 157);
+            this.pathToFW_QuectelTxtBx.Name = "pathToFW_QuectelTxtBx";
+            this.pathToFW_QuectelTxtBx.Size = new System.Drawing.Size(200, 20);
+            this.pathToFW_QuectelTxtBx.TabIndex = 19;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(485, 105);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(182, 13);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "Имя прошивки микроконтроллера";
+            // 
+            // pathToFW_MKtxtBx
+            // 
+            this.pathToFW_MKtxtBx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.pathToFW_MKtxtBx.Location = new System.Drawing.Point(488, 119);
+            this.pathToFW_MKtxtBx.Name = "pathToFW_MKtxtBx";
+            this.pathToFW_MKtxtBx.Size = new System.Drawing.Size(200, 20);
+            this.pathToFW_MKtxtBx.TabIndex = 17;
             // 
             // label8
             // 
@@ -422,72 +488,6 @@
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
             // 
-            // pathToFW_MKtxtBx
-            // 
-            this.pathToFW_MKtxtBx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.pathToFW_MKtxtBx.Location = new System.Drawing.Point(488, 119);
-            this.pathToFW_MKtxtBx.Name = "pathToFW_MKtxtBx";
-            this.pathToFW_MKtxtBx.Size = new System.Drawing.Size(200, 20);
-            this.pathToFW_MKtxtBx.TabIndex = 17;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(485, 105);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(182, 13);
-            this.label9.TabIndex = 18;
-            this.label9.Text = "Имя прошивки микроконтроллера";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(485, 144);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(160, 13);
-            this.label10.TabIndex = 20;
-            this.label10.Text = "Имя прошивки подуля Quectel";
-            // 
-            // pathToFW_QuectelTxtBx
-            // 
-            this.pathToFW_QuectelTxtBx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.pathToFW_QuectelTxtBx.Location = new System.Drawing.Point(488, 157);
-            this.pathToFW_QuectelTxtBx.Name = "pathToFW_QuectelTxtBx";
-            this.pathToFW_QuectelTxtBx.Size = new System.Drawing.Size(200, 20);
-            this.pathToFW_QuectelTxtBx.TabIndex = 19;
-            // 
-            // pathToFW_MKBtn
-            // 
-            this.pathToFW_MKBtn.Location = new System.Drawing.Point(691, 119);
-            this.pathToFW_MKBtn.Name = "pathToFW_MKBtn";
-            this.pathToFW_MKBtn.Size = new System.Drawing.Size(30, 20);
-            this.pathToFW_MKBtn.TabIndex = 21;
-            this.pathToFW_MKBtn.Text = "...";
-            this.pathToFW_MKBtn.UseVisualStyleBackColor = true;
-            this.pathToFW_MKBtn.Click += new System.EventHandler(this.pathToFW_MKBtn_Click);
-            // 
-            // pathToFW_QuectelBtn
-            // 
-            this.pathToFW_QuectelBtn.Location = new System.Drawing.Point(691, 157);
-            this.pathToFW_QuectelBtn.Name = "pathToFW_QuectelBtn";
-            this.pathToFW_QuectelBtn.Size = new System.Drawing.Size(30, 20);
-            this.pathToFW_QuectelBtn.TabIndex = 22;
-            this.pathToFW_QuectelBtn.Text = "...";
-            this.pathToFW_QuectelBtn.UseVisualStyleBackColor = true;
-            this.pathToFW_QuectelBtn.Click += new System.EventHandler(this.pathToFW_QuectelBtn_Click);
-            // 
-            // fwForMK
-            // 
-            this.fwForMK.Text = "Прошивка для МК";
-            this.fwForMK.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.fwForMK.Width = 125;
-            // 
-            // fwForQuectel
-            // 
-            this.fwForQuectel.Text = "Прошивка для Quectel";
-            this.fwForQuectel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.fwForQuectel.Width = 156;
-            // 
             // ConfigurationFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -495,6 +495,7 @@
             this.ClientSize = new System.Drawing.Size(1123, 695);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.configurationListView);
+            this.KeyPreview = true;
             this.Name = "ConfigurationFrame";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Конфигурация";

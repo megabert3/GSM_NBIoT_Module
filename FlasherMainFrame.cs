@@ -20,6 +20,9 @@ namespace GSM_NBIoT_Module {
             InitializeComponent();
         }
 
+        //Ссылка на форму с конфигурацией
+        private Form configurationForm;
+
         //Типы используемых модемов
         private string[] modemType = { "GSM3" };
 
@@ -32,10 +35,7 @@ namespace GSM_NBIoT_Module {
         private static Stopwatch firmwareWriteStart = new Stopwatch();
 
         //Буфер сообщений для перепрошивки микроконтроллера
-        private static StringBuilder logBuffer;
-
-        //General_ID_Nmb необходим при конфигурации прошивки в момент записи в микроконтроллер
-        public static ushort general_ID_Nmb = 1;
+        private static StringBuilder logBuffer;        
 
         private void pathToQuectelFirmwareBtn_Click(object sender, EventArgs e) {
 
@@ -83,6 +83,7 @@ namespace GSM_NBIoT_Module {
         }
 
         private void startFlashBtn_Click(object sender, EventArgs e) {
+            flashProcessRichTxtBox.Focus();
 
             switch (modemTypeCmBox.SelectedItem) {
 
@@ -230,6 +231,11 @@ namespace GSM_NBIoT_Module {
                 addMessageInMainLog("Метод: " + ex.TargetSite.ToString());
                 addMessageInMainLog("ОШИБКА: " + ex.Message);
 
+                Invoke((MethodInvoker)delegate {
+                    exceptionDialog(ex.Message);
+                    enableStartButton(true);
+                });
+
                 firmwareWriteStart.Stop();
 
                 //включаю кнопку старт
@@ -376,14 +382,21 @@ namespace GSM_NBIoT_Module {
 
         private void editConfiguration_Click(object sender, EventArgs e) {
 
-            ConfigurationFileStorage configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
-
-            if (!String.IsNullOrEmpty(configurationFileStorage.getPass())) {
-
-                new Password().Show();
-
+            if (configurationForm != null) {
+                configurationForm.Activate();
+                configurationForm.BringToFront();
             } else {
-                new ConfigurationFrame().Show();
+
+                ConfigurationFileStorage configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
+
+                if (!String.IsNullOrEmpty(configurationFileStorage.getPass())) {
+
+                    new Password(this).Show();
+
+                } else {
+                    configurationForm = new ConfigurationFrame(this);
+                    configurationForm.Show();
+                }
             }
         }
 
@@ -421,6 +434,14 @@ namespace GSM_NBIoT_Module {
                 configurationTextBox.AppendText(Environment.NewLine);
                 configurationTextBox.AppendText("Имя прошивки Quectel: " + configurationFW.getfwForQuectelName());
             }
+        }
+
+        public void setConfigurationForm(Form configurationForm) {
+            this.configurationForm = configurationForm;
+        }
+
+        public Form getConfigurationForm() {
+            return configurationForm;
         }
     }
 }

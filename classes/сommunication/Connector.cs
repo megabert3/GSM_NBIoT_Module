@@ -12,7 +12,5 @@ namespace GSM_NBIoT_Module.classes {
     public abstract class Connector {
 
         protected string name;
-         
-        public abstract void SendData();
     }
 }

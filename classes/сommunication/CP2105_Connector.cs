@@ -9,17 +9,22 @@ using System.Threading;
 namespace GSM_NBIoT_Module.classes {
 
     /// <summary>
-    /// USB_UART конвертор осуществляет общение с модулем и контроллером на плате модема
+    /// USB_UART конвертор осуществляет общение, а так же изменение состояниня модуля и контроллера на плате модема
     /// https://www.silabs.com/interface/usb-bridges/classic/device.cp2105
     /// </summary>
     public class CP2105_Connector : Connector {
 
+        //Объект коннектора
         private static CP2105_Connector CP2105_ConnectorInstanse;
 
         private CP2105_Connector() {
             base.name = "CP2105";
         }
 
+        /// <summary>
+        /// Возвращает объект класса коннектора
+        /// </summary>
+        /// <returns></returns>
         public static CP2105_Connector GetCP2105_ConnectorInstance() {
 
             if (CP2105_ConnectorInstanse == null) {
@@ -66,7 +71,7 @@ namespace GSM_NBIoT_Module.classes {
         [MarshalAs(UnmanagedType.U4)] FileAttributes flagsAndAttributes,
         IntPtr templateFile);
         /// <summary>
-        /// Метод необходмый для установки связи с COM-портом
+        /// Метод необходмый для установки связи с COM-портом возвращает указатель на устройство
         /// </summary>
         /// <param name="fileName"> Необходимо передать номер COM порта в формате "COM##"</param>
         /// <returns></returns>
@@ -89,13 +94,13 @@ namespace GSM_NBIoT_Module.classes {
         }
 
         /// <summary>
-        /// Считывание состояния ножек
+        /// Считывание состояния ножек GPIO
         /// </summary>
         /// <param name="cyHandle">Указатель на область</param>
         /// <param name="lpLatch">Переменная в которую записывается состояние</param>
         /// <returns></returns>
         [DllImport("CP210xRuntime.dll", SetLastError = true)]
-        public static extern int CP210xRT_ReadLatch (
+        public static extern int CP210xRT_ReadLatch(
             IntPtr cyHandle,
             [param: MarshalAs(UnmanagedType.U4), Out()] out uint lpLatch);
         private static int ReadLatch(IntPtr cyHandle, out uint lpLatch) {
@@ -103,14 +108,14 @@ namespace GSM_NBIoT_Module.classes {
         }
 
         /// <summary>
-        /// Записать состояние ножек
+        /// Записать состояние ножек GPIO
         /// </summary>
         /// <param name="cyHandle">Указатель на область</param>
         /// <param name="mask">В какие пины необходимо произвести запись</param>
         /// <param name="latch">Значение пинов, которое нужно получить(Установка состояния пинов)</param>
         /// <returns></returns>
         [DllImport("CP210xRuntime.dll", SetLastError = true)]
-        public static extern int CP210xRT_WriteLatch (
+        public static extern int CP210xRT_WriteLatch(
             IntPtr cyHandle,
             [param: MarshalAs(UnmanagedType.U2)] ushort mask,
             [param: MarshalAs(UnmanagedType.U2)] ushort latch);
@@ -186,7 +191,11 @@ namespace GSM_NBIoT_Module.classes {
             MyCloseHandle(COM_Port);
         }
 
-        
+        /// <summary>
+        /// Считывает состояние ножек CP2105 и устанавливает их значение в переменные класса.
+        /// Выкидывает исключение DeviseError
+        /// </summary>
+        /// <param name="COM_portPtr"> Ссылка на устройство COM порта в системе</param>
         public void ReadGPIOStageAndSetFlags(IntPtr COM_portPtr) {
 
             uint statusGPIO = 0;
@@ -207,8 +216,9 @@ namespace GSM_NBIoT_Module.classes {
         /// <param name="stageGPIO_0"></param>
         /// <param name="stageGPIO_1"></param>
         /// <param name="stageGPIO_2"></param>
+        /// <param name="sleepMls"></param>
         public void WriteGPIOStageAndSetFlags(int COM_portNo, bool stageGPIO_0, bool stageGPIO_1, bool stageGPIO_2, int sleepMls) {
-            //Просто поверьте, так надо
+
             string COM_portName = "\\\\.\\COM" + COM_portNo;
 
             IntPtr COM_Port = CreateFile(COM_portName);
@@ -221,7 +231,7 @@ namespace GSM_NBIoT_Module.classes {
             //Охватить все возможные пины
             const ushort mask = 15;
 
-            returnCodeError(Convert.ToInt32(WriteLatch(COM_Port, mask, (ushort) stageGPIO_ForWrite)));
+            returnCodeError(Convert.ToInt32(WriteLatch(COM_Port, mask, (ushort)stageGPIO_ForWrite)));
 
             ReadGPIOStageAndSetFlags(COM_Port);
 
@@ -231,7 +241,7 @@ namespace GSM_NBIoT_Module.classes {
         }
 
         public void WriteGPIOStageAndSetFlags(int COM_portNo, Boolean stageGPIO_0, Boolean stageGPIO_1, int sleepMls) {
-            //Просто поверьте, так надо
+
             string COM_portName = "\\\\.\\COM" + COM_portNo;
 
             IntPtr COM_Port = CreateFile(COM_portName);
@@ -254,7 +264,7 @@ namespace GSM_NBIoT_Module.classes {
         }
 
         /// <summary>
-        /// Возвращаемое число указывает на статус ножек. 
+        /// Возвращаемое число указывающее на статус ножек. 
         /// Возвращаемое число в бинарном виде это состояние ножек, подробнее в коде CP210xPortReadWrite.exe
         /// </summary>
         /// <param name="statusGPIO"></param>
@@ -369,13 +379,13 @@ namespace GSM_NBIoT_Module.classes {
             const string searhEnhancedPort = "Silicon Labs Dual CP210x USB to UART Bridge: Enhanced COM Port";
             const string searhStandartPort = "Silicon Labs Dual CP210x USB to UART Bridge: Standard COM Port";
 
-             foreach (ManagementObject service in searcher.Get()) {
+            foreach (ManagementObject service in searcher.Get()) {
 
-                string portDescription = (string) service["Description"];
+                string portDescription = (string)service["Description"];
 
                 if (!findEnha) {
                     if (searhEnhancedPort.Equals(portDescription)) {
-                        string port = (string) service["Name"];
+                        string port = (string)service["Name"];
                         int startIndex = port.IndexOf('(');
                         int lastIndex = port.IndexOf(')');
                         int leght = lastIndex - (startIndex + 4);
@@ -401,15 +411,11 @@ namespace GSM_NBIoT_Module.classes {
                 }
             }
 
-            if (enhabcedPort == 0 || standartPort == 0) 
+            if (enhabcedPort == 0 || standartPort == 0)
                 throw new DeviceNotFoundException("Не удалось найти модем в списке подключенных устройств");
 
             this.enhabcedPort = enhabcedPort;
             this.standartPort = standartPort;
-        }
-
-        public override void SendData() {
-            throw new NotImplementedException();
         }
 
         //================== getters and setters =======================

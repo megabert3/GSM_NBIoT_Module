@@ -118,7 +118,7 @@ namespace GSM_NBIoT_Module.classes {
         /// </summary>
         public void ClosePort() {
             serialPort.Close();
-
+            
             if (serialPort.IsOpen) {
                 throw new COMException("Не удалось закрыть COM порт " + serialPort.PortName);
             }
@@ -657,7 +657,7 @@ namespace GSM_NBIoT_Module.classes {
         }
 
         /// <summary>
-        /// Парсит получаемую строку в структуру данны
+        /// Парсит сконвертированный из HEX строки массив байт в структуру данных
         /// </summary>
         /// <param name="HEX_Line">Линия HEX формата</param>
         /// <returns>Возвращает адрес, колличество байт и сами данные (байты)</returns>
@@ -716,9 +716,6 @@ namespace GSM_NBIoT_Module.classes {
         /// <param name="i">Номер буфера</param>
         private void WriteBufferToMK_AndVerify(uint address, List<byte> buffer, int k) {
 
-            //Добавляю этот блок записанных данных в основную мапу прошивки (Необходимо для полной верификации)
-            //firmwareData.Add(address, buffer);
-
             //Даю контроллеру запрос на запись данных
             sendDataInCOM(true, 0x31, 0xCE);
 
@@ -761,6 +758,7 @@ namespace GSM_NBIoT_Module.classes {
 
             byte[] writeData = buffer.ToArray();
 
+            //Сверяю данные
             for (int i = 0; i < writeData.Length; i++) {
 
                 if (writeData[i] != readData[i]) throw new MKCommandException("Прочитанные данные из микроконтроллера не совтападют с записанными");

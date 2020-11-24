@@ -14,14 +14,14 @@ namespace GSM_NBIoT_Module.classes {
         protected string name;
 
         /// <summary>
-        /// Выполняет полную отчистку флэш памяти микроконтроллера
+        /// Выполняет полную отчистку памяти микроконтроллера
         /// </summary>
         public abstract void ERASE();
 
         /// <summary>
         /// Выполняет запись прошивки в микроконтроллер
         /// </summary>
-        /// <param name="pathToHex"></param>
+        /// <param name="pathToHex">Путь к файлу с прошивкой</param>
         public abstract void WRITE(string pathToHex);
     }
 }

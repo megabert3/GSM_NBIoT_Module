@@ -11,8 +11,17 @@ using System.Windows.Forms;
 
 namespace GSM_NBIoT_Module {
     public partial class Password : Form {
+
+        Form mainForm;
+
         public Password() {
             InitializeComponent();
+        }
+
+        public Password(Form mainForm) {
+            InitializeComponent();
+            this.mainForm = mainForm;
+            
         }
 
         private void enterPassBtn_Click(object sender, EventArgs e) {
@@ -20,7 +29,11 @@ namespace GSM_NBIoT_Module {
             ConfigurationFileStorage configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
 
             if (configurationFileStorage.getPass().Equals(PasswordtxtBx.Text)) {
-                new ConfigurationFrame().Show();
+                Form configurationFrame = new ConfigurationFrame(mainForm);
+                configurationFrame.Show();
+
+                ((Flasher)mainForm).setConfigurationForm(configurationFrame);
+
                 this.Close();
 
             } else {

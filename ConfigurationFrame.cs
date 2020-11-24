@@ -13,17 +13,35 @@ using System.Windows.Forms;
 namespace GSM_NBIoT_Module {
     public partial class ConfigurationFrame : Form {
 
+        //Ссылка на объект основного окна
+        private Form mainForm;
+
         //Обект с имеющимися конфигурациями
         ConfigurationFileStorage configurationFileStorage;
 
         public ConfigurationFrame() {
             InitializeComponent();
+            this.KeyDown += key_Down;
         }
 
+        public ConfigurationFrame(Form mainForm) {
+            InitializeComponent();
+            this.KeyDown += key_Down;
+
+            this.mainForm = mainForm;
+            FormClosing += Form_Closing;
+        }
+
+        //Инициализация окна
         private void ConfigurationFrame_Load(object sender, EventArgs e) {
             refreshListView();
         }
-
+        
+        /// <summary>
+        /// Проверяет заполненные поля и добавляет конфигурацию к имеющимся
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addConfigurationBtn_Click(object sender, EventArgs e) {
 
             string name;
@@ -235,39 +253,38 @@ namespace GSM_NBIoT_Module {
         }
 
         private void deleteConfigurationBtn_Click(object sender, EventArgs e) {
+            try {
+                if (configurationListView.Items.Count > 0) {
 
-            if (configurationListView.Items.Count > 0) {
+                    bool answer = false;
 
-                bool answer = false;
+                    string conficurationName = configurationListView.SelectedItems[0].Text;
 
-                string conficurationName = configurationListView.SelectedItems[0].Text;
+                    DialogResult res = MessageBox.Show(
+                                        "Удалить конфигурацию под названием: " + conficurationName + "?",
+                                        "Удаление конфигурации",
+                                        MessageBoxButtons.YesNo,
+                                        MessageBoxIcon.Question,
+                                        MessageBoxDefaultButton.Button1,
+                                        MessageBoxOptions.ServiceNotification);
 
-                DialogResult res = MessageBox.Show(
-                                    "Удалить конфигурацию под названием: " + conficurationName + "?",
-                                    "Удаление конфигурации",
-                                    MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Question,
-                                    MessageBoxDefaultButton.Button1,
-                                    MessageBoxOptions.ServiceNotification);
+                    if (res == DialogResult.Yes) {
+                        configurationFileStorage.removeConfigurateFileInStorage(conficurationName);
 
-                if (res == DialogResult.Yes) {
-                    res = DialogResult.None;
-                    answer = true;
+                        ConfigurationFileStorage.serializeConfigurationFileStorage();
+
+                        refreshListView();
+
+                        Flasher.refreshConfigurationCmBox();
+                    }
                 }
+                mainForm.Activate();
+                mainForm.BringToFront();
 
-                if (answer) {
-                    configurationFileStorage.removeConfigurateFileInStorage(conficurationName);
+                this.Activate();
+                this.BringToFront();
 
-                    ConfigurationFileStorage.serializeConfigurationFileStorage();
-
-                    refreshListView();
-
-                    Flasher.refreshConfigurationCmBox();
-
-                }
-
-                this.WindowState = FormWindowState.Normal;
-            }
+            } catch(ArgumentOutOfRangeException) {}
         }
 
         private void setPassBtn_Click(object sender, EventArgs e) {
@@ -322,6 +339,12 @@ namespace GSM_NBIoT_Module {
                     Flasher.exceptionDialog("Неверный пароль");
                 }
             }
+
+            mainForm.Activate();
+            mainForm.BringToFront();
+
+            this.Activate();
+            this.BringToFront();
         }
 
         private void pathToFW_MKBtn_Click(object sender, EventArgs e) {
@@ -368,6 +391,27 @@ namespace GSM_NBIoT_Module {
                     pathToFW_QuectelTxtBx.Text = Path.GetFileNameWithoutExtension(openFileDialog.FileName);
                 }
             }
+        }
+
+        /// <summary>
+        /// Действие при нажатии Enter и delete
+        /// Удаляет или добавляет конфигурацию
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void key_Down(object sender, KeyEventArgs e) {
+
+            if (e.KeyCode == Keys.Enter) {
+                addConfigurationBtn.PerformClick();
+
+            } else if (e.KeyCode == Keys.Delete) {
+                deleteConfigurationBtn.PerformClick();
+            }
+        }
+
+        private void Form_Closing(object sender, EventArgs e) {
+            ((Flasher)mainForm).setConfigurationForm(null);
+
         }
     }
 }

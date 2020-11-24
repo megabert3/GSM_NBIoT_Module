@@ -23,21 +23,20 @@ namespace GSM_NBIoT_Module.classes {
 
         private static SerialPort serialPort;
 
-        /// <summary>
-        /// Время ожидания ответа от модуля Quectel
-        /// </summary>
+        
+        // Время ожидания ответа от модуля Quectel в секундах
         private long timeOutAnswer = 5;
 
         //Полученные данные с модуля
         private string dataInCOM_Port = "";
 
-        //Если получена строка завершающаяя передачу данных "ОК", "ERROR"
+        //Если получена строка завершающаяя передачу данных ("ОК", "ERROR")
         private bool answer = false;
 
         //Версия прошивки модуля Quectel
         private string verFirmware;
 
-        public void reflashModule(string pathToFirmware) {
+        public override void reflashModule(string pathToFirmware) {
 
             //================================== Проверяю актуальность путей ==================================================
 
@@ -76,7 +75,7 @@ namespace GSM_NBIoT_Module.classes {
             //=============================== Запускаю приложение для прошивки модуля ===============================================
             using (Process QMulti_DL_CMD_V1_8_Process = new Process()) {
 
-                //Порт дял перепрошивки модема
+                //Порт для перепрошивки модема
                 int port = cP2105_Connector.getEnhabcedPort();
 
                 // Скорось прошивки
@@ -142,6 +141,7 @@ namespace GSM_NBIoT_Module.classes {
             //Делаю ресет модуля BC92
             cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), false, true, true, 1000);
             Flasher.setValuePogressBarFlashingStatic(470);
+
             //Поднимаю модуль BC92 и не даю уснуть
             cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, true, 3000);
             Flasher.setValuePogressBarFlashingStatic(480);
@@ -218,6 +218,10 @@ namespace GSM_NBIoT_Module.classes {
             }
         }
 
+        /// <summary>
+        /// Посылает блок AT команд в модуль Quectel
+        /// </summary>
+        /// <param name="commands"></param>
         public void sendATCommands(params string[] commands) {
 
             //Получаю COM порт для общения с модулем.
@@ -276,7 +280,7 @@ namespace GSM_NBIoT_Module.classes {
         }
 
         /// <summary>
-        /// Отправляет команду на получение данныx модуля
+        /// Отправляет команду на получение данныx модуля и возвращает версию прошивки
         /// </summary>
         /// <returns>Возвращает версию прошивки модуля Quectel</returns>
         private string getVersionFrimware() {
@@ -341,6 +345,9 @@ namespace GSM_NBIoT_Module.classes {
             }
         }
 
+        /// <summary>
+        /// Выставляет таймаут ответа модуля
+        /// </summary>
         public long TimeOutAnswer {
             get {
                 return timeOutAnswer;
@@ -353,6 +360,9 @@ namespace GSM_NBIoT_Module.classes {
             }
         }
 
+        /// <summary>
+        /// Получает версию прошивки
+        /// </summary>
         public string VerFirmware {
             get {
                 verFirmware = getVersionFrimware();
