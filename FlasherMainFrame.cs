@@ -202,6 +202,7 @@ namespace GSM_NBIoT_Module {
                 if (String.IsNullOrEmpty(configurationFW.getfwForQuectelName()) & String.IsNullOrEmpty(configurationFW.getFwForMKName())) {
                     Invoke((MethodInvoker)delegate {
                         exceptionDialog("В конфигурации не указана прошивка ни для микроконтроллера, ни для модуля Quectel");
+                        enableStartButton(true);
                     });
                     return;
                 }

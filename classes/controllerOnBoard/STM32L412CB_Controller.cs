@@ -693,10 +693,11 @@ namespace GSM_NBIoT_Module.classes {
         private void writeDataInMK() {
             if (firmwareData.Count != 0) {
 
-                foreach (KeyValuePair<uint, List<byte>> fwBuff in firmwareData) {
-                    //Номер буфера
-                    int i = 1;
+                //Номер буфера
+                int i = 1;
 
+                foreach (KeyValuePair<uint, List<byte>> fwBuff in firmwareData) {
+                    
                     uint address = fwBuff.Key;
                     List<byte> buffData = fwBuff.Value;
 
@@ -762,10 +763,11 @@ namespace GSM_NBIoT_Module.classes {
             for (int i = 0; i < writeData.Length; i++) {
 
                 if (writeData[i] != readData[i]) throw new MKCommandException("Прочитанные данные из микроконтроллера не совтападют с записанными");
+
             }
 
             Flasher.addMessInLogBuffer("Данные успешно записаны" + "\n");
-
+            
             int progBarValue = Flasher.getValueProgressBarFlashingStatic();
             if (progBarValue <= 850) {
                 Flasher.setValuePogressBarFlashingStatic(progBarValue + 1);
@@ -815,7 +817,7 @@ namespace GSM_NBIoT_Module.classes {
                     List<byte> buffData = fwBuff.Value;
 
                     Flasher.addMessInLogBuffer("Считываю данные с адреса " + Convert.ToString(address, 16));
-                    byte[] readBytes = readDataOfMK(address, buffData.Count);
+                    byte[] readBytes = readDataOfMK(address, buffData.Count);                    
 
                     Flasher.addMessInLogBuffer("Сверяю полученные данные с данными прошивки " + Convert.ToString(address, 16));
                     for (int i = 0; i < buffData.Count; i++) {
