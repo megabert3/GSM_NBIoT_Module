@@ -91,7 +91,7 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
                         
                         //Формирую дженерал ID
                         byte[] arrGeneralID = BitConverter.GetBytes(general_ID_Nmb);
-                        Array.Reverse(arrGeneralID);
+                        Array.Reverse(arrGeneralID);                        
 
                         //Изменяю дженерал айди для его уникальности
                         general_ID_Nmb++;

@@ -88,7 +88,7 @@ namespace GSM_NBIoT_Module.classes {
 
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool CloseHandle(IntPtr hObject);
+        private static extern bool CloseHandle(IntPtr hObject);
         private static bool MyCloseHandle(IntPtr hObject) {
             return CloseHandle(hObject);
         }

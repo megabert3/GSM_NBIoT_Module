@@ -151,8 +151,14 @@ namespace GSM_NBIoT_Module.classes {
                     //Выгружаю всё, что было в буфере при прошивке контроллера
                     Flasher.addProgressFlashMKLogInMainLog();
 
-                    Flasher.addMessageInMainLog("Запуск записанной прошивки" + Environment.NewLine);
-                    stm32L412cb.GO();
+                    Flasher.addMessageInMainLog("Запуск записанной прошивки ресет контроллера" + Environment.NewLine);
+                    
+                    cp2105.WriteGPIOStageAndSetFlags(enhadced, true, true, 100);
+
+                    cp2105.WriteGPIOStageAndSetFlags(enhadced, true, false, 100);
+
+                    cp2105.WriteGPIOStageAndSetFlags(enhadced, true, true, 100);
+                    //stm32L412cb.GO();
                     Flasher.setValuePogressBarFlashingStatic(990);
 
                     stm32FirmwareWriteStart.Stop();

@@ -1,13 +1,7 @@
 ﻿using GSM_NBIoT_Module.classes.controllerOnBoard.Configuration;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GSM_NBIoT_Module {
@@ -395,7 +389,7 @@ namespace GSM_NBIoT_Module {
 
         /// <summary>
         /// Действие при нажатии Enter и delete
-        /// Удаляет или добавляет конфигурацию
+        /// Удаляет или добавляет конфигурацию по нажатию клавиши
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
