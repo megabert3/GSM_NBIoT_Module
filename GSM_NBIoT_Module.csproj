@@ -61,6 +61,12 @@
     <Compile Include="classes\GSM_NBIoT_Module\CommunicationModule.cs" />
     <Compile Include="classes\controllerOnBoard\Controller.cs" />
     <Compile Include="classes\сommunication\Connector.cs" />
+    <Compile Include="EditConfigurationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditConfigurationForm.Designer.cs">
+      <DependentUpon>EditConfigurationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FlasherMainFrame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +89,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ConfigurationFrame.resx">
       <DependentUpon>ConfigurationFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditConfigurationForm.resx">
+      <DependentUpon>EditConfigurationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FlasherMainFrame.resx">
       <DependentUpon>FlasherMainFrame.cs</DependentUpon>

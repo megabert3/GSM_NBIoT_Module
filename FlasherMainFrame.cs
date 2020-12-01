@@ -325,8 +325,7 @@ namespace GSM_NBIoT_Module {
                 "Ошибка",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error,
-                MessageBoxDefaultButton.Button1,
-                MessageBoxOptions.ServiceNotification);
+                MessageBoxDefaultButton.Button1);
         }
 
         public static void successfullyDialog(string mess, string heading) {
@@ -335,8 +334,7 @@ namespace GSM_NBIoT_Module {
                 heading,
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information,
-                MessageBoxDefaultButton.Button1,
-                MessageBoxOptions.ServiceNotification);
+                MessageBoxDefaultButton.Button1);
         }
 
         /// <summary>
@@ -353,8 +351,7 @@ namespace GSM_NBIoT_Module {
                 heading,
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button1,
-                MessageBoxOptions.ServiceNotification);
+                MessageBoxDefaultButton.Button1);
 
             if (res == DialogResult.Yes) {
                 result = true;

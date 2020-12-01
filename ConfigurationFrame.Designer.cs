@@ -68,6 +68,7 @@
             this.indexTxtBox = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editConfigurationBtn = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -189,6 +190,7 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.editConfigurationBtn);
             this.groupBox1.Controls.Add(this.pathToFW_QuectelBtn);
             this.groupBox1.Controls.Add(this.pathToFW_MKBtn);
             this.groupBox1.Controls.Add(this.label10);
@@ -219,7 +221,7 @@
             // 
             // pathToFW_QuectelBtn
             // 
-            this.pathToFW_QuectelBtn.Location = new System.Drawing.Point(691, 157);
+            this.pathToFW_QuectelBtn.Location = new System.Drawing.Point(705, 164);
             this.pathToFW_QuectelBtn.Name = "pathToFW_QuectelBtn";
             this.pathToFW_QuectelBtn.Size = new System.Drawing.Size(30, 20);
             this.pathToFW_QuectelBtn.TabIndex = 22;
@@ -229,7 +231,7 @@
             // 
             // pathToFW_MKBtn
             // 
-            this.pathToFW_MKBtn.Location = new System.Drawing.Point(691, 119);
+            this.pathToFW_MKBtn.Location = new System.Drawing.Point(705, 126);
             this.pathToFW_MKBtn.Name = "pathToFW_MKBtn";
             this.pathToFW_MKBtn.Size = new System.Drawing.Size(30, 20);
             this.pathToFW_MKBtn.TabIndex = 21;
@@ -240,7 +242,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(485, 144);
+            this.label10.Location = new System.Drawing.Point(485, 151);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(160, 13);
             this.label10.TabIndex = 20;
@@ -249,15 +251,15 @@
             // pathToFW_QuectelTxtBx
             // 
             this.pathToFW_QuectelTxtBx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.pathToFW_QuectelTxtBx.Location = new System.Drawing.Point(488, 157);
+            this.pathToFW_QuectelTxtBx.Location = new System.Drawing.Point(488, 164);
             this.pathToFW_QuectelTxtBx.Name = "pathToFW_QuectelTxtBx";
-            this.pathToFW_QuectelTxtBx.Size = new System.Drawing.Size(200, 20);
+            this.pathToFW_QuectelTxtBx.Size = new System.Drawing.Size(211, 20);
             this.pathToFW_QuectelTxtBx.TabIndex = 19;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(485, 105);
+            this.label9.Location = new System.Drawing.Point(485, 112);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(182, 13);
             this.label9.TabIndex = 18;
@@ -266,9 +268,9 @@
             // pathToFW_MKtxtBx
             // 
             this.pathToFW_MKtxtBx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.pathToFW_MKtxtBx.Location = new System.Drawing.Point(488, 119);
+            this.pathToFW_MKtxtBx.Location = new System.Drawing.Point(488, 126);
             this.pathToFW_MKtxtBx.Name = "pathToFW_MKtxtBx";
-            this.pathToFW_MKtxtBx.Size = new System.Drawing.Size(200, 20);
+            this.pathToFW_MKtxtBx.Size = new System.Drawing.Size(211, 20);
             this.pathToFW_MKtxtBx.TabIndex = 17;
             // 
             // label8
@@ -298,16 +300,16 @@
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.newPassTxtBox);
             this.groupBox3.Controls.Add(this.oldPassTxtBox);
-            this.groupBox3.Location = new System.Drawing.Point(830, 44);
+            this.groupBox3.Location = new System.Drawing.Point(779, 44);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(269, 148);
+            this.groupBox3.Size = new System.Drawing.Size(320, 148);
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Пароль";
             // 
             // setPassBtn
             // 
-            this.setPassBtn.Location = new System.Drawing.Point(159, 113);
+            this.setPassBtn.Location = new System.Drawing.Point(213, 112);
             this.setPassBtn.Name = "setPassBtn";
             this.setPassBtn.Size = new System.Drawing.Size(101, 23);
             this.setPassBtn.TabIndex = 15;
@@ -330,7 +332,7 @@
             this.repeatNewPassTxtBox.Location = new System.Drawing.Point(20, 115);
             this.repeatNewPassTxtBox.Name = "repeatNewPassTxtBox";
             this.repeatNewPassTxtBox.PasswordChar = '*';
-            this.repeatNewPassTxtBox.Size = new System.Drawing.Size(132, 20);
+            this.repeatNewPassTxtBox.Size = new System.Drawing.Size(176, 20);
             this.repeatNewPassTxtBox.TabIndex = 17;
             // 
             // label6
@@ -357,7 +359,7 @@
             this.newPassTxtBox.Location = new System.Drawing.Point(20, 71);
             this.newPassTxtBox.Name = "newPassTxtBox";
             this.newPassTxtBox.PasswordChar = '*';
-            this.newPassTxtBox.Size = new System.Drawing.Size(132, 20);
+            this.newPassTxtBox.Size = new System.Drawing.Size(176, 20);
             this.newPassTxtBox.TabIndex = 14;
             // 
             // oldPassTxtBox
@@ -366,14 +368,14 @@
             this.oldPassTxtBox.Location = new System.Drawing.Point(20, 30);
             this.oldPassTxtBox.Name = "oldPassTxtBox";
             this.oldPassTxtBox.PasswordChar = '*';
-            this.oldPassTxtBox.Size = new System.Drawing.Size(132, 20);
+            this.oldPassTxtBox.Size = new System.Drawing.Size(176, 20);
             this.oldPassTxtBox.TabIndex = 13;
             // 
             // deleteConfigurationBtn
             // 
-            this.deleteConfigurationBtn.Location = new System.Drawing.Point(749, 115);
+            this.deleteConfigurationBtn.Location = new System.Drawing.Point(620, 77);
             this.deleteConfigurationBtn.Name = "deleteConfigurationBtn";
-            this.deleteConfigurationBtn.Size = new System.Drawing.Size(75, 23);
+            this.deleteConfigurationBtn.Size = new System.Drawing.Size(115, 25);
             this.deleteConfigurationBtn.TabIndex = 12;
             this.deleteConfigurationBtn.Text = "Удалить";
             this.deleteConfigurationBtn.UseVisualStyleBackColor = true;
@@ -381,9 +383,9 @@
             // 
             // addConfigurationBtn
             // 
-            this.addConfigurationBtn.Location = new System.Drawing.Point(749, 156);
+            this.addConfigurationBtn.Location = new System.Drawing.Point(486, 40);
             this.addConfigurationBtn.Name = "addConfigurationBtn";
-            this.addConfigurationBtn.Size = new System.Drawing.Size(75, 23);
+            this.addConfigurationBtn.Size = new System.Drawing.Size(115, 25);
             this.addConfigurationBtn.TabIndex = 11;
             this.addConfigurationBtn.Text = "Добавить";
             this.addConfigurationBtn.UseVisualStyleBackColor = true;
@@ -464,7 +466,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(485, 67);
+            this.label3.Location = new System.Drawing.Point(2, 148);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(33, 13);
             this.label3.TabIndex = 6;
@@ -473,7 +475,7 @@
             // indexTxtBox
             // 
             this.indexTxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.indexTxtBox.Location = new System.Drawing.Point(488, 82);
+            this.indexTxtBox.Location = new System.Drawing.Point(5, 163);
             this.indexTxtBox.Name = "indexTxtBox";
             this.indexTxtBox.Size = new System.Drawing.Size(115, 20);
             this.indexTxtBox.TabIndex = 5;
@@ -487,6 +489,16 @@
             // 
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
+            // 
+            // editConfigurationBtn
+            // 
+            this.editConfigurationBtn.Location = new System.Drawing.Point(620, 41);
+            this.editConfigurationBtn.Name = "editConfigurationBtn";
+            this.editConfigurationBtn.Size = new System.Drawing.Size(115, 25);
+            this.editConfigurationBtn.TabIndex = 23;
+            this.editConfigurationBtn.Text = "Редактировать";
+            this.editConfigurationBtn.UseVisualStyleBackColor = true;
+            this.editConfigurationBtn.Click += new System.EventHandler(this.editConfigurationBtn_Click);
             // 
             // ConfigurationFrame
             // 
@@ -556,5 +568,6 @@
         private System.Windows.Forms.Button pathToFW_QuectelBtn;
         private System.Windows.Forms.ColumnHeader fwForMK;
         private System.Windows.Forms.ColumnHeader fwForQuectel;
+        private System.Windows.Forms.Button editConfigurationBtn;
     }
 }

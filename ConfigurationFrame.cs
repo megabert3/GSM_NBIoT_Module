@@ -211,7 +211,7 @@ namespace GSM_NBIoT_Module {
         /// <summary>
         /// Обновляет таблицу элементов ListView
         /// </summary>
-        private void refreshListView() {
+        public void refreshListView() {
 
             configurationListView.Items.Clear();
 
@@ -259,8 +259,7 @@ namespace GSM_NBIoT_Module {
                                         "Удаление конфигурации",
                                         MessageBoxButtons.YesNo,
                                         MessageBoxIcon.Question,
-                                        MessageBoxDefaultButton.Button1,
-                                        MessageBoxOptions.ServiceNotification);
+                                        MessageBoxDefaultButton.Button1);
 
                     if (res == DialogResult.Yes) {
                         configurationFileStorage.removeConfigurateFileInStorage(conficurationName);
@@ -272,11 +271,6 @@ namespace GSM_NBIoT_Module {
                         Flasher.refreshConfigurationCmBox();
                     }
                 }
-                mainForm.Activate();
-                mainForm.BringToFront();
-
-                this.Activate();
-                this.BringToFront();
 
             } catch(ArgumentOutOfRangeException) {}
         }
@@ -333,12 +327,6 @@ namespace GSM_NBIoT_Module {
                     Flasher.exceptionDialog("Неверный пароль");
                 }
             }
-
-            mainForm.Activate();
-            mainForm.BringToFront();
-
-            this.Activate();
-            this.BringToFront();
         }
 
         private void pathToFW_MKBtn_Click(object sender, EventArgs e) {
@@ -407,5 +395,29 @@ namespace GSM_NBIoT_Module {
             ((Flasher)mainForm).setConfigurationForm(null);
 
         }
+
+        private void editConfigurationBtn_Click(object sender, EventArgs e) {
+
+            if (configurationListView.Items.Count > 0) {
+
+                configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
+
+                ConfigurationFW configuration;
+
+                try {
+                    configuration = configurationFileStorage.getConfigurationFile(configurationListView.SelectedItems[0].Text);
+
+                    new EditConfigurationForm(this, configuration).Show();
+
+                } catch (ArgumentOutOfRangeException) {
+                    Flasher.exceptionDialog("Выберите конфигурацию");
+                }
+
+            } else {
+                Flasher.exceptionDialog("Нет конфигураций для редактирования");
+            }
+        }
+
+
     }
 }
