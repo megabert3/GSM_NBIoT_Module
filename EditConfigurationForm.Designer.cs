@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditConfigurationForm));
             this.pathToFW_QuectelBtn = new System.Windows.Forms.Button();
             this.pathToFW_MKBtn = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
@@ -279,7 +280,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.protocol_idTxtBox);
             this.Controls.Add(this.MCL_chkBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EditConfigurationForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Редактирование конфигурации";
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

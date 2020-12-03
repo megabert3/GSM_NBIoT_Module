@@ -185,36 +185,72 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
             return Target_ID.ToString();
         }
 
+        public void setTarget_ID(byte target_id) {
+            this.Target_ID = target_id;
+        }
+
         public string getIndex() {
             return Index.ToString();
+        }
+
+        public void setIndex(byte index) {
+            this.Index = index;
         }
 
         public string getProtocol_ID() {
             return Protocol_ID.ToString();
         }
 
+        public void setProtocol_ID(byte protocol_id) {
+            this.Protocol_ID = protocol_id;
+        }
+
         public bool isEGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit() {
             return eGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit;
+        }
+
+        public void setEGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit(bool MCL_Mode) {
+            this.eGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit = MCL_Mode;
         }
 
         public string getPort() {
             return port.ToString();
         }
 
+        public void setPort(ushort port) {
+            this.port = port;
+        }
+
         public string getDomenName() {
             return domenName.ToString();
+        }
+
+        public void setDomenName(string domenName) {
+            this.domenName = domenName;
         }
 
         public byte getSelector() {
             return selector;
         }
 
+        public void setSelector(byte selector) {
+            this.selector = selector;
+        }
+
         public string getFwForMKName() {
             return fwForMKName;
         }
 
+        public void setFwForMKName(string fwForMKName) {
+            this.fwForMKName = fwForMKName;
+        }
+
         public string getfwForQuectelName() {
             return fwForQuectelName;
+        }
+
+        public void setfwForQuectelName(string fwForQuectelName) {
+            this.fwForQuectelName = fwForQuectelName;
         }
 
         public ushort getGeneral_ID_Nmb() {
@@ -223,6 +259,10 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
 
         public void setGeneral_ID_Nmb(ushort newGeneralIdNumb) {
             this.general_ID_Nmb = newGeneralIdNumb;
+        }
+
+        public void setDomenNameByteArr(byte[] domenNameByteArr) {
+            this.domenNameByteArr = domenNameByteArr;
         }
     }
 }

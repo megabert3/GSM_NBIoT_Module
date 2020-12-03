@@ -15,6 +15,7 @@ namespace GSM_NBIoT_Module
     public partial class EditConfigurationForm : Form
     {
         private ConfigurationFrame configurationFrame;
+        private ConfigurationFW configuration;
 
         public EditConfigurationForm()
         {
@@ -26,6 +27,7 @@ namespace GSM_NBIoT_Module
             InitializeComponent();
 
             this.configurationFrame = (ConfigurationFrame) configurationFrame;
+            this.configuration = configuration;
 
             //Инициализация полей окна для редактирования
             ConfigNameTxtBx.Text = configuration.getName();
@@ -99,7 +101,6 @@ namespace GSM_NBIoT_Module
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-
                     pathToFW_QuectelTxtBx.Text = Path.GetFileNameWithoutExtension(openFileDialog.FileName);
                 }
             }
@@ -135,10 +136,12 @@ namespace GSM_NBIoT_Module
 
             ConfigurationFileStorage configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
 
-            //Проверка, что конфигурации с таким же именем больше не существует
-            if (configurationFileStorage.getConfigurationFile(name) != null) {
-                Flasher.exceptionDialog("Конфигурация с таким именем уже существует");
-                return;
+            //Проверка, что конфигурации с новым именем больше не существует в списке конфигурации
+            if (!configuration.getName().Equals(name)) {
+                if (configurationFileStorage.getConfigurationFile(name) != null) {
+                    Flasher.exceptionDialog("Конфигурация с таким именем уже существует");
+                    return;
+                }
             }
 
             //Проверка, что поля заполненны цифрами
@@ -148,7 +151,7 @@ namespace GSM_NBIoT_Module
                 index = Convert.ToInt32(indexTxtBox.Text);
                 port = Convert.ToInt32(portTxtBox.Text);
             } catch (FormatException) {
-                Flasher.exceptionDialog("Значение полей: Target_ID, Protocol_ID, Index, Порт, должны быть численными");
+                Flasher.exceptionDialog("Значение полей: Target_ID, Protocol_ID, Index, Порт, должны быть целочисленными");
                 return;
             }
 
@@ -219,7 +222,7 @@ namespace GSM_NBIoT_Module
                     } else if (domenNameArr[i] == ' ') {
                         //Игнорирую все пробелы между цифрами
                     } else {
-                        Flasher.exceptionDialog("Неверный формат записи в поле \"Доменное имя\"");
+                        Flasher.exceptionDialog("Неверный формат записи в поле \"IPv4\"");
                         return;
                     }
                 }
@@ -251,12 +254,18 @@ namespace GSM_NBIoT_Module
             //Проверяю состояние
             if (MCL_chkBox.Checked) eGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit = true;
 
-            //Создаю объект конфигурации
-            ConfigurationFW configurationFW = new ConfigurationFW(name, (byte)target_ID, (byte)index, (byte)protocol_ID,
-                eGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit, (ushort)port, selector, domenName, domenNameByteArr, pathToFW_MKtxtBx.Text, pathToFW_QuectelTxtBx.Text);
-
-            //Добавляю созданную конфигурацию к остальным
-            configurationFileStorage.addConfigurateFileInStorage(configurationFW);
+            //Задаю объекту конфигурации новые параметры
+            configuration.setName(name);
+            configuration.setTarget_ID((byte) target_ID);
+            configuration.setIndex((byte)index);
+            configuration.setProtocol_ID((byte)protocol_ID);
+            configuration.setEGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit(eGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit);
+            configuration.setPort((ushort) port);
+            configuration.setSelector(selector);
+            configuration.setDomenName(domenName);
+            configuration.setDomenNameByteArr(domenNameByteArr);
+            configuration.setFwForMKName(pathToFW_MKtxtBx.Text);
+            configuration.setfwForQuectelName(pathToFW_QuectelTxtBx.Text);
 
             //Сериализую изменения
             ConfigurationFileStorage.serializeConfigurationFileStorage();
@@ -264,6 +273,8 @@ namespace GSM_NBIoT_Module
 
             //Обновляю комбобокс с конфигурациями основного окна
             Flasher.refreshConfigurationCmBox();
+
+            ActiveForm.Close();
         }
     }
 }

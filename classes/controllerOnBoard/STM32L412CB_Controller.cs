@@ -734,7 +734,7 @@ namespace GSM_NBIoT_Module.classes {
             //Добавляю XOR сумму
             addressAndxOR[addressArr.Length] = xorSummAddress;
 
-            Flasher.addMessInLogBuffer("Запрашиваю запись буффера №" + k + " в адрес " + Convert.ToString(address, 16));
+            Flasher.addMessInLogBuffer("Запрос на запись буфера данных №" + k + " в адрес: " + Convert.ToString(address, 16) + " (hex)");
             //Отправляю запрос на запись в адрес
             sendDataInCOM(true, addressAndxOR);
 
@@ -749,12 +749,12 @@ namespace GSM_NBIoT_Module.classes {
 
             byteDataOfSend.Add(xorSummData);
 
-            //Записываю буффер байт в контроллер
-            Flasher.addMessInLogBuffer("Записываю буфер размером " + buffer.Count + " байт");
+            //Записываю буфер байт в контроллер
+            Flasher.addMessInLogBuffer("Запись буфера размером " + buffer.Count + " байт");
             sendDataInCOM(true, byteDataOfSend.ToArray());
 
             //Получаю байты, которые записались в МК
-            Flasher.addMessInLogBuffer("Проверяю данные записанные в контроллер");
+            Flasher.addMessInLogBuffer("Считывание записанных данных из микроконтроллера и проверка их на корректность");
             byte[] readData = readDataOfMK(address, (byteDataOfSend.Count - 2));
 
             byte[] writeData = buffer.ToArray();
@@ -816,10 +816,10 @@ namespace GSM_NBIoT_Module.classes {
                     uint address = fwBuff.Key;
                     List<byte> buffData = fwBuff.Value;
 
-                    Flasher.addMessInLogBuffer("Считываю данные с адреса " + Convert.ToString(address, 16));
+                    Flasher.addMessInLogBuffer("Считывание данных по адресу: " + Convert.ToString(address, 16) + " (hex)");
                     byte[] readBytes = readDataOfMK(address, buffData.Count);                    
 
-                    Flasher.addMessInLogBuffer("Сверяю полученные данные с данными прошивки " + Convert.ToString(address, 16));
+                    Flasher.addMessInLogBuffer("Сравнение полученных данных из микроконтроллера, с данными прошивки " + Convert.ToString(address, 16) + "(hex)");
                     for (int i = 0; i < buffData.Count; i++) {
                         if (readBytes[i] != buffData.ElementAt(i)) throw new MKCommandException("Прочитанные данные из микроконтроллера не совтападют с записанными");
                     }
@@ -863,13 +863,20 @@ namespace GSM_NBIoT_Module.classes {
 
             serialPort.Write(dataInPort, 0, dataInPort.Length);
 
-            while (true) {
+            DateTime startReadTime = DateTime.Now;
 
-                while (serialPort.BytesToRead != 0) {                    
+            //Пока не вышло время по таймауту
+            while (startReadTime - DateTime.Now > TimeSpan.FromMilliseconds(timeOut)) {
+
+                //Если данные пришли в порт
+                while (serialPort.BytesToRead != 0) {
+
+                    //Обновляю таймаут
+                    startReadTime = DateTime.Now;
 
                     int data = serialPort.ReadByte();
 
-                    if (data == NACK) throw new MKCommandException("Не удалось выполнить команду (NACK)");
+                    if (data == NACK) throw new MKCommandException("Не удалось выполнить команду bootloader'a, ответ микроконтроллера NACK");
 
                     //Если ответ один только ACK
                     if (onlyAck) {
@@ -886,7 +893,7 @@ namespace GSM_NBIoT_Module.classes {
                 }
             }
 
-            throw new COMException("Не удалось получить ответ от микроконтроллера");
+            throw new COMException("Не удалось получить ответ от микроконтроллера, превышено время ожидания ответа");
         }
 
         /// <summary>
@@ -909,14 +916,19 @@ namespace GSM_NBIoT_Module.classes {
 
             serialPort.Write(dataInPort, 0, dataInPort.Length);
 
-            while (true) {                
+            DateTime startReadTime = DateTime.Now;
+
+            while (startReadTime - DateTime.Now > TimeSpan.FromMilliseconds(timeOut)) {                
 
                 while (serialPort.BytesToRead != 0) {
+
+                    //Обновляю таймаут
+                    startReadTime = DateTime.Now;
 
                     int data = serialPort.ReadByte();
 
                     if (!firstByte) {
-                        if (data == NACK) throw new MKCommandException("Не удалось выполнить команду (NACK)");
+                        if (data == NACK) throw new MKCommandException("Не удалось выполнить команду bootloader'a, ответ микроконтроллера NACK");
                         firstByte = true;
                     }
 
@@ -933,7 +945,7 @@ namespace GSM_NBIoT_Module.classes {
                 }
             }
 
-            throw new COMException("Не удалось получить ответ от микроконтроллера");
+            throw new COMException("Не удалось получить ответ от микроконтроллера, превышено время ожидания ответа");
         }
 
         /// <summary>

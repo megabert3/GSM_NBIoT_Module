@@ -196,7 +196,7 @@ namespace GSM_NBIoT_Module.classes {
         /// Выкидывает исключение DeviseError
         /// </summary>
         /// <param name="COM_portPtr"> Ссылка на устройство COM порта в системе</param>
-        public void ReadGPIOStageAndSetFlags(IntPtr COM_portPtr) {
+        public int ReadGPIOStageAndSetFlags(IntPtr COM_portPtr) {
 
             uint statusGPIO = 0;
 
@@ -206,6 +206,8 @@ namespace GSM_NBIoT_Module.classes {
             //Возвращаемое число указывает на статус ножек
             //Возвращаемое число в бинарном виде это состояние ножек, подробнее в коде CP210xPortReadWrite.exe
             swithStageGPIO((int)statusGPIO);
+
+            return (int) statusGPIO;
         }
 
         /// <summary>
@@ -224,7 +226,7 @@ namespace GSM_NBIoT_Module.classes {
             IntPtr COM_Port = CreateFile(COM_portName);
 
             if (COM_Port.ToInt32() == -1)
-                throw new DeviceError("Не удалось создать файл необходимый для общения по COM порту.");
+                throw new DeviceError("Не удалось создать файл необходимый для связи по COM порту. Убедитесь, что порты модема не заняты другой программой и попробуйте снова");
 
             int stageGPIO_ForWrite = getCodeFoeSwithStageGPIO(stageGPIO_0, stageGPIO_1, stageGPIO_2);
 
@@ -233,9 +235,11 @@ namespace GSM_NBIoT_Module.classes {
 
             returnCodeError(Convert.ToInt32(WriteLatch(COM_Port, mask, (ushort)stageGPIO_ForWrite)));
 
-            ReadGPIOStageAndSetFlags(COM_Port);
+            int resultGPIO = ReadGPIOStageAndSetFlags(COM_Port);
 
             MyCloseHandle(COM_Port);
+
+            if (resultGPIO != stageGPIO_ForWrite) throw new DeviceError("Не удалось выставить необходимое состояние ног CP2105, перезагрузите модем и попробуйте снова.");
 
             Thread.Sleep(sleepMls);
         }
@@ -247,7 +251,7 @@ namespace GSM_NBIoT_Module.classes {
             IntPtr COM_Port = CreateFile(COM_portName);
 
             if (COM_Port.ToInt32() == -1)
-                throw new DeviceError("Не удалось создать файл необходимый для общения по COM порту.");
+                throw new DeviceError("Не удалось создать файл необходимый для связи по COM порту. Убедитесь, что порты модема не заняты другой программой и попробуйте снова");
 
             int stageGPIO_ForWrite = getCodeFoeSwithStageGPIO(stageGPIO_0, stageGPIO_1, false);
 
@@ -256,9 +260,11 @@ namespace GSM_NBIoT_Module.classes {
 
             returnCodeError(Convert.ToInt32(WriteLatch(COM_Port, mask, (ushort)stageGPIO_ForWrite)));
 
-            ReadGPIOStageAndSetFlags(COM_Port);
+            int resultGPIO = ReadGPIOStageAndSetFlags(COM_Port);
 
             MyCloseHandle(COM_Port);
+
+            if (resultGPIO != stageGPIO_ForWrite) throw new DeviceError("Не удалось выставить необходимое состояние ног CP2105, перезагрузите модем и попробуйте снова.");
 
             Thread.Sleep(sleepMls);
         }
@@ -417,6 +423,38 @@ namespace GSM_NBIoT_Module.classes {
             this.enhabcedPort = enhabcedPort;
             this.standartPort = standartPort;
         }
+
+        /// <summary>
+        /// проверяет количество подключенных модемов к компьютеру,
+        /// если больше одного, то выкидывает исключение
+        /// </summary>
+        public void amountDevicesConnect() {
+            const string searhEnhancedPort = "Silicon Labs Dual CP210x USB to UART Bridge: Enhanced COM Port";
+            const string searhStandartPort = "Silicon Labs Dual CP210x USB to UART Bridge: Standard COM Port";
+
+            int countEnhabcedPort = 0;
+            int countStandartPort = 0;
+
+            string query = "SELECT * FROM Win32_SerialPort";
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
+
+            foreach (ManagementObject service in searcher.Get()) {
+
+                string portDescription = (string)service["Description"];
+
+                if (searhEnhancedPort.Equals(portDescription)) {
+                    countEnhabcedPort++;
+                }
+
+                if (searhStandartPort.Equals(portDescription)) {
+                    countStandartPort++;
+                }
+            }
+
+            if (countEnhabcedPort > 1 || countStandartPort > 1)
+                throw new DeviceError("В списке устройств найдено больше одного модема, для коректной работы программы должно быть подключено не более одного модема");
+        }
+
 
         //================== getters and setters =======================
         public bool getStageGPIO_0() {

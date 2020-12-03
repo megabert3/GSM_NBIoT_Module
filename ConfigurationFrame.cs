@@ -148,7 +148,7 @@ namespace GSM_NBIoT_Module {
                     } else if (domenNameArr[i] == ' ') {
                         //Игнорирую все пробелы между цифрами
                     } else {
-                        Flasher.exceptionDialog("Неверный формат записи в поле \"Доменное имя\"");
+                        Flasher.exceptionDialog("Неверный формат записи в поле \"IPv4\"");
                         return;
                     }
                 }
@@ -387,13 +387,15 @@ namespace GSM_NBIoT_Module {
                 addConfigurationBtn.PerformClick();
 
             } else if (e.KeyCode == Keys.Delete) {
-                deleteConfigurationBtn.PerformClick();
+
+                if (configurationListView.Focused) {
+                    deleteConfigurationBtn.PerformClick();
+                }
             }
         }
 
         private void Form_Closing(object sender, EventArgs e) {
             ((Flasher)mainForm).setConfigurationForm(null);
-
         }
 
         private void editConfigurationBtn_Click(object sender, EventArgs e) {
@@ -407,10 +409,10 @@ namespace GSM_NBIoT_Module {
                 try {
                     configuration = configurationFileStorage.getConfigurationFile(configurationListView.SelectedItems[0].Text);
 
-                    new EditConfigurationForm(this, configuration).Show();
+                    new EditConfigurationForm(this, configuration).ShowDialog();
 
                 } catch (ArgumentOutOfRangeException) {
-                    Flasher.exceptionDialog("Выберите конфигурацию");
+                    Flasher.exceptionDialog("Выберите конфигурацию для редактирования");
                 }
 
             } else {

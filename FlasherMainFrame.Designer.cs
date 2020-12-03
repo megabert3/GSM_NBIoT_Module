@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Flasher));
             this.progressBarFlashing = new System.Windows.Forms.ProgressBar();
             this.startFlashBtn = new System.Windows.Forms.Button();
             this.pathToQuectelFirmwareTextBox = new System.Windows.Forms.TextBox();
@@ -142,7 +143,7 @@
             this.modemTypeCmBox.FormattingEnabled = true;
             this.modemTypeCmBox.Location = new System.Drawing.Point(12, 68);
             this.modemTypeCmBox.Name = "modemTypeCmBox";
-            this.modemTypeCmBox.Size = new System.Drawing.Size(185, 24);
+            this.modemTypeCmBox.Size = new System.Drawing.Size(309, 24);
             this.modemTypeCmBox.TabIndex = 8;
             // 
             // label3
@@ -175,7 +176,7 @@
             this.configurationCmBox.FormattingEnabled = true;
             this.configurationCmBox.Location = new System.Drawing.Point(12, 23);
             this.configurationCmBox.Name = "configurationCmBox";
-            this.configurationCmBox.Size = new System.Drawing.Size(185, 24);
+            this.configurationCmBox.Size = new System.Drawing.Size(309, 24);
             this.configurationCmBox.TabIndex = 12;
             this.configurationCmBox.SelectedValueChanged += new System.EventHandler(this.configurationCmBox_SelectedValueChanged);
             // 
@@ -190,8 +191,7 @@
             // 
             // editConfiguration
             // 
-            this.editConfiguration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.editConfiguration.Location = new System.Drawing.Point(215, 23);
+            this.editConfiguration.Location = new System.Drawing.Point(339, 23);
             this.editConfiguration.Name = "editConfiguration";
             this.editConfiguration.Size = new System.Drawing.Size(170, 24);
             this.editConfiguration.TabIndex = 14;
@@ -232,6 +232,7 @@
             this.Controls.Add(this.startFlashBtn);
             this.Controls.Add(this.progressBarFlashing);
             this.Controls.Add(this.pathToSTM32FirmwareTextBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Flasher";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Тайпит Flasher";

@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigurationFrame));
             this.configurationListView = new System.Windows.Forms.ListView();
             this.configNameClm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.targetIdClm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -39,6 +40,7 @@
             this.protocol_idTxtBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.editConfigurationBtn = new System.Windows.Forms.Button();
             this.pathToFW_QuectelBtn = new System.Windows.Forms.Button();
             this.pathToFW_MKBtn = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
@@ -68,7 +70,6 @@
             this.indexTxtBox = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.editConfigurationBtn = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -218,6 +219,16 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры конфигурации";
+            // 
+            // editConfigurationBtn
+            // 
+            this.editConfigurationBtn.Location = new System.Drawing.Point(620, 41);
+            this.editConfigurationBtn.Name = "editConfigurationBtn";
+            this.editConfigurationBtn.Size = new System.Drawing.Size(115, 25);
+            this.editConfigurationBtn.TabIndex = 23;
+            this.editConfigurationBtn.Text = "Редактировать";
+            this.editConfigurationBtn.UseVisualStyleBackColor = true;
+            this.editConfigurationBtn.Click += new System.EventHandler(this.editConfigurationBtn_Click);
             // 
             // pathToFW_QuectelBtn
             // 
@@ -466,7 +477,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(2, 148);
+            this.label3.Location = new System.Drawing.Point(3, 148);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(33, 13);
             this.label3.TabIndex = 6;
@@ -475,7 +486,7 @@
             // indexTxtBox
             // 
             this.indexTxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.indexTxtBox.Location = new System.Drawing.Point(5, 163);
+            this.indexTxtBox.Location = new System.Drawing.Point(6, 163);
             this.indexTxtBox.Name = "indexTxtBox";
             this.indexTxtBox.Size = new System.Drawing.Size(115, 20);
             this.indexTxtBox.TabIndex = 5;
@@ -490,16 +501,6 @@
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
             // 
-            // editConfigurationBtn
-            // 
-            this.editConfigurationBtn.Location = new System.Drawing.Point(620, 41);
-            this.editConfigurationBtn.Name = "editConfigurationBtn";
-            this.editConfigurationBtn.Size = new System.Drawing.Size(115, 25);
-            this.editConfigurationBtn.TabIndex = 23;
-            this.editConfigurationBtn.Text = "Редактировать";
-            this.editConfigurationBtn.UseVisualStyleBackColor = true;
-            this.editConfigurationBtn.Click += new System.EventHandler(this.editConfigurationBtn_Click);
-            // 
             // ConfigurationFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -507,6 +508,7 @@
             this.ClientSize = new System.Drawing.Size(1123, 695);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.configurationListView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "ConfigurationFrame";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

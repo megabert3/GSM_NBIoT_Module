@@ -15,6 +15,10 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
     /// </summary>
     [Serializable]
     class ConfigurationFileStorage {
+
+        //Последняя использемая конфигурация
+        private string lastConfiguration = "";
+
         //Контейнер для хранения
         private static ConfigurationFileStorage configurationFileStorage;
 
@@ -126,7 +130,7 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
             BinaryFormatter formatter = new BinaryFormatter();
 
             using (FileStream fs = new FileStream(pathForSerialization, FileMode.OpenOrCreate)) {
-                configurationFileStorage = (ConfigurationFileStorage) formatter.Deserialize(fs);
+                configurationFileStorage = (ConfigurationFileStorage)formatter.Deserialize(fs);
             }
         }
 
@@ -136,6 +140,14 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
 
         public string getPass() {
             return password;
+        }
+
+        public void setLastConfiguration(string lastConfiguration) {
+            this.lastConfiguration = lastConfiguration;
+        }
+
+        public string getLastConfiguration() {
+            return lastConfiguration;
         }
     }
 }

@@ -95,7 +95,7 @@ namespace GSM_NBIoT_Module {
                     }
                     break;
 
-                default: throw new NotSupportedException("В программе нет сценария работы для выбранного модена");
+                default: throw new NotSupportedException("В программе нет сценария работы для выбранного модема");
             }
         }
 
@@ -122,11 +122,16 @@ namespace GSM_NBIoT_Module {
 
                     configurationFW = configurationFileStorage.getConfigurationFile(selectedConfiguration);
 
+                    //Запоминаю последнюю используемую конфигурацию для инициализации комбобокса при старте программы
+                    configurationFileStorage.setLastConfiguration(selectedConfiguration);
+
+                    ConfigurationFileStorage.serializeConfigurationFileStorage();
+
                     //Если не создан конфигурационный файл
                 } else {
 
                     Invoke((MethodInvoker)delegate {
-                        exceptionDialog("Создайте конфигурационный файл");
+                        exceptionDialog("Для работы программы необходимо создать конфигурационный файл");
                         enableStartButton(true);
                     });
 
@@ -145,7 +150,8 @@ namespace GSM_NBIoT_Module {
                     if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\StorageMKFW")) {
 
                         Invoke((MethodInvoker)delegate {
-                            exceptionDialog("Программе не удалось найти папку с прошивками для микроконтроллера \"StorageMKFW\"");
+                            exceptionDialog("Программе не удалось найти папку с прошивками для микроконтроллера \"StorageMKFW\", проверьте целостность программы" +
+                                " или переустановите её и попробуйте снова");
                             enableStartButton(true);
                         });
                         return;
@@ -155,7 +161,8 @@ namespace GSM_NBIoT_Module {
                     //То проверяю её наличие в нужной папке созданной программой
                     if (!File.Exists(pathWFforMK)) {
                         Invoke((MethodInvoker)delegate {
-                            exceptionDialog("Программе не удалось найти файл с прошивкой для микроконтроллера " + "\"" + configurationFW.getFwForMKName() + "\"");
+                            exceptionDialog("Программе не удалось найти файл с прошивкой для микроконтроллера " + "\"" + configurationFW.getFwForMKName() + "\" " +
+                                "необходимо добавить файл в папку \"StorageMKFW\"");
                             enableStartButton(true);
                         });
                         return;
@@ -169,7 +176,8 @@ namespace GSM_NBIoT_Module {
                     if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\StorageQuectelFW")) {
 
                         Invoke((MethodInvoker)delegate {
-                            exceptionDialog("Программе не удалось найти папку с прошивками для модуля Quectel \"StorageQuectelFW\"");
+                            exceptionDialog("Программе не удалось найти папку с прошивками для модуля Quectel \"StorageQuectelFW\", проверьте целостность программы" +
+                                " или переустановите её и попробуйте снова");
                             enableStartButton(true);
                         });
                         return;
@@ -179,7 +187,8 @@ namespace GSM_NBIoT_Module {
                     //То проверяю её наличие в нужной папке созданной программой
                     if (!File.Exists(pathWFforQuectel)) {
                         Invoke((MethodInvoker)delegate {
-                            exceptionDialog("Программе не удалось найти файл с прошивкой для модуля Quectel " + "\"" + configurationFW.getfwForQuectelName() + "\"");
+                            exceptionDialog("Программе не удалось найти файл с прошивкой для модуля Quectel " + "\"" + configurationFW.getfwForQuectelName() + "\" " +
+                                "необходимо добавить файл в папку \"StorageQuectelFW\"");
                             enableStartButton(true);
                         });
                         return;
@@ -191,7 +200,7 @@ namespace GSM_NBIoT_Module {
 
                     if (matches.Count > 0) {
                         Invoke((MethodInvoker)delegate {
-                            exceptionDialog("Путь не должен содержать русские символы или пробельные символы");
+                            exceptionDialog("Путь к прошивке не должен содержать русские символы или пробельные символы");
                             enableStartButton(true);
                         });
                         return;
@@ -299,7 +308,26 @@ namespace GSM_NBIoT_Module {
                     configurationCmBoxStatic.Items.Add(configuration.getName());
                 }
 
-                configurationCmBoxStatic.SelectedIndex = 0;
+                //Выставляю в списке конфигураций селект на последнюю используемую
+                if (!configuratinFileStorage.getLastConfiguration().Equals("")) {
+
+                    //Флаг для нахождения последней используемой конфигурации в списке конфигурации
+                    bool find = false;
+
+                    foreach (string confName in configurationCmBoxStatic.Items) {
+
+                        if (confName.Equals(configuratinFileStorage.getLastConfiguration())) {
+                            configurationCmBoxStatic.SelectedItem = confName;
+                            find = true;
+                            break;
+                        }
+                    }
+
+                    //Если не найдено, то выставляю первую конфигурацию
+                    if (!find) {
+                        configurationCmBoxStatic.SelectedIndex = 0;
+                    }
+                }
             }
         }
 
@@ -312,7 +340,7 @@ namespace GSM_NBIoT_Module {
 
             TimeSpan interval = TimeSpan.FromMilliseconds(mls);
 
-            return interval.Minutes + ":" + interval.Seconds + ":" + interval.Milliseconds + " (mm:ss:mls)";
+            return interval.ToString(@"mm\:ss\.fff") + " (mm:ss.ms)";
         }
 
         /// <summary>

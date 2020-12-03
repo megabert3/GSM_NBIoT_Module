@@ -110,7 +110,7 @@ namespace GSM_NBIoT_Module.classes {
                 });
 
                 Flasher.addMessageInMainLog("\n==========================================================================================");
-                Flasher.addMessageInMainLog("ПРОШИВАЮ МОДУЛЬ QUECTEL" + Environment.NewLine);
+                Flasher.addMessageInMainLog("ПРОШИВКА МОДУЛЯ QUECTEL" + Environment.NewLine);
 
                 Stopwatch quectelFirmwareWriteStart = new Stopwatch();
                 quectelFirmwareWriteStart.Start();
