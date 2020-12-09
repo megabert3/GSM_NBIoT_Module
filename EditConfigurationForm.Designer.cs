@@ -51,6 +51,7 @@
             this.protocol_idTxtBox = new System.Windows.Forms.TextBox();
             this.MCL_chkBox = new System.Windows.Forms.CheckBox();
             this.saveEditsBtn = new System.Windows.Forms.Button();
+            this.cancelBtn = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -256,11 +257,22 @@
             this.saveEditsBtn.UseVisualStyleBackColor = true;
             this.saveEditsBtn.Click += new System.EventHandler(this.saveEditsBtn_Click);
             // 
+            // cancelBtn
+            // 
+            this.cancelBtn.Location = new System.Drawing.Point(500, 151);
+            this.cancelBtn.Name = "cancelBtn";
+            this.cancelBtn.Size = new System.Drawing.Size(115, 25);
+            this.cancelBtn.TabIndex = 42;
+            this.cancelBtn.Text = "Отмена";
+            this.cancelBtn.UseVisualStyleBackColor = true;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
+            // 
             // EditConfigurationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(765, 188);
+            this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.saveEditsBtn);
             this.Controls.Add(this.pathToFW_QuectelBtn);
             this.Controls.Add(this.pathToFW_MKBtn);
@@ -315,5 +327,6 @@
         private System.Windows.Forms.TextBox protocol_idTxtBox;
         private System.Windows.Forms.CheckBox MCL_chkBox;
         private System.Windows.Forms.Button saveEditsBtn;
+        private System.Windows.Forms.Button cancelBtn;
     }
 }

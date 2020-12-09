@@ -1,4 +1,5 @@
 ﻿using GSM_NBIoT_Module.classes;
+using GSM_NBIoT_Module.classes.applicationHelper;
 using GSM_NBIoT_Module.classes.controllerOnBoard.Configuration;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace GSM_NBIoT_Module {
         //Ссылка на форму с конфигурацией
         private Form configurationForm;
 
+        private Form passForm;
+
         //Типы используемых модемов
         private string[] modemType = { "GSM3" };
 
@@ -36,7 +39,8 @@ namespace GSM_NBIoT_Module {
 
         //Буфер сообщений для перепрошивки микроконтроллера
         private static StringBuilder logBuffer;        
-
+        
+        //Использовалось в первой версии программы, сохранено на всякий случай!!!!!!!!!!!!!!!!
         private void pathToQuectelFirmwareBtn_Click(object sender, EventArgs e) {
 
             using (OpenFileDialog openFileDialog = new OpenFileDialog()) {
@@ -66,12 +70,15 @@ namespace GSM_NBIoT_Module {
                 }
             }
         }
+        //Использовалось в первой версии программы, сохранено на всякий случай!!!!!!!!!!!!!!!!
+        //END
 
         private void Flasher_Load(object sender, EventArgs e) {
             //Устанавливаю статическому полю ссылку на основное окно Лога (Для статического доступа к окну поля из всей программы)
             flashProcessTxtBoxStatic = flashProcessRichTxtBox;
 
             progressBarFlashingStatic = progressBarFlashing;
+            progressBar.SetState(progressBarFlashing, 1);
 
             //Выгрузка типов модемов
             modemTypeCmBox.Items.AddRange(modemType);
@@ -84,6 +91,12 @@ namespace GSM_NBIoT_Module {
 
         private void startFlashBtn_Click(object sender, EventArgs e) {
             flashProcessRichTxtBox.Focus();
+
+            //Стиль прогресс бара
+            progressBar.SetState(progressBarFlashing, 1);
+
+            //Обнуляю значение прогресс бара
+            progressBarFlashing.Value = 0;
 
             switch (modemTypeCmBox.SelectedItem) {
 
@@ -200,7 +213,7 @@ namespace GSM_NBIoT_Module {
 
                     if (matches.Count > 0) {
                         Invoke((MethodInvoker)delegate {
-                            exceptionDialog("Путь к прошивке не должен содержать русские символы или пробельные символы");
+                            exceptionDialog("Путь к прошивке не должен содержать русские символы или пробельные символы + \n" + pathWFforQuectel);
                             enableStartButton(true);
                         });
                         return;
@@ -240,8 +253,10 @@ namespace GSM_NBIoT_Module {
                 addMessageInMainLog("Тип ошибки: " + ex.GetType().ToString());
                 addMessageInMainLog("Метод: " + ex.TargetSite.ToString());
                 addMessageInMainLog("ОШИБКА: " + ex.Message);
+                addMessageInMainLog("");
 
                 Invoke((MethodInvoker)delegate {
+                    progressBar.SetState(progressBarFlashing, 2);
                     exceptionDialog(ex.Message);
                     enableStartButton(true);
                 });
@@ -417,7 +432,17 @@ namespace GSM_NBIoT_Module {
 
                 if (!String.IsNullOrEmpty(configurationFileStorage.getPass())) {
 
-                    new Password(this).Show();
+                    if (passForm != null) {
+                        passForm.Activate();
+                        passForm.BringToFront();
+                        return;
+
+                    } else {
+
+                        passForm = new Password(this);
+
+                        passForm.Show();
+                    }
 
                 } else {
                     configurationForm = new ConfigurationFrame(this);
@@ -464,6 +489,10 @@ namespace GSM_NBIoT_Module {
 
         public void setConfigurationForm(Form configurationForm) {
             this.configurationForm = configurationForm;
+        }
+
+        public void setPassForm(Form passForm) {
+            this.passForm = passForm;
         }
 
         public Form getConfigurationForm() {

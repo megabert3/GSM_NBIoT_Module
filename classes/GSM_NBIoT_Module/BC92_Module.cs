@@ -54,6 +54,8 @@ namespace GSM_NBIoT_Module.classes {
             //Загружаемая прошивка модуля
             string loadFirmware = Path.GetFileNameWithoutExtension(pathToFirmware);
 
+            //pathToFirmware = ".\\StorageQuectelFW\\" + Path.GetFileName(pathToFirmware);
+
             //Текущая прошивка модуля
             try {
                 string verModFirmware = VerFirmware;
@@ -135,18 +137,18 @@ namespace GSM_NBIoT_Module.classes {
             }
 
             //Ставлю в начальное положение ножки CP2105
-            cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, true, 3000);
+            //cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, true, 500);
             Flasher.setValuePogressBarFlashingStatic(460);
 
             //Делаю ресет модуля BC92
-            cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), false, true, true, 1000);
+            //cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), false, true, true, 500);
             Flasher.setValuePogressBarFlashingStatic(470);
 
             //Поднимаю модуль BC92 и не даю уснуть
-            cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, true, 3000);
+            //cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, true, 1000);
             Flasher.setValuePogressBarFlashingStatic(480);
 
-            cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, false, 2000);
+            //cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, false, 1000);
             Flasher.setValuePogressBarFlashingStatic(490);
 
             //Это было до того как я считывал результат из потока программы для перепрошивки

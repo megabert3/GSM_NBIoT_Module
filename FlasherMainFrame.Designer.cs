@@ -235,7 +235,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Flasher";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Тайпит Flasher";
+            this.Text = "Тайпит Flasher V1.4";
             this.Load += new System.EventHandler(this.Flasher_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);

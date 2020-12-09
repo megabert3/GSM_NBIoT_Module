@@ -16,12 +16,15 @@ namespace GSM_NBIoT_Module {
 
         public Password() {
             InitializeComponent();
+
+            FormClosing += Form_Closing;
         }
 
         public Password(Form mainForm) {
             InitializeComponent();
             this.mainForm = mainForm;
-            
+
+            FormClosing += Form_Closing;
         }
 
         private void enterPassBtn_Click(object sender, EventArgs e) {
@@ -29,16 +32,21 @@ namespace GSM_NBIoT_Module {
             ConfigurationFileStorage configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
 
             if (configurationFileStorage.getPass().Equals(PasswordtxtBx.Text)) {
-                Form configurationFrame = new ConfigurationFrame(mainForm);
-                configurationFrame.Show();
 
+                Form configurationFrame = new ConfigurationFrame(mainForm);
                 ((Flasher)mainForm).setConfigurationForm(configurationFrame);
+
+                configurationFrame.Show();
 
                 this.Close();
 
             } else {
                 Flasher.exceptionDialog("Неверный пароль");
             }
+        }
+
+        private void Form_Closing(object sender, EventArgs e) {
+            ((Flasher)mainForm).setPassForm(null);
         }
     }
 }

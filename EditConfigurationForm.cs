@@ -167,6 +167,12 @@ namespace GSM_NBIoT_Module
                 return;
             }
 
+            //Проверка, что имя прошивки для микроконтроллера или для модуля Quectel установлены
+            if (String.IsNullOrEmpty(pathToFW_MKtxtBx.Text) && String.IsNullOrEmpty(pathToFW_QuectelTxtBx.Text)) {
+                Flasher.exceptionDialog("Необходимо заполнить имя прошивки для микроконтроллера или для модуля Quectel");
+                return;
+            }
+
             //Получаю текстовое представление адреса
             domenName = domenNameTxtBox.Text;
 
@@ -210,7 +216,10 @@ namespace GSM_NBIoT_Module
                             addressByteBlock = "0";
 
                         } catch (FormatException) {
-                            Flasher.exceptionDialog("Неверный формат записи в поле \"Доменное имя\"");
+                            Flasher.exceptionDialog("Неверный формат записи в поле \"IPv4\"");
+                            return;
+                        } catch (IndexOutOfRangeException) {
+                            Flasher.exceptionDialog("Неверный формат записи в поле \"IPv4\"");
                             return;
                         }
 
@@ -239,16 +248,29 @@ namespace GSM_NBIoT_Module
                 //Если пользователь выбрал адрес в формате доменного имени
             } else {
 
-                if (domenName.Length > 28) {
+                char[] domenNameArr = domenName.ToCharArray();
+                //Проверка, что доменное имя в кавычках
+                if (domenNameArr[0] != '"' || domenNameArr[domenName.Length - 1] != '"') {
+                    Flasher.exceptionDialog("Неверный формат доменного имени. Доменное имя должно иметь знак \" в начале и в конце имени");
+                    return;
+                }
+
+                //С учётом кавычек
+                if (domenName.Length - 2 > 28) {
                     Flasher.exceptionDialog("Доменное имя не должно быть больше 28 символов");
                     return;
                 }
 
-                foreach (char symbol in domenName.ToCharArray()) {
-                    if (symbol < 0x20 || symbol > 0x7F) Flasher.exceptionDialog("Доменное имя должно содержать только ASCII символы");
+                for (int i = 1; i < domenName.Length - 1; i++) {
+
+                    if (domenNameArr[i] < 0x20 || domenNameArr[i] > 0x7F) {
+                        Flasher.exceptionDialog("Доменное имя должно содержать только ASCII символы");
+                        return;
+                    }
                 }
 
-                domenNameByteArr = Encoding.ASCII.GetBytes(domenName);
+                //Сохраняю доменное имя, но уже без кавычек
+                domenNameByteArr = Encoding.ASCII.GetBytes(domenName.Substring(1, domenName.Length - 2));
             }
 
             //Проверяю состояние
@@ -275,6 +297,13 @@ namespace GSM_NBIoT_Module
             Flasher.refreshConfigurationCmBox();
 
             ActiveForm.Close();
+
+            configurationFrame.getEditConfigurationBtn().Enabled = false;
+            configurationFrame.getdeleteConfigurationBtn().Enabled = false;
+        }
+
+        private void cancelBtn_Click(object sender, EventArgs e) {
+            Close();
         }
     }
 }

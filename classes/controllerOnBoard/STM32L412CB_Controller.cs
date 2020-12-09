@@ -36,7 +36,7 @@ namespace GSM_NBIoT_Module.classes {
         private CP2105_Connector CP2105_Connector = CP2105_Connector.GetCP2105_ConnectorInstance();
 
         private SerialPort serialPort = new SerialPort();
-        private int timeOut = 1000;
+        private int timeOut = 50000;
 
         //Версия бутлоадера контроллера
         private string verBootLoader = null;
@@ -819,7 +819,7 @@ namespace GSM_NBIoT_Module.classes {
                     Flasher.addMessInLogBuffer("Считывание данных по адресу: " + Convert.ToString(address, 16) + " (hex)");
                     byte[] readBytes = readDataOfMK(address, buffData.Count);                    
 
-                    Flasher.addMessInLogBuffer("Сравнение полученных данных из микроконтроллера, с данными прошивки " + Convert.ToString(address, 16) + "(hex)");
+                    Flasher.addMessInLogBuffer("Сравнение полученных данных из микроконтроллера, с данными прошивки " + Convert.ToString(address, 16) + " (hex)");
                     for (int i = 0; i < buffData.Count; i++) {
                         if (readBytes[i] != buffData.ElementAt(i)) throw new MKCommandException("Прочитанные данные из микроконтроллера не совтападют с записанными");
                     }
@@ -863,16 +863,16 @@ namespace GSM_NBIoT_Module.classes {
 
             serialPort.Write(dataInPort, 0, dataInPort.Length);
 
-            DateTime startReadTime = DateTime.Now;
+            long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
 
             //Пока не вышло время по таймауту
-            while (startReadTime - DateTime.Now > TimeSpan.FromMilliseconds(timeOut)) {
+            while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
 
                 //Если данные пришли в порт
                 while (serialPort.BytesToRead != 0) {
 
                     //Обновляю таймаут
-                    startReadTime = DateTime.Now;
+                    endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
 
                     int data = serialPort.ReadByte();
 
@@ -916,16 +916,16 @@ namespace GSM_NBIoT_Module.classes {
 
             serialPort.Write(dataInPort, 0, dataInPort.Length);
 
-            DateTime startReadTime = DateTime.Now;
+            long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
 
-            while (startReadTime - DateTime.Now > TimeSpan.FromMilliseconds(timeOut)) {                
+            while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
 
                 while (serialPort.BytesToRead != 0) {
 
-                    //Обновляю таймаут
-                    startReadTime = DateTime.Now;
-
                     int data = serialPort.ReadByte();
+
+                    //Обновляю таймаут
+                    endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
 
                     if (!firstByte) {
                         if (data == NACK) throw new MKCommandException("Не удалось выполнить команду bootloader'a, ответ микроконтроллера NACK");

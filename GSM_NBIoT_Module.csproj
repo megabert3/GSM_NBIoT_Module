@@ -47,12 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="classes\applicationHelper\progressBar.cs" />
     <Compile Include="classes\applicationHelper\exceptions\ATCommandException.cs" />
     <Compile Include="classes\applicationHelper\exceptions\MKCommandException.cs" />
     <Compile Include="classes\applicationHelper\exceptions\DeviceNotFoundException.cs" />
     <Compile Include="classes\applicationHelper\exceptions\DeviceError.cs" />
-    <Compile Include="classes\controllerOnBoard\Configuration\ConfigurationFileStorage.cs" />
-    <Compile Include="classes\controllerOnBoard\Configuration\ConfigurationFW.cs" />
+    <Compile Include="classes\Configuration\ConfigurationFileStorage.cs" />
+    <Compile Include="classes\Configuration\ConfigurationFW.cs" />
     <Compile Include="classes\modemBoard\Board.cs" />
     <Compile Include="classes\GSM_NBIoT_Module\BC92_Module.cs" />
     <Compile Include="classes\modemBoard\GSM3_Board.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="classes\GSM_NBIoT_Module\CommunicationModule.cs" />
     <Compile Include="classes\controllerOnBoard\Controller.cs" />
     <Compile Include="classes\сommunication\Connector.cs" />
+    <Compile Include="DependencyObject.cs" />
     <Compile Include="EditConfigurationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +126,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

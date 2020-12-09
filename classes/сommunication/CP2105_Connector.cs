@@ -232,19 +232,36 @@ namespace GSM_NBIoT_Module.classes {
 
             //Охватить все возможные пины
             const ushort mask = 15;
-
+            
             returnCodeError(Convert.ToInt32(WriteLatch(COM_Port, mask, (ushort)stageGPIO_ForWrite)));
+
+            Thread.Sleep(sleepMls);
 
             int resultGPIO = ReadGPIOStageAndSetFlags(COM_Port);
 
+            //Если состояние ног GPIO не установилось, то пробую ещё раз
+            if (resultGPIO != stageGPIO_ForWrite) {
+
+                for (int i = 0; i < 2; i++) {
+                    Thread.Sleep(500);
+
+                    resultGPIO = ReadGPIOStageAndSetFlags(COM_Port);
+
+                    if (resultGPIO == stageGPIO_ForWrite) {
+                        MyCloseHandle(COM_Port);
+                        return;
+                    }
+                }
+
+                MyCloseHandle(COM_Port);
+                
+                throw new DeviceError("Не удалось выставить необходимое состояние ног CP2105, перезагрузите модем и попробуйте снова.");
+            }
+
             MyCloseHandle(COM_Port);
-
-            if (resultGPIO != stageGPIO_ForWrite) throw new DeviceError("Не удалось выставить необходимое состояние ног CP2105, перезагрузите модем и попробуйте снова.");
-
-            Thread.Sleep(sleepMls);
         }
 
-        public void WriteGPIOStageAndSetFlags(int COM_portNo, Boolean stageGPIO_0, Boolean stageGPIO_1, int sleepMls) {
+        public void WriteGPIOStageAndSetFlags(int COM_portNo, bool stageGPIO_0, bool stageGPIO_1, int sleepMls) {
 
             string COM_portName = "\\\\.\\COM" + COM_portNo;
 
@@ -260,13 +277,30 @@ namespace GSM_NBIoT_Module.classes {
 
             returnCodeError(Convert.ToInt32(WriteLatch(COM_Port, mask, (ushort)stageGPIO_ForWrite)));
 
+            Thread.Sleep(sleepMls);
+
             int resultGPIO = ReadGPIOStageAndSetFlags(COM_Port);
 
+            //Если состояние ног GPIO не установилось, то пробую ещё раз
+            if (resultGPIO != stageGPIO_ForWrite) {
+
+                for (int i = 0; i < 2; i++) {
+                    Thread.Sleep(500);
+
+                    resultGPIO = ReadGPIOStageAndSetFlags(COM_Port);
+
+                    if (resultGPIO == stageGPIO_ForWrite) {
+                        MyCloseHandle(COM_Port);
+                        return;
+                    }
+                }
+
+                MyCloseHandle(COM_Port);
+
+                throw new DeviceError("Не удалось выставить необходимое состояние ног CP2105, перезагрузите модем и попробуйте снова.");
+            }
+
             MyCloseHandle(COM_Port);
-
-            if (resultGPIO != stageGPIO_ForWrite) throw new DeviceError("Не удалось выставить необходимое состояние ног CP2105, перезагрузите модем и попробуйте снова.");
-
-            Thread.Sleep(sleepMls);
         }
 
         /// <summary>
@@ -334,7 +368,7 @@ namespace GSM_NBIoT_Module.classes {
         /// <param name="stageGPIO_1"></param>
         /// <param name="stageGPIO_2"></param>
         /// <returns></returns>
-        private int getCodeFoeSwithStageGPIO(Boolean stageGPIO_0, Boolean stageGPIO_1, Boolean stageGPIO_2) {
+        private int getCodeFoeSwithStageGPIO(bool stageGPIO_0, bool stageGPIO_1, bool stageGPIO_2) {
             if (!stageGPIO_0 & !stageGPIO_1 & !stageGPIO_2) return 0;
             else if (stageGPIO_0 & !stageGPIO_1 & !stageGPIO_2) return 1;
             else if (!stageGPIO_0 & stageGPIO_1 & !stageGPIO_2) return 2;

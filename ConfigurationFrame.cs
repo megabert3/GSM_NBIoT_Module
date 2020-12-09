@@ -24,6 +24,9 @@ namespace GSM_NBIoT_Module {
 
             this.mainForm = mainForm;
             FormClosing += Form_Closing;
+
+            editConfigurationBtn.Enabled = false;
+            deleteConfigurationBtn.Enabled = false;
         }
 
         //Инициализация окна
@@ -93,6 +96,12 @@ namespace GSM_NBIoT_Module {
                 return;
             }
 
+            //Проверка, что имя прошивки для микроконтроллера или для модуля Quectel установлены
+            if (String.IsNullOrEmpty(pathToFW_MKtxtBx.Text) && String.IsNullOrEmpty(pathToFW_QuectelTxtBx.Text)) {
+                Flasher.exceptionDialog("Необходимо заполнить имя прошивки для микроконтроллера или для модуля Quectel");
+                return;
+            }
+
             //Получаю текстовое представление адреса
             domenName = domenNameTxtBox.Text;
 
@@ -136,7 +145,10 @@ namespace GSM_NBIoT_Module {
                             addressByteBlock = "0";
 
                         } catch (FormatException) {
-                            Flasher.exceptionDialog("Неверный формат записи в поле \"Доменное имя\"");
+                            Flasher.exceptionDialog("Неверный формат записи в поле \"IPv4\"");
+                            return;
+                        } catch (IndexOutOfRangeException) {
+                            Flasher.exceptionDialog("Неверный формат записи в поле \"IPv4\"");
                             return;
                         }
 
@@ -165,16 +177,29 @@ namespace GSM_NBIoT_Module {
                 //Если пользователь выбрал адрес в формате доменного имени
             } else {
 
-                if (domenName.Length > 28) {
+                char[] domenNameArr = domenName.ToCharArray();
+                //Проверка, что доменное имя в кавычках
+                if (domenNameArr[0] != '"'|| domenNameArr[domenName.Length - 1] != '"') {
+                    Flasher.exceptionDialog("Неверный формат доменного имени. Доменное имя должно иметь знак \" в начале и в конце имени");
+                    return;
+                }
+
+                //С учётом кавычек
+                if (domenName.Length - 2 > 28) {
                     Flasher.exceptionDialog("Доменное имя не должно быть больше 28 символов");
                     return;
                 }
 
-                foreach (char symbol in domenName.ToCharArray()) {
-                    if (symbol < 0x20 || symbol > 0x7F) Flasher.exceptionDialog("Доменное имя должно содержать только ASCII символы");
+                for (int i = 1; i < domenName.Length - 1; i++) {
+
+                    if (domenNameArr[i] < 0x20 || domenNameArr[i] > 0x7F) {
+                        Flasher.exceptionDialog("Доменное имя должно содержать только ASCII символы");
+                        return;
+                    }
                 }
 
-                domenNameByteArr = Encoding.ASCII.GetBytes(domenName);
+                //Сохраняю доменное имя, но уже без кавычек
+                domenNameByteArr = Encoding.ASCII.GetBytes(domenName.Substring(1, domenName.Length - 2));
             }
 
             //Проверяю состояние
@@ -203,7 +228,7 @@ namespace GSM_NBIoT_Module {
             portTxtBox.Text = "8103";
             domenNameRdBtn.Checked = true;
             IPv4rdBtn.Checked = false;
-            domenNameTxtBox.Text = "devices.226.taipit.ru";
+            domenNameTxtBox.Text = "\"devices.226.taipit.ru\"";
             pathToFW_MKtxtBx.Text = "";
             pathToFW_QuectelTxtBx.Text = "";
         }
@@ -239,7 +264,7 @@ namespace GSM_NBIoT_Module {
         }
 
         private void domenNameRdBtn_CheckedChanged(object sender, EventArgs e) {
-            domenNameTxtBox.Text = "devices.226.taipit.ru";
+            domenNameTxtBox.Text = "\"devices.226.taipit.ru\"";
         }
 
         private void IPv4rdBtn_CheckedChanged(object sender, EventArgs e) {
@@ -383,7 +408,15 @@ namespace GSM_NBIoT_Module {
         /// <param name="e"></param>
         void key_Down(object sender, KeyEventArgs e) {
 
+            //Если пользователь нажал кнопку Enter
             if (e.KeyCode == Keys.Enter) {
+                
+                //Если выделено поле добавления команды для модуля Quectel
+                if (quectelCommandTxtBox.Focused) {
+                    addQuectelCommandBtn.PerformClick();
+                    return;
+                }
+
                 addConfigurationBtn.PerformClick();
 
             } else if (e.KeyCode == Keys.Delete) {
@@ -398,6 +431,11 @@ namespace GSM_NBIoT_Module {
             ((Flasher)mainForm).setConfigurationForm(null);
         }
 
+        /// <summary>
+        /// Действие при нажатии на кнопку редактировать
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void editConfigurationBtn_Click(object sender, EventArgs e) {
 
             if (configurationListView.Items.Count > 0) {
@@ -420,6 +458,103 @@ namespace GSM_NBIoT_Module {
             }
         }
 
+        private void configurationListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e) {
+            if (configurationListView.SelectedItems.Count != 0) {
+                editConfigurationBtn.Enabled = true;
+                deleteConfigurationBtn.Enabled = true;
+            } else {
+                editConfigurationBtn.Enabled = false;
+                deleteConfigurationBtn.Enabled = false;
+            }
+        }
 
+        /// <summary>
+        /// Действие при двойном щелчке на конфигурации в таблице
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void configurationListView_MouseDoubleClick(object sender, MouseEventArgs e) {
+
+            if (configurationListView.SelectedItems.Count != 0) {
+
+                configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
+
+                ConfigurationFW configuration;
+
+                try {
+                    configuration = configurationFileStorage.getConfigurationFile(configurationListView.SelectedItems[0].Text);
+
+                    if (configuration != null) {
+                        new EditConfigurationForm(this, configuration).ShowDialog();
+                    } else {
+                        Flasher.exceptionDialog("В хранилище не найдено выбранной конфигурации");
+                    }
+
+                } catch (ArgumentOutOfRangeException) {
+                    Flasher.exceptionDialog("Выберите конфигурацию для редактирования");
+                }
+            }
+        }
+
+        public Button getEditConfigurationBtn () {
+            return editConfigurationBtn;
+        }
+
+        public Button getdeleteConfigurationBtn () {
+            return deleteConfigurationBtn;
+        }
+
+        /// <summary>
+        /// Действие при нажатии кнопки добавить из окна добавления команды для модуля Quectel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void addQuectelCommandBtn_Click(object sender, EventArgs e) {
+
+            //Если текствовое поле не пустое
+            if (!String.IsNullOrEmpty(quectelCommandTxtBox.Text.Trim())) {
+
+                //Получаю список команд
+                string[] commandsQuectel = quectelCommandTxtBox.Text.Split(';');
+
+                //Добавляю команду в ListView
+                foreach (string command in commandsQuectel) {
+
+                    //Если команда не пустая
+                    if (!String.IsNullOrEmpty(command.Trim())) {
+
+                        string upCaseCommand = command.Trim().ToUpper();
+
+                        quectelCommnadsdtGrdView.Rows.Add(upCaseCommand);
+                       
+
+                        quectelCommandTxtBox.Clear();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Действие при выходе из режима редактирования ячейки в quectelCommnadsdtGrdView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void quectelCommnadsdtGrdView_CellEndEdit(object sender, DataGridViewCellEventArgs e) {
+
+            //прохожусь по всем строчкам
+            foreach (DataGridViewRow row in quectelCommnadsdtGrdView.Rows) {
+
+                
+                foreach (DataGridViewCell cell in row.Cells) {
+
+                    //Если в строке значении ячейки пустое, то удаляю строку
+
+                    if (cell.Value == null || String.IsNullOrEmpty(cell.Value.ToString().Trim())) {
+                        quectelCommnadsdtGrdView.Rows.Remove(row);
+                        return;
+                    }
+                }
+            }
+        }
     }
 }

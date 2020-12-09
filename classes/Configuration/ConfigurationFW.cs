@@ -41,6 +41,9 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
         private byte selectorIPv4 = 0x01; //IPv4
         private byte selectorIPv6 = 0x02; //IPv6
 
+        //Лист с командами конфигурации модуля Quectel
+        List<string> quectelCommandList = new List<string>();
+
         /// <summary>
         /// Создаёт конфигурационный файл с параметрами конфигурации
         /// </summary>

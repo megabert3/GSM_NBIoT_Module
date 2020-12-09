@@ -38,14 +38,14 @@ namespace GSM_NBIoT_Module.classes {
             //Ищу порты устройства
             cp2105.FindDevicePorts();
 
-            int enhadced = cp2105.getEnhabcedPort();
+            int Enhanced = cp2105.getEnhabcedPort();
             int standart = cp2105.getStandartPort();
 
-            Flasher.addMessageInMainLog("Enhadced COM: " + enhadced);
+            Flasher.addMessageInMainLog("Enhanced COM: " + Enhanced);
             Flasher.addMessageInMainLog("Standart COM: " + standart + Environment.NewLine);
             Flasher.setValuePogressBarFlashingStatic(50);
 
-            cp2105.WriteGPIOStageAndSetFlags(enhadced, true, true, 1000);
+            cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 1000);
             cp2105.WriteGPIOStageAndSetFlags(standart, true, true, true, 1000);
 
             Flasher.addMessageInMainLog("Считывание состояния ножек GPIO CP2105");
@@ -63,8 +63,8 @@ namespace GSM_NBIoT_Module.classes {
             if (enhad.stageGPIO_1) enh_1 = 1;
             else enh_1 = 0;
 
-            if (enhad.stageGPIO_1) 
-            Flasher.addMessageInMainLog("Состояние ножек Enhadced порта");
+            
+            Flasher.addMessageInMainLog("Состояние ножек Enhanced порта");
             Flasher.addMessageInMainLog("GPIO_0 = " + enh_0);
             Flasher.addMessageInMainLog("GPIO_1 = " + enh_1 + Environment.NewLine);
             Flasher.setValuePogressBarFlashingStatic(70);
@@ -98,9 +98,9 @@ namespace GSM_NBIoT_Module.classes {
 
                 Flasher.addMessageInMainLog("Отключение микроконтроллера");
                 //Заглушаю контроллер GPIO_1 = 0;
-                cp2105.WriteGPIOStageAndSetFlags(enhadced, true, false, 100);
-                Flasher.addMessageInMainLog("Enhadced порт GPIO_0 = 1");
-                Flasher.addMessageInMainLog("Enhadced порт GPIO_1 = 0" + Environment.NewLine);
+                cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, false, 100);
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 1");
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 0" + Environment.NewLine);
                 Flasher.setValuePogressBarFlashingStatic(100);
 
                 Flasher.addMessageInMainLog("Перезагрузка модуля Quectel");
@@ -130,7 +130,6 @@ namespace GSM_NBIoT_Module.classes {
                 bc92.reflashModule(pathToFirmware_BC92);
             }
 
-
             if (!String.IsNullOrEmpty(pathToFirmware_STM32L412CB)) {
 
                 Flasher.addMessageInMainLog("Подготовка к перепрошивке микроконтроллера" + Environment.NewLine);
@@ -146,32 +145,32 @@ namespace GSM_NBIoT_Module.classes {
 
                 //Включаю контроллер
                 Flasher.addMessageInMainLog("Включение микроконтроллера");
-                cp2105.WriteGPIOStageAndSetFlags(enhadced, true, true, 100);
-                Flasher.addMessageInMainLog("Enhadced порт GPIO_0 = 1");
-                Flasher.addMessageInMainLog("Enhadced порт GPIO_1 = 1" + Environment.NewLine);
+                cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 100);
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 1");
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 1" + Environment.NewLine);
 
                 Flasher.setValuePogressBarFlashingStatic(520);
 
                 //Даю команду контроллеру при следующем включении войти в бут
                 Flasher.addMessageInMainLog("Передача команды микроконтроллеру перейти в boot режим");
-                cp2105.WriteGPIOStageAndSetFlags(enhadced, false, true, 100);
-                Flasher.addMessageInMainLog("Enhadced порт GPIO_0 = 0");
-                Flasher.addMessageInMainLog("Enhadced порт GPIO_1 = 1" + Environment.NewLine);
+                cp2105.WriteGPIOStageAndSetFlags(Enhanced, false, true, 100);
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 0");
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 1" + Environment.NewLine);
 
                 Flasher.setValuePogressBarFlashingStatic(530);
 
                 //Выключаю контроллер
                 Flasher.addMessageInMainLog("Перезагрузка микроконтроллера");
-                cp2105.WriteGPIOStageAndSetFlags(enhadced, false, false, 100);
-                Flasher.addMessageInMainLog("Enhadced порт GPIO_0 = 0");
-                Flasher.addMessageInMainLog("Enhadced порт GPIO_1 = 0" + Environment.NewLine);
+                cp2105.WriteGPIOStageAndSetFlags(Enhanced, false, false, 100);
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 0");
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 0" + Environment.NewLine);
 
                 Flasher.setValuePogressBarFlashingStatic(540);
 
                 //Включаю контроллер
-                cp2105.WriteGPIOStageAndSetFlags(enhadced, false, true, 100);
-                Flasher.addMessageInMainLog("Enhadced порт GPIO_0 = 0");
-                Flasher.addMessageInMainLog("Enhadced порт GPIO_1 = 1" + Environment.NewLine);
+                cp2105.WriteGPIOStageAndSetFlags(Enhanced, false, true, 100);
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 0");
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 1" + Environment.NewLine);
                 Flasher.setValuePogressBarFlashingStatic(550);
 
                 //Перепрошивка контроллера =================================================
@@ -203,10 +202,10 @@ namespace GSM_NBIoT_Module.classes {
                     Flasher.addProgressFlashMKLogInMainLog();
 
                     Flasher.addMessageInMainLog("Запуск записанной прошивки, перезагрузка микроконтроллера" + Environment.NewLine);
-                    
-                    cp2105.WriteGPIOStageAndSetFlags(enhadced, true, true, 100);
-                    cp2105.WriteGPIOStageAndSetFlags(enhadced, true, false, 100);
-                    cp2105.WriteGPIOStageAndSetFlags(enhadced, true, true, 100);
+
+                    cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 100);
+                    cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, false, 100);
+                    cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 100);
 
                     //stm32L412cb.GO();
                     Flasher.setValuePogressBarFlashingStatic(990);
@@ -226,24 +225,26 @@ namespace GSM_NBIoT_Module.classes {
 
                 } finally {
                     stm32L412cb.ClosePort();
+                    Thread.Sleep(100);
                 }
-
-                Flasher.addMessageInMainLog("Установка значений GPIO CP2105 standart и enhadced портов в исходное состояние");
-                cp2105.WriteGPIOStageAndSetFlags(enhadced, true, true, 100);
-                Flasher.addMessageInMainLog("Enhadced порт GPIO_0 = 1");
-                Flasher.addMessageInMainLog("Enhadced порт GPIO_1 = 1" + Environment.NewLine);
-                Flasher.setValuePogressBarFlashingStatic(995);
-
-                cp2105.WriteGPIOStageAndSetFlags(standart, true, true, true, 100);
-                Flasher.addMessageInMainLog("Standart порт GPIO_0 = 1");
-                Flasher.addMessageInMainLog("Standart порт GPIO_1 = 1");
-                Flasher.addMessageInMainLog("Standart порт GPIO_2 = 1" + Environment.NewLine);
-
-
-                Flasher.addMessageInMainLog("\n==========================================================================================");
-                Flasher.addMessageInMainLog("ПЕРЕРОШИВКА МОДЕМА УСПЕШНО ЗАВЕРШЕНА");
-                Flasher.setValuePogressBarFlashingStatic(1000);
             }
+
+            Flasher.addMessageInMainLog("Установка значений GPIO CP2105 standart и Enhanced портов в исходное состояние");
+            cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 1000);
+            Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 1");
+            Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 1" + Environment.NewLine);
+            Flasher.setValuePogressBarFlashingStatic(995);
+
+            cp2105.WriteGPIOStageAndSetFlags(standart, true, true, true, 100);
+            Flasher.addMessageInMainLog("Standart порт GPIO_0 = 1");
+            Flasher.addMessageInMainLog("Standart порт GPIO_1 = 1");
+            Flasher.addMessageInMainLog("Standart порт GPIO_2 = 1" + Environment.NewLine);
+
+
+            Flasher.addMessageInMainLog("\n==========================================================================================");
+            Flasher.addMessageInMainLog("ПЕРЕРОШИВКА МОДЕМА УСПЕШНО ЗАВЕРШЕНА");
+            Flasher.setValuePogressBarFlashingStatic(1000);
+
         }
 
         public STM32L412CB_Controller getStm32L412cb() {
