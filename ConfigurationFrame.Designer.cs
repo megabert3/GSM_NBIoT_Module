@@ -79,6 +79,9 @@
             this.deleteConfigurationBtn = new System.Windows.Forms.Button();
             this.quectelCommnadsdtGrdView = new System.Windows.Forms.DataGridView();
             this.qurctelCommandColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.copyAllConfCommnadQuectel = new System.Windows.Forms.Button();
+            this.deleteAllConfCommnadQuectel = new System.Windows.Forms.Button();
+            this.deleteConfCommnadQuectel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -424,6 +427,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.deleteConfCommnadQuectel);
+            this.tabPage2.Controls.Add(this.deleteAllConfCommnadQuectel);
+            this.tabPage2.Controls.Add(this.copyAllConfCommnadQuectel);
             this.tabPage2.Controls.Add(this.quectelCommnadsdtGrdView);
             this.tabPage2.Controls.Add(this.addQuectelCommandBtn);
             this.tabPage2.Controls.Add(this.quectelCommandTxtBox);
@@ -620,6 +626,36 @@
             this.qurctelCommandColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.qurctelCommandColumn.Width = 370;
             // 
+            // copyAllConfCommnadQuectel
+            // 
+            this.copyAllConfCommnadQuectel.Location = new System.Drawing.Point(383, 11);
+            this.copyAllConfCommnadQuectel.Name = "copyAllConfCommnadQuectel";
+            this.copyAllConfCommnadQuectel.Size = new System.Drawing.Size(97, 22);
+            this.copyAllConfCommnadQuectel.TabIndex = 28;
+            this.copyAllConfCommnadQuectel.Text = "Копировать все";
+            this.copyAllConfCommnadQuectel.UseVisualStyleBackColor = true;
+            this.copyAllConfCommnadQuectel.Click += new System.EventHandler(this.copyAllConfCommnadQuectel_Click);
+            // 
+            // deleteAllConfCommnadQuectel
+            // 
+            this.deleteAllConfCommnadQuectel.Location = new System.Drawing.Point(383, 42);
+            this.deleteAllConfCommnadQuectel.Name = "deleteAllConfCommnadQuectel";
+            this.deleteAllConfCommnadQuectel.Size = new System.Drawing.Size(97, 22);
+            this.deleteAllConfCommnadQuectel.TabIndex = 29;
+            this.deleteAllConfCommnadQuectel.Text = "Удалить все";
+            this.deleteAllConfCommnadQuectel.UseVisualStyleBackColor = true;
+            this.deleteAllConfCommnadQuectel.Click += new System.EventHandler(this.deleteAllConfCommnadQuectel_Click);
+            // 
+            // deleteConfCommnadQuectel
+            // 
+            this.deleteConfCommnadQuectel.Location = new System.Drawing.Point(383, 152);
+            this.deleteConfCommnadQuectel.Name = "deleteConfCommnadQuectel";
+            this.deleteConfCommnadQuectel.Size = new System.Drawing.Size(97, 22);
+            this.deleteConfCommnadQuectel.TabIndex = 30;
+            this.deleteConfCommnadQuectel.Text = "Удалить";
+            this.deleteConfCommnadQuectel.UseVisualStyleBackColor = true;
+            this.deleteConfCommnadQuectel.Click += new System.EventHandler(this.deleteConfCommnadQuectel_Click);
+            // 
             // ConfigurationFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -710,5 +746,8 @@
         private System.Windows.Forms.TextBox quectelCommandTxtBox;
         private System.Windows.Forms.DataGridView quectelCommnadsdtGrdView;
         private System.Windows.Forms.DataGridViewTextBoxColumn qurctelCommandColumn;
+        private System.Windows.Forms.Button copyAllConfCommnadQuectel;
+        private System.Windows.Forms.Button deleteConfCommnadQuectel;
+        private System.Windows.Forms.Button deleteAllConfCommnadQuectel;
     }
 }

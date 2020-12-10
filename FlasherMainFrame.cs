@@ -381,16 +381,16 @@ namespace GSM_NBIoT_Module {
         }
 
         /// <summary>
-        /// Создаёт диалоговое окно да или нет
+        /// Создаёт диалоговое окно "да или нет"
         /// </summary>
         /// <param name="errorMess"></param>
         /// <param name="heading"></param>
         /// <returns></returns>
-        public static bool YesOrNoDialog(string errorMess, string heading) {
+        public static bool YesOrNoDialog(string mess, string heading) {
             bool result;
 
             DialogResult res = MessageBox.Show(
-                errorMess,
+                mess,
                 heading,
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question,
@@ -451,6 +451,11 @@ namespace GSM_NBIoT_Module {
             }
         }
 
+        /// <summary>
+        /// Действие при изменении значения комбобокса с названиями конфигурации
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void configurationCmBox_SelectedValueChanged(object sender, EventArgs e) {
 
             configurationTextBox.Clear();
@@ -485,6 +490,18 @@ namespace GSM_NBIoT_Module {
                 configurationTextBox.AppendText(Environment.NewLine);
                 configurationTextBox.AppendText("Имя прошивки Quectel: " + configurationFW.getfwForQuectelName());
             }
+        }
+
+
+        /// <summary>
+        /// Показывает всплывающую подсказку на указателе мыши
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="message"></param>
+        /// <param name="form"></param>
+        /// <param name="duration"></param>
+        public static void ShowToolTip(string message, Form form, int duration) {
+            new ToolTip().Show(message, form, Cursor.Position.X - form.Location.X, Cursor.Position.Y - form.Location.Y, duration);
         }
 
         public void setConfigurationForm(Form configurationForm) {

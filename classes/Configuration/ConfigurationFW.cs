@@ -34,7 +34,7 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
         private string domenName = "";
         private byte[] domenNameByteArr;
 
-        private string fwForMKName ="";
+        private string fwForMKName = "";
         private string fwForQuectelName = "";
 
         //Для информации, типы селекторов
@@ -58,9 +58,9 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
         /// <param name="domenNameByteArr"></param>
         /// <param name="fwForMKName"></param>
         /// <param name="fwForQuectelName"></param>
+        /// <param name="comandsQuectelList">Лист с командами для модуля Quectel</param>
         public ConfigurationFW(string name, byte Target_ID, byte Index, byte Protocol_ID, bool eGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit,
-            ushort port, byte selector, string domenName, byte[] domenNameByteArr, string fwForMKName, string fwForQuectelName) {
-
+            ushort port, byte selector, string domenName, byte[] domenNameByteArr, string fwForMKName, string fwForQuectelName, List<string> comandsQuectelList) {
             this.name = name;
             this.Target_ID = Target_ID;
             this.Index = Index;
@@ -72,8 +72,9 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
             this.domenNameByteArr = domenNameByteArr;
             this.fwForMKName = fwForMKName;
             this.fwForQuectelName = fwForQuectelName;
+            this.quectelCommandList = comandsQuectelList;
         }
-        
+
         /// <summary>
         /// Формирует конфигурацию для прошивки модема во время записи прошивки согласно выбранным пользователем параметрам
         /// </summary>
@@ -91,10 +92,10 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
 
                         //Имя и номер конфигурации уже записаны в буфер
                         configList = new List<byte>(64 - verIDAndFW_Name.Length);
-                        
+
                         //Формирую дженерал ID
                         byte[] arrGeneralID = BitConverter.GetBytes(general_ID_Nmb);
-                        Array.Reverse(arrGeneralID);                        
+                        Array.Reverse(arrGeneralID);
 
                         //Изменяю дженерал айди для его уникальности
                         general_ID_Nmb++;
@@ -105,7 +106,7 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
                         configList.AddRange(arrGeneralID);
 
                         //Формирую байт десятилетия
-                        byte year = (byte) ((DateTimeOffset.Now.Year % 2000) / 10);
+                        byte year = (byte)((DateTimeOffset.Now.Year % 2000) / 10);
                         configList.Add(year);
 
                         //Вычисляю время в секундах с начала столетия
@@ -266,6 +267,14 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
 
         public void setDomenNameByteArr(byte[] domenNameByteArr) {
             this.domenNameByteArr = domenNameByteArr;
+        }
+
+        public void setQuectelCommandList(List<string> commandsQuectel) {
+            this.quectelCommandList = commandsQuectel;
+        }
+
+        public List<string> getQuectelCommandList() {
+            return quectelCommandList;
         }
     }
 }
