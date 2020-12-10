@@ -1,4 +1,5 @@
 ﻿using GSM_NBIoT_Module.classes.applicationHelper.exceptions;
+using GSM_NBIoT_Module.classes.controllerOnBoard.Configuration;
 using System;
 using System.Diagnostics;
 using System.IO.Ports;
@@ -17,16 +18,20 @@ namespace GSM_NBIoT_Module.classes {
         private STM32L412CB_Controller stm32L412cb = new STM32L412CB_Controller();
         private CP2105_Connector cp2105 = CP2105_Connector.GetCP2105_ConnectorInstance();
 
-        public GSM3_Board(string pathToFirmware_BC92, string pathToFirmware_STM32L412CB) {
-
-            base.name = "GSM3";
-            this.pathToFirmware_BC92 = pathToFirmware_BC92;
-            this.pathToFirmware_STM32L412CB = pathToFirmware_STM32L412CB;
-        }
+        //Конфигурация для модема
+        private ConfigurationFW configuration;
 
         //Пути к прошивкам комплектующих
         private string pathToFirmware_BC92;
         private string pathToFirmware_STM32L412CB;
+
+        public GSM3_Board(string pathToFirmware_BC92, string pathToFirmware_STM32L412CB, ConfigurationFW configuration) {
+
+            base.name = "GSM3";
+            this.pathToFirmware_BC92 = pathToFirmware_BC92;
+            this.pathToFirmware_STM32L412CB = pathToFirmware_STM32L412CB;
+            this.configuration = configuration;
+        }        
 
         public override void Reflash() {
 
@@ -96,6 +101,8 @@ namespace GSM_NBIoT_Module.classes {
 
                 Flasher.addMessageInMainLog("Подготовка к перепрошивке модуля Quectel" + Environment.NewLine);
 
+                bc92.setConfiguration(configuration);
+
                 Flasher.addMessageInMainLog("Отключение микроконтроллера");
                 //Заглушаю контроллер GPIO_1 = 0;
                 cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, false, 100);
@@ -130,9 +137,14 @@ namespace GSM_NBIoT_Module.classes {
                 bc92.reflashModule(pathToFirmware_BC92);
             }
 
+            Flasher.setValuePogressBarFlashingStatic(500);
+
             if (!String.IsNullOrEmpty(pathToFirmware_STM32L412CB)) {
 
                 Flasher.addMessageInMainLog("Подготовка к перепрошивке микроконтроллера" + Environment.NewLine);
+
+                //Устанавливаю необходимую конфигурацию
+                stm32L412cb.setConfiguration(configuration);
 
                 //Глушу модуль BC92
                 Flasher.addMessageInMainLog("Отключение модуля Quectel");

@@ -63,42 +63,42 @@
     <Compile Include="classes\controllerOnBoard\Controller.cs" />
     <Compile Include="classes\сommunication\Connector.cs" />
     <Compile Include="DependencyObject.cs" />
-    <Compile Include="EditConfigurationForm.cs">
+    <Compile Include="view\EditConfigurationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditConfigurationForm.Designer.cs">
+    <Compile Include="view\EditConfigurationForm.Designer.cs">
       <DependentUpon>EditConfigurationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FlasherMainFrame.cs">
+    <Compile Include="view\FlasherMainFrame.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FlasherMainFrame.Designer.cs">
+    <Compile Include="view\FlasherMainFrame.Designer.cs">
       <DependentUpon>FlasherMainFrame.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConfigurationFrame.cs">
+    <Compile Include="view\ConfigurationFrame.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConfigurationFrame.Designer.cs">
+    <Compile Include="view\ConfigurationFrame.Designer.cs">
       <DependentUpon>ConfigurationFrame.cs</DependentUpon>
     </Compile>
-    <Compile Include="Password.cs">
+    <Compile Include="view\Password.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Password.Designer.cs">
+    <Compile Include="view\Password.Designer.cs">
       <DependentUpon>Password.cs</DependentUpon>
     </Compile>
     <Compile Include="GSM_NBIoT_Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ConfigurationFrame.resx">
+    <EmbeddedResource Include="view\ConfigurationFrame.resx">
       <DependentUpon>ConfigurationFrame.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditConfigurationForm.resx">
+    <EmbeddedResource Include="view\EditConfigurationForm.resx">
       <DependentUpon>EditConfigurationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FlasherMainFrame.resx">
+    <EmbeddedResource Include="view\FlasherMainFrame.resx">
       <DependentUpon>FlasherMainFrame.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Password.resx">
+    <EmbeddedResource Include="view\Password.resx">
       <DependentUpon>Password.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

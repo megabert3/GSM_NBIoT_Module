@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace GSM_NBIoT_Module {
@@ -13,6 +14,9 @@ namespace GSM_NBIoT_Module {
 
         //Обект с имеющимися конфигурациями
         ConfigurationFileStorage configurationFileStorage;
+
+        //Подсказка для вывода текста при наведении на строку где прописываются команды для Quectel
+        ToolTip quectelCommandTxtBoxToolTip = new ToolTip();
 
         public ConfigurationFrame() {
             InitializeComponent();
@@ -33,6 +37,16 @@ namespace GSM_NBIoT_Module {
         //Инициализация окна
         private void ConfigurationFrame_Load(object sender, EventArgs e) {
             refreshListView();
+
+            string mess = "Возможен ввод сразу нескольких команд, используйте в качестве разделителя символ \";\"" + "\nПримеры ввода:" + "\nAT+CGSN=0" + "\nAT+CGSN=0; AT+IPR=9600";
+
+            quectelCommandTxtBoxToolTip.InitialDelay = 2000;
+            quectelCommandTxtBoxToolTip.AutoPopDelay = 5000;
+            quectelCommandTxtBoxToolTip.ReshowDelay = 500;
+
+            quectelCommandTxtBoxToolTip.ShowAlways = true;
+
+            quectelCommandTxtBoxToolTip.SetToolTip(quectelCommandTxtBox, mess);
         }
         
         /// <summary>
@@ -253,6 +267,7 @@ namespace GSM_NBIoT_Module {
             domenNameTxtBox.Text = "\"devices.226.taipit.ru\"";
             pathToFW_MKtxtBx.Text = "";
             pathToFW_QuectelTxtBx.Text = "";
+            quectelCommnadsdtGrdView.Rows.Clear();
         }
 
         /// <summary>
@@ -571,7 +586,6 @@ namespace GSM_NBIoT_Module {
             //прохожусь по всем строчкам
             foreach (DataGridViewRow row in quectelCommnadsdtGrdView.Rows) {
 
-                
                 foreach (DataGridViewCell cell in row.Cells) {
 
                     //Если в строке значении ячейки пустое, то удаляю строку
@@ -648,6 +662,12 @@ namespace GSM_NBIoT_Module {
             }
         }
 
+        private void quectelCommandTxtBox_MouseLeave(object sender, EventArgs e) {
 
+        }
+
+        private void quectelCommandTxtBox_MouseHover(object sender, EventArgs e) {
+
+        }
     }
 }

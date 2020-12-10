@@ -60,6 +60,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.MCL_chkBox = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.deleteConfCommnadQuectel = new System.Windows.Forms.Button();
+            this.deleteAllConfCommnadQuectel = new System.Windows.Forms.Button();
+            this.copyAllConfCommnadQuectel = new System.Windows.Forms.Button();
+            this.quectelCommnadsdtGrdView = new System.Windows.Forms.DataGridView();
+            this.qurctelCommandColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addQuectelCommandBtn = new System.Windows.Forms.Button();
             this.quectelCommandTxtBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -77,11 +82,6 @@
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editConfigurationBtn = new System.Windows.Forms.Button();
             this.deleteConfigurationBtn = new System.Windows.Forms.Button();
-            this.quectelCommnadsdtGrdView = new System.Windows.Forms.DataGridView();
-            this.qurctelCommandColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.copyAllConfCommnadQuectel = new System.Windows.Forms.Button();
-            this.deleteAllConfCommnadQuectel = new System.Windows.Forms.Button();
-            this.deleteConfCommnadQuectel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -89,8 +89,8 @@
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.quectelCommnadsdtGrdView)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // configurationListView
@@ -210,8 +210,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox1.Controls.Add(this.groupBox5);
             this.groupBox1.Controls.Add(this.tabControl1);
             this.groupBox1.Controls.Add(this.label8);
@@ -234,7 +233,7 @@
             this.groupBox5.Controls.Add(this.pathToFW_QuectelTxtBx);
             this.groupBox5.Controls.Add(this.pathToFW_MKBtn);
             this.groupBox5.Controls.Add(this.label10);
-            this.groupBox5.Location = new System.Drawing.Point(541, 104);
+            this.groupBox5.Location = new System.Drawing.Point(541, 89);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(269, 110);
             this.groupBox5.TabIndex = 26;
@@ -300,10 +299,10 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(6, 72);
+            this.tabControl1.Location = new System.Drawing.Point(6, 67);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(529, 230);
+            this.tabControl1.Size = new System.Drawing.Size(529, 241);
             this.tabControl1.TabIndex = 25;
             // 
             // tabPage1
@@ -436,14 +435,70 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(521, 204);
+            this.tabPage2.Size = new System.Drawing.Size(521, 215);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Конфигурация модуля Quectel";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // deleteConfCommnadQuectel
+            // 
+            this.deleteConfCommnadQuectel.Location = new System.Drawing.Point(383, 153);
+            this.deleteConfCommnadQuectel.Name = "deleteConfCommnadQuectel";
+            this.deleteConfCommnadQuectel.Size = new System.Drawing.Size(97, 22);
+            this.deleteConfCommnadQuectel.TabIndex = 30;
+            this.deleteConfCommnadQuectel.Text = "Удалить";
+            this.deleteConfCommnadQuectel.UseVisualStyleBackColor = true;
+            this.deleteConfCommnadQuectel.Click += new System.EventHandler(this.deleteConfCommnadQuectel_Click);
+            // 
+            // deleteAllConfCommnadQuectel
+            // 
+            this.deleteAllConfCommnadQuectel.Location = new System.Drawing.Point(383, 42);
+            this.deleteAllConfCommnadQuectel.Name = "deleteAllConfCommnadQuectel";
+            this.deleteAllConfCommnadQuectel.Size = new System.Drawing.Size(97, 22);
+            this.deleteAllConfCommnadQuectel.TabIndex = 29;
+            this.deleteAllConfCommnadQuectel.Text = "Удалить все";
+            this.deleteAllConfCommnadQuectel.UseVisualStyleBackColor = true;
+            this.deleteAllConfCommnadQuectel.Click += new System.EventHandler(this.deleteAllConfCommnadQuectel_Click);
+            // 
+            // copyAllConfCommnadQuectel
+            // 
+            this.copyAllConfCommnadQuectel.Location = new System.Drawing.Point(383, 11);
+            this.copyAllConfCommnadQuectel.Name = "copyAllConfCommnadQuectel";
+            this.copyAllConfCommnadQuectel.Size = new System.Drawing.Size(97, 22);
+            this.copyAllConfCommnadQuectel.TabIndex = 28;
+            this.copyAllConfCommnadQuectel.Text = "Копировать все";
+            this.copyAllConfCommnadQuectel.UseVisualStyleBackColor = true;
+            this.copyAllConfCommnadQuectel.Click += new System.EventHandler(this.copyAllConfCommnadQuectel_Click);
+            // 
+            // quectelCommnadsdtGrdView
+            // 
+            this.quectelCommnadsdtGrdView.AllowUserToAddRows = false;
+            this.quectelCommnadsdtGrdView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.quectelCommnadsdtGrdView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.quectelCommnadsdtGrdView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.qurctelCommandColumn});
+            this.quectelCommnadsdtGrdView.Location = new System.Drawing.Point(6, 11);
+            this.quectelCommnadsdtGrdView.MultiSelect = false;
+            this.quectelCommnadsdtGrdView.Name = "quectelCommnadsdtGrdView";
+            this.quectelCommnadsdtGrdView.RowHeadersVisible = false;
+            this.quectelCommnadsdtGrdView.RowHeadersWidth = 20;
+            this.quectelCommnadsdtGrdView.RowTemplate.Height = 17;
+            this.quectelCommnadsdtGrdView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.quectelCommnadsdtGrdView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.quectelCommnadsdtGrdView.Size = new System.Drawing.Size(371, 163);
+            this.quectelCommnadsdtGrdView.TabIndex = 27;
+            this.quectelCommnadsdtGrdView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.quectelCommnadsdtGrdView_CellEndEdit);
+            // 
+            // qurctelCommandColumn
+            // 
+            this.qurctelCommandColumn.HeaderText = "Конфигурационная команда";
+            this.qurctelCommandColumn.Name = "qurctelCommandColumn";
+            this.qurctelCommandColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.qurctelCommandColumn.Width = 370;
+            // 
             // addQuectelCommandBtn
             // 
-            this.addQuectelCommandBtn.Location = new System.Drawing.Point(280, 180);
+            this.addQuectelCommandBtn.Location = new System.Drawing.Point(280, 181);
             this.addQuectelCommandBtn.Name = "addQuectelCommandBtn";
             this.addQuectelCommandBtn.Size = new System.Drawing.Size(97, 22);
             this.addQuectelCommandBtn.TabIndex = 2;
@@ -453,15 +508,17 @@
             // 
             // quectelCommandTxtBox
             // 
-            this.quectelCommandTxtBox.Location = new System.Drawing.Point(6, 180);
+            this.quectelCommandTxtBox.Location = new System.Drawing.Point(6, 181);
             this.quectelCommandTxtBox.Name = "quectelCommandTxtBox";
             this.quectelCommandTxtBox.Size = new System.Drawing.Size(268, 20);
             this.quectelCommandTxtBox.TabIndex = 1;
+            this.quectelCommandTxtBox.MouseLeave += new System.EventHandler(this.quectelCommandTxtBox_MouseLeave);
+            this.quectelCommandTxtBox.MouseHover += new System.EventHandler(this.quectelCommandTxtBox_MouseHover);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 25);
+            this.label8.Location = new System.Drawing.Point(3, 21);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(132, 13);
             this.label8.TabIndex = 16;
@@ -470,7 +527,7 @@
             // ConfigNameTxtBx
             // 
             this.ConfigNameTxtBx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ConfigNameTxtBx.Location = new System.Drawing.Point(6, 41);
+            this.ConfigNameTxtBx.Location = new System.Drawing.Point(6, 37);
             this.ConfigNameTxtBx.Name = "ConfigNameTxtBx";
             this.ConfigNameTxtBx.Size = new System.Drawing.Size(525, 20);
             this.ConfigNameTxtBx.TabIndex = 15;
@@ -485,7 +542,7 @@
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.newPassTxtBox);
             this.groupBox3.Controls.Add(this.oldPassTxtBox);
-            this.groupBox3.Location = new System.Drawing.Point(819, 99);
+            this.groupBox3.Location = new System.Drawing.Point(819, 89);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(320, 174);
             this.groupBox3.TabIndex = 14;
@@ -558,7 +615,7 @@
             // 
             // addConfigurationBtn
             // 
-            this.addConfigurationBtn.Location = new System.Drawing.Point(541, 41);
+            this.addConfigurationBtn.Location = new System.Drawing.Point(541, 37);
             this.addConfigurationBtn.Name = "addConfigurationBtn";
             this.addConfigurationBtn.Size = new System.Drawing.Size(115, 22);
             this.addConfigurationBtn.TabIndex = 11;
@@ -600,62 +657,6 @@
             this.deleteConfigurationBtn.UseVisualStyleBackColor = true;
             this.deleteConfigurationBtn.Click += new System.EventHandler(this.deleteConfigurationBtn_Click);
             // 
-            // quectelCommnadsdtGrdView
-            // 
-            this.quectelCommnadsdtGrdView.AllowUserToAddRows = false;
-            this.quectelCommnadsdtGrdView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.quectelCommnadsdtGrdView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.quectelCommnadsdtGrdView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.qurctelCommandColumn});
-            this.quectelCommnadsdtGrdView.Location = new System.Drawing.Point(6, 11);
-            this.quectelCommnadsdtGrdView.MultiSelect = false;
-            this.quectelCommnadsdtGrdView.Name = "quectelCommnadsdtGrdView";
-            this.quectelCommnadsdtGrdView.RowHeadersVisible = false;
-            this.quectelCommnadsdtGrdView.RowHeadersWidth = 20;
-            this.quectelCommnadsdtGrdView.RowTemplate.Height = 17;
-            this.quectelCommnadsdtGrdView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.quectelCommnadsdtGrdView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.quectelCommnadsdtGrdView.Size = new System.Drawing.Size(371, 163);
-            this.quectelCommnadsdtGrdView.TabIndex = 27;
-            this.quectelCommnadsdtGrdView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.quectelCommnadsdtGrdView_CellEndEdit);
-            // 
-            // qurctelCommandColumn
-            // 
-            this.qurctelCommandColumn.HeaderText = "Конфигурационная команда";
-            this.qurctelCommandColumn.Name = "qurctelCommandColumn";
-            this.qurctelCommandColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.qurctelCommandColumn.Width = 370;
-            // 
-            // copyAllConfCommnadQuectel
-            // 
-            this.copyAllConfCommnadQuectel.Location = new System.Drawing.Point(383, 11);
-            this.copyAllConfCommnadQuectel.Name = "copyAllConfCommnadQuectel";
-            this.copyAllConfCommnadQuectel.Size = new System.Drawing.Size(97, 22);
-            this.copyAllConfCommnadQuectel.TabIndex = 28;
-            this.copyAllConfCommnadQuectel.Text = "Копировать все";
-            this.copyAllConfCommnadQuectel.UseVisualStyleBackColor = true;
-            this.copyAllConfCommnadQuectel.Click += new System.EventHandler(this.copyAllConfCommnadQuectel_Click);
-            // 
-            // deleteAllConfCommnadQuectel
-            // 
-            this.deleteAllConfCommnadQuectel.Location = new System.Drawing.Point(383, 42);
-            this.deleteAllConfCommnadQuectel.Name = "deleteAllConfCommnadQuectel";
-            this.deleteAllConfCommnadQuectel.Size = new System.Drawing.Size(97, 22);
-            this.deleteAllConfCommnadQuectel.TabIndex = 29;
-            this.deleteAllConfCommnadQuectel.Text = "Удалить все";
-            this.deleteAllConfCommnadQuectel.UseVisualStyleBackColor = true;
-            this.deleteAllConfCommnadQuectel.Click += new System.EventHandler(this.deleteAllConfCommnadQuectel_Click);
-            // 
-            // deleteConfCommnadQuectel
-            // 
-            this.deleteConfCommnadQuectel.Location = new System.Drawing.Point(383, 152);
-            this.deleteConfCommnadQuectel.Name = "deleteConfCommnadQuectel";
-            this.deleteConfCommnadQuectel.Size = new System.Drawing.Size(97, 22);
-            this.deleteConfCommnadQuectel.TabIndex = 30;
-            this.deleteConfCommnadQuectel.Text = "Удалить";
-            this.deleteConfCommnadQuectel.UseVisualStyleBackColor = true;
-            this.deleteConfCommnadQuectel.Click += new System.EventHandler(this.deleteConfCommnadQuectel_Click);
-            // 
             // ConfigurationFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -683,9 +684,9 @@
             this.groupBox2.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.quectelCommnadsdtGrdView)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.quectelCommnadsdtGrdView)).EndInit();
             this.ResumeLayout(false);
 
         }

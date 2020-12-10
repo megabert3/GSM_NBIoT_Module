@@ -17,8 +17,10 @@ namespace GSM_NBIoT_Module
         private ConfigurationFrame configurationFrame;
         private ConfigurationFW configuration;
 
-        public EditConfigurationForm()
-        {
+        //Подсказка для вывода текста при наведении на строку где прописываются команды для Quectel
+        ToolTip quectelCommandTxtBoxToolTip = new ToolTip();
+
+        public EditConfigurationForm() {
             InitializeComponent();
         }
 
@@ -53,6 +55,20 @@ namespace GSM_NBIoT_Module
 
             pathToFW_MKtxtBx.Text = configuration.getFwForMKName();
             pathToFW_QuectelTxtBx.Text = configuration.getfwForQuectelName();
+
+            foreach (string commandsQuectel in configuration.getQuectelCommandList()) {
+                quectelCommnadsdtGrdView.Rows.Add(commandsQuectel);
+            }
+
+            string mess = "Возможен ввод сразу нескольких команд, используйте в качестве разделителя символ \";\"" + "\nПримеры ввода:" + "\nAT+CGSN=0" + "\nAT+CGSN=0; AT+IPR=9600";
+
+            quectelCommandTxtBoxToolTip.InitialDelay = 2000;
+            quectelCommandTxtBoxToolTip.AutoPopDelay = 5000;
+            quectelCommandTxtBoxToolTip.ReshowDelay = 500;
+
+            quectelCommandTxtBoxToolTip.ShowAlways = true;
+
+            quectelCommandTxtBoxToolTip.SetToolTip(quectelCommandTxtBox, mess);
         }
 
         private void pathToFW_MKBtn_Click(object sender, EventArgs e)
@@ -289,6 +305,23 @@ namespace GSM_NBIoT_Module
             configuration.setFwForMKName(pathToFW_MKtxtBx.Text);
             configuration.setfwForQuectelName(pathToFW_QuectelTxtBx.Text);
 
+            //Добавляю конфигурационные команды для модуля Quectel
+            List<string> quectelCommands = new List<string>();
+
+            if (quectelCommnadsdtGrdView.Rows.Count > 0) {
+
+                foreach (DataGridViewRow row in quectelCommnadsdtGrdView.Rows) {
+
+                    foreach (DataGridViewCell cell in row.Cells) {
+
+                        quectelCommands.Add(cell.Value.ToString());
+                    }
+                }
+
+            }
+
+            configuration.setQuectelCommandList(quectelCommands);
+
             //Сериализую изменения
             ConfigurationFileStorage.serializeConfigurationFileStorage();
             configurationFrame.refreshListView();
@@ -304,6 +337,143 @@ namespace GSM_NBIoT_Module
 
         private void cancelBtn_Click(object sender, EventArgs e) {
             Close();
+        }
+
+        //------------------------------------------------------------- Quectel commands config
+        /// <summary>
+        /// Действие при нажатии кнопки "копировать все" из окна добавления команды для модуля Quectel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void copyAllConfCommnadQuectel_Click(object sender, EventArgs e) {
+            if (quectelCommnadsdtGrdView.Rows.Count > 0) {
+
+                StringBuilder quectelCommands = new StringBuilder();
+
+                foreach (DataGridViewRow row in quectelCommnadsdtGrdView.Rows) {
+
+                    foreach (DataGridViewCell cell in row.Cells) {
+
+                        quectelCommands.Append(cell.Value.ToString() + ";");
+                    }
+                }
+
+                Clipboard.SetDataObject(quectelCommands.ToString());
+
+                Flasher.ShowToolTip("Команды скопированы в буфер." + "\nИспользуйте Ctrl+V чтобы получить их", this, 4000);
+            }
+        }
+
+        /// <summary>
+        /// Действие при нажатии кнопки "удалить все" из окна добавления команды для модуля Quectel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void deleteAllConfCommnadQuectel_Click(object sender, EventArgs e) {
+            if (quectelCommnadsdtGrdView.Rows.Count > 0) {
+
+                bool answer = Flasher.YesOrNoDialog("Вы уверены, что хотите удалить все конфигурационные команды для модуля Quectel?", "Удаление команд Quectel");
+
+                if (answer) {
+                    quectelCommnadsdtGrdView.Rows.Clear();
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Действие при нажатии кнопки удалить из окна добавления команды для модуля Quectel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void deleteConfCommnadQuectel_Click(object sender, EventArgs e) {
+            //Если есть конфигурация
+            if (quectelCommnadsdtGrdView.Rows.Count > 0) {
+
+                //Если есть выделенная конфигурация
+                if (quectelCommnadsdtGrdView.SelectedCells.Count > 0) {
+
+                    DataGridViewCell cell = quectelCommnadsdtGrdView.SelectedCells[0];
+
+                    DataGridViewRow row = cell.OwningRow;
+
+                    quectelCommnadsdtGrdView.Rows.Remove(row);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Действие при нажатии кнопки добавить из окна добавления команды для модуля Quectel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void addQuectelCommandBtn_Click(object sender, EventArgs e) {
+            //Если текствовое поле не пустое
+            if (!String.IsNullOrEmpty(quectelCommandTxtBox.Text.Trim())) {
+
+                //Получаю список команд
+                string[] commandsQuectel = quectelCommandTxtBox.Text.Split(';');
+
+                //Добавляю команду в ListView
+                foreach (string command in commandsQuectel) {
+
+                    //Если команда не пустая
+                    if (!String.IsNullOrEmpty(command.Trim())) {
+
+                        string upCaseCommand = command.Trim().ToUpper();
+
+                        quectelCommnadsdtGrdView.Rows.Add(upCaseCommand);
+
+
+                        quectelCommandTxtBox.Clear();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Действие при выходе из режима редактирования ячейки в quectelCommnadsdtGrdView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void quectelCommnadsdtGrdView_CellEndEdit(object sender, DataGridViewCellEventArgs e) {
+
+            //прохожусь по всем строчкам
+            foreach (DataGridViewRow row in quectelCommnadsdtGrdView.Rows) {
+
+                foreach (DataGridViewCell cell in row.Cells) {
+
+                    //Если в строке значении ячейки пустое, то удаляю строку
+
+                    if (cell.Value == null || String.IsNullOrEmpty(cell.Value.ToString().Trim())) {
+                        quectelCommnadsdtGrdView.Rows.Remove(row);
+                        return;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Действие при нажатии Enter
+        /// Добавляет команду Quectel по нажатию клавиши
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditConfigurationForm_KeyDown(object sender, KeyEventArgs e) {
+            //Если пользователь нажал кнопку Enter
+            if (e.KeyCode == Keys.Enter) {
+
+                //Если выделено поле добавления команды для модуля Quectel
+                if (quectelCommandTxtBox.Focused) {
+                    addQuectelCommandBtn.PerformClick();
+                    return;
+                }
+            } else if (e.KeyCode == Keys.Delete) {
+
+                if (quectelCommnadsdtGrdView.Focused) {
+                    deleteConfCommnadQuectel.PerformClick();
+                }
+            }
         }
     }
 }

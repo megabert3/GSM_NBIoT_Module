@@ -232,11 +232,8 @@ namespace GSM_NBIoT_Module {
                 //================================== Перепрошивка модема ===========================================================
                 firmwareWriteStart.Start();
 
-                Board GSM3 = new GSM3_Board(pathWFforQuectel, pathWFforMK);
+                Board GSM3 = new GSM3_Board(pathWFforQuectel, pathWFforMK, configurationFW);
                 
-                //Устанавливаю контроллеру в модеме конфигурационный файл
-                ((GSM3_Board) GSM3).getStm32L412cb().setConfiguration(configurationFW);
-
                 //Перепрошиваю
                 GSM3.Reflash();
 

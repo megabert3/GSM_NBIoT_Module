@@ -6,6 +6,8 @@ using System.IO.Ports;
 using System.Threading;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
+using GSM_NBIoT_Module.classes.controllerOnBoard.Configuration;
 
 namespace GSM_NBIoT_Module.classes {
 
@@ -23,9 +25,10 @@ namespace GSM_NBIoT_Module.classes {
 
         private static SerialPort serialPort;
 
-        
+        private ConfigurationFW configuration;
+
         // Время ожидания ответа от модуля Quectel в секундах
-        private long timeOutAnswer = 5;
+        private long timeOutAnswer = 5000;
 
         //Полученные данные с модуля
         private string dataInCOM_Port = "";
@@ -54,8 +57,6 @@ namespace GSM_NBIoT_Module.classes {
             //Загружаемая прошивка модуля
             string loadFirmware = Path.GetFileNameWithoutExtension(pathToFirmware);
 
-            //pathToFirmware = ".\\StorageQuectelFW\\" + Path.GetFileName(pathToFirmware);
-
             //Текущая прошивка модуля
             try {
                 string verModFirmware = VerFirmware;
@@ -64,6 +65,12 @@ namespace GSM_NBIoT_Module.classes {
                 //Если версия загружаемой прошивки такая же, как уже записанная, то выхожу
                 if (verFirmware.Equals(loadFirmware)) {
                     Flasher.addMessageInMainLog("В модуль уже записана необходимая прошивка");
+
+                    Flasher.addMessageInMainLog("\n==========================================================================================");
+                    Flasher.addMessageInMainLog("КОНФИГУРАЦИЯ МОДУЛЯ QUECTEL" + Environment.NewLine);
+
+                    //Посылаю конфигурационные команды
+                    sendATCommands(configuration.getQuectelCommandList());
                     return;
                 }
 
@@ -130,32 +137,32 @@ namespace GSM_NBIoT_Module.classes {
                 if (output.Contains("Total upgrade time")) {
                     Flasher.addMessageInMainLog("Время прошивки модуля " + Flasher.parseMlsInMMssMls(quectelFirmwareWriteStart.ElapsedMilliseconds) + Environment.NewLine);
                 } else {
-                    throw new FileLoadException("Не удалось загрузить прошивку в модуль, перезагрузите модуль и попробуйте снова");
+                    throw new FileLoadException("Не удалось загрузить прошивку в модуль, перезагрузите модем и попробуйте снова");
                 }
 
                 if (Flasher.getValueProgressBarFlashingStatic() < 450) Flasher.setValuePogressBarFlashingStatic(450);
+
+                //--------------------------------------------------------- Конфигурация модуля Quectel
+                //Ставлю в начальное положение ножки CP2105
+                cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, true, 500);
+                Flasher.setValuePogressBarFlashingStatic(460);
+
+                //Делаю ресет модуля BC92
+                cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), false, true, true, 1000);
+                Flasher.setValuePogressBarFlashingStatic(465);
+
+                //Поднимаю модуль BC92 и не даю уснуть
+                cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, true, 1000);
+                Flasher.setValuePogressBarFlashingStatic(470);
+
+                cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, false, 1000);
+                Flasher.setValuePogressBarFlashingStatic(475);
+
+                Flasher.addMessageInMainLog("\n==========================================================================================");
+                Flasher.addMessageInMainLog("КОНФИГУРАЦИЯ МОДУЛЯ QUECTEL" + Environment.NewLine);
+                //Посылаю конфигурационные команды
+                sendATCommands(configuration.getQuectelCommandList());
             }
-
-            //Ставлю в начальное положение ножки CP2105
-            //cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, true, 500);
-            Flasher.setValuePogressBarFlashingStatic(460);
-
-            //Делаю ресет модуля BC92
-            //cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), false, true, true, 500);
-            Flasher.setValuePogressBarFlashingStatic(470);
-
-            //Поднимаю модуль BC92 и не даю уснуть
-            //cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, true, 1000);
-            Flasher.setValuePogressBarFlashingStatic(480);
-
-            //cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, false, 1000);
-            Flasher.setValuePogressBarFlashingStatic(490);
-
-            //Это было до того как я считывал результат из потока программы для перепрошивки
-            //оставленно на всякий случай
-            /*//Считываю версию прошивки с модуля и сравниваю её с той, которую необходимо было залить
-            if (!loadFirmware.Equals(getVersionFrimware())) throw new FileLoadException("Имя загружаемой прошивки в модуль не соответствует записанной");*/
-            Flasher.setValuePogressBarFlashingStatic(500);
         }
 
         /// <summary>
@@ -166,7 +173,7 @@ namespace GSM_NBIoT_Module.classes {
         public void sendATCommands(List<string> commands) {
 
             //Получаю COM порт для общения с модулем.
-            string port = "COM" + this.cP2105_Connector.getEnhabcedPort();
+            string port = "COM" + this.cP2105_Connector.getStandartPort();
 
             using (serialPort = new SerialPort(port, 9600, Parity.None, 8, StopBits.One)) {
 
@@ -176,18 +183,21 @@ namespace GSM_NBIoT_Module.classes {
 
                     foreach (string command in commands) {
 
-                        serialPort.WriteLine(command.ToUpper() + "\r");
+                        Flasher.addMessageInMainLog("");
+                        Flasher.addMessageInMainLog("Отправка команды: " + command);
+
+                        serialPort.WriteLine(command + "\r");
 
                         dataInCOM_Port = "";
                         answer = false;
 
-                        Thread.Sleep(500);
+                        long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOutAnswer;
 
-                        for (int i = 0; i < timeOutAnswer; i++) {
+                        while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
 
                             //Если есть данные для считывания обнуляю таймаут
                             if (serialPort.BytesToRead != 0) {
-                                i = 0;
+                                endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOutAnswer;
                             }
 
                             //Считываю данные из ком порта
@@ -200,81 +210,27 @@ namespace GSM_NBIoT_Module.classes {
                             }
 
                             if (dataInCOM_Port.Contains("ERROR")) {
-                                throw new ATCommandException("Не удалось записать следующую комманду\n:" + dataInCOM_Port);
+                                throw new ATCommandException("Не удалось записать следующую команду: " + dataInCOM_Port + "\nОтвет модуля Quectel ERROR");
                             }
-
-                            Thread.Sleep(1000);
                         }
+
+                        serialPort.DiscardInBuffer();
 
                         if (!answer) {
                             serialPort.Close();
-                            throw new TimeoutException("Не удалось получить ответ от модема");
+                            throw new TimeoutException("Не удалось получить ответ от модуля Quectel");
+                        }
+
+                        Flasher.addMessageInMainLog("Ответ: ОК" + Environment.NewLine);
+
+                        if (Flasher.getValueProgressBarFlashingStatic() < 500) {
+                            Flasher.setValuePogressBarFlashingStatic(Flasher.getValueProgressBarFlashingStatic() + 2);
                         }
                     }
+
                 } else {
                     serialPort.Close();
-                    throw new ATCommandException("Порт занят освободите порт и попробуйте снова");
-                }
-
-                serialPort.Close();
-            }
-        }
-
-        /// <summary>
-        /// Посылает блок AT команд в модуль Quectel
-        /// </summary>
-        /// <param name="commands"></param>
-        public void sendATCommands(params string[] commands) {
-
-            //Получаю COM порт для общения с модулем.
-            string port = "COM" + this.cP2105_Connector.getEnhabcedPort();
-
-            using (serialPort = new SerialPort(port, 9600, Parity.None, 8, StopBits.One)) {
-
-                serialPort.Open();
-
-                if (serialPort.IsOpen) {
-
-                    foreach (string command in commands) {
-
-                        serialPort.WriteLine(command.ToUpper() + "\r");
-
-                        dataInCOM_Port = "";
-                        answer = false;
-
-                        Thread.Sleep(500);
-
-                        for (int i = 0; i < timeOutAnswer; i++) {
-
-                            //Если есть данные для считывания обнуляю таймаут
-                            if (serialPort.BytesToRead != 0) {
-                                i = 0;
-                            }
-
-                            //Считываю данные из ком порта
-                            dataInCOM_Port = serialPort.ReadExisting();
-
-                            //Если данные содержат упешный ответ приступаю к следующей команде
-                            if (dataInCOM_Port.Contains("OK")) {
-                                answer = true;
-                                break;
-                            }
-
-                            if (dataInCOM_Port.Contains("ERROR")) {
-                                throw new ATCommandException("Не удалось записать следующую комманду\n:" + dataInCOM_Port);
-                            }
-
-                            Thread.Sleep(1000);
-                        }
-
-                        if (!answer) {
-                            serialPort.Close();
-                            throw new TimeoutException("Не удалось получить ответ от модема");
-                        }
-                    }
-                } else {
-                    serialPort.Close();
-                    throw new ATCommandException("Порт занят освободите порт и попробуйте снова");
+                    throw new ATCommandException("Порт " + port + " занят, освободите порт и попробуйте снова");
                 }
 
                 serialPort.Close();
@@ -300,13 +256,13 @@ namespace GSM_NBIoT_Module.classes {
                     string portData = "";
                     answer = false;
 
-                    Thread.Sleep(500);
+                    long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOutAnswer;
 
-                    for (int i = 0; i < timeOutAnswer; i++) {
+                    while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
 
                         //Если есть данные для считывания обнуляю таймаут
                         if (serialPort.BytesToRead != 0) {
-                            i = 0;
+                            endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOutAnswer;
                         }
 
                         portData += serialPort.ReadExisting();
@@ -315,15 +271,9 @@ namespace GSM_NBIoT_Module.classes {
                             answer = true;
                             break;
                         }
-
-                        if (portData.Contains("ERROR")) {
-                            throw new ATCommandException("Не удалось записать следующую комманду\n:" + portData);
-                        }
-
-                        Thread.Sleep(1000);
                     }
 
-                    if (!answer) throw new TimeoutException("Не удалось получить ответ от модема");
+                    if (!answer) throw new TimeoutException("Не удалось получить ответ от модуля Quectel");
 
                     string[] arrPortData = portData.Split('\r');
 
@@ -339,7 +289,7 @@ namespace GSM_NBIoT_Module.classes {
                 } else {
 
                     serialPort.Close();
-                    throw new ATCommandException("Порт занят освободите порт и попробуйте снова");
+                    throw new ATCommandException("Порт " + port + " занят, освободите порт и попробуйте снова");
                 }
 
                 serialPort.Close();
@@ -371,6 +321,10 @@ namespace GSM_NBIoT_Module.classes {
                 if (verFirmware != null) return verFirmware;
                 else throw new InvalidOperationException("Не удалось получить версию прошивки модуля");
             }
+        }
+
+        public void setConfiguration(ConfigurationFW configuration) {
+            this.configuration = configuration;
         }
     }
 }
