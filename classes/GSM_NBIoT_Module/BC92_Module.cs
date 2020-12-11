@@ -210,7 +210,7 @@ namespace GSM_NBIoT_Module.classes {
                             }
 
                             if (dataInCOM_Port.Contains("ERROR")) {
-                                throw new ATCommandException("Не удалось записать следующую команду: " + dataInCOM_Port + "\nОтвет модуля Quectel ERROR");
+                                throw new ATCommandException("Не удалось записать команду: " + command + ". Ответ модуля Quectel ERROR");
                             }
                         }
 

@@ -92,7 +92,6 @@ namespace GSM_NBIoT_Module.classes {
             serialPort.Parity = parity;
             serialPort.DataBits = dataBits;
             serialPort.StopBits = stopBit;
-            serialPort.ReadTimeout = timeOut;
 
             serialPort.Open();
         }

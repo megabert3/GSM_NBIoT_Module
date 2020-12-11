@@ -82,6 +82,17 @@
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editConfigurationBtn = new System.Windows.Forms.Button();
             this.deleteConfigurationBtn = new System.Windows.Forms.Button();
+            this.configurationDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.terget_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.protocol_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.index = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MCL_mode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.port = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.domenNameOrIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.configCommandsQuectel = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.frimwareForMK = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frimwareForQuectel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -91,6 +102,7 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.quectelCommnadsdtGrdView)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.configurationDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // configurationListView
@@ -302,7 +314,7 @@
             this.tabControl1.Location = new System.Drawing.Point(6, 67);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(529, 241);
+            this.tabControl1.Size = new System.Drawing.Size(529, 235);
             this.tabControl1.TabIndex = 25;
             // 
             // tabPage1
@@ -311,7 +323,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(521, 204);
+            this.tabPage1.Size = new System.Drawing.Size(521, 209);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Конфигурация микроконтроллера";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -435,7 +447,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(521, 215);
+            this.tabPage2.Size = new System.Drawing.Size(521, 209);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Конфигурация модуля Quectel";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -657,11 +669,110 @@
             this.deleteConfigurationBtn.UseVisualStyleBackColor = true;
             this.deleteConfigurationBtn.Click += new System.EventHandler(this.deleteConfigurationBtn_Click);
             // 
+            // configurationDataGridView
+            // 
+            this.configurationDataGridView.AllowUserToAddRows = false;
+            this.configurationDataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.configurationDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.configurationDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.terget_id,
+            this.protocol_id,
+            this.index,
+            this.MCL_mode,
+            this.port,
+            this.domenNameOrIP,
+            this.configCommandsQuectel,
+            this.frimwareForMK,
+            this.frimwareForQuectel});
+            this.configurationDataGridView.Location = new System.Drawing.Point(12, 212);
+            this.configurationDataGridView.MultiSelect = false;
+            this.configurationDataGridView.Name = "configurationDataGridView";
+            this.configurationDataGridView.ReadOnly = true;
+            this.configurationDataGridView.RowHeadersVisible = false;
+            this.configurationDataGridView.RowHeadersWidth = 20;
+            this.configurationDataGridView.RowTemplate.Height = 17;
+            this.configurationDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.configurationDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.configurationDataGridView.Size = new System.Drawing.Size(1145, 291);
+            this.configurationDataGridView.TabIndex = 31;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Имя конфигурации";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 200;
+            // 
+            // terget_id
+            // 
+            this.terget_id.HeaderText = "Target_ID";
+            this.terget_id.Name = "terget_id";
+            this.terget_id.ReadOnly = true;
+            this.terget_id.Width = 60;
+            // 
+            // protocol_id
+            // 
+            this.protocol_id.HeaderText = "Protocol_ID";
+            this.protocol_id.Name = "protocol_id";
+            this.protocol_id.ReadOnly = true;
+            this.protocol_id.Width = 75;
+            // 
+            // index
+            // 
+            this.index.HeaderText = "Index";
+            this.index.Name = "index";
+            this.index.ReadOnly = true;
+            this.index.Width = 60;
+            // 
+            // MCL_mode
+            // 
+            this.MCL_mode.HeaderText = "MCL Mode";
+            this.MCL_mode.Name = "MCL_mode";
+            this.MCL_mode.ReadOnly = true;
+            this.MCL_mode.Width = 60;
+            // 
+            // port
+            // 
+            this.port.HeaderText = "Порт";
+            this.port.Name = "port";
+            this.port.ReadOnly = true;
+            this.port.Width = 75;
+            // 
+            // domenNameOrIP
+            // 
+            this.domenNameOrIP.HeaderText = "Доменное имя или IP адрес";
+            this.domenNameOrIP.Name = "domenNameOrIP";
+            this.domenNameOrIP.ReadOnly = true;
+            this.domenNameOrIP.Width = 200;
+            // 
+            // configCommandsQuectel
+            // 
+            this.configCommandsQuectel.HeaderText = "Команды модулю Quectel";
+            this.configCommandsQuectel.Name = "configCommandsQuectel";
+            this.configCommandsQuectel.ReadOnly = true;
+            this.configCommandsQuectel.Width = 150;
+            // 
+            // frimwareForMK
+            // 
+            this.frimwareForMK.HeaderText = "Прошивка для МК";
+            this.frimwareForMK.Name = "frimwareForMK";
+            this.frimwareForMK.ReadOnly = true;
+            this.frimwareForMK.Width = 120;
+            // 
+            // frimwareForQuectel
+            // 
+            this.frimwareForQuectel.HeaderText = "Прошивка для Quectel";
+            this.frimwareForQuectel.Name = "frimwareForQuectel";
+            this.frimwareForQuectel.ReadOnly = true;
+            this.frimwareForQuectel.Width = 150;
+            // 
             // ConfigurationFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1172, 850);
+            this.Controls.Add(this.configurationDataGridView);
             this.Controls.Add(this.editConfigurationBtn);
             this.Controls.Add(this.deleteConfigurationBtn);
             this.Controls.Add(this.groupBox1);
@@ -687,6 +798,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.quectelCommnadsdtGrdView)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.configurationDataGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -750,5 +862,16 @@
         private System.Windows.Forms.Button copyAllConfCommnadQuectel;
         private System.Windows.Forms.Button deleteConfCommnadQuectel;
         private System.Windows.Forms.Button deleteAllConfCommnadQuectel;
+        private System.Windows.Forms.DataGridView configurationDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn terget_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn protocol_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn index;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MCL_mode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn port;
+        private System.Windows.Forms.DataGridViewTextBoxColumn domenNameOrIP;
+        private System.Windows.Forms.DataGridViewComboBoxColumn configCommandsQuectel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn frimwareForMK;
+        private System.Windows.Forms.DataGridViewTextBoxColumn frimwareForQuectel;
     }
 }
