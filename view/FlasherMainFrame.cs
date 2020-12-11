@@ -485,7 +485,19 @@ namespace GSM_NBIoT_Module {
                 configurationTextBox.AppendText(Environment.NewLine);
                 configurationTextBox.AppendText("Имя прошивки микроконтроллера: " + configurationFW.getFwForMKName() + Environment.NewLine);
                 configurationTextBox.AppendText(Environment.NewLine);
-                configurationTextBox.AppendText("Имя прошивки Quectel: " + configurationFW.getfwForQuectelName());
+                configurationTextBox.AppendText("Имя прошивки Quectel: " + configurationFW.getfwForQuectelName() + Environment.NewLine);
+                configurationTextBox.AppendText(Environment.NewLine);
+
+                //Если есть конфигурационные команды для модуля Quectel
+                if (configurationFW.getQuectelCommandList().Count > 0) {
+
+                    configurationTextBox.AppendText("Конфигурационные команды модуля Quectel:" + Environment.NewLine);
+
+                    //Отображаю конфигурационные команды модуля Quectel
+                    foreach (string commandQuectel in configurationFW.getQuectelCommandList()) {
+                        configurationTextBox.AppendText(commandQuectel + Environment.NewLine);
+                    }
+                }
             }
         }
 
@@ -511,6 +523,24 @@ namespace GSM_NBIoT_Module {
 
         public Form getConfigurationForm() {
             return configurationForm;
+        }
+
+        private void saveLogBtn_Click(object sender, EventArgs e) {
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.InitialDirectory = "c:\\";
+            saveFileDialog.FileName = "taipitFlasherLog.log";
+            saveFileDialog.Filter = "All files (*.*)|*.*";
+            saveFileDialog.FilterIndex = 0;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+
+                // сохраняем текст в файл
+                File.WriteAllText(saveFileDialog.FileName, flashProcessRichTxtBox.Text);
+
+                Flasher.successfullyDialog("Лог успешно сохранен", "Сохранение лога");
+            }
         }
     }
 }

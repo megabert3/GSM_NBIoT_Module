@@ -89,9 +89,7 @@ namespace GSM_NBIoT_Module
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
 
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-
+                if (openFileDialog.ShowDialog() == DialogResult.OK) {
                     pathToFW_MKtxtBx.Text = Path.GetFileNameWithoutExtension(openFileDialog.FileName);
                 }
             }
@@ -103,20 +101,17 @@ namespace GSM_NBIoT_Module
             string dirStorageForQuectelFW = Directory.GetCurrentDirectory() + "\\StorageQuectelFW";
 
             //Проверяю существует ли директория
-            if (!Directory.Exists(dirStorageForQuectelFW))
-            {
+            if (!Directory.Exists(dirStorageForQuectelFW)) {
                 Directory.CreateDirectory(dirStorageForQuectelFW);
             }
 
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog()) {
                 openFileDialog.InitialDirectory = dirStorageForQuectelFW;
                 openFileDialog.Filter = "lod files (*.lod)|*.lod|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
 
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
+                if (openFileDialog.ShowDialog() == DialogResult.OK) {
                     pathToFW_QuectelTxtBx.Text = Path.GetFileNameWithoutExtension(openFileDialog.FileName);
                 }
             }
@@ -330,9 +325,6 @@ namespace GSM_NBIoT_Module
             Flasher.refreshConfigurationCmBox();
 
             ActiveForm.Close();
-
-            configurationFrame.getEditConfigurationBtn().Enabled = false;
-            configurationFrame.getdeleteConfigurationBtn().Enabled = false;
         }
 
         private void cancelBtn_Click(object sender, EventArgs e) {

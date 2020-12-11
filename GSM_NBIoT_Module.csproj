@@ -125,10 +125,22 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <None Include="Resources\log_100px.png" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\log_48px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\log_25px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\log_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo-R.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -25,16 +25,6 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigurationFrame));
-            this.configurationListView = new System.Windows.Forms.ListView();
-            this.configNameClm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.targetIdClm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.protocol_idClm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.indexClm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.MCLmodeClm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.portClm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.domenNameClm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.fwForMK = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.fwForQuectel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.target_IDtxtBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.protocol_idTxtBox = new System.Windows.Forms.TextBox();
@@ -105,87 +95,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.configurationDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // configurationListView
-            // 
-            this.configurationListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.configurationListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.configNameClm,
-            this.targetIdClm,
-            this.protocol_idClm,
-            this.indexClm,
-            this.MCLmodeClm,
-            this.portClm,
-            this.domenNameClm,
-            this.fwForMK,
-            this.fwForQuectel});
-            this.configurationListView.FullRowSelect = true;
-            this.configurationListView.GridLines = true;
-            this.configurationListView.HideSelection = false;
-            this.configurationListView.Location = new System.Drawing.Point(12, 12);
-            this.configurationListView.Name = "configurationListView";
-            this.configurationListView.Size = new System.Drawing.Size(1145, 491);
-            this.configurationListView.TabIndex = 0;
-            this.configurationListView.UseCompatibleStateImageBehavior = false;
-            this.configurationListView.View = System.Windows.Forms.View.Details;
-            this.configurationListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.configurationListView_ItemSelectionChanged);
-            this.configurationListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.configurationListView_MouseDoubleClick);
-            // 
-            // configNameClm
-            // 
-            this.configNameClm.Text = "Имя конфигурации";
-            this.configNameClm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.configNameClm.Width = 192;
-            // 
-            // targetIdClm
-            // 
-            this.targetIdClm.Text = "Target_ID";
-            this.targetIdClm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.targetIdClm.Width = 70;
-            // 
-            // protocol_idClm
-            // 
-            this.protocol_idClm.Text = "Protocol_ID";
-            this.protocol_idClm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.protocol_idClm.Width = 80;
-            // 
-            // indexClm
-            // 
-            this.indexClm.Text = "Index";
-            this.indexClm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.indexClm.Width = 70;
-            // 
-            // MCLmodeClm
-            // 
-            this.MCLmodeClm.Text = "MCL Mode";
-            this.MCLmodeClm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.MCLmodeClm.Width = 70;
-            // 
-            // portClm
-            // 
-            this.portClm.Text = "Порт";
-            this.portClm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.portClm.Width = 80;
-            // 
-            // domenNameClm
-            // 
-            this.domenNameClm.Text = "Доменное имя или IP адрес";
-            this.domenNameClm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.domenNameClm.Width = 166;
-            // 
-            // fwForMK
-            // 
-            this.fwForMK.Text = "Прошивка для МК";
-            this.fwForMK.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.fwForMK.Width = 125;
-            // 
-            // fwForQuectel
-            // 
-            this.fwForQuectel.Text = "Прошивка для Quectel";
-            this.fwForQuectel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.fwForQuectel.Width = 156;
-            // 
             // target_IDtxtBox
             // 
             this.target_IDtxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -222,16 +131,18 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.groupBox5);
             this.groupBox1.Controls.Add(this.tabControl1);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.ConfigNameTxtBx);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.addConfigurationBtn);
-            this.groupBox1.Location = new System.Drawing.Point(12, 540);
+            this.groupBox1.Location = new System.Drawing.Point(15, 440);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1145, 308);
+            this.groupBox1.Size = new System.Drawing.Size(1145, 309);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры конфигурации";
@@ -245,7 +156,7 @@
             this.groupBox5.Controls.Add(this.pathToFW_QuectelTxtBx);
             this.groupBox5.Controls.Add(this.pathToFW_MKBtn);
             this.groupBox5.Controls.Add(this.label10);
-            this.groupBox5.Location = new System.Drawing.Point(541, 89);
+            this.groupBox5.Location = new System.Drawing.Point(541, 90);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(269, 110);
             this.groupBox5.TabIndex = 26;
@@ -309,6 +220,7 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(6, 67);
@@ -524,8 +436,6 @@
             this.quectelCommandTxtBox.Name = "quectelCommandTxtBox";
             this.quectelCommandTxtBox.Size = new System.Drawing.Size(268, 20);
             this.quectelCommandTxtBox.TabIndex = 1;
-            this.quectelCommandTxtBox.MouseLeave += new System.EventHandler(this.quectelCommandTxtBox_MouseLeave);
-            this.quectelCommandTxtBox.MouseHover += new System.EventHandler(this.quectelCommandTxtBox_MouseHover);
             // 
             // label8
             // 
@@ -554,7 +464,7 @@
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.newPassTxtBox);
             this.groupBox3.Controls.Add(this.oldPassTxtBox);
-            this.groupBox3.Location = new System.Drawing.Point(819, 89);
+            this.groupBox3.Location = new System.Drawing.Point(819, 90);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(320, 174);
             this.groupBox3.TabIndex = 14;
@@ -648,8 +558,7 @@
             // editConfigurationBtn
             // 
             this.editConfigurationBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.editConfigurationBtn.Enabled = false;
-            this.editConfigurationBtn.Location = new System.Drawing.Point(910, 509);
+            this.editConfigurationBtn.Location = new System.Drawing.Point(913, 415);
             this.editConfigurationBtn.Name = "editConfigurationBtn";
             this.editConfigurationBtn.Size = new System.Drawing.Size(115, 25);
             this.editConfigurationBtn.TabIndex = 27;
@@ -660,8 +569,7 @@
             // deleteConfigurationBtn
             // 
             this.deleteConfigurationBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.deleteConfigurationBtn.Enabled = false;
-            this.deleteConfigurationBtn.Location = new System.Drawing.Point(1042, 509);
+            this.deleteConfigurationBtn.Location = new System.Drawing.Point(1042, 415);
             this.deleteConfigurationBtn.Name = "deleteConfigurationBtn";
             this.deleteConfigurationBtn.Size = new System.Drawing.Size(115, 25);
             this.deleteConfigurationBtn.TabIndex = 26;
@@ -672,6 +580,11 @@
             // configurationDataGridView
             // 
             this.configurationDataGridView.AllowUserToAddRows = false;
+            this.configurationDataGridView.AllowUserToDeleteRows = false;
+            this.configurationDataGridView.AllowUserToResizeRows = false;
+            this.configurationDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.configurationDataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.configurationDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.configurationDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -685,17 +598,18 @@
             this.configCommandsQuectel,
             this.frimwareForMK,
             this.frimwareForQuectel});
-            this.configurationDataGridView.Location = new System.Drawing.Point(12, 212);
+            this.configurationDataGridView.Location = new System.Drawing.Point(12, 12);
             this.configurationDataGridView.MultiSelect = false;
             this.configurationDataGridView.Name = "configurationDataGridView";
-            this.configurationDataGridView.ReadOnly = true;
             this.configurationDataGridView.RowHeadersVisible = false;
             this.configurationDataGridView.RowHeadersWidth = 20;
             this.configurationDataGridView.RowTemplate.Height = 17;
             this.configurationDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.configurationDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.configurationDataGridView.Size = new System.Drawing.Size(1145, 291);
+            this.configurationDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.configurationDataGridView.Size = new System.Drawing.Size(1145, 397);
             this.configurationDataGridView.TabIndex = 31;
+            this.configurationDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.configurationDataGridView_CellMouseDoubleClick);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -709,6 +623,7 @@
             this.terget_id.HeaderText = "Target_ID";
             this.terget_id.Name = "terget_id";
             this.terget_id.ReadOnly = true;
+            this.terget_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.terget_id.Width = 60;
             // 
             // protocol_id
@@ -716,6 +631,7 @@
             this.protocol_id.HeaderText = "Protocol_ID";
             this.protocol_id.Name = "protocol_id";
             this.protocol_id.ReadOnly = true;
+            this.protocol_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.protocol_id.Width = 75;
             // 
             // index
@@ -723,6 +639,7 @@
             this.index.HeaderText = "Index";
             this.index.Name = "index";
             this.index.ReadOnly = true;
+            this.index.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.index.Width = 60;
             // 
             // MCL_mode
@@ -730,6 +647,7 @@
             this.MCL_mode.HeaderText = "MCL Mode";
             this.MCL_mode.Name = "MCL_mode";
             this.MCL_mode.ReadOnly = true;
+            this.MCL_mode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.MCL_mode.Width = 60;
             // 
             // port
@@ -737,6 +655,7 @@
             this.port.HeaderText = "Порт";
             this.port.Name = "port";
             this.port.ReadOnly = true;
+            this.port.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.port.Width = 75;
             // 
             // domenNameOrIP
@@ -744,13 +663,13 @@
             this.domenNameOrIP.HeaderText = "Доменное имя или IP адрес";
             this.domenNameOrIP.Name = "domenNameOrIP";
             this.domenNameOrIP.ReadOnly = true;
+            this.domenNameOrIP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.domenNameOrIP.Width = 200;
             // 
             // configCommandsQuectel
             // 
             this.configCommandsQuectel.HeaderText = "Команды модулю Quectel";
             this.configCommandsQuectel.Name = "configCommandsQuectel";
-            this.configCommandsQuectel.ReadOnly = true;
             this.configCommandsQuectel.Width = 150;
             // 
             // frimwareForMK
@@ -758,6 +677,7 @@
             this.frimwareForMK.HeaderText = "Прошивка для МК";
             this.frimwareForMK.Name = "frimwareForMK";
             this.frimwareForMK.ReadOnly = true;
+            this.frimwareForMK.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.frimwareForMK.Width = 120;
             // 
             // frimwareForQuectel
@@ -765,18 +685,18 @@
             this.frimwareForQuectel.HeaderText = "Прошивка для Quectel";
             this.frimwareForQuectel.Name = "frimwareForQuectel";
             this.frimwareForQuectel.ReadOnly = true;
+            this.frimwareForQuectel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.frimwareForQuectel.Width = 150;
             // 
             // ConfigurationFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1172, 850);
+            this.ClientSize = new System.Drawing.Size(1172, 759);
             this.Controls.Add(this.configurationDataGridView);
             this.Controls.Add(this.editConfigurationBtn);
             this.Controls.Add(this.deleteConfigurationBtn);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.configurationListView);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "ConfigurationFrame";
@@ -804,8 +724,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ListView configurationListView;
         private System.Windows.Forms.TextBox target_IDtxtBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox protocol_idTxtBox;
@@ -829,15 +747,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button setPassBtn;
-        private System.Windows.Forms.ColumnHeader targetIdClm;
         private System.Windows.Forms.TextBox ConfigNameTxtBx;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ColumnHeader configNameClm;
-        private System.Windows.Forms.ColumnHeader protocol_idClm;
-        private System.Windows.Forms.ColumnHeader indexClm;
-        private System.Windows.Forms.ColumnHeader portClm;
-        private System.Windows.Forms.ColumnHeader MCLmodeClm;
-        private System.Windows.Forms.ColumnHeader domenNameClm;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private System.Windows.Forms.Label label9;
@@ -846,8 +757,6 @@
         private System.Windows.Forms.TextBox pathToFW_QuectelTxtBx;
         private System.Windows.Forms.Button pathToFW_MKBtn;
         private System.Windows.Forms.Button pathToFW_QuectelBtn;
-        private System.Windows.Forms.ColumnHeader fwForMK;
-        private System.Windows.Forms.ColumnHeader fwForQuectel;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;

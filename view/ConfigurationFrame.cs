@@ -29,15 +29,13 @@ namespace GSM_NBIoT_Module {
 
             this.mainForm = mainForm;
             FormClosing += Form_Closing;
-
-            editConfigurationBtn.Enabled = false;
-            deleteConfigurationBtn.Enabled = false;
         }
 
         //Инициализация окна
         private void ConfigurationFrame_Load(object sender, EventArgs e) {
             refreshListView();
 
+            //Устанавливаю подсказку строке добавления команд для модуля Quectel
             string mess = "Возможен ввод сразу нескольких команд, используйте в качестве разделителя символ \";\"" + "\nПримеры ввода:" + "\nAT+CGSN=0" + "\nAT+CGSN=0; AT+IPR=9600";
 
             quectelCommandTxtBoxToolTip.InitialDelay = 2000;
@@ -47,6 +45,25 @@ namespace GSM_NBIoT_Module {
             quectelCommandTxtBoxToolTip.ShowAlways = true;
 
             quectelCommandTxtBoxToolTip.SetToolTip(quectelCommandTxtBox, mess);
+
+            //настраиваю выравнивание текста для колонок в таблице с конфигурациями
+            configurationDataGridView.Columns["terget_id"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["protocol_id"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["index"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["MCL_Mode"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["port"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["domenNameOrIP"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["frimwareForMK"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["frimwareForQuectel"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            configurationDataGridView.Columns["terget_id"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["protocol_id"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["index"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["MCL_Mode"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["port"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["domenNameOrIP"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["frimwareForMK"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["frimwareForQuectel"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
         
         /// <summary>
@@ -68,7 +85,6 @@ namespace GSM_NBIoT_Module {
                         quectelCommands.Add(cell.Value.ToString());
                     }
                 }
-
             }
 
             //Проверка на наличие команд модуля Quectel
@@ -271,32 +287,66 @@ namespace GSM_NBIoT_Module {
         }
 
         /// <summary>
-        /// Обновляет таблицу элементов ListView
+        /// Обновляет таблицу элементов согласно конфигурационному файлу
         /// </summary>
         public void refreshListView() {
 
-            configurationListView.Items.Clear();
+            configurationDataGridView.Rows.Clear();
 
             configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
 
-            foreach (ConfigurationFW configuration in configurationFileStorage.getAllConfigurationFiles()) {
-                ListViewItem item = new ListViewItem(configuration.getName());
+            //Дабовляю строки
+            for (int i = 0; i < configurationFileStorage.getAllConfigurationFiles().Count; i++) {
+                configurationDataGridView.Rows.Add(new DataGridViewRow());
+            }
+            
+            //Заполняю строки значениями конфигурации
+            for (int i = 0; i < configurationFileStorage.getAllConfigurationFiles().Count; i++) {
 
-                item.SubItems.Add(configuration.getTarget_ID());
-                item.SubItems.Add(configuration.getProtocol_ID());
-                item.SubItems.Add(configuration.getIndex());
+                DataGridViewRow row = configurationDataGridView.Rows[i];
 
-                if (configuration.isEGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit()) {
-                    item.SubItems.Add("Да");
+                //Имя конфигурации
+                row.Cells[0].Value = configurationFileStorage.getAllConfigurationFiles()[i].getName();
+
+                //Инициализация target_ID
+                row.Cells[1].Value = configurationFileStorage.getAllConfigurationFiles()[i].getTarget_ID();
+
+                //protocol_id
+                row.Cells[2].Value = configurationFileStorage.getAllConfigurationFiles()[i].getProtocol_ID();
+
+                //Индекс
+                row.Cells[3].Value = configurationFileStorage.getAllConfigurationFiles()[i].getIndex();
+
+                //MCL mode
+                if (configurationFileStorage.getAllConfigurationFiles()[i].isEGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit()) {
+                    row.Cells[4].Value = "Да";
                 } else {
-                    item.SubItems.Add("Нет");
+                    row.Cells[4].Value = "Нет";
                 }
-                item.SubItems.Add(configuration.getPort());
-                item.SubItems.Add(configuration.getDomenName());
-                item.SubItems.Add(configuration.getFwForMKName());
-                item.SubItems.Add(configuration.getfwForQuectelName());
 
-                configurationListView.Items.Add(item);
+                //Порт
+                row.Cells[5].Value = configurationFileStorage.getAllConfigurationFiles()[i].getPort();
+
+                //Доменное имя
+                row.Cells[6].Value = configurationFileStorage.getAllConfigurationFiles()[i].getDomenName();
+
+                //Получаю комбо бокс строки
+                DataGridViewComboBoxCell configCommandsQuectelComboBoxCell = (DataGridViewComboBoxCell) row.Cells[7];
+
+                //Добавляю в него все команды для модуля Quectel
+                configCommandsQuectelComboBoxCell.Items.AddRange(configurationFileStorage.getAllConfigurationFiles()[i].getQuectelCommandList().ToArray());
+
+                //Выставляю первую команду как отображаемую
+                if (configCommandsQuectelComboBoxCell.Items.Count > 0) {
+
+                    row.Cells[7].Value = configCommandsQuectelComboBoxCell.Items[0];
+                }
+
+                //Название прошивки для МК
+                row.Cells[8].Value = configurationFileStorage.getAllConfigurationFiles()[i].getFwForMKName();
+
+                //Название прошивки для модуля Quectel
+                row.Cells[9].Value = configurationFileStorage.getAllConfigurationFiles()[i].getfwForQuectelName();
             }
         }
 
@@ -308,13 +358,17 @@ namespace GSM_NBIoT_Module {
             domenNameTxtBox.Text = "XXX.XXX.XXX.XXX";
         }
 
+        /// <summary>
+        /// Действие при нажатии удалить конфигурацию
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void deleteConfigurationBtn_Click(object sender, EventArgs e) {
             try {
-                if (configurationListView.Items.Count > 0) {
 
-                    bool answer = false;
+                if (configurationDataGridView.Rows.Count > 0) {
 
-                    string conficurationName = configurationListView.SelectedItems[0].Text;
+                    string conficurationName = configurationDataGridView.SelectedRows[0].Cells[0].Value.ToString();
 
                     DialogResult res = MessageBox.Show(
                                         "Удалить конфигурацию под названием: " + conficurationName + "?",
@@ -458,7 +512,7 @@ namespace GSM_NBIoT_Module {
 
             } else if (e.KeyCode == Keys.Delete) {
 
-                if (configurationListView.Focused) {
+                if (configurationDataGridView.Focused) {
                     deleteConfigurationBtn.PerformClick();
                 }
 
@@ -479,62 +533,16 @@ namespace GSM_NBIoT_Module {
         /// <param name="e"></param>
         private void editConfigurationBtn_Click(object sender, EventArgs e) {
 
-            if (configurationListView.Items.Count > 0) {
+            if (configurationDataGridView.Rows.Count > 0) {
 
                 configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
 
-                ConfigurationFW configuration;
+                ConfigurationFW configuration = configurationFileStorage.getConfigurationFile(configurationDataGridView.SelectedRows[0].Cells[0].Value.ToString());
 
-                try {
-                    configuration = configurationFileStorage.getConfigurationFile(configurationListView.SelectedItems[0].Text);
+                new EditConfigurationForm(this, configuration).ShowDialog();
 
-                    new EditConfigurationForm(this, configuration).ShowDialog();
-
-                } catch (ArgumentOutOfRangeException) {
-                    Flasher.exceptionDialog("Выберите конфигурацию для редактирования");
-                }
-
-            } else {
-                Flasher.exceptionDialog("Нет конфигураций для редактирования");
-            }
-        }
-
-        private void configurationListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e) {
-            if (configurationListView.SelectedItems.Count != 0) {
-                editConfigurationBtn.Enabled = true;
-                deleteConfigurationBtn.Enabled = true;
-            } else {
-                editConfigurationBtn.Enabled = false;
-                deleteConfigurationBtn.Enabled = false;
-            }
-        }
-
-        /// <summary>
-        /// Действие при двойном щелчке на конфигурации в таблице
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void configurationListView_MouseDoubleClick(object sender, MouseEventArgs e) {
-
-            if (configurationListView.SelectedItems.Count != 0) {
-
-                configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
-
-                ConfigurationFW configuration;
-
-                try {
-                    configuration = configurationFileStorage.getConfigurationFile(configurationListView.SelectedItems[0].Text);
-
-                    if (configuration != null) {
-                        new EditConfigurationForm(this, configuration).ShowDialog();
-                    } else {
-                        Flasher.exceptionDialog("В хранилище не найдено выбранной конфигурации");
-                    }
-
-                } catch (ArgumentOutOfRangeException) {
-                    Flasher.exceptionDialog("Выберите конфигурацию для редактирования");
-                }
-            }
+                
+            } 
         }
 
         public Button getEditConfigurationBtn () {
@@ -662,12 +670,23 @@ namespace GSM_NBIoT_Module {
             }
         }
 
-        private void quectelCommandTxtBox_MouseLeave(object sender, EventArgs e) {
 
-        }
+        /// <summary>
+        /// Действие при нажатии двойным кликом по строчке таблицы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void configurationDataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e) {
+            if (configurationDataGridView.Rows.Count > 0) {
 
-        private void quectelCommandTxtBox_MouseHover(object sender, EventArgs e) {
+                DataGridViewRow selectedRow = configurationDataGridView.SelectedRows[0];
 
+                configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
+
+                ConfigurationFW configuration = configurationFileStorage.getConfigurationFile(selectedRow.Cells[0].Value.ToString());
+
+                new EditConfigurationForm(this, configuration).ShowDialog();
+            }
         }
     }
 }

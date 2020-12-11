@@ -40,11 +40,14 @@
             this.modemTypeCmBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.flashProcessRichTxtBox = new System.Windows.Forms.RichTextBox();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.configurationCmBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.editConfiguration = new System.Windows.Forms.Button();
             this.configurationTextBox = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.saveLogBtn = new System.Windows.Forms.Button();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -211,12 +214,36 @@
             this.configurationTextBox.Size = new System.Drawing.Size(309, 459);
             this.configurationTextBox.TabIndex = 15;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = global::GSM_NBIoT_Module.Properties.Resources.Logo_R;
+            this.pictureBox1.Location = new System.Drawing.Point(879, 17);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(232, 84);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 17;
+            this.pictureBox1.TabStop = false;
+            // 
+            // saveLogBtn
+            // 
+            this.saveLogBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveLogBtn.Image = global::GSM_NBIoT_Module.Properties.Resources.log_30px;
+            this.saveLogBtn.Location = new System.Drawing.Point(1103, 533);
+            this.saveLogBtn.Name = "saveLogBtn";
+            this.saveLogBtn.Size = new System.Drawing.Size(41, 39);
+            this.saveLogBtn.TabIndex = 16;
+            this.saveLogBtn.UseVisualStyleBackColor = true;
+            this.saveLogBtn.Click += new System.EventHandler(this.saveLogBtn_Click);
+            // 
             // Flasher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1150, 669);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.saveLogBtn);
             this.Controls.Add(this.configurationTextBox);
             this.Controls.Add(this.editConfiguration);
             this.Controls.Add(this.label4);
@@ -237,6 +264,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Тайпит Flasher V1.4";
             this.Load += new System.EventHandler(this.Flasher_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -261,6 +289,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button editConfiguration;
         private System.Windows.Forms.TextBox configurationTextBox;
+        private System.Windows.Forms.Button saveLogBtn;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
