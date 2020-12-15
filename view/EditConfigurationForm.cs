@@ -62,13 +62,13 @@ namespace GSM_NBIoT_Module
 
             string mess = "Возможен ввод сразу нескольких команд, используйте в качестве разделителя символ \";\"" + "\nПримеры ввода:" + "\nAT+CGSN=0" + "\nAT+CGSN=0; AT+IPR=9600";
 
-            quectelCommandTxtBoxToolTip.InitialDelay = 2000;
-            quectelCommandTxtBoxToolTip.AutoPopDelay = 5000;
+            quectelCommandTxtBoxToolTip.InitialDelay = 500;
+            quectelCommandTxtBoxToolTip.AutoPopDelay = 6000;
             quectelCommandTxtBoxToolTip.ReshowDelay = 500;
 
             quectelCommandTxtBoxToolTip.ShowAlways = true;
 
-            quectelCommandTxtBoxToolTip.SetToolTip(quectelCommandTxtBox, mess);
+            quectelCommandTxtBoxToolTip.SetToolTip(addQuectelCommandBtn, mess);
         }
 
         private void pathToFW_MKBtn_Click(object sender, EventArgs e)

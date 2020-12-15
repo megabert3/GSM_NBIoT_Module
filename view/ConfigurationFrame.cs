@@ -38,13 +38,13 @@ namespace GSM_NBIoT_Module {
             //Устанавливаю подсказку строке добавления команд для модуля Quectel
             string mess = "Возможен ввод сразу нескольких команд, используйте в качестве разделителя символ \";\"" + "\nПримеры ввода:" + "\nAT+CGSN=0" + "\nAT+CGSN=0; AT+IPR=9600";
 
-            quectelCommandTxtBoxToolTip.InitialDelay = 2000;
-            quectelCommandTxtBoxToolTip.AutoPopDelay = 5000;
+            quectelCommandTxtBoxToolTip.InitialDelay = 500;
+            quectelCommandTxtBoxToolTip.AutoPopDelay = 6000;
             quectelCommandTxtBoxToolTip.ReshowDelay = 500;
 
             quectelCommandTxtBoxToolTip.ShowAlways = true;
 
-            quectelCommandTxtBoxToolTip.SetToolTip(quectelCommandTxtBox, mess);
+            quectelCommandTxtBoxToolTip.SetToolTip(addQuectelCommandBtn, mess);
 
             //настраиваю выравнивание текста для колонок в таблице с конфигурациями
             configurationDataGridView.Columns["terget_id"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;

@@ -226,7 +226,7 @@ namespace GSM_NBIoT_Module.classes {
             IntPtr COM_Port = CreateFile(COM_portName);
 
             if (COM_Port.ToInt32() == -1)
-                throw new DeviceError("Не удалось создать файл необходимый для связи по COM порту. Убедитесь, что порты модема не заняты другой программой и попробуйте снова");
+                throw new DeviceError("Не удалось найти дескриптор необходимый для связи по COM порту. Убедитесь, что порты модема не заняты другой программой и попробуйте снова");
 
             int stageGPIO_ForWrite = getCodeFoeSwithStageGPIO(stageGPIO_0, stageGPIO_1, stageGPIO_2);
 
@@ -242,7 +242,7 @@ namespace GSM_NBIoT_Module.classes {
             //Если состояние ног GPIO не установилось, то пробую ещё раз
             if (resultGPIO != stageGPIO_ForWrite) {
 
-                for (int i = 0; i < 2; i++) {
+                for (int i = 0; i < 7; i++) {
                     Thread.Sleep(500);
 
                     resultGPIO = ReadGPIOStageAndSetFlags(COM_Port);
@@ -268,7 +268,7 @@ namespace GSM_NBIoT_Module.classes {
             IntPtr COM_Port = CreateFile(COM_portName);
 
             if (COM_Port.ToInt32() == -1)
-                throw new DeviceError("Не удалось создать файл необходимый для связи по COM порту. Убедитесь, что порты модема не заняты другой программой и попробуйте снова");
+                throw new DeviceError("Не удалось найти дескриптор необходимый для связи по COM порту. Убедитесь, что порты модема не заняты другой программой и попробуйте снова");
 
             int stageGPIO_ForWrite = getCodeFoeSwithStageGPIO(stageGPIO_0, stageGPIO_1, false);
 
@@ -284,7 +284,7 @@ namespace GSM_NBIoT_Module.classes {
             //Если состояние ног GPIO не установилось, то пробую ещё раз
             if (resultGPIO != stageGPIO_ForWrite) {
 
-                for (int i = 0; i < 2; i++) {
+                for (int i = 0; i < 7; i++) {
                     Thread.Sleep(500);
 
                     resultGPIO = ReadGPIOStageAndSetFlags(COM_Port);
@@ -511,6 +511,14 @@ namespace GSM_NBIoT_Module.classes {
         public int getStandartPort() {
             if (enhabcedPort == 0) throw new DeviceNotFoundException("Не выставленно значение Standart порта");
             return standartPort;
+        }
+
+        public void setEnhabcedPort(int portNo) {
+            this.enhabcedPort = portNo;
+        }
+
+        public void setStandartPort(int portNo) {
+            this.standartPort = portNo;
         }
     }
 }

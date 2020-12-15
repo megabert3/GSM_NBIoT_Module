@@ -83,6 +83,7 @@
             this.configCommandsQuectel = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.frimwareForMK = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.frimwareForQuectel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label11 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -145,7 +146,7 @@
             this.groupBox1.Size = new System.Drawing.Size(1145, 309);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Параметры конфигурации";
+            this.groupBox1.Text = "Добавление новой конфигурации";
             // 
             // groupBox5
             // 
@@ -598,7 +599,7 @@
             this.configCommandsQuectel,
             this.frimwareForMK,
             this.frimwareForQuectel});
-            this.configurationDataGridView.Location = new System.Drawing.Point(12, 12);
+            this.configurationDataGridView.Location = new System.Drawing.Point(12, 34);
             this.configurationDataGridView.MultiSelect = false;
             this.configurationDataGridView.Name = "configurationDataGridView";
             this.configurationDataGridView.RowHeadersVisible = false;
@@ -607,7 +608,7 @@
             this.configurationDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.configurationDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.configurationDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.configurationDataGridView.Size = new System.Drawing.Size(1145, 397);
+            this.configurationDataGridView.Size = new System.Drawing.Size(1145, 375);
             this.configurationDataGridView.TabIndex = 31;
             this.configurationDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.configurationDataGridView_CellMouseDoubleClick);
             // 
@@ -688,11 +689,21 @@
             this.frimwareForQuectel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.frimwareForQuectel.Width = 150;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(12, 13);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(177, 13);
+            this.label11.TabIndex = 32;
+            this.label11.Text = "Список созданных конфигураций";
+            // 
             // ConfigurationFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1172, 759);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.configurationDataGridView);
             this.Controls.Add(this.editConfigurationBtn);
             this.Controls.Add(this.deleteConfigurationBtn);
@@ -720,6 +731,7 @@
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.configurationDataGridView)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -782,5 +794,6 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn configCommandsQuectel;
         private System.Windows.Forms.DataGridViewTextBoxColumn frimwareForMK;
         private System.Windows.Forms.DataGridViewTextBoxColumn frimwareForQuectel;
+        private System.Windows.Forms.Label label11;
     }
 }

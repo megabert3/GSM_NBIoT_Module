@@ -77,7 +77,19 @@ namespace GSM_NBIoT_Module {
             //Устанавливаю статическому полю ссылку на основное окно Лога (Для статического доступа к окну поля из всей программы)
             flashProcessTxtBoxStatic = flashProcessRichTxtBox;
 
+            //Установка подсказки
+            ToolTip toolTip = new ToolTip();
+            toolTip.InitialDelay = 1000;
+            toolTip.AutoPopDelay = 5000;
+            toolTip.ReshowDelay = 500;
+
+            toolTip.ShowAlways = true;
+
+            toolTip.SetToolTip(saveLogBtn, "Сохранить лог");
+
             progressBarFlashingStatic = progressBarFlashing;
+
+            //Задаю стиль прогресс бара
             progressBar.SetState(progressBarFlashing, 1);
 
             //Выгрузка типов модемов

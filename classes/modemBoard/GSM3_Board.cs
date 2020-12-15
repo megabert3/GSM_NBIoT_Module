@@ -1,5 +1,6 @@
 ﻿using GSM_NBIoT_Module.classes.applicationHelper.exceptions;
 using GSM_NBIoT_Module.classes.controllerOnBoard.Configuration;
+using GSM_NBIoT_Module.view;
 using System;
 using System.Diagnostics;
 using System.IO.Ports;
@@ -41,7 +42,17 @@ namespace GSM_NBIoT_Module.classes {
             cp2105.amountDevicesConnect();
 
             //Ищу порты устройства
-            cp2105.FindDevicePorts();
+            try {
+                cp2105.FindDevicePorts();
+            } catch (DeviceNotFoundException) {
+                bool answer = Flasher.YesOrNoDialog("Не удалось найти порты модема, задать порты в ручную?", "Порты модема");
+
+                if (answer) {
+                    new PortsFrame().ShowDialog();
+                } else {
+                    throw;
+                }
+            }
 
             int Enhanced = cp2105.getEnhabcedPort();
             int standart = cp2105.getStandartPort();

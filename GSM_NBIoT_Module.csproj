@@ -81,6 +81,12 @@
     <Compile Include="view\ConfigurationFrame.Designer.cs">
       <DependentUpon>ConfigurationFrame.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\PortsFrame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\PortsFrame.Designer.cs">
+      <DependentUpon>PortsFrame.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\Password.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="view\FlasherMainFrame.resx">
       <DependentUpon>FlasherMainFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\PortsFrame.resx">
+      <DependentUpon>PortsFrame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\Password.resx">
       <DependentUpon>Password.cs</DependentUpon>
