@@ -12,10 +12,10 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
     /// В прошивку в процессе записи добавляются необходимые параметры
     /// </summary>
     [Serializable]
-    public class ConfigurationFW {
+    public class ConfigurationFW : ICloneable {
 
         //Имя конфигурации (наименование счётчика для которого эта кнофигурация)
-        private string name;
+        private string name = "";
 
         //================================================= Параметры конфигурации прошивки
         //Подробнее в файле general_id (спрашивать у Сергея Васильева)
@@ -73,6 +73,10 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
             this.fwForMKName = fwForMKName;
             this.fwForQuectelName = fwForQuectelName;
             this.quectelCommandList = comandsQuectelList;
+        }
+
+        public ConfigurationFW() {
+
         }
 
         /// <summary>
@@ -275,6 +279,10 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
 
         public List<string> getQuectelCommandList() {
             return quectelCommandList;
+        }
+
+        public object Clone() {
+            return this.MemberwiseClone();
         }
     }
 }

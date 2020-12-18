@@ -27,7 +27,6 @@
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Flasher));
             this.progressBarFlashing = new System.Windows.Forms.ProgressBar();
             this.startFlashBtn = new System.Windows.Forms.Button();
@@ -44,11 +43,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.editConfiguration = new System.Windows.Forms.Button();
             this.configurationTextBox = new System.Windows.Forms.TextBox();
+            this.terminalBtn = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.saveLogBtn = new System.Windows.Forms.Button();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // progressBarFlashing
@@ -214,6 +212,16 @@
             this.configurationTextBox.Size = new System.Drawing.Size(309, 459);
             this.configurationTextBox.TabIndex = 15;
             // 
+            // terminalBtn
+            // 
+            this.terminalBtn.Location = new System.Drawing.Point(525, 23);
+            this.terminalBtn.Name = "terminalBtn";
+            this.terminalBtn.Size = new System.Drawing.Size(87, 24);
+            this.terminalBtn.TabIndex = 18;
+            this.terminalBtn.Text = "Терминал";
+            this.terminalBtn.UseVisualStyleBackColor = true;
+            this.terminalBtn.Click += new System.EventHandler(this.terminalBtn_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -242,6 +250,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1150, 669);
+            this.Controls.Add(this.terminalBtn);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.saveLogBtn);
             this.Controls.Add(this.configurationTextBox);
@@ -265,7 +274,6 @@
             this.Text = "Тайпит Flasher V1.5";
             this.Load += new System.EventHandler(this.Flasher_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -284,13 +292,13 @@
         private System.Windows.Forms.ComboBox modemTypeCmBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RichTextBox flashProcessRichTxtBox;
-        private System.Windows.Forms.BindingSource bindingSource1;
         private System.Windows.Forms.ComboBox configurationCmBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button editConfiguration;
         private System.Windows.Forms.TextBox configurationTextBox;
         private System.Windows.Forms.Button saveLogBtn;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button terminalBtn;
     }
 }
 

@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GSM_NBIoT_Module.view {
+    /// <summary>
+    /// Окно для установки портов стандартного и добавочного портов.
+    /// Срабатывает в том случае когда программе не удалось автоматически найти модем.
+    /// </summary>
     public partial class PortsFrame : Form {
 
         CP2105_Connector cp = CP2105_Connector.GetCP2105_ConnectorInstance();

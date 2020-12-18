@@ -81,6 +81,24 @@
     <Compile Include="view\ConfigurationFrame.Designer.cs">
       <DependentUpon>ConfigurationFrame.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\CopyConfigurationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\CopyConfigurationForm.Designer.cs">
+      <DependentUpon>CopyConfigurationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\SetPasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\SetPasswordForm.Designer.cs">
+      <DependentUpon>SetPasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\Terminal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\Terminal.Designer.cs">
+      <DependentUpon>Terminal.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\PortsFrame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +122,12 @@
     <EmbeddedResource Include="view\FlasherMainFrame.resx">
       <DependentUpon>FlasherMainFrame.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="view\CopyConfigurationForm.resx">
+      <DependentUpon>CopyConfigurationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\SetPasswordForm.resx">
+      <DependentUpon>SetPasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="view\PortsFrame.resx">
       <DependentUpon>PortsFrame.cs</DependentUpon>
     </EmbeddedResource>
@@ -120,6 +144,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="view\Terminal.resx">
+      <DependentUpon>Terminal.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

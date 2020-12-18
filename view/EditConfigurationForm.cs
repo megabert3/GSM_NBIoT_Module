@@ -17,6 +17,9 @@ namespace GSM_NBIoT_Module
         private ConfigurationFrame configurationFrame;
         private ConfigurationFW configuration;
 
+        //Это окно вызвано кнопкой "Создать новую конфигурацию?"
+        private bool newConfiguration;
+
         //Подсказка для вывода текста при наведении на строку где прописываются команды для Quectel
         ToolTip quectelCommandTxtBoxToolTip = new ToolTip();
 
@@ -24,40 +27,45 @@ namespace GSM_NBIoT_Module
             InitializeComponent();
         }
 
-        public EditConfigurationForm(Form configurationFrame, ConfigurationFW configuration)
-        {
+        public EditConfigurationForm(Form configurationFrame, ConfigurationFW configuration, string header, bool newConfiguration) {
             InitializeComponent();
+
+            Text = header;
+            this.newConfiguration = newConfiguration;
 
             this.configurationFrame = (ConfigurationFrame) configurationFrame;
             this.configuration = configuration;
 
-            //Инициализация полей окна для редактирования
-            ConfigNameTxtBx.Text = configuration.getName();
-            target_IDtxtBox.Text = configuration.getTarget_ID();
-            protocol_idTxtBox.Text = configuration.getProtocol_ID();
-            indexTxtBox.Text = configuration.getIndex();
-            portTxtBox.Text = configuration.getPort();
+            //Если конфигурация не пустая (вызвана не кнопкой Добавить), то инициализирую поля
+            if (!newConfiguration) {
+                //Инициализация полей окна для редактирования
+                ConfigNameTxtBx.Text = configuration.getName();
+                target_IDtxtBox.Text = configuration.getTarget_ID();
+                protocol_idTxtBox.Text = configuration.getProtocol_ID();
+                indexTxtBox.Text = configuration.getIndex();
+                portTxtBox.Text = configuration.getPort();
 
-            if (configuration.isEGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit()) {
-                MCL_chkBox.Checked = true;
-            }
+                if (configuration.isEGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit()) {
+                    MCL_chkBox.Checked = true;
+                }
 
-            if (configuration.getSelector() > 0) {
+                if (configuration.getSelector() > 0) {
 
-                IPv4rdBtn.Checked = true;
+                    IPv4rdBtn.Checked = true;
 
-            } else {
+                } else {
 
-                domenNameRdBtn.Checked = true;
-            }
+                    domenNameRdBtn.Checked = true;
+                }
 
-            domenNameTxtBox.Text = configuration.getDomenName();
+                domenNameTxtBox.Text = configuration.getDomenName();
 
-            pathToFW_MKtxtBx.Text = configuration.getFwForMKName();
-            pathToFW_QuectelTxtBx.Text = configuration.getfwForQuectelName();
+                pathToFW_MKtxtBx.Text = configuration.getFwForMKName();
+                pathToFW_QuectelTxtBx.Text = configuration.getfwForQuectelName();
 
-            foreach (string commandsQuectel in configuration.getQuectelCommandList()) {
-                quectelCommnadsdtGrdView.Rows.Add(commandsQuectel);
+                foreach (string commandsQuectel in configuration.getQuectelCommandList()) {
+                    quectelCommnadsdtGrdView.Rows.Add(commandsQuectel);
+                }
             }
 
             string mess = "Возможен ввод сразу нескольких команд, используйте в качестве разделителя символ \";\"" + "\nПримеры ввода:" + "\nAT+CGSN=0" + "\nAT+CGSN=0; AT+IPR=9600";
@@ -146,14 +154,6 @@ namespace GSM_NBIoT_Module
             name = ConfigNameTxtBx.Text.Trim();
 
             ConfigurationFileStorage configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
-
-            //Проверка, что конфигурации с новым именем больше не существует в списке конфигурации
-            if (!configuration.getName().Equals(name)) {
-                if (configurationFileStorage.getConfigurationFile(name) != null) {
-                    Flasher.exceptionDialog("Конфигурация с таким именем уже существует");
-                    return;
-                }
-            }
 
             //Проверка, что поля заполненны цифрами
             try {
@@ -287,19 +287,6 @@ namespace GSM_NBIoT_Module
             //Проверяю состояние
             if (MCL_chkBox.Checked) eGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit = true;
 
-            //Задаю объекту конфигурации новые параметры
-            configuration.setName(name);
-            configuration.setTarget_ID((byte) target_ID);
-            configuration.setIndex((byte)index);
-            configuration.setProtocol_ID((byte)protocol_ID);
-            configuration.setEGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit(eGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit);
-            configuration.setPort((ushort) port);
-            configuration.setSelector(selector);
-            configuration.setDomenName(domenName);
-            configuration.setDomenNameByteArr(domenNameByteArr);
-            configuration.setFwForMKName(pathToFW_MKtxtBx.Text);
-            configuration.setfwForQuectelName(pathToFW_QuectelTxtBx.Text);
-
             //Добавляю конфигурационные команды для модуля Quectel
             List<string> quectelCommands = new List<string>();
 
@@ -312,10 +299,66 @@ namespace GSM_NBIoT_Module
                         quectelCommands.Add(cell.Value.ToString());
                     }
                 }
-
             }
 
+            //Если имя конфигурации не равно старому
+            if (!configuration.getName().Equals(name) && !String.IsNullOrWhiteSpace(configuration.getName())) {
+
+                //Проверяю, что в списке нет конфигурации с новым именем
+                if (configurationFileStorage.getConfigurationFile(name) != null) {
+
+                    string dialogMess = "Конфигурация с именем " + "\"" + name + "\"" + " уже существует в списке конфигураций," +
+                        "заменить её текущей?";
+
+                    bool answer = Flasher.YesOrNoDialog(dialogMess, "Замена конфигурации");
+
+                    if (answer) {
+                        configuration = configurationFileStorage.getConfigurationFile(name);
+                    } else {
+                        return;
+                    }
+
+                    //Если в списке нет конфигураций с таким же именем, но имя отличается от старого
+                } else {
+
+                    bool answer = Flasher.YesOrNoDialog("Сохранить данную конфигурацию как новую?", "Добавление новой конфигурации");
+
+                    if (answer) {
+
+                        configurationFileStorage.addConfigurateFileInStorage(new ConfigurationFW(name, (byte)target_ID, (byte)index, (byte)protocol_ID, eGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit,
+                            (ushort)port, selector, domenName, domenNameByteArr, pathToFW_MKtxtBx.Text, pathToFW_QuectelTxtBx.Text, quectelCommands));
+
+                        //Сериализую изменения
+                        ConfigurationFileStorage.serializeConfigurationFileStorage();
+                        configurationFrame.refreshListView();
+
+                        //Обновляю комбобокс с конфигурациями основного окна
+                        Flasher.refreshConfigurationCmBox();
+
+                        ActiveForm.Close();
+
+                        return;
+                    }
+                }
+            }
+
+            //Задаю объекту конфигурации новые параметры
+            configuration.setName(name);
+            configuration.setTarget_ID((byte)target_ID);
+            configuration.setIndex((byte)index);
+            configuration.setProtocol_ID((byte)protocol_ID);
+            configuration.setEGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit(eGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit);
+            configuration.setPort((ushort)port);
+            configuration.setSelector(selector);
+            configuration.setDomenName(domenName);
+            configuration.setDomenNameByteArr(domenNameByteArr);
+            configuration.setFwForMKName(pathToFW_MKtxtBx.Text);
+            configuration.setfwForQuectelName(pathToFW_QuectelTxtBx.Text);
+
             configuration.setQuectelCommandList(quectelCommands);
+
+            //Если создаётся новая конфигурация
+            if (newConfiguration) configurationFileStorage.addConfigurateFileInStorage(configuration);
 
             //Сериализую изменения
             ConfigurationFileStorage.serializeConfigurationFileStorage();
@@ -460,12 +503,13 @@ namespace GSM_NBIoT_Module
                     addQuectelCommandBtn.PerformClick();
                     return;
                 }
-            } else if (e.KeyCode == Keys.Delete) {
 
-                if (quectelCommnadsdtGrdView.Focused) {
-                    deleteConfCommnadQuectel.PerformClick();
-                }
+                saveEditsBtn.PerformClick();
+
+            } else if (e.KeyCode == Keys.Escape) {
+                Close();
             }
+
         }
     }
 }

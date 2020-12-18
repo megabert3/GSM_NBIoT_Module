@@ -130,9 +130,6 @@ namespace GSM_NBIoT_Module.classes {
         /// </summary>
         /// <returns></returns>
         public StateGPIO_OnEnhabcedPort GetStageGPIOEnhabcedPort() {
-            if (enhabcedPort != 0) {
-                FindDevicePorts();
-            }
 
             StateGPIO_OnEnhabcedPort stateGPIO_OnEnhabcedPort = new StateGPIO_OnEnhabcedPort();
 
@@ -149,9 +146,6 @@ namespace GSM_NBIoT_Module.classes {
         /// </summary>
         /// <returns></returns>
         public StateGPIO_OnStandartPort GetStageGPIOStandartPort() {
-            if (standartPort == 0) {
-                FindDevicePorts();
-            }
 
             StateGPIO_OnStandartPort stateGPIO_OnStandartPort = new StateGPIO_OnStandartPort();
 
@@ -486,7 +480,7 @@ namespace GSM_NBIoT_Module.classes {
             }
 
             if (countEnhabcedPort > 1 || countStandartPort > 1)
-                throw new DeviceError("В списке устройств найдено больше одного модема, для коректной работы программы должно быть подключено не более одного модема");
+                throw new DeviceError("В списке устройств найдено больше одного модема, для корректной работы программы должно быть подключено не более одного модема");
         }
 
 
@@ -504,7 +498,7 @@ namespace GSM_NBIoT_Module.classes {
         }
 
         public int getEnhabcedPort() {
-            if (enhabcedPort == 0) throw new DeviceNotFoundException("Не выставленно значение Enhabced порта");
+            if (enhabcedPort == 0) throw new DeviceNotFoundException("Не выставленно значение Enhanced порта");
             return enhabcedPort;
         }
 

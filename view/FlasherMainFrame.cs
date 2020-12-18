@@ -1,6 +1,7 @@
 ﻿using GSM_NBIoT_Module.classes;
 using GSM_NBIoT_Module.classes.applicationHelper;
 using GSM_NBIoT_Module.classes.controllerOnBoard.Configuration;
+using GSM_NBIoT_Module.view;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -553,6 +554,10 @@ namespace GSM_NBIoT_Module {
 
                 Flasher.successfullyDialog("Лог успешно сохранен", "Сохранение лога");
             }
+        }
+
+        private void terminalBtn_Click(object sender, EventArgs e) {
+            new Terminal().Show();
         }
     }
 }
