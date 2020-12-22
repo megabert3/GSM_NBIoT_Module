@@ -220,7 +220,7 @@ namespace GSM_NBIoT_Module {
 
                 ConfigurationFW configuration = configurationFileStorage.getConfigurationFile(configurationDataGridView.SelectedRows[0].Cells[0].Value.ToString());
 
-                new AddEditConfigurationForm(this, configuration, "Редактирование конфигурации", false).ShowDialog();                
+                new AddEditConfigurationForm(this, configuration, "Редактирование конфигурации", false).ShowDialog();
             } 
         }
 

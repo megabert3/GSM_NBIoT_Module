@@ -440,8 +440,11 @@
             this.Controls.Add(this.ConfigNameTxtBx);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.saveEditsBtn);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AddEditConfigurationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Редактирование конфигурации";
