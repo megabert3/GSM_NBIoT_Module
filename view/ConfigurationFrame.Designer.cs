@@ -50,7 +50,7 @@
             // addConfigurationBtn
             // 
             this.addConfigurationBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.addConfigurationBtn.Location = new System.Drawing.Point(679, 473);
+            this.addConfigurationBtn.Location = new System.Drawing.Point(775, 473);
             this.addConfigurationBtn.Name = "addConfigurationBtn";
             this.addConfigurationBtn.Size = new System.Drawing.Size(115, 25);
             this.addConfigurationBtn.TabIndex = 11;
@@ -71,7 +71,7 @@
             // editConfigurationBtn
             // 
             this.editConfigurationBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.editConfigurationBtn.Location = new System.Drawing.Point(800, 473);
+            this.editConfigurationBtn.Location = new System.Drawing.Point(921, 473);
             this.editConfigurationBtn.Name = "editConfigurationBtn";
             this.editConfigurationBtn.Size = new System.Drawing.Size(115, 25);
             this.editConfigurationBtn.TabIndex = 27;
@@ -226,12 +226,13 @@
             // copyBtn
             // 
             this.copyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.copyBtn.Location = new System.Drawing.Point(921, 473);
+            this.copyBtn.Location = new System.Drawing.Point(639, 473);
             this.copyBtn.Name = "copyBtn";
             this.copyBtn.Size = new System.Drawing.Size(115, 25);
             this.copyBtn.TabIndex = 34;
             this.copyBtn.Text = "Копировать";
             this.copyBtn.UseVisualStyleBackColor = true;
+            this.copyBtn.Visible = false;
             this.copyBtn.Click += new System.EventHandler(this.copyBtn_Click);
             // 
             // ConfigurationFrame

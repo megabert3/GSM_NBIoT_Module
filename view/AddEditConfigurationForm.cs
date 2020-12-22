@@ -12,7 +12,10 @@ using GSM_NBIoT_Module.classes.controllerOnBoard.Configuration;
 
 namespace GSM_NBIoT_Module
 {
-    public partial class EditConfigurationForm : Form
+    /// <summary>
+    /// Окно создания и редактирования конфигурации
+    /// </summary>
+    public partial class AddEditConfigurationForm : Form
     {
         private ConfigurationFrame configurationFrame;
         private ConfigurationFW configuration;
@@ -21,13 +24,13 @@ namespace GSM_NBIoT_Module
         private bool newConfiguration;
 
         //Подсказка для вывода текста при наведении на строку где прописываются команды для Quectel
-        ToolTip quectelCommandTxtBoxToolTip = new ToolTip();
+        ToolTip addEditConfToolTip = new ToolTip();
 
-        public EditConfigurationForm() {
+        public AddEditConfigurationForm() {
             InitializeComponent();
         }
 
-        public EditConfigurationForm(Form configurationFrame, ConfigurationFW configuration, string header, bool newConfiguration) {
+        public AddEditConfigurationForm(Form configurationFrame, ConfigurationFW configuration, string header, bool newConfiguration) {
             InitializeComponent();
 
             Text = header;
@@ -68,15 +71,19 @@ namespace GSM_NBIoT_Module
                 }
             }
 
+            addEditConfToolTip.InitialDelay = 500;
+            addEditConfToolTip.AutoPopDelay = 6000;
+            addEditConfToolTip.ReshowDelay = 500;
+
+            addEditConfToolTip.ShowAlways = true;
+
+            //Подсказка для кнопки добавить конфигурационные команды для модуля Quectel
             string mess = "Возможен ввод сразу нескольких команд, используйте в качестве разделителя символ \";\"" + "\nПримеры ввода:" + "\nAT+CGSN=0" + "\nAT+CGSN=0; AT+IPR=9600";
+            addEditConfToolTip.SetToolTip(addQuectelCommandBtn, mess);
 
-            quectelCommandTxtBoxToolTip.InitialDelay = 500;
-            quectelCommandTxtBoxToolTip.AutoPopDelay = 6000;
-            quectelCommandTxtBoxToolTip.ReshowDelay = 500;
+            addEditConfToolTip.SetToolTip(domenNameRdBtn, "Доменное имя должно именть знак \" в начале и в конце.\nДоменное имя должно быть не более 28 символов.\nПример: \"devices.226.taipit.ru\"");
 
-            quectelCommandTxtBoxToolTip.ShowAlways = true;
-
-            quectelCommandTxtBoxToolTip.SetToolTip(addQuectelCommandBtn, mess);
+            addEditConfToolTip.SetToolTip(IPv4rdBtn, "Формат \"XXX.XXX.XXX.XXX\", где ХХХ это цифры");
         }
 
         private void pathToFW_MKBtn_Click(object sender, EventArgs e)
@@ -85,8 +92,7 @@ namespace GSM_NBIoT_Module
             string dirStorageForMKFW = Directory.GetCurrentDirectory() + "\\StorageMKFW";
 
             //Проверяю существует ли директория
-            if (!Directory.Exists(dirStorageForMKFW))
-            {
+            if (!Directory.Exists(dirStorageForMKFW)) {
                 Directory.CreateDirectory(dirStorageForMKFW);
             }
 
@@ -307,12 +313,12 @@ namespace GSM_NBIoT_Module
                 //Проверяю, что в списке нет конфигурации с новым именем
                 if (configurationFileStorage.getConfigurationFile(name) != null) {
 
-                    string dialogMess = "Конфигурация с именем " + "\"" + name + "\"" + " уже существует в списке конфигураций," +
+                    string dialogMess = "Конфигурация с именем " + "\"" + name + "\"" + " уже существует в списке конфигураций, " +
                         "заменить её текущей?";
 
-                    bool answer = Flasher.YesOrNoDialog(dialogMess, "Замена конфигурации");
+                    bool result = Flasher.YesOrNoDialog(dialogMess, "Замена конфигурации");
 
-                    if (answer) {
+                    if (result) {
                         configuration = configurationFileStorage.getConfigurationFile(name);
                     } else {
                         return;
@@ -321,9 +327,9 @@ namespace GSM_NBIoT_Module
                     //Если в списке нет конфигураций с таким же именем, но имя отличается от старого
                 } else {
 
-                    bool answer = Flasher.YesOrNoDialog("Сохранить данную конфигурацию как новую?", "Добавление новой конфигурации");
+                    DialogResult answer = Flasher.YesOrNoOrCancelDialog("Сохранить данную конфигурацию как новую?", "Добавление новой конфигурации");
 
-                    if (answer) {
+                    if (answer == DialogResult.Yes) {
 
                         configurationFileStorage.addConfigurateFileInStorage(new ConfigurationFW(name, (byte)target_ID, (byte)index, (byte)protocol_ID, eGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit,
                             (ushort)port, selector, domenName, domenNameByteArr, pathToFW_MKtxtBx.Text, pathToFW_QuectelTxtBx.Text, quectelCommands));
@@ -337,6 +343,9 @@ namespace GSM_NBIoT_Module
 
                         ActiveForm.Close();
 
+                        return;
+
+                    } else if (answer == DialogResult.Cancel) {
                         return;
                     }
                 }

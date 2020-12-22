@@ -17,7 +17,7 @@ namespace GSM_NBIoT_Module {
         ConfigurationFileStorage configurationFileStorage;
 
         //Подсказка для вывода текста при наведении на строку где прописываются команды для Quectel
-        ToolTip quectelCommandTxtBoxToolTip = new ToolTip();
+        ToolTip confFormToolTip = new ToolTip();
 
         public ConfigurationFrame() {
             InitializeComponent();
@@ -45,14 +45,20 @@ namespace GSM_NBIoT_Module {
                 deleteConfigurationBtn.Enabled = false;
             }
 
-            //Устанавливаю подсказку строке добавления команд для модуля Quectel
-            string mess = "Возможен ввод сразу нескольких команд, используйте в качестве разделителя символ \";\"" + "\nПримеры ввода:" + "\nAT+CGSN=0" + "\nAT+CGSN=0; AT+IPR=9600";
+            confFormToolTip.InitialDelay = 500;
+            confFormToolTip.AutoPopDelay = 6000;
+            confFormToolTip.ReshowDelay = 500;
 
-            quectelCommandTxtBoxToolTip.InitialDelay = 500;
-            quectelCommandTxtBoxToolTip.AutoPopDelay = 6000;
-            quectelCommandTxtBoxToolTip.ReshowDelay = 500;
+            confFormToolTip.ShowAlways = true;
 
-            quectelCommandTxtBoxToolTip.ShowAlways = true;
+            //Подсказка для кнопки установить пароль
+            confFormToolTip.SetToolTip(setPasswordBtn, "Установка пароля доступа к конфигурационному файлу");
+            //Подсказка для кнопки добавить
+            confFormToolTip.SetToolTip(addConfigurationBtn, "Создать новую конфигурацию для прошивки модема");
+            //Подсказка для кнопки редактировать
+            confFormToolTip.SetToolTip(editConfigurationBtn, "Редактировать выделенную в таблице конфигурацию");
+            //Подсказка для кнопки удалить
+            confFormToolTip.SetToolTip(deleteConfigurationBtn, "Удалить выделенную в таблице конфигурацию");
 
             //настраиваю выравнивание текста для колонок в таблице с конфигурациями
             configurationDataGridView.Columns["terget_id"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -81,7 +87,7 @@ namespace GSM_NBIoT_Module {
         /// <param name="e"></param>
         private void addConfigurationBtn_Click(object sender, EventArgs e) {
 
-            new EditConfigurationForm(this, new ConfigurationFW(), "Создание новой конфигурации", true).ShowDialog();
+            new AddEditConfigurationForm(this, new ConfigurationFW(), "Создание новой конфигурации", true).ShowDialog();
         }
 
         /// <summary>
@@ -214,7 +220,7 @@ namespace GSM_NBIoT_Module {
 
                 ConfigurationFW configuration = configurationFileStorage.getConfigurationFile(configurationDataGridView.SelectedRows[0].Cells[0].Value.ToString());
 
-                new EditConfigurationForm(this, configuration, "Редактирование конфигурации", false).ShowDialog();                
+                new AddEditConfigurationForm(this, configuration, "Редактирование конфигурации", false).ShowDialog();                
             } 
         }
 
@@ -241,7 +247,7 @@ namespace GSM_NBIoT_Module {
 
                 ConfigurationFW configuration = configurationFileStorage.getConfigurationFile(selectedRow.Cells[0].Value.ToString());
 
-                new EditConfigurationForm(this, configuration, "Редактирование конфигурации", false).ShowDialog();
+                new AddEditConfigurationForm(this, configuration, "Редактирование конфигурации", false).ShowDialog();
             }
         }
 

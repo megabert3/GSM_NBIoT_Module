@@ -1,6 +1,6 @@
 ﻿namespace GSM_NBIoT_Module
 {
-    partial class EditConfigurationForm
+    partial class AddEditConfigurationForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditConfigurationForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEditConfigurationForm));
             this.saveEditsBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -207,11 +207,10 @@
             // portTxtBox
             // 
             this.portTxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.portTxtBox.Location = new System.Drawing.Point(139, 48);
+            this.portTxtBox.Location = new System.Drawing.Point(139, 49);
             this.portTxtBox.Name = "portTxtBox";
             this.portTxtBox.Size = new System.Drawing.Size(115, 20);
             this.portTxtBox.TabIndex = 8;
-            this.portTxtBox.Text = "8103";
             // 
             // protocol_idTxtBox
             // 
@@ -282,7 +281,6 @@
             this.domenNameTxtBox.Name = "domenNameTxtBox";
             this.domenNameTxtBox.Size = new System.Drawing.Size(288, 20);
             this.domenNameTxtBox.TabIndex = 10;
-            this.domenNameTxtBox.Text = "\"devices.226.taipit.ru\"";
             // 
             // IPv4rdBtn
             // 
@@ -309,7 +307,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(136, 32);
+            this.label4.Location = new System.Drawing.Point(136, 33);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(32, 13);
             this.label4.TabIndex = 9;
@@ -318,7 +316,7 @@
             // MCL_chkBox
             // 
             this.MCL_chkBox.AutoSize = true;
-            this.MCL_chkBox.Location = new System.Drawing.Point(271, 50);
+            this.MCL_chkBox.Location = new System.Drawing.Point(271, 51);
             this.MCL_chkBox.Name = "MCL_chkBox";
             this.MCL_chkBox.Size = new System.Drawing.Size(78, 17);
             this.MCL_chkBox.TabIndex = 10;
@@ -431,7 +429,7 @@
             this.ConfigNameTxtBx.Size = new System.Drawing.Size(525, 20);
             this.ConfigNameTxtBx.TabIndex = 44;
             // 
-            // EditConfigurationForm
+            // AddEditConfigurationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -444,7 +442,7 @@
             this.Controls.Add(this.saveEditsBtn);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Name = "EditConfigurationForm";
+            this.Name = "AddEditConfigurationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Редактирование конфигурации";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditConfigurationForm_KeyDown);

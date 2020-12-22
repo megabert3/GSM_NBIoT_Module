@@ -17,7 +17,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -63,11 +63,11 @@
     <Compile Include="classes\controllerOnBoard\Controller.cs" />
     <Compile Include="classes\сommunication\Connector.cs" />
     <Compile Include="DependencyObject.cs" />
-    <Compile Include="view\EditConfigurationForm.cs">
+    <Compile Include="view\AddEditConfigurationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\EditConfigurationForm.Designer.cs">
-      <DependentUpon>EditConfigurationForm.cs</DependentUpon>
+    <Compile Include="view\AddEditConfigurationForm.Designer.cs">
+      <DependentUpon>AddEditConfigurationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="view\FlasherMainFrame.cs">
       <SubType>Form</SubType>
@@ -116,8 +116,8 @@
     <EmbeddedResource Include="view\ConfigurationFrame.resx">
       <DependentUpon>ConfigurationFrame.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="view\EditConfigurationForm.resx">
-      <DependentUpon>EditConfigurationForm.cs</DependentUpon>
+    <EmbeddedResource Include="view\AddEditConfigurationForm.resx">
+      <DependentUpon>AddEditConfigurationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\FlasherMainFrame.resx">
       <DependentUpon>FlasherMainFrame.cs</DependentUpon>

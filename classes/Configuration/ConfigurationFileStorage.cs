@@ -45,6 +45,7 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
             if (configurationFileStorage == null) {
                 deserializeConfigurationFileStorage();
             }
+
             return configurationFileStorage;
         }
 

@@ -220,6 +220,7 @@
             this.terminalBtn.TabIndex = 18;
             this.terminalBtn.Text = "Терминал";
             this.terminalBtn.UseVisualStyleBackColor = true;
+            this.terminalBtn.Visible = false;
             this.terminalBtn.Click += new System.EventHandler(this.terminalBtn_Click);
             // 
             // pictureBox1
@@ -271,7 +272,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Flasher";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Тайпит Flasher V1.5";
+            this.Text = "Тайпит Flasher V1.6";
             this.Load += new System.EventHandler(this.Flasher_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

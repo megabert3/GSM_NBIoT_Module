@@ -393,8 +393,8 @@ namespace GSM_NBIoT_Module {
         /// <summary>
         /// Создаёт диалоговое окно "да или нет"
         /// </summary>
-        /// <param name="errorMess"></param>
-        /// <param name="heading"></param>
+        /// <param name="errorMess">Сообщение</param>
+        /// <param name="heading">Заголовок</param>
         /// <returns></returns>
         public static bool YesOrNoDialog(string mess, string heading) {
             bool result;
@@ -411,6 +411,21 @@ namespace GSM_NBIoT_Module {
             } else result = false;
 
             return result;                
+        }
+
+        /// <summary>
+        /// Создаёт диалоговое окно "да, нет или отмена"
+        /// </summary>
+        /// <param name="mess">Сообщение</param>
+        /// <param name="heading">Заголовок</param>
+        /// <returns></returns>
+        public static DialogResult YesOrNoOrCancelDialog(string mess, string heading) {
+            return MessageBox.Show(
+                mess,
+                heading,
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button1);
         }
 
         /// <summary>
@@ -501,14 +516,23 @@ namespace GSM_NBIoT_Module {
                 configurationTextBox.AppendText("Имя прошивки Quectel: " + configurationFW.getfwForQuectelName() + Environment.NewLine);
                 configurationTextBox.AppendText(Environment.NewLine);
 
-                //Если есть конфигурационные команды для модуля Quectel
-                if (configurationFW.getQuectelCommandList().Count > 0) {
+                List<string> list = configurationFW.getQuectelCommandList();
 
-                    configurationTextBox.AppendText("Конфигурационные команды модуля Quectel:" + Environment.NewLine);
+                if (list != null) {
 
-                    //Отображаю конфигурационные команды модуля Quectel
-                    foreach (string commandQuectel in configurationFW.getQuectelCommandList()) {
-                        configurationTextBox.AppendText(commandQuectel + Environment.NewLine);
+                    //Если есть конфигурационные команды для модуля Quectel
+                    if (configurationFW.getQuectelCommandList().Count > 0) {
+
+                        configurationTextBox.AppendText("Конфигурационные команды модуля Quectel:" + Environment.NewLine);
+
+                        //Отображаю конфигурационные команды модуля Quectel
+                        foreach (string commandQuectel in configurationFW.getQuectelCommandList()) {
+
+                            if (!String.IsNullOrEmpty(commandQuectel)) {
+
+                                configurationTextBox.AppendText(commandQuectel + Environment.NewLine);
+                            }
+                        }
                     }
                 }
             }
