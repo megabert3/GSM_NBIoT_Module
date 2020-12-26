@@ -26,6 +26,10 @@ namespace GSM_NBIoT_Module
         //Подсказка для вывода текста при наведении на строку где прописываются команды для Quectel
         ToolTip addEditConfToolTip = new ToolTip();
 
+        //Для перетаскивания строк в dataGridView в таблице коммад для модуля Quectel
+        private int dragRow = -1;
+        private Label dragLabel = null;
+
         public AddEditConfigurationForm() {
             InitializeComponent();
         }
@@ -38,6 +42,22 @@ namespace GSM_NBIoT_Module
 
             this.configurationFrame = (ConfigurationFrame) configurationFrame;
             this.configuration = configuration;
+
+            if (configuration.getQuectelCommandList().Count > 0) {
+
+                copyAllConfCommnadQuectel.Enabled = true;
+                deleteAllConfCommnadQuectel.Enabled = true;
+                upCommandBtn.Enabled = true;
+                downCommandBtn.Enabled = true;
+                deleteConfCommnadQuectel.Enabled = true;
+
+            } else {
+                copyAllConfCommnadQuectel.Enabled = false;
+                deleteAllConfCommnadQuectel.Enabled = false;
+                upCommandBtn.Enabled = false;
+                downCommandBtn.Enabled = false;
+                deleteConfCommnadQuectel.Enabled = false;
+            }
 
             //Если конфигурация не пустая (вызвана не кнопкой Добавить), то инициализирую поля
             if (!newConfiguration) {
@@ -84,6 +104,12 @@ namespace GSM_NBIoT_Module
             addEditConfToolTip.SetToolTip(domenNameRdBtn, "Доменное имя должно именть знак \" в начале и в конце.\nДоменное имя должно быть не более 28 символов.\nПример: \"devices.226.taipit.ru\"");
 
             addEditConfToolTip.SetToolTip(IPv4rdBtn, "Формат \"XXX.XXX.XXX.XXX\", где ХХХ это цифры");
+
+            addEditConfToolTip.SetToolTip(target_IDtxtBox, "Значение должно быть в диапазоне: 0..255");
+            addEditConfToolTip.SetToolTip(protocol_idTxtBox, "Значение должно быть в диапазоне: 0..255");
+            addEditConfToolTip.SetToolTip(indexTxtBox, "Значение должно быть в диапазоне: 0..255");
+
+            addEditConfToolTip.SetToolTip(portTxtBox, "Значение должно быть в диапазоне: 0..65535");
         }
 
         private void pathToFW_MKBtn_Click(object sender, EventArgs e)
@@ -144,6 +170,11 @@ namespace GSM_NBIoT_Module
             string domenName;
             byte[] domenNameByteArr;
 
+            if (String.IsNullOrEmpty(ConfigNameTxtBx.Text.Trim())) {
+                Flasher.exceptionDialog("Поле: \"Название конфигурации\" не должно быть пустым");
+                return;
+            }
+
             //Проверка, что поля заполнены
             if (String.IsNullOrEmpty(target_IDtxtBox.Text.Trim()) ||
                 String.IsNullOrEmpty(protocol_idTxtBox.Text.Trim()) ||
@@ -152,7 +183,7 @@ namespace GSM_NBIoT_Module
                 String.IsNullOrEmpty(domenNameTxtBox.Text) ||
                 String.IsNullOrEmpty(ConfigNameTxtBx.Text.Trim())) {
 
-                Flasher.exceptionDialog("Поля: Target_ID, Protocol_ID, Index, Порт, Доменное имя, не должны быть пустыми");
+                Flasher.exceptionDialog("Поля: Target_ID, Protocol_ID, Index, Порт, Доменное имя / IPv4, не должны быть пустыми");
                 return;
             }
 
@@ -160,13 +191,14 @@ namespace GSM_NBIoT_Module
             name = ConfigNameTxtBx.Text.Trim();
 
             ConfigurationFileStorage configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
-
+            
             //Проверка, что поля заполненны цифрами
             try {
                 target_ID = Convert.ToInt32(target_IDtxtBox.Text);
                 protocol_ID = Convert.ToInt32(protocol_idTxtBox.Text);
                 index = Convert.ToInt32(indexTxtBox.Text);
                 port = Convert.ToInt32(portTxtBox.Text);
+
             } catch (FormatException) {
                 Flasher.exceptionDialog("Значение полей: Target_ID, Protocol_ID, Index, Порт, должны быть целочисленными");
                 return;
@@ -314,7 +346,7 @@ namespace GSM_NBIoT_Module
                 if (configurationFileStorage.getConfigurationFile(name) != null) {
 
                     string dialogMess = "Конфигурация с именем " + "\"" + name + "\"" + " уже существует в списке конфигураций, " +
-                        "заменить её текущей?";
+                        "заменить её параметры текущими?";
 
                     bool result = Flasher.YesOrNoDialog(dialogMess, "Замена конфигурации");
 
@@ -327,7 +359,8 @@ namespace GSM_NBIoT_Module
                     //Если в списке нет конфигураций с таким же именем, но имя отличается от старого
                 } else {
 
-                    DialogResult answer = Flasher.YesOrNoOrCancelDialog("Сохранить данную конфигурацию как новую?", "Добавление новой конфигурации");
+                    DialogResult answer = Flasher.YesOrNoOrCancelDialog("Было изменено имя конфигурации. Добавить в список новую конфигурацию с указанным именем и текущими параметрами?" +
+                        "\n\nДа - добавить новую конфигурацию.\nНет - изменить текущую конфигурацию.\nОтмена - отменить действие.", "Добавление новой конфигурации");
 
                     if (answer == DialogResult.Yes) {
 
@@ -336,6 +369,7 @@ namespace GSM_NBIoT_Module
 
                         //Сериализую изменения
                         ConfigurationFileStorage.serializeConfigurationFileStorage();
+                        configurationFrame.setEditebleOrAddedConfName(name);
                         configurationFrame.refreshListView();
 
                         //Обновляю комбобокс с конфигурациями основного окна
@@ -371,12 +405,13 @@ namespace GSM_NBIoT_Module
 
             //Сериализую изменения
             ConfigurationFileStorage.serializeConfigurationFileStorage();
+            configurationFrame.setEditebleOrAddedConfName(name);
             configurationFrame.refreshListView();
 
             //Обновляю комбобокс с конфигурациями основного окна
             Flasher.refreshConfigurationCmBox();
 
-            ActiveForm.Close();
+            Close();
         }
 
         private void cancelBtn_Click(object sender, EventArgs e) {
@@ -519,6 +554,64 @@ namespace GSM_NBIoT_Module
                 Close();
             }
 
+        }
+
+        private void upCommandBtn_Click(object sender, EventArgs e) {
+
+            if (quectelCommnadsdtGrdView.Rows.Count > 0) {
+
+                if (quectelCommnadsdtGrdView.SelectedRows.Count > 0) {
+
+                    DataGridViewRow selectedRow = quectelCommnadsdtGrdView.SelectedRows[0];
+
+                    int indexRow = selectedRow.Index;
+
+                    if (--indexRow >= 0) {
+                        quectelCommnadsdtGrdView.Rows.Remove(selectedRow);
+                        quectelCommnadsdtGrdView.Rows.Insert(indexRow, selectedRow);
+                        selectedRow.Selected = true;
+                    }
+                }
+            }
+        }
+
+        private void downCommandBtn_Click(object sender, EventArgs e) {
+
+            if (quectelCommnadsdtGrdView.Rows.Count > 0) {
+
+                if (quectelCommnadsdtGrdView.SelectedRows.Count > 0) {
+
+                    DataGridViewRow selectedRow = quectelCommnadsdtGrdView.SelectedRows[0];
+
+                    int indexRow = selectedRow.Index;
+
+                    if (++indexRow < quectelCommnadsdtGrdView.Rows.Count) {
+                        quectelCommnadsdtGrdView.Rows.Remove(selectedRow);
+                        quectelCommnadsdtGrdView.Rows.Insert(indexRow, selectedRow);
+                        selectedRow.Selected = true;
+                    }
+                }
+            }
+        }
+
+        private void quectelCommnadsdtGrdView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e) {
+
+            copyAllConfCommnadQuectel.Enabled = true;
+            deleteAllConfCommnadQuectel.Enabled = true;
+            upCommandBtn.Enabled = true;
+            downCommandBtn.Enabled = true;
+            deleteConfCommnadQuectel.Enabled = true;
+        }
+
+        private void quectelCommnadsdtGrdView_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e) {
+
+            if (configuration.getQuectelCommandList().Count == 0) {
+                copyAllConfCommnadQuectel.Enabled = false;
+                deleteAllConfCommnadQuectel.Enabled = false;
+                upCommandBtn.Enabled = false;
+                downCommandBtn.Enabled = false;
+                deleteConfCommnadQuectel.Enabled = false;
+            }
         }
     }
 }

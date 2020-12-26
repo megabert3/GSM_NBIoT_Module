@@ -14,10 +14,13 @@ namespace GSM_NBIoT_Module {
         private Form mainForm;
 
         //Обект с имеющимися конфигурациями
-        ConfigurationFileStorage configurationFileStorage;
+        private ConfigurationFileStorage configurationFileStorage;
 
         //Подсказка для вывода текста при наведении на строку где прописываются команды для Quectel
-        ToolTip confFormToolTip = new ToolTip();
+        private ToolTip confFormToolTip = new ToolTip();
+
+        //Имя редактируемой или добавляемой конфигурации
+        public static string editebleOrAddedConfName = "";
 
         public ConfigurationFrame() {
             InitializeComponent();
@@ -35,6 +38,8 @@ namespace GSM_NBIoT_Module {
 
         //Инициализация окна
         private void ConfigurationFrame_Load(object sender, EventArgs e) {
+
+            editebleOrAddedConfName = Flasher.configurationCmBoxStatic.Text;
             refreshListView();
 
             //Блокирую все кнопки кроме кнопки "Добавить"
@@ -112,6 +117,11 @@ namespace GSM_NBIoT_Module {
                 //Имя конфигурации
                 row.Cells[0].Value = configurationFileStorage.getAllConfigurationFiles()[i].getName();
 
+                //Выделяю ранее редактируемую строку
+                if (row.Cells[0].Value.ToString().Equals(editebleOrAddedConfName)) {
+                    configurationDataGridView.Rows[i].Selected = true;
+                }
+
                 //Инициализация target_ID
                 row.Cells[1].Value = configurationFileStorage.getAllConfigurationFiles()[i].getTarget_ID();
 
@@ -167,7 +177,7 @@ namespace GSM_NBIoT_Module {
                     string conficurationName = configurationDataGridView.SelectedRows[0].Cells[0].Value.ToString();
 
                     DialogResult res = MessageBox.Show(
-                                        "Удалить конфигурацию под названием: " + conficurationName + "?",
+                                        "Удалить конфигурацию: " + conficurationName + "?",
                                         "Удаление конфигурации",
                                         MessageBoxButtons.YesNo,
                                         MessageBoxIcon.Question,
@@ -239,15 +249,23 @@ namespace GSM_NBIoT_Module {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void configurationDataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e) {
-            if (configurationDataGridView.Rows.Count > 0) {
 
-                DataGridViewRow selectedRow = configurationDataGridView.SelectedRows[0];
+            DataGridViewRow selectedRow = configurationDataGridView.SelectedRows[0];
 
-                configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
+            //Если выбрана строчка добавления
+            if (selectedRow.Cells[0].Value == null) {
+                addConfigurationBtn.PerformClick();
+                return;
+            }
 
-                ConfigurationFW configuration = configurationFileStorage.getConfigurationFile(selectedRow.Cells[0].Value.ToString());
+            configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
+
+            ConfigurationFW configuration = configurationFileStorage.getConfigurationFile(selectedRow.Cells[0].Value.ToString());
+
+            if (configurationDataGridView.Rows.Count > 0) {  
 
                 new AddEditConfigurationForm(this, configuration, "Редактирование конфигурации", false).ShowDialog();
+
             }
         }
 
@@ -279,6 +297,26 @@ namespace GSM_NBIoT_Module {
             ConfigurationFW selectedConf = ConfigurationFileStorage.GetConfigurationFileStorageInstanse().getConfigurationFile(configurationDataGridView.SelectedRows[0].Cells[0].Value.ToString());
 
             new CoppyConfForm(selectedConf, this).ShowDialog();
+        }
+
+        private void configurationDataGridView_CellClick(object sender, DataGridViewCellEventArgs e) {            
+
+            if (configurationDataGridView.SelectedRows[0].Cells[0].Value == null) {
+
+                editConfigurationBtn.Enabled = false;
+                deleteConfigurationBtn.Enabled = false;
+            } else {
+                editConfigurationBtn.Enabled = true;
+                deleteConfigurationBtn.Enabled = true;
+            }
+        }
+
+        public void setEditebleOrAddedConfName(String confName) {
+            editebleOrAddedConfName = confName;
+        }
+
+        public DataGridView getConfigurationDataGridView() {
+            return configurationDataGridView;
         }
     }
 }

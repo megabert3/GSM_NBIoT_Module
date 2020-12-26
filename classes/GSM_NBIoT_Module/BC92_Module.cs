@@ -144,18 +144,18 @@ namespace GSM_NBIoT_Module.classes {
 
                 //--------------------------------------------------------- Конфигурация модуля Quectel
                 //Ставлю в начальное положение ножки CP2105
-                cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, true, 500);
+                cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandardPort(), true, true, true, 500);
                 Flasher.setValuePogressBarFlashingStatic(460);
 
                 //Делаю ресет модуля BC92
-                cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), false, true, true, 1000);
+                cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandardPort(), false, true, true, 1000);
                 Flasher.setValuePogressBarFlashingStatic(465);
 
                 //Поднимаю модуль BC92 и не даю уснуть
-                cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, true, 1000);
+                cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandardPort(), true, true, true, 1000);
                 Flasher.setValuePogressBarFlashingStatic(470);
 
-                cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandartPort(), true, true, false, 1000);
+                cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandardPort(), true, true, false, 1000);
                 Flasher.setValuePogressBarFlashingStatic(475);
 
                 Flasher.addMessageInMainLog("\n==========================================================================================");
@@ -173,7 +173,7 @@ namespace GSM_NBIoT_Module.classes {
         public void sendATCommands(List<string> commands) {
 
             //Получаю COM порт для общения с модулем.
-            string port = "COM" + this.cP2105_Connector.getStandartPort();
+            string port = "COM" + this.cP2105_Connector.getStandardPort();
 
             using (serialPort = new SerialPort(port, 9600, Parity.None, 8, StopBits.One)) {
 
@@ -243,7 +243,7 @@ namespace GSM_NBIoT_Module.classes {
         /// <returns>Возвращает версию прошивки модуля Quectel</returns>
         private string getVersionFrimware() {
 
-            string port = "COM" + this.cP2105_Connector.getStandartPort();
+            string port = "COM" + this.cP2105_Connector.getStandardPort();
 
             using (serialPort = new SerialPort(port, 9600, Parity.None, 8, StopBits.One)) {
 

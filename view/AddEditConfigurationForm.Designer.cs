@@ -64,6 +64,8 @@
             this.quectelCommandTxtBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.ConfigNameTxtBx = new System.Windows.Forms.TextBox();
+            this.upCommandBtn = new System.Windows.Forms.Button();
+            this.downCommandBtn = new System.Windows.Forms.Button();
             this.groupBox5.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -325,6 +327,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.upCommandBtn);
+            this.tabPage2.Controls.Add(this.downCommandBtn);
             this.tabPage2.Controls.Add(this.deleteConfCommnadQuectel);
             this.tabPage2.Controls.Add(this.deleteAllConfCommnadQuectel);
             this.tabPage2.Controls.Add(this.copyAllConfCommnadQuectel);
@@ -384,9 +388,12 @@
             this.quectelCommnadsdtGrdView.RowTemplate.Height = 17;
             this.quectelCommnadsdtGrdView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.quectelCommnadsdtGrdView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.quectelCommnadsdtGrdView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.quectelCommnadsdtGrdView.Size = new System.Drawing.Size(371, 163);
             this.quectelCommnadsdtGrdView.TabIndex = 27;
             this.quectelCommnadsdtGrdView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.quectelCommnadsdtGrdView_CellEndEdit);
+            this.quectelCommnadsdtGrdView.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.quectelCommnadsdtGrdView_RowsAdded);
+            this.quectelCommnadsdtGrdView.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.quectelCommnadsdtGrdView_RowsRemoved);
             // 
             // qurctelCommandColumn
             // 
@@ -397,7 +404,7 @@
             // 
             // addQuectelCommandBtn
             // 
-            this.addQuectelCommandBtn.Location = new System.Drawing.Point(280, 180);
+            this.addQuectelCommandBtn.Location = new System.Drawing.Point(280, 179);
             this.addQuectelCommandBtn.Name = "addQuectelCommandBtn";
             this.addQuectelCommandBtn.Size = new System.Drawing.Size(97, 22);
             this.addQuectelCommandBtn.TabIndex = 2;
@@ -428,6 +435,26 @@
             this.ConfigNameTxtBx.Name = "ConfigNameTxtBx";
             this.ConfigNameTxtBx.Size = new System.Drawing.Size(525, 20);
             this.ConfigNameTxtBx.TabIndex = 44;
+            // 
+            // upCommandBtn
+            // 
+            this.upCommandBtn.Image = ((System.Drawing.Image)(resources.GetObject("upCommandBtn.Image")));
+            this.upCommandBtn.Location = new System.Drawing.Point(383, 96);
+            this.upCommandBtn.Name = "upCommandBtn";
+            this.upCommandBtn.Size = new System.Drawing.Size(22, 22);
+            this.upCommandBtn.TabIndex = 32;
+            this.upCommandBtn.UseVisualStyleBackColor = true;
+            this.upCommandBtn.Click += new System.EventHandler(this.upCommandBtn_Click);
+            // 
+            // downCommandBtn
+            // 
+            this.downCommandBtn.Image = ((System.Drawing.Image)(resources.GetObject("downCommandBtn.Image")));
+            this.downCommandBtn.Location = new System.Drawing.Point(383, 124);
+            this.downCommandBtn.Name = "downCommandBtn";
+            this.downCommandBtn.Size = new System.Drawing.Size(22, 22);
+            this.downCommandBtn.TabIndex = 31;
+            this.downCommandBtn.UseVisualStyleBackColor = true;
+            this.downCommandBtn.Click += new System.EventHandler(this.downCommandBtn_Click);
             // 
             // AddEditConfigurationForm
             // 
@@ -501,5 +528,7 @@
         private System.Windows.Forms.TextBox quectelCommandTxtBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox ConfigNameTxtBx;
+        private System.Windows.Forms.Button upCommandBtn;
+        private System.Windows.Forms.Button downCommandBtn;
     }
 }

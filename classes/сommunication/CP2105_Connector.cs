@@ -50,7 +50,7 @@ namespace GSM_NBIoT_Module.classes {
         /// <summary>
         /// Структура состояния GPIO у стандартного порта
         /// </summary>
-        public struct StateGPIO_OnStandartPort {
+        public struct StateGPIO_OnStandardPort {
             public bool stageGPIO_0;
             public bool stageGPIO_1;
             public bool stageGPIO_2;
@@ -58,7 +58,7 @@ namespace GSM_NBIoT_Module.classes {
 
         //Порты
         private int enhabcedPort;
-        private int standartPort;
+        private int standardPort;
 
         //======================= Маршалинг основных функций CP210xRuntime.dll ==========================
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
@@ -145,17 +145,17 @@ namespace GSM_NBIoT_Module.classes {
         /// Возвращает состояние ножек на стандртном порте
         /// </summary>
         /// <returns></returns>
-        public StateGPIO_OnStandartPort GetStageGPIOStandartPort() {
+        public StateGPIO_OnStandardPort GetStageGPIOStandardPort() {
 
-            StateGPIO_OnStandartPort stateGPIO_OnStandartPort = new StateGPIO_OnStandartPort();
+            StateGPIO_OnStandardPort stateGPIO_OnStandardPort = new StateGPIO_OnStandardPort();
 
-            ReadGPIOStageAndSetFlags(standartPort);
+            ReadGPIOStageAndSetFlags(standardPort);
 
-            stateGPIO_OnStandartPort.stageGPIO_0 = stageGPIO_0;
-            stateGPIO_OnStandartPort.stageGPIO_1 = stageGPIO_1;
-            stateGPIO_OnStandartPort.stageGPIO_2 = stageGPIO_2;
+            stateGPIO_OnStandardPort.stageGPIO_0 = stageGPIO_0;
+            stateGPIO_OnStandardPort.stageGPIO_1 = stageGPIO_1;
+            stateGPIO_OnStandardPort.stageGPIO_2 = stageGPIO_2;
 
-            return stateGPIO_OnStandartPort;
+            return stateGPIO_OnStandardPort;
         }
 
         /// <summary>
@@ -236,13 +236,17 @@ namespace GSM_NBIoT_Module.classes {
             //Если состояние ног GPIO не установилось, то пробую ещё раз
             if (resultGPIO != stageGPIO_ForWrite) {
 
-                for (int i = 0; i < 7; i++) {
+                for (int i = 1; i < 8; i++) {
+
+                    Flasher.addMessageInMainLog("Запрос подтверждения состояния ног CP2105 №" + i);
+
                     Thread.Sleep(500);
 
                     resultGPIO = ReadGPIOStageAndSetFlags(COM_Port);
 
                     if (resultGPIO == stageGPIO_ForWrite) {
                         MyCloseHandle(COM_Port);
+                        Flasher.addMessageInMainLog("Подтверждение получено");
                         return;
                     }
                 }
@@ -278,13 +282,16 @@ namespace GSM_NBIoT_Module.classes {
             //Если состояние ног GPIO не установилось, то пробую ещё раз
             if (resultGPIO != stageGPIO_ForWrite) {
 
-                for (int i = 0; i < 7; i++) {
+                for (int i = 1; i < 8; i++) {
+                    Flasher.addMessageInMainLog("Запрос подтверждения состояния ног CP2105 №" + i);
+
                     Thread.Sleep(500);
 
                     resultGPIO = ReadGPIOStageAndSetFlags(COM_Port);
 
                     if (resultGPIO == stageGPIO_ForWrite) {
                         MyCloseHandle(COM_Port);
+                        Flasher.addMessageInMainLog("Подтверждение получено");
                         return;
                     }
                 }
@@ -404,14 +411,14 @@ namespace GSM_NBIoT_Module.classes {
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
 
             int enhabcedPort = 0;
-            int standartPort = 0;
+            int standardPort = 0;
 
             bool findEnha = false;
             bool findSta = false;
 
             //Имя устройств
             const string searhEnhancedPort = "Silicon Labs Dual CP210x USB to UART Bridge: Enhanced COM Port";
-            const string searhStandartPort = "Silicon Labs Dual CP210x USB to UART Bridge: Standard COM Port";
+            const string searhStandardPort = "Silicon Labs Dual CP210x USB to UART Bridge: Standard COM Port";
 
             foreach (ManagementObject service in searcher.Get()) {
 
@@ -432,24 +439,24 @@ namespace GSM_NBIoT_Module.classes {
                 }
 
                 if (!findSta) {
-                    if (searhStandartPort.Equals(portDescription)) {
+                    if (searhStandardPort.Equals(portDescription)) {
                         string port = (string)service["Name"];
                         int startIndex = port.IndexOf('(');
                         int lastIndex = port.IndexOf(')');
                         int leght = lastIndex - (startIndex + 4);
 
-                        standartPort = Convert.ToInt32(port.Substring(startIndex + 4, leght));
+                        standardPort = Convert.ToInt32(port.Substring(startIndex + 4, leght));
 
                         findSta = true;
                     }
                 }
             }
 
-            if (enhabcedPort == 0 || standartPort == 0)
+            if (enhabcedPort == 0 || standardPort == 0)
                 throw new DeviceNotFoundException("Не удалось найти модем в списке подключенных устройств");
 
             this.enhabcedPort = enhabcedPort;
-            this.standartPort = standartPort;
+            this.standardPort = standardPort;
         }
 
         /// <summary>
@@ -458,10 +465,10 @@ namespace GSM_NBIoT_Module.classes {
         /// </summary>
         public void amountDevicesConnect() {
             const string searhEnhancedPort = "Silicon Labs Dual CP210x USB to UART Bridge: Enhanced COM Port";
-            const string searhStandartPort = "Silicon Labs Dual CP210x USB to UART Bridge: Standard COM Port";
+            const string searhStandardPort = "Silicon Labs Dual CP210x USB to UART Bridge: Standard COM Port";
 
             int countEnhabcedPort = 0;
-            int countStandartPort = 0;
+            int countStandardPort = 0;
 
             string query = "SELECT * FROM Win32_SerialPort";
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
@@ -474,12 +481,12 @@ namespace GSM_NBIoT_Module.classes {
                     countEnhabcedPort++;
                 }
 
-                if (searhStandartPort.Equals(portDescription)) {
-                    countStandartPort++;
+                if (searhStandardPort.Equals(portDescription)) {
+                    countStandardPort++;
                 }
             }
 
-            if (countEnhabcedPort > 1 || countStandartPort > 1)
+            if (countEnhabcedPort > 1 || countStandardPort > 1)
                 throw new DeviceError("В списке устройств найдено больше одного модема, для корректной работы программы должно быть подключено не более одного модема");
         }
 
@@ -502,17 +509,17 @@ namespace GSM_NBIoT_Module.classes {
             return enhabcedPort;
         }
 
-        public int getStandartPort() {
-            if (enhabcedPort == 0) throw new DeviceNotFoundException("Не выставленно значение Standart порта");
-            return standartPort;
+        public int getStandardPort() {
+            if (enhabcedPort == 0) throw new DeviceNotFoundException("Не выставленно значение Standard порта");
+            return standardPort;
         }
 
         public void setEnhabcedPort(int portNo) {
             this.enhabcedPort = portNo;
         }
 
-        public void setStandartPort(int portNo) {
-            this.standartPort = portNo;
+        public void setStandardPort(int portNo) {
+            this.standardPort = portNo;
         }
     }
 }

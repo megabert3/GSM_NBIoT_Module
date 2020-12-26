@@ -528,7 +528,7 @@
             this.groupBox7.Size = new System.Drawing.Size(78, 104);
             this.groupBox7.TabIndex = 0;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Standart";
+            this.groupBox7.Text = "Standard";
             // 
             // groupBox8
             // 

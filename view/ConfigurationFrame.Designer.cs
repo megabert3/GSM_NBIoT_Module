@@ -31,6 +31,9 @@
             this.editConfigurationBtn = new System.Windows.Forms.Button();
             this.deleteConfigurationBtn = new System.Windows.Forms.Button();
             this.configurationDataGridView = new System.Windows.Forms.DataGridView();
+            this.label11 = new System.Windows.Forms.Label();
+            this.setPasswordBtn = new System.Windows.Forms.Button();
+            this.copyBtn = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.terget_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.protocol_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,9 +44,6 @@
             this.configCommandsQuectel = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.frimwareForMK = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.frimwareForQuectel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label11 = new System.Windows.Forms.Label();
-            this.setPasswordBtn = new System.Windows.Forms.Button();
-            this.copyBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.configurationDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -92,7 +92,6 @@
             // 
             // configurationDataGridView
             // 
-            this.configurationDataGridView.AllowUserToAddRows = false;
             this.configurationDataGridView.AllowUserToDeleteRows = false;
             this.configurationDataGridView.AllowUserToResizeRows = false;
             this.configurationDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -122,9 +121,42 @@
             this.configurationDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.configurationDataGridView.Size = new System.Drawing.Size(1145, 431);
             this.configurationDataGridView.TabIndex = 31;
+            this.configurationDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.configurationDataGridView_CellClick);
             this.configurationDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.configurationDataGridView_CellMouseDoubleClick);
             this.configurationDataGridView.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.configurationDataGridView_RowsAdded);
             this.configurationDataGridView.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.configurationDataGridView_RowsRemoved);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(12, 13);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(177, 13);
+            this.label11.TabIndex = 32;
+            this.label11.Text = "Список созданных конфигураций";
+            // 
+            // setPasswordBtn
+            // 
+            this.setPasswordBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.setPasswordBtn.Location = new System.Drawing.Point(12, 473);
+            this.setPasswordBtn.Name = "setPasswordBtn";
+            this.setPasswordBtn.Size = new System.Drawing.Size(115, 25);
+            this.setPasswordBtn.TabIndex = 33;
+            this.setPasswordBtn.Text = "Установить пароль";
+            this.setPasswordBtn.UseVisualStyleBackColor = true;
+            this.setPasswordBtn.Click += new System.EventHandler(this.setPasswordBtn_Click);
+            // 
+            // copyBtn
+            // 
+            this.copyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.copyBtn.Location = new System.Drawing.Point(639, 473);
+            this.copyBtn.Name = "copyBtn";
+            this.copyBtn.Size = new System.Drawing.Size(115, 25);
+            this.copyBtn.TabIndex = 34;
+            this.copyBtn.Text = "Копировать";
+            this.copyBtn.UseVisualStyleBackColor = true;
+            this.copyBtn.Visible = false;
+            this.copyBtn.Click += new System.EventHandler(this.copyBtn_Click);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -203,38 +235,6 @@
             this.frimwareForQuectel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.frimwareForQuectel.Width = 150;
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(12, 13);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(177, 13);
-            this.label11.TabIndex = 32;
-            this.label11.Text = "Список созданных конфигураций";
-            // 
-            // setPasswordBtn
-            // 
-            this.setPasswordBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.setPasswordBtn.Location = new System.Drawing.Point(12, 473);
-            this.setPasswordBtn.Name = "setPasswordBtn";
-            this.setPasswordBtn.Size = new System.Drawing.Size(115, 25);
-            this.setPasswordBtn.TabIndex = 33;
-            this.setPasswordBtn.Text = "Установить пароль";
-            this.setPasswordBtn.UseVisualStyleBackColor = true;
-            this.setPasswordBtn.Click += new System.EventHandler(this.setPasswordBtn_Click);
-            // 
-            // copyBtn
-            // 
-            this.copyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.copyBtn.Location = new System.Drawing.Point(639, 473);
-            this.copyBtn.Name = "copyBtn";
-            this.copyBtn.Size = new System.Drawing.Size(115, 25);
-            this.copyBtn.TabIndex = 34;
-            this.copyBtn.Text = "Копировать";
-            this.copyBtn.UseVisualStyleBackColor = true;
-            this.copyBtn.Visible = false;
-            this.copyBtn.Click += new System.EventHandler(this.copyBtn_Click);
-            // 
             // ConfigurationFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -266,6 +266,9 @@
         private System.Windows.Forms.Button editConfigurationBtn;
         private System.Windows.Forms.Button deleteConfigurationBtn;
         private System.Windows.Forms.DataGridView configurationDataGridView;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button setPasswordBtn;
+        private System.Windows.Forms.Button copyBtn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn terget_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn protocol_id;
@@ -276,8 +279,5 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn configCommandsQuectel;
         private System.Windows.Forms.DataGridViewTextBoxColumn frimwareForMK;
         private System.Windows.Forms.DataGridViewTextBoxColumn frimwareForQuectel;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button setPasswordBtn;
-        private System.Windows.Forms.Button copyBtn;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using GSM_NBIoT_Module.classes;
 using GSM_NBIoT_Module.classes.applicationHelper;
 using GSM_NBIoT_Module.classes.controllerOnBoard.Configuration;
+using GSM_NBIoT_Module.Properties;
 using GSM_NBIoT_Module.view;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,9 @@ namespace GSM_NBIoT_Module {
 
         private static RichTextBox flashProcessTxtBoxStatic;
 
-        private static ComboBox configurationCmBoxStatic;
+        public static ComboBox configurationCmBoxStatic;
+
+        private static TextBox configurationTextBoxStatic;
 
         private static Stopwatch firmwareWriteStart = new Stopwatch();
 
@@ -78,6 +81,8 @@ namespace GSM_NBIoT_Module {
             //Устанавливаю статическому полю ссылку на основное окно Лога (Для статического доступа к окну поля из всей программы)
             flashProcessTxtBoxStatic = flashProcessRichTxtBox;
 
+            Text = "Тайпит Flasher " + Properties.Settings.Default.version;
+
             //Установка подсказки
             ToolTip toolTip = new ToolTip();
             toolTip.InitialDelay = 1000;
@@ -99,7 +104,9 @@ namespace GSM_NBIoT_Module {
 
             configurationCmBoxStatic = configurationCmBox;
 
-            refreshConfigurationCmBox();
+            configurationTextBoxStatic = configurationTextBox;
+
+            loadConfigurationCmBx();
         }
 
         private void startFlashBtn_Click(object sender, EventArgs e) {
@@ -149,9 +156,8 @@ namespace GSM_NBIoT_Module {
                     configurationFW = configurationFileStorage.getConfigurationFile(selectedConfiguration);
 
                     //Запоминаю последнюю используемую конфигурацию для инициализации комбобокса при старте программы
-                    configurationFileStorage.setLastConfiguration(selectedConfiguration);
-
-                    ConfigurationFileStorage.serializeConfigurationFileStorage();
+                    Settings.Default.lastConfiguration = selectedConfiguration;
+                    Settings.Default.Save();
 
                     //Если не создан конфигурационный файл
                 } else {
@@ -321,7 +327,6 @@ namespace GSM_NBIoT_Module {
         /// Обновляет комбобокс с конфигурациями основоного окна при добавлении новой конфигурации
         /// </summary>
         public static void refreshConfigurationCmBox() {
-
             configurationCmBoxStatic.Items.Clear();
 
             //Выгрузка конфигурации прошивки
@@ -334,14 +339,14 @@ namespace GSM_NBIoT_Module {
                 }
 
                 //Выставляю в списке конфигураций селект на последнюю используемую
-                if (!configuratinFileStorage.getLastConfiguration().Equals("")) {
+                if (!ConfigurationFrame.editebleOrAddedConfName.Equals("")) {
 
                     //Флаг для нахождения последней используемой конфигурации в списке конфигурации
                     bool find = false;
 
                     foreach (string confName in configurationCmBoxStatic.Items) {
 
-                        if (confName.Equals(configuratinFileStorage.getLastConfiguration())) {
+                        if (confName.Equals(ConfigurationFrame.editebleOrAddedConfName)) {
                             configurationCmBoxStatic.SelectedItem = confName;
                             find = true;
                             break;
@@ -353,6 +358,48 @@ namespace GSM_NBIoT_Module {
                         configurationCmBoxStatic.SelectedIndex = 0;
                     }
                 }
+
+            } else {
+                configurationTextBoxStatic.Text = "";
+            }
+
+        }
+
+        private void loadConfigurationCmBx() {
+            configurationCmBoxStatic.Items.Clear();
+
+            //Выгрузка конфигурации прошивки
+            ConfigurationFileStorage configuratinFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
+
+            if (configuratinFileStorage.getAllConfigurationFiles().Count() > 0) {
+
+                foreach (ConfigurationFW configuration in configuratinFileStorage.getAllConfigurationFiles()) {
+                    configurationCmBoxStatic.Items.Add(configuration.getName());
+                }
+
+                //Выставляю в списке конфигураций селект на последнюю используемую
+                if (!Settings.Default.lastConfiguration.Equals("")) {
+
+                    //Флаг для нахождения последней используемой конфигурации в списке конфигурации
+                    bool find = false;
+
+                    foreach (string confName in configurationCmBoxStatic.Items) {
+
+                        if (confName.Equals(Settings.Default.lastConfiguration)) {
+                            configurationCmBoxStatic.SelectedItem = confName;
+                            find = true;
+                            break;
+                        }
+                    }
+
+                    //Если не найдено, то выставляю первую конфигурацию
+                    if (!find) {
+                        configurationCmBoxStatic.SelectedIndex = 0;
+                    }
+                }
+
+            } else {
+                configurationTextBoxStatic.Text = "";
             }
         }
 
@@ -451,6 +498,7 @@ namespace GSM_NBIoT_Module {
             if (configurationForm != null) {
                 configurationForm.Activate();
                 configurationForm.BringToFront();
+                configurationForm.WindowState = FormWindowState.Normal;
             } else {
 
                 ConfigurationFileStorage configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
@@ -460,6 +508,7 @@ namespace GSM_NBIoT_Module {
                     if (passForm != null) {
                         passForm.Activate();
                         passForm.BringToFront();
+                        passForm.WindowState = FormWindowState.Normal;
                         return;
 
                     } else {
@@ -536,6 +585,18 @@ namespace GSM_NBIoT_Module {
                     }
                 }
             }
+
+            //Изменение строки в таблице конфигурации
+            if (configurationForm != null) {
+
+                foreach(DataGridViewRow row in ((ConfigurationFrame) configurationForm).getConfigurationDataGridView().Rows) {
+
+                    if (row.Cells[0].Value.ToString().Equals(configurationCmBox.Text)) {
+                        row.Selected = true;
+                        break;
+                    }
+                }
+            }
         }
 
 
@@ -563,7 +624,6 @@ namespace GSM_NBIoT_Module {
         }
 
         private void saveLogBtn_Click(object sender, EventArgs e) {
-
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
             saveFileDialog.InitialDirectory = "c:\\";
