@@ -25,7 +25,7 @@ namespace GSM_NBIoT_Module.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.8 V")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.8.1 V")]
         public string version {
             get {
                 return ((string)(this["version"]));

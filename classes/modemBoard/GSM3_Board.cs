@@ -49,9 +49,7 @@ namespace GSM_NBIoT_Module.classes {
 
                 bool answer = Flasher.YesOrNoDialog("Не удалось найти порты модема, задать порты в ручную?", "Порты модема");
 
-                if (answer) {
-
-                    //DialogResult result = new PortsFrame().ShowDialog();
+                if (answer) { 
 
                     DialogResult result = Flasher.setupPorts();
 

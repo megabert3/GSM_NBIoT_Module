@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Management;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace GSM_NBIoT_Module.classes {
@@ -20,6 +21,13 @@ namespace GSM_NBIoT_Module.classes {
         private CP2105_Connector() {
             base.name = "CP2105";
         }
+
+        //Имя портов модема
+        const string searhEnhancedPort = "Silicon Labs Dual CP210x USB to UART Bridge: Enhanced COM Port";
+        const string searhEnhancedPortWithFive = "Silicon Labs Dual CP2105 USB to UART Bridge: Enhanced COM Port";
+
+        const string searhStandardPort = "Silicon Labs Dual CP210x USB to UART Bridge: Standard COM Port";
+        const string searhStandardPortWithFive = "Silicon Labs Dual CP2105 USB to UART Bridge: Standard COM Port";
 
         /// <summary>
         /// Возвращает объект класса коннектора
@@ -408,7 +416,6 @@ namespace GSM_NBIoT_Module.classes {
         public void FindDevicePorts() {
 
             string query = "SELECT * FROM Win32_SerialPort";
-            string querySecond = "SELECT * FROM Win32_PnPEntity where ClassGuid = '{4d36e978-e325-11ce-bfc1-08002be10318}'";
 
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
 
@@ -418,17 +425,14 @@ namespace GSM_NBIoT_Module.classes {
             bool findEnha = false;
             bool findSta = false;
 
-            //Имя устройств
-            const string searhEnhancedPort = "Silicon Labs Dual CP210x USB to UART Bridge: Enhanced COM Port";
-            const string searhStandardPort = "Silicon Labs Dual CP210x USB to UART Bridge: Standard COM Port";
-
             foreach (ManagementObject service in searcher.Get()) {
-
 
                 string portDescription = (string)service["Description"];
 
                 if (!findEnha) {
-                    if (searhEnhancedPort.Equals(portDescription)) {
+                    if (searhEnhancedPort.Equals(portDescription) ||
+                        searhEnhancedPortWithFive.Equals(portDescription)) {
+
                         string port = (string)service["Name"];
                         int startIndex = port.IndexOf('(');
                         int lastIndex = port.IndexOf(')');
@@ -442,7 +446,9 @@ namespace GSM_NBIoT_Module.classes {
                 }
 
                 if (!findSta) {
-                    if (searhStandardPort.Equals(portDescription)) {
+                    if (searhStandardPort.Equals(portDescription) ||
+                        searhStandardPortWithFive.Equals(portDescription)) {
+
                         string port = (string)service["Name"];
                         int startIndex = port.IndexOf('(');
                         int lastIndex = port.IndexOf(')');
@@ -456,54 +462,7 @@ namespace GSM_NBIoT_Module.classes {
             }
 
             if (enhabcedPort == 0 || standardPort == 0) {
-                Flasher.addMessageInMainLog("Не удалось найти модем в списке подключенных устройств");
-                Flasher.addMessageInMainLog("Использую другой способ");
-
-                searcher = new ManagementObjectSearcher(querySecond);
-
-                findEnha = false;
-                findSta = false;
-
-                foreach (ManagementObject service in searcher.Get()) {
-
-                    string portDescription = (string)service["Description"];
-
-                    if (!findEnha) {
-                        if (searhEnhancedPort.Equals(portDescription)) {
-                            string port = (string)service["Name"];
-                            int startIndex = port.IndexOf('(');
-                            int lastIndex = port.IndexOf(')');
-                            int leght = lastIndex - (startIndex + 4);
-
-                            enhabcedPort = Convert.ToInt32(port.Substring(startIndex + 4, leght));
-
-                            findEnha = true;
-                            continue;
-                        }
-                    }
-
-                    if (!findSta) {
-                        if (searhStandardPort.Equals(portDescription)) {
-                            string port = (string)service["Name"];
-                            int startIndex = port.IndexOf('(');
-                            int lastIndex = port.IndexOf(')');
-                            int leght = lastIndex - (startIndex + 4);
-
-                            standardPort = Convert.ToInt32(port.Substring(startIndex + 4, leght));
-
-                            findSta = true;
-                        }
-                    }
-                }
-
-                if (enhabcedPort == 0 || standardPort == 0) {
-                    throw new DeviceNotFoundException("Не удалось найти модем в списке подключенных устройств");
-                }
-
-            } else {
-                this.enhabcedPort = enhabcedPort;
-                this.standardPort = standardPort;
-                return;
+                throw new DeviceNotFoundException("Не удалось найти порты модема, проверьте подключение и попробуйте ещё раз");
             }
 
             this.enhabcedPort = enhabcedPort;
@@ -515,9 +474,7 @@ namespace GSM_NBIoT_Module.classes {
     /// если больше одного, то выкидывает исключение
     /// </summary>
     public void amountDevicesConnect() {
-        const string searhEnhancedPort = "Silicon Labs Dual CP210x USB to UART Bridge: Enhanced COM Port";
-        const string searhStandardPort = "Silicon Labs Dual CP210x USB to UART Bridge: Standard COM Port";
-
+        
         int countEnhabcedPort = 0;
         int countStandardPort = 0;
 
@@ -528,11 +485,13 @@ namespace GSM_NBIoT_Module.classes {
 
             string portDescription = (string)service["Description"];
 
-            if (searhEnhancedPort.Equals(portDescription)) {
+            if (searhEnhancedPort.Equals(portDescription) ||
+                searhEnhancedPortWithFive.Equals(portDescription)) {
                 countEnhabcedPort++;
             }
 
-            if (searhStandardPort.Equals(portDescription)) {
+            if (searhStandardPort.Equals(portDescription) ||
+                searhStandardPortWithFive.Equals(portDescription)) {
                 countStandardPort++;
             }
         }
@@ -540,7 +499,6 @@ namespace GSM_NBIoT_Module.classes {
         if (countEnhabcedPort > 1 || countStandardPort > 1)
             throw new DeviceError("В списке устройств найдено больше одного модема, для корректной работы программы должно быть подключено не более одного модема");
     }
-
 
     //================== getters and setters =======================
     public bool getStageGPIO_0() {
