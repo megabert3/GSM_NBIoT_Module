@@ -29,7 +29,7 @@ namespace GSM_NBIoT_Module.classes {
 
         public GSM3_Board(string pathToFirmware_BC92, string pathToFirmware_STM32L412CB, ConfigurationFW configuration) {
 
-            base.name = "GSM3";
+            name = "GSM3";
             this.pathToFirmware_BC92 = pathToFirmware_BC92;
             this.pathToFirmware_STM32L412CB = pathToFirmware_STM32L412CB;
             this.configuration = configuration;
@@ -46,11 +46,14 @@ namespace GSM_NBIoT_Module.classes {
             try {
                 cp2105.FindDevicePorts();
             } catch (DeviceNotFoundException) {
+
                 bool answer = Flasher.YesOrNoDialog("Не удалось найти порты модема, задать порты в ручную?", "Порты модема");
 
                 if (answer) {
 
-                    DialogResult result = new PortsFrame().ShowDialog();
+                    //DialogResult result = new PortsFrame().ShowDialog();
+
+                    DialogResult result = Flasher.setupPorts();
 
                     if (result == DialogResult.Cancel) {
                         throw new DeviceNotFoundException("Не удалось найти модем в списке подключенных устройств");
@@ -221,11 +224,11 @@ namespace GSM_NBIoT_Module.classes {
 
                     Flasher.setValuePogressBarFlashingStatic(555);
 
-                    Flasher.addMessageInMainLog("Отчистка памяти микроконтроллера" + Environment.NewLine);
+                    Flasher.addMessageInMainLog("Очистка памяти микроконтроллера" + Environment.NewLine);
                     stm32L412cb.ERASE();
                     Flasher.setValuePogressBarFlashingStatic(570);
 
-                    Flasher.addMessageInMainLog("Начало записи прошивки в микрокнотроллер" + Environment.NewLine);
+                    Flasher.addMessageInMainLog("Начало записи прошивки в микроконтроллер" + Environment.NewLine);
                     stm32L412cb.WRITE(pathToFirmware_STM32L412CB);
 
                     //Выгружаю всё, что было в буфере при прошивке контроллера

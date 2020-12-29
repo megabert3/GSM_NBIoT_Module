@@ -201,7 +201,7 @@ namespace GSM_NBIoT_Module.classes {
             //Возвращаемое число в бинарном виде это состояние ножек, подробнее в коде CP210xPortReadWrite.exe
             swithStageGPIO((int)statusGPIO);
 
-            return (int) statusGPIO;
+            return (int)statusGPIO;
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace GSM_NBIoT_Module.classes {
 
             //Охватить все возможные пины
             const ushort mask = 15;
-            
+
             returnCodeError(Convert.ToInt32(WriteLatch(COM_Port, mask, (ushort)stageGPIO_ForWrite)));
 
             Thread.Sleep(sleepMls);
@@ -252,7 +252,7 @@ namespace GSM_NBIoT_Module.classes {
                 }
 
                 MyCloseHandle(COM_Port);
-                
+
                 throw new DeviceError("Не удалось выставить необходимое состояние ног CP2105, перезагрузите модем и попробуйте снова.");
             }
 
@@ -408,6 +408,8 @@ namespace GSM_NBIoT_Module.classes {
         public void FindDevicePorts() {
 
             string query = "SELECT * FROM Win32_SerialPort";
+            string querySecond = "SELECT * FROM Win32_PnPEntity where ClassGuid = '{4d36e978-e325-11ce-bfc1-08002be10318}'";
+
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
 
             int enhabcedPort = 0;
@@ -421,6 +423,7 @@ namespace GSM_NBIoT_Module.classes {
             const string searhStandardPort = "Silicon Labs Dual CP210x USB to UART Bridge: Standard COM Port";
 
             foreach (ManagementObject service in searcher.Get()) {
+
 
                 string portDescription = (string)service["Description"];
 
@@ -452,74 +455,122 @@ namespace GSM_NBIoT_Module.classes {
                 }
             }
 
-            if (enhabcedPort == 0 || standardPort == 0)
-                throw new DeviceNotFoundException("Не удалось найти модем в списке подключенных устройств");
+            if (enhabcedPort == 0 || standardPort == 0) {
+                Flasher.addMessageInMainLog("Не удалось найти модем в списке подключенных устройств");
+                Flasher.addMessageInMainLog("Использую другой способ");
+
+                searcher = new ManagementObjectSearcher(querySecond);
+
+                findEnha = false;
+                findSta = false;
+
+                foreach (ManagementObject service in searcher.Get()) {
+
+                    string portDescription = (string)service["Description"];
+
+                    if (!findEnha) {
+                        if (searhEnhancedPort.Equals(portDescription)) {
+                            string port = (string)service["Name"];
+                            int startIndex = port.IndexOf('(');
+                            int lastIndex = port.IndexOf(')');
+                            int leght = lastIndex - (startIndex + 4);
+
+                            enhabcedPort = Convert.ToInt32(port.Substring(startIndex + 4, leght));
+
+                            findEnha = true;
+                            continue;
+                        }
+                    }
+
+                    if (!findSta) {
+                        if (searhStandardPort.Equals(portDescription)) {
+                            string port = (string)service["Name"];
+                            int startIndex = port.IndexOf('(');
+                            int lastIndex = port.IndexOf(')');
+                            int leght = lastIndex - (startIndex + 4);
+
+                            standardPort = Convert.ToInt32(port.Substring(startIndex + 4, leght));
+
+                            findSta = true;
+                        }
+                    }
+                }
+
+                if (enhabcedPort == 0 || standardPort == 0) {
+                    throw new DeviceNotFoundException("Не удалось найти модем в списке подключенных устройств");
+                }
+
+            } else {
+                this.enhabcedPort = enhabcedPort;
+                this.standardPort = standardPort;
+                return;
+            }
 
             this.enhabcedPort = enhabcedPort;
             this.standardPort = standardPort;
         }
 
-        /// <summary>
-        /// проверяет количество подключенных модемов к компьютеру,
-        /// если больше одного, то выкидывает исключение
-        /// </summary>
-        public void amountDevicesConnect() {
-            const string searhEnhancedPort = "Silicon Labs Dual CP210x USB to UART Bridge: Enhanced COM Port";
-            const string searhStandardPort = "Silicon Labs Dual CP210x USB to UART Bridge: Standard COM Port";
+    /// <summary>
+    /// проверяет количество подключенных модемов к компьютеру,
+    /// если больше одного, то выкидывает исключение
+    /// </summary>
+    public void amountDevicesConnect() {
+        const string searhEnhancedPort = "Silicon Labs Dual CP210x USB to UART Bridge: Enhanced COM Port";
+        const string searhStandardPort = "Silicon Labs Dual CP210x USB to UART Bridge: Standard COM Port";
 
-            int countEnhabcedPort = 0;
-            int countStandardPort = 0;
+        int countEnhabcedPort = 0;
+        int countStandardPort = 0;
 
-            string query = "SELECT * FROM Win32_SerialPort";
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
+        string query = "SELECT * FROM Win32_SerialPort";
+        ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
 
-            foreach (ManagementObject service in searcher.Get()) {
+        foreach (ManagementObject service in searcher.Get()) {
 
-                string portDescription = (string)service["Description"];
+            string portDescription = (string)service["Description"];
 
-                if (searhEnhancedPort.Equals(portDescription)) {
-                    countEnhabcedPort++;
-                }
-
-                if (searhStandardPort.Equals(portDescription)) {
-                    countStandardPort++;
-                }
+            if (searhEnhancedPort.Equals(portDescription)) {
+                countEnhabcedPort++;
             }
 
-            if (countEnhabcedPort > 1 || countStandardPort > 1)
-                throw new DeviceError("В списке устройств найдено больше одного модема, для корректной работы программы должно быть подключено не более одного модема");
+            if (searhStandardPort.Equals(portDescription)) {
+                countStandardPort++;
+            }
         }
 
-
-        //================== getters and setters =======================
-        public bool getStageGPIO_0() {
-            return stageGPIO_0;
-        }
-
-        public bool getStageGPIO_1() {
-            return stageGPIO_1;
-        }
-
-        public bool getStageGPIO_2() {
-            return stageGPIO_2;
-        }
-
-        public int getEnhabcedPort() {
-            if (enhabcedPort == 0) throw new DeviceNotFoundException("Не выставленно значение Enhanced порта");
-            return enhabcedPort;
-        }
-
-        public int getStandardPort() {
-            if (enhabcedPort == 0) throw new DeviceNotFoundException("Не выставленно значение Standard порта");
-            return standardPort;
-        }
-
-        public void setEnhabcedPort(int portNo) {
-            this.enhabcedPort = portNo;
-        }
-
-        public void setStandardPort(int portNo) {
-            this.standardPort = portNo;
-        }
+        if (countEnhabcedPort > 1 || countStandardPort > 1)
+            throw new DeviceError("В списке устройств найдено больше одного модема, для корректной работы программы должно быть подключено не более одного модема");
     }
+
+
+    //================== getters and setters =======================
+    public bool getStageGPIO_0() {
+        return stageGPIO_0;
+    }
+
+    public bool getStageGPIO_1() {
+        return stageGPIO_1;
+    }
+
+    public bool getStageGPIO_2() {
+        return stageGPIO_2;
+    }
+
+    public int getEnhabcedPort() {
+        if (enhabcedPort == 0) throw new DeviceNotFoundException("Не выставленно значение Enhanced порта");
+        return enhabcedPort;
+    }
+
+    public int getStandardPort() {
+        if (enhabcedPort == 0) throw new DeviceNotFoundException("Не выставленно значение Standard порта");
+        return standardPort;
+    }
+
+    public void setEnhabcedPort(int portNo) {
+        this.enhabcedPort = portNo;
+    }
+
+    public void setStandardPort(int portNo) {
+        this.standardPort = portNo;
+    }
+}
 }

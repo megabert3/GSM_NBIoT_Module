@@ -84,7 +84,7 @@ namespace GSM_NBIoT_Module {
             configurationDataGridView.Columns["frimwareForMK"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             configurationDataGridView.Columns["frimwareForQuectel"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
-        
+
         /// <summary>
         /// Проверяет заполненные поля и добавляет конфигурацию к имеющимся
         /// </summary>
@@ -194,7 +194,7 @@ namespace GSM_NBIoT_Module {
                     }
                 }
 
-            } catch(ArgumentOutOfRangeException) {}
+            } catch (ArgumentOutOfRangeException) { }
         }
 
         /// <summary>
@@ -231,14 +231,14 @@ namespace GSM_NBIoT_Module {
                 ConfigurationFW configuration = configurationFileStorage.getConfigurationFile(configurationDataGridView.SelectedRows[0].Cells[0].Value.ToString());
 
                 new AddEditConfigurationForm(this, configuration, "Редактирование конфигурации", false).ShowDialog();
-            } 
+            }
         }
 
-        public Button getEditConfigurationBtn () {
+        public Button getEditConfigurationBtn() {
             return editConfigurationBtn;
         }
 
-        public Button getdeleteConfigurationBtn () {
+        public Button getdeleteConfigurationBtn() {
             return deleteConfigurationBtn;
         }
 
@@ -262,7 +262,7 @@ namespace GSM_NBIoT_Module {
 
             ConfigurationFW configuration = configurationFileStorage.getConfigurationFile(selectedRow.Cells[0].Value.ToString());
 
-            if (configurationDataGridView.Rows.Count > 0) {  
+            if (configurationDataGridView.Rows.Count > 0) {
 
                 new AddEditConfigurationForm(this, configuration, "Редактирование конфигурации", false).ShowDialog();
 
@@ -299,16 +299,55 @@ namespace GSM_NBIoT_Module {
             new CoppyConfForm(selectedConf, this).ShowDialog();
         }
 
-        private void configurationDataGridView_CellClick(object sender, DataGridViewCellEventArgs e) {            
+        //Отслеживание последних пользовательских координат мыши по таблице
+        int lastRow = -1;
+        int lastColl = -1;
+        private void configurationDataGridView_CellClick(object sender, DataGridViewCellEventArgs e) {
 
+            //Если выброна строчка добавления, то отключаю кнопки редактировать и удалить
             if (configurationDataGridView.SelectedRows[0].Cells[0].Value == null) {
 
                 editConfigurationBtn.Enabled = false;
                 deleteConfigurationBtn.Enabled = false;
             } else {
+
                 editConfigurationBtn.Enabled = true;
                 deleteConfigurationBtn.Enabled = true;
             }
+
+            //Раскрытие комбобокса по нажатию мыши
+            int indexCmBxColl = configurationDataGridView.Columns["configCommandsQuectel"].Index;
+
+            if (e.ColumnIndex == indexCmBxColl) {
+
+                DataGridViewComboBoxCell cell = (DataGridViewComboBoxCell)configurationDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+                if (e.RowIndex != lastRow) {
+
+                    if (cell.Items.Count > 0) {
+                        configurationDataGridView.BeginEdit(true);
+                        SendKeys.Send("{F4}");
+                    }
+
+                } else if (e.RowIndex == lastRow && e.ColumnIndex !=  lastColl) {
+                                    
+                    if (cell.Items.Count > 0) {
+                        configurationDataGridView.BeginEdit(true);
+                        SendKeys.Send("{F4}");
+                    }
+                }
+            }
+
+            //Смена значения в комбобокса в мэин окне
+            if (e.RowIndex != lastRow) {
+
+                if (configurationDataGridView.SelectedRows[0].Cells[0].Value != null)
+
+                Flasher.configurationCmBoxStatic.SelectedItem = configurationDataGridView.SelectedRows[0].Cells[0].Value.ToString();
+            }
+
+            lastRow = e.RowIndex;
+            lastColl = e.ColumnIndex;
         }
 
         public void setEditebleOrAddedConfName(String confName) {

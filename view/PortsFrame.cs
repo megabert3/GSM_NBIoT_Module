@@ -1,4 +1,5 @@
 ﻿using GSM_NBIoT_Module.classes;
+using GSM_NBIoT_Module.classes.applicationHelper.exceptions;
 using GSM_NBIoT_Module.Properties;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,6 +21,8 @@ namespace GSM_NBIoT_Module.view {
     public partial class PortsFrame : Form {
 
         CP2105_Connector cp = CP2105_Connector.GetCP2105_ConnectorInstance();
+
+        private bool exc = false;
 
         public PortsFrame() {
             InitializeComponent();
@@ -34,34 +38,43 @@ namespace GSM_NBIoT_Module.view {
         }
 
         private void acceptBtn_Click(object sender, EventArgs e) {
-
-            int std;
-            int enh;
+            
+            int std = 0;
+            int enh = 0;
 
             string stdStr = standardCmBx.Text;
             string enhStr = enhancedPortCmBx.Text;
 
             if (String.IsNullOrEmpty(stdStr) || String.IsNullOrEmpty(enhStr)) {
                 Flasher.exceptionDialog("Поля: Standard и Enhanced не должны быть пустыми");
+                exc = true;
                 return;
             }
 
             try {
-                std = Convert.ToInt32(stdStr.Trim().Substring(3));
-                enh = Convert.ToInt32(enhStr.Trim().Substring(3));
+                try {
+                    std = Convert.ToInt32(stdStr.Trim().Substring(3));
+                    enh = Convert.ToInt32(enhStr.Trim().Substring(3));
+
+                } catch (ArgumentOutOfRangeException) {
+                    throw new FormatException();
+                }
 
             } catch (FormatException) {
-                Flasher.exceptionDialog("Неверный формат записи COM. Значение полей должно иметь формат \"COMXX\", где XX это цифры");
+                Flasher.exceptionDialog("Неверный формат записи COM порта. Значение полей должно иметь формат \"COMXX\", где XX это цифры");
+                exc = true;
                 return;
             }
 
             if (std < 0 || enh < 0) {
                 Flasher.exceptionDialog("Номер порта не может быть отрицательным");
+                exc = true;
                 return;
             }
 
             if (std == enh) {
                 Flasher.exceptionDialog("Номер standard порта не может быть равен номеру enhanced порта");
+                exc = true;
                 return;
             }
 
@@ -85,6 +98,13 @@ namespace GSM_NBIoT_Module.view {
             standardCmBx.Items.AddRange(SerialPort.GetPortNames());
             enhancedPortCmBx.Items.Clear();
             enhancedPortCmBx.Items.AddRange(SerialPort.GetPortNames());
+        }
+
+        private void PortsFrame_FormClosing(object sender, FormClosingEventArgs e) {
+            if (exc) {
+                e.Cancel = true;
+                exc = false;
+            }
         }
     }
 }

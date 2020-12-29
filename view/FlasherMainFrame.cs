@@ -5,16 +5,12 @@ using GSM_NBIoT_Module.Properties;
 using GSM_NBIoT_Module.view;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GSM_NBIoT_Module {
@@ -27,6 +23,8 @@ namespace GSM_NBIoT_Module {
         private Form configurationForm;
 
         private Form passForm;
+
+        private Thread flashThread;
 
         //Типы используемых модемов
         private string[] modemType = { "GSM3" };
@@ -41,9 +39,44 @@ namespace GSM_NBIoT_Module {
 
         private static Stopwatch firmwareWriteStart = new Stopwatch();
 
+        private static Form mainFrame;
+
         //Буфер сообщений для перепрошивки микроконтроллера
-        private static StringBuilder logBuffer;        
-        
+        private static StringBuilder logBuffer;
+
+        private void Flasher_Load(object sender, EventArgs e) {
+            //Устанавливаю статическому полю ссылку на основное окно Лога (Для статического доступа к окну поля из всей программы)
+            flashProcessTxtBoxStatic = flashProcessRichTxtBox;
+            mainFrame = this;
+
+            Text = "Тайпит Flasher " + Settings.Default.version;
+
+            //Установка подсказки
+            ToolTip toolTip = new ToolTip();
+            toolTip.InitialDelay = 1000;
+            toolTip.AutoPopDelay = 5000;
+            toolTip.ReshowDelay = 500;
+
+            toolTip.ShowAlways = true;
+
+            toolTip.SetToolTip(saveLogBtn, "Сохранить лог");
+
+            progressBarFlashingStatic = progressBarFlashing;
+
+            //Задаю стиль прогресс бара
+            progressBar.SetState(progressBarFlashing, 1);
+
+            //Выгрузка типов модемов
+            modemTypeCmBox.Items.AddRange(modemType);
+            modemTypeCmBox.SelectedIndex = 0;
+
+            configurationCmBoxStatic = configurationCmBox;
+
+            configurationTextBoxStatic = configurationTextBox;
+
+            loadConfigurationCmBx();
+        }
+
         //Использовалось в первой версии программы, сохранено на всякий случай!!!!!!!!!!!!!!!!
         private void pathToQuectelFirmwareBtn_Click(object sender, EventArgs e) {
 
@@ -77,38 +110,6 @@ namespace GSM_NBIoT_Module {
         //Использовалось в первой версии программы, сохранено на всякий случай!!!!!!!!!!!!!!!!
         //END
 
-        private void Flasher_Load(object sender, EventArgs e) {
-            //Устанавливаю статическому полю ссылку на основное окно Лога (Для статического доступа к окну поля из всей программы)
-            flashProcessTxtBoxStatic = flashProcessRichTxtBox;
-
-            Text = "Тайпит Flasher " + Properties.Settings.Default.version;
-
-            //Установка подсказки
-            ToolTip toolTip = new ToolTip();
-            toolTip.InitialDelay = 1000;
-            toolTip.AutoPopDelay = 5000;
-            toolTip.ReshowDelay = 500;
-
-            toolTip.ShowAlways = true;
-
-            toolTip.SetToolTip(saveLogBtn, "Сохранить лог");
-
-            progressBarFlashingStatic = progressBarFlashing;
-
-            //Задаю стиль прогресс бара
-            progressBar.SetState(progressBarFlashing, 1);
-
-            //Выгрузка типов модемов
-            modemTypeCmBox.Items.AddRange(modemType);
-            modemTypeCmBox.SelectedIndex = 0;
-
-            configurationCmBoxStatic = configurationCmBox;
-
-            configurationTextBoxStatic = configurationTextBox;
-
-            loadConfigurationCmBx();
-        }
-
         private void startFlashBtn_Click(object sender, EventArgs e) {
             flashProcessRichTxtBox.Focus();
 
@@ -123,7 +124,8 @@ namespace GSM_NBIoT_Module {
                 //Если выбран модем GSM3
                 case "GSM3": {
 
-                        new Thread(new ThreadStart(reflashGSM3Modem)).Start();
+                        flashThread = new Thread(new ThreadStart(reflashGSM3Modem));
+                        flashThread.Start();
 
                     }
                     break;
@@ -252,7 +254,7 @@ namespace GSM_NBIoT_Module {
                 firmwareWriteStart.Start();
 
                 Board GSM3 = new GSM3_Board(pathWFforQuectel, pathWFforMK, configurationFW);
-                
+
                 //Перепрошиваю
                 GSM3.Reflash();
 
@@ -396,12 +398,30 @@ namespace GSM_NBIoT_Module {
                     if (!find) {
                         configurationCmBoxStatic.SelectedIndex = 0;
                     }
+
+                } else {
+                    configurationCmBoxStatic.SelectedIndex = 0;
                 }
 
             } else {
                 configurationTextBoxStatic.Text = "";
             }
         }
+
+        /// <summary>
+        /// Вызывает откно установки портов в ручную
+        /// </summary>
+        /// <returns></returns>
+        public static DialogResult setupPorts() {
+
+            DialogResult result = DialogResult.Abort;
+
+            mainFrame.Invoke((MethodInvoker)delegate {
+                result = new PortsFrame().ShowDialog();
+            });
+            return result;
+        }
+
 
         /// <summary>
         /// Преобразует миллисекунды в mm:ss:mls
@@ -444,19 +464,21 @@ namespace GSM_NBIoT_Module {
         /// <param name="heading">Заголовок</param>
         /// <returns></returns>
         public static bool YesOrNoDialog(string mess, string heading) {
-            bool result;
+            bool result = false;
 
-            DialogResult res = MessageBox.Show(
+            mainFrame.Invoke((MethodInvoker) delegate {
+                DialogResult res = MessageBox.Show(
                 mess,
                 heading,
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question,
                 MessageBoxDefaultButton.Button1);
 
-            if (res == DialogResult.Yes) {
-                result = true;
-            } else result = false;
-
+                if (res == DialogResult.Yes) {
+                    result = true;
+                }
+            });
+            
             return result;                
         }
 
@@ -642,6 +664,15 @@ namespace GSM_NBIoT_Module {
 
         private void terminalBtn_Click(object sender, EventArgs e) {
             new Terminal().Show();
+        }
+
+        private void Flasher_FormClosing(object sender, FormClosingEventArgs e) {
+            if (flashThread != null) {
+                if (flashThread.IsAlive) {
+                    Flasher.exceptionDialog("Нельзя выйти во время перепрошивки модема");
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }
