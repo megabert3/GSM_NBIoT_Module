@@ -35,6 +35,7 @@ namespace GSM_NBIoT_Module.view {
                     repeatNewPassTxtBox.Text = "";
 
                     Flasher.successfullyDialog("Пароль установлен", "Пароль");
+                    Close();
                 } else {
                     Flasher.exceptionDialog("Введённые пароли не совпадают");
                 }
@@ -58,6 +59,7 @@ namespace GSM_NBIoT_Module.view {
                         repeatNewPassTxtBox.Text = "";
 
                         Flasher.successfullyDialog("Пароль установлен", "Пароль");
+                        Close();
                     } else {
                         Flasher.exceptionDialog("Введённые пароли не совпадают");
                     }

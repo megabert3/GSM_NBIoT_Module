@@ -37,8 +37,8 @@ namespace GSM_NBIoT_Module {
                 ((Flasher)mainForm).setConfigurationForm(configurationFrame);
 
                 configurationFrame.Show();
-
-                this.Close();
+                
+                Close();
 
             } else {
                 Flasher.exceptionDialog("Неверный пароль");

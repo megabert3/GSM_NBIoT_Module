@@ -37,7 +37,7 @@ namespace GSM_NBIoT_Module {
 
         private static TextBox configurationTextBoxStatic;
 
-        private static Stopwatch firmwareWriteStart = new Stopwatch();
+        public static Stopwatch firmwareWriteStart = new Stopwatch();
 
         private static Form mainFrame;
 
@@ -141,6 +141,8 @@ namespace GSM_NBIoT_Module {
             try {
                 //Отключаю кнопку старт
                 enableStartButton(false);
+                //Отключаю кнопку конфигурации
+                enableEditConfButton(false);
 
                 //============================================================= Передаю выбранный конфиурационный файл
                 string selectedConfiguration = "";
@@ -167,6 +169,7 @@ namespace GSM_NBIoT_Module {
                     Invoke((MethodInvoker)delegate {
                         exceptionDialog("Для работы программы необходимо создать конфигурационный файл");
                         enableStartButton(true);
+                        enableEditConfButton(true);
                     });
 
                     return;
@@ -187,6 +190,7 @@ namespace GSM_NBIoT_Module {
                             exceptionDialog("Программе не удалось найти папку с прошивками для микроконтроллера \"StorageMKFW\", проверьте целостность программы" +
                                 " или переустановите её и попробуйте снова");
                             enableStartButton(true);
+                            enableEditConfButton(true);
                         });
                         return;
                     }
@@ -198,6 +202,7 @@ namespace GSM_NBIoT_Module {
                             exceptionDialog("Программе не удалось найти файл с прошивкой для микроконтроллера " + "\"" + configurationFW.getFwForMKName() + "\" " +
                                 "необходимо добавить файл в папку \"StorageMKFW\"");
                             enableStartButton(true);
+                            enableEditConfButton(true);
                         });
                         return;
                     }
@@ -213,6 +218,7 @@ namespace GSM_NBIoT_Module {
                             exceptionDialog("Программе не удалось найти папку с прошивками для модуля Quectel \"StorageQuectelFW\", проверьте целостность программы" +
                                 " или переустановите её и попробуйте снова");
                             enableStartButton(true);
+                            enableEditConfButton(true);
                         });
                         return;
                     }
@@ -224,6 +230,7 @@ namespace GSM_NBIoT_Module {
                             exceptionDialog("Программе не удалось найти файл с прошивкой для модуля Quectel " + "\"" + configurationFW.getfwForQuectelName() + "\" " +
                                 "необходимо добавить файл в папку \"StorageQuectelFW\"");
                             enableStartButton(true);
+                            enableEditConfButton(true);
                         });
                         return;
                     }
@@ -236,6 +243,7 @@ namespace GSM_NBIoT_Module {
                         Invoke((MethodInvoker)delegate {
                             exceptionDialog("Путь к прошивке не должен содержать русские символы или пробельные символы + \n" + pathWFforQuectel);
                             enableStartButton(true);
+                            enableEditConfButton(true);
                         });
                         return;
                     }
@@ -246,6 +254,7 @@ namespace GSM_NBIoT_Module {
                     Invoke((MethodInvoker)delegate {
                         exceptionDialog("В конфигурации не указана прошивка ни для микроконтроллера, ни для модуля Quectel");
                         enableStartButton(true);
+                        enableEditConfButton(true);
                     });
                     return;
                 }
@@ -260,10 +269,9 @@ namespace GSM_NBIoT_Module {
 
                 firmwareWriteStart.Stop();
 
-                addMessageInMainLog("Общее время перепрошивки модема " + parseMlsInMMssMls(firmwareWriteStart.ElapsedMilliseconds));
-
                 //включаю кнопку старт
                 enableStartButton(true);
+                enableEditConfButton(true);
 
             } catch (Exception ex) {
                 addProgressFlashMKLogInMainLog();               
@@ -277,12 +285,14 @@ namespace GSM_NBIoT_Module {
                     progressBar.SetState(progressBarFlashing, 2);
                     exceptionDialog(ex.Message);
                     enableStartButton(true);
+                    enableEditConfButton(true);
                 });
 
                 firmwareWriteStart.Stop();
 
                 //включаю кнопку старт
                 enableStartButton(true);
+                enableEditConfButton(true);
             }
         }
 
@@ -324,6 +334,16 @@ namespace GSM_NBIoT_Module {
             });
         }
 
+        /// <summary>
+        /// Отключает кнопку конфигурации
+        /// </summary>
+        /// <param name="stateButton"></param>
+        private void enableEditConfButton(bool stateButton) {
+            startFlashBtn.Invoke((MethodInvoker)delegate {
+                editConfiguration.Enabled = stateButton;
+            });
+        }
+        
 
         /// <summary>
         /// Обновляет комбобокс с конфигурациями основоного окна при добавлении новой конфигурации
@@ -521,6 +541,7 @@ namespace GSM_NBIoT_Module {
                 configurationForm.Activate();
                 configurationForm.BringToFront();
                 configurationForm.WindowState = FormWindowState.Normal;
+
             } else {
 
                 ConfigurationFileStorage configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
@@ -537,12 +558,17 @@ namespace GSM_NBIoT_Module {
 
                         passForm = new Password(this);
 
-                        passForm.Show();
+                        passForm.ShowDialog();
                     }
 
                 } else {
                     configurationForm = new ConfigurationFrame(this);
                     configurationForm.Show();
+                }
+
+                if (configurationForm != null) {
+                    configurationForm.Activate();
+                    configurationForm.BringToFront();
                 }
             }
         }

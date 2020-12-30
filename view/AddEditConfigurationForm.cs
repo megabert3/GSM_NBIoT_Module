@@ -334,7 +334,9 @@ namespace GSM_NBIoT_Module
 
                     foreach (DataGridViewCell cell in row.Cells) {
 
-                        quectelCommands.Add(cell.Value.ToString());
+                        if (cell.Value != null) {
+                            quectelCommands.Add(cell.Value.ToString());
+                        }
                     }
                 }
             }
@@ -517,19 +519,17 @@ namespace GSM_NBIoT_Module
         /// <param name="e"></param>
         private void quectelCommnadsdtGrdView_CellEndEdit(object sender, DataGridViewCellEventArgs e) {
 
-            //прохожусь по всем строчкам
-            foreach (DataGridViewRow row in quectelCommnadsdtGrdView.Rows) {
+            DataGridViewRow row = quectelCommnadsdtGrdView.Rows[e.RowIndex];
+            DataGridViewCell cell = row.Cells[e.ColumnIndex];
 
-                foreach (DataGridViewCell cell in row.Cells) {
+            try {
+                if (cell.Value == null || String.IsNullOrEmpty(cell.Value.ToString().Trim())) {
+                    quectelCommnadsdtGrdView.Rows.Remove(row);
 
-                    //Если в строке значении ячейки пустое, то удаляю строку
-
-                    if (cell.Value == null || String.IsNullOrEmpty(cell.Value.ToString().Trim())) {
-                        quectelCommnadsdtGrdView.Rows.Remove(row);
-                        return;
-                    }
+                } else {
+                    cell.Value = cell.Value.ToString().ToUpper();
                 }
-            }
+            } catch (InvalidOperationException) { }
         }
 
         /// <summary>
@@ -566,11 +566,14 @@ namespace GSM_NBIoT_Module
 
                     int indexRow = selectedRow.Index;
 
-                    if (--indexRow >= 0) {
-                        quectelCommnadsdtGrdView.Rows.Remove(selectedRow);
-                        quectelCommnadsdtGrdView.Rows.Insert(indexRow, selectedRow);
-                        selectedRow.Selected = true;
-                    }
+                    try {
+                        if (--indexRow >= 0) {
+
+                            quectelCommnadsdtGrdView.Rows.Remove(selectedRow);
+                            quectelCommnadsdtGrdView.Rows.Insert(indexRow, selectedRow);
+                            selectedRow.Selected = true;
+                        }
+                    }catch (InvalidOperationException) { }
                 }
             }
         }
@@ -585,11 +588,14 @@ namespace GSM_NBIoT_Module
 
                     int indexRow = selectedRow.Index;
 
-                    if (++indexRow < quectelCommnadsdtGrdView.Rows.Count) {
-                        quectelCommnadsdtGrdView.Rows.Remove(selectedRow);
-                        quectelCommnadsdtGrdView.Rows.Insert(indexRow, selectedRow);
-                        selectedRow.Selected = true;
-                    }
+                    try {
+                        if (++indexRow < quectelCommnadsdtGrdView.Rows.Count - 1) {
+                            quectelCommnadsdtGrdView.Rows.Remove(selectedRow);
+                            quectelCommnadsdtGrdView.Rows.Insert(indexRow, selectedRow);
+                            selectedRow.Selected = true;
+                        }
+
+                    } catch (InvalidOperationException) { }
                 }
             }
         }
@@ -612,6 +618,15 @@ namespace GSM_NBIoT_Module
                 downCommandBtn.Enabled = false;
                 deleteConfCommnadQuectel.Enabled = false;
             }
+        }
+
+        /// <summary>
+        /// Мгновенное редактирование ячейки в командах конфигурации модуля Quectel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void quectelCommnadsdtGrdView_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
+            quectelCommnadsdtGrdView.BeginEdit(true);
         }
     }
 }

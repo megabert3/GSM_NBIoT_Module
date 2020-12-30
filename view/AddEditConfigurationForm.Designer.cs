@@ -55,6 +55,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.MCL_chkBox = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.upCommandBtn = new System.Windows.Forms.Button();
+            this.downCommandBtn = new System.Windows.Forms.Button();
             this.deleteConfCommnadQuectel = new System.Windows.Forms.Button();
             this.deleteAllConfCommnadQuectel = new System.Windows.Forms.Button();
             this.copyAllConfCommnadQuectel = new System.Windows.Forms.Button();
@@ -64,8 +66,6 @@
             this.quectelCommandTxtBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.ConfigNameTxtBx = new System.Windows.Forms.TextBox();
-            this.upCommandBtn = new System.Windows.Forms.Button();
-            this.downCommandBtn = new System.Windows.Forms.Button();
             this.groupBox5.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -343,6 +343,26 @@
             this.tabPage2.Text = "Конфигурация модуля Quectel";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // upCommandBtn
+            // 
+            this.upCommandBtn.Image = ((System.Drawing.Image)(resources.GetObject("upCommandBtn.Image")));
+            this.upCommandBtn.Location = new System.Drawing.Point(383, 96);
+            this.upCommandBtn.Name = "upCommandBtn";
+            this.upCommandBtn.Size = new System.Drawing.Size(22, 22);
+            this.upCommandBtn.TabIndex = 32;
+            this.upCommandBtn.UseVisualStyleBackColor = true;
+            this.upCommandBtn.Click += new System.EventHandler(this.upCommandBtn_Click);
+            // 
+            // downCommandBtn
+            // 
+            this.downCommandBtn.Image = ((System.Drawing.Image)(resources.GetObject("downCommandBtn.Image")));
+            this.downCommandBtn.Location = new System.Drawing.Point(383, 124);
+            this.downCommandBtn.Name = "downCommandBtn";
+            this.downCommandBtn.Size = new System.Drawing.Size(22, 22);
+            this.downCommandBtn.TabIndex = 31;
+            this.downCommandBtn.UseVisualStyleBackColor = true;
+            this.downCommandBtn.Click += new System.EventHandler(this.downCommandBtn_Click);
+            // 
             // deleteConfCommnadQuectel
             // 
             this.deleteConfCommnadQuectel.Location = new System.Drawing.Point(383, 152);
@@ -375,7 +395,6 @@
             // 
             // quectelCommnadsdtGrdView
             // 
-            this.quectelCommnadsdtGrdView.AllowUserToAddRows = false;
             this.quectelCommnadsdtGrdView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.quectelCommnadsdtGrdView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.quectelCommnadsdtGrdView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -391,6 +410,7 @@
             this.quectelCommnadsdtGrdView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.quectelCommnadsdtGrdView.Size = new System.Drawing.Size(371, 163);
             this.quectelCommnadsdtGrdView.TabIndex = 27;
+            this.quectelCommnadsdtGrdView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.quectelCommnadsdtGrdView_CellDoubleClick);
             this.quectelCommnadsdtGrdView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.quectelCommnadsdtGrdView_CellEndEdit);
             this.quectelCommnadsdtGrdView.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.quectelCommnadsdtGrdView_RowsAdded);
             this.quectelCommnadsdtGrdView.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.quectelCommnadsdtGrdView_RowsRemoved);
@@ -435,26 +455,6 @@
             this.ConfigNameTxtBx.Name = "ConfigNameTxtBx";
             this.ConfigNameTxtBx.Size = new System.Drawing.Size(525, 20);
             this.ConfigNameTxtBx.TabIndex = 44;
-            // 
-            // upCommandBtn
-            // 
-            this.upCommandBtn.Image = ((System.Drawing.Image)(resources.GetObject("upCommandBtn.Image")));
-            this.upCommandBtn.Location = new System.Drawing.Point(383, 96);
-            this.upCommandBtn.Name = "upCommandBtn";
-            this.upCommandBtn.Size = new System.Drawing.Size(22, 22);
-            this.upCommandBtn.TabIndex = 32;
-            this.upCommandBtn.UseVisualStyleBackColor = true;
-            this.upCommandBtn.Click += new System.EventHandler(this.upCommandBtn_Click);
-            // 
-            // downCommandBtn
-            // 
-            this.downCommandBtn.Image = ((System.Drawing.Image)(resources.GetObject("downCommandBtn.Image")));
-            this.downCommandBtn.Location = new System.Drawing.Point(383, 124);
-            this.downCommandBtn.Name = "downCommandBtn";
-            this.downCommandBtn.Size = new System.Drawing.Size(22, 22);
-            this.downCommandBtn.TabIndex = 31;
-            this.downCommandBtn.UseVisualStyleBackColor = true;
-            this.downCommandBtn.Click += new System.EventHandler(this.downCommandBtn_Click);
             // 
             // AddEditConfigurationForm
             // 

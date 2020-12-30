@@ -260,6 +260,8 @@ namespace GSM_NBIoT_Module.classes {
                 }
             }
 
+            DateTime dtStartModemWork = DateTime.Now;
+
             Flasher.addMessageInMainLog("Установка значений GPIO CP2105 Standard и Enhanced портов в исходное состояние");
             cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 1000);
             Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 1");
@@ -272,9 +274,18 @@ namespace GSM_NBIoT_Module.classes {
             Flasher.addMessageInMainLog("Standard порт GPIO_2 = 1" + Environment.NewLine);
 
 
-            Flasher.addMessageInMainLog("\n==========================================================================================");
-            Flasher.addMessageInMainLog("ПЕРЕРОШИВКА МОДЕМА УСПЕШНО ЗАВЕРШЕНА");
+            Flasher.addMessageInMainLog("==========================================================================================");
+            Flasher.addMessageInMainLog("ПЕРЕРОШИВКА МОДЕМА УСПЕШНО ЗАВЕРШЕНА" + Environment.NewLine);
+            Flasher.addMessageInMainLog("Общее время перепрошивки модема " + Flasher.parseMlsInMMssMls(Flasher.firmwareWriteStart.ElapsedMilliseconds) + Environment.NewLine);
             Flasher.setValuePogressBarFlashingStatic(1000);
+
+            Flasher.addMessageInMainLog("==========================================================================================");
+            Flasher.addMessageInMainLog("ЗАПИСАННЫЕ ДАННЫЕ");
+            Flasher.addMessageInMainLog("Прошивка модуля Quectel: " + configuration.getfwForQuectelName());
+            Flasher.addMessageInMainLog("Прошивка микроконтроллера: " + configuration.getFwForMKName());
+            Flasher.addMessageInMainLog("Название конфигурации: " + configuration.getName() + Environment.NewLine);
+
+            Flasher.addMessageInMainLog("Дата и время начала работы модема: " + dtStartModemWork);
 
         }
 
