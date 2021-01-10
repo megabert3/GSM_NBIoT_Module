@@ -85,7 +85,7 @@ namespace GSM_NBIoT_Module.classes {
             using (Process QMulti_DL_CMD_V1_8_Process = new Process()) {
 
                 //Порт для перепрошивки модема
-                int port = cP2105_Connector.getEnhabcedPort();
+                int port = cP2105_Connector.getStandardPort();
 
                 // Скорось прошивки
                 const int band = 921600;
@@ -173,7 +173,7 @@ namespace GSM_NBIoT_Module.classes {
         public void sendATCommands(List<string> commands) {
 
             //Получаю COM порт для общения с модулем.
-            string port = "COM" + this.cP2105_Connector.getStandardPort();
+            string port = "COM" + this.cP2105_Connector.getEnhabcedPort();
 
             using (serialPort = new SerialPort(port, 9600, Parity.None, 8, StopBits.One)) {
 
@@ -243,7 +243,7 @@ namespace GSM_NBIoT_Module.classes {
         /// <returns>Возвращает версию прошивки модуля Quectel</returns>
         private string getVersionFrimware() {
 
-            string port = "COM" + this.cP2105_Connector.getStandardPort();
+            string port = "COM" + this.cP2105_Connector.getEnhabcedPort();
 
             using (serialPort = new SerialPort(port, 9600, Parity.None, 8, StopBits.One)) {
 
