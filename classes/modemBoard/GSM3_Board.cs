@@ -281,11 +281,16 @@ namespace GSM_NBIoT_Module.classes {
 
             Flasher.addMessageInMainLog("==========================================================================================");
             Flasher.addMessageInMainLog("ЗАПИСАННЫЕ ДАННЫЕ");
+
+            if (!String.IsNullOrEmpty(bc92.getOldFrimware()) && !bc92.getOldFrimware().Equals(configuration.getfwForQuectelName())) {
+                Flasher.addMessageInMainLog("Прошлая прошивка модуля Quectel: " + bc92.getOldFrimware());
+            }
+
             Flasher.addMessageInMainLog("Прошивка модуля Quectel: " + configuration.getfwForQuectelName());
             Flasher.addMessageInMainLog("Прошивка микроконтроллера: " + configuration.getFwForMKName());
             Flasher.addMessageInMainLog("Название конфигурации: " + configuration.getName() + Environment.NewLine);
 
-            Flasher.addMessageInMainLog("Дата и время начала работы модема: " + dtStartModemWork);
+            Flasher.addMessageInMainLog("Дата и время выполнения прошивки: " + dtStartModemWork);
 
         }
 

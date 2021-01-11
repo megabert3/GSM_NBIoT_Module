@@ -6,6 +6,7 @@ using GSM_NBIoT_Module.view;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -303,7 +304,9 @@ namespace GSM_NBIoT_Module {
         public static void addMessageInMainLog(string mess) {
 
             flashProcessTxtBoxStatic.Invoke((MethodInvoker)delegate {
-                flashProcessTxtBoxStatic.AppendText(parseMlsInMMssMls(firmwareWriteStart.ElapsedMilliseconds) + ":    " + mess + Environment.NewLine);
+                //Старый вариант
+                //flashProcessTxtBoxStatic.AppendText(parseMlsInMMssMls(firmwareWriteStart.ElapsedMilliseconds) + ":    " + mess + Environment.NewLine);
+                flashProcessTxtBoxStatic.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + ":    " + mess + Environment.NewLine);
             });
         }
 
@@ -312,7 +315,9 @@ namespace GSM_NBIoT_Module {
         /// </summary>
         /// <param name="mess"></param>
         public static void addMessInLogBuffer(string mess) {
-            logBuffer.Append(parseMlsInMMssMls(firmwareWriteStart.ElapsedMilliseconds) + ":    " + mess + Environment.NewLine);
+            //Старый вариант
+            //logBuffer.Append(parseMlsInMMssMls(firmwareWriteStart.ElapsedMilliseconds) + ":    " + mess + Environment.NewLine);
+            logBuffer.Append(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + ":    " + mess + Environment.NewLine);
         }
 
         /// <summary>

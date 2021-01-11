@@ -27,6 +27,8 @@ namespace GSM_NBIoT_Module.classes {
 
         private ConfigurationFW configuration;
 
+        private string oldFrimware = "";
+
         // Время ожидания ответа от модуля Quectel в секундах
         private long timeOutAnswer = 5000;
 
@@ -59,8 +61,8 @@ namespace GSM_NBIoT_Module.classes {
 
             //Текущая прошивка модуля
             try {
-                string verModFirmware = VerFirmware;
-                Flasher.addMessageInMainLog("Текущая прошивка модуля: " + verModFirmware);
+                oldFrimware = VerFirmware;
+                Flasher.addMessageInMainLog("Текущая прошивка модуля: " + oldFrimware);
 
                 //Если версия загружаемой прошивки такая же, как уже записанная, то выхожу
                 if (verFirmware.Equals(loadFirmware)) {
@@ -183,10 +185,15 @@ namespace GSM_NBIoT_Module.classes {
 
                     foreach (string command in commands) {
 
+                        serialPort.DiscardInBuffer();
+                        serialPort.DiscardOutBuffer();
+
+                        Thread.Sleep(30);
+
                         Flasher.addMessageInMainLog("");
                         Flasher.addMessageInMainLog("Отправка команды: " + command);
 
-                        serialPort.WriteLine(command + "\r");
+                        serialPort.WriteLine(command + "\r\n");
 
                         dataInCOM_Port = "";
                         answer = false;
@@ -214,14 +221,20 @@ namespace GSM_NBIoT_Module.classes {
                             }
                         }
 
-                        serialPort.DiscardInBuffer();
-
                         if (!answer) {
                             serialPort.Close();
                             throw new TimeoutException("Не удалось получить ответ от модуля Quectel");
                         }
 
-                        Flasher.addMessageInMainLog("Ответ: ОК" + Environment.NewLine);
+                        string[] answArr = dataInCOM_Port.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+                        Flasher.addMessageInMainLog("Ответ:");
+
+                        for (int i = 1; i < answArr.Length; i++) {
+                            Flasher.addMessageInMainLog(answArr[i]);
+                        }
+
+                        Flasher.addMessageInMainLog(Environment.NewLine);
 
                         if (Flasher.getValueProgressBarFlashingStatic() < 500) {
                             Flasher.setValuePogressBarFlashingStatic(Flasher.getValueProgressBarFlashingStatic() + 2);
@@ -251,7 +264,12 @@ namespace GSM_NBIoT_Module.classes {
 
                 if (serialPort.IsOpen) {
 
-                    serialPort.WriteLine("ATI" + "\r");
+                    serialPort.DiscardInBuffer();
+                    serialPort.DiscardOutBuffer();
+
+                    Thread.Sleep(30);
+
+                    serialPort.WriteLine("ATI" + "\r\n");
 
                     string portData = "";
                     answer = false;
@@ -325,6 +343,10 @@ namespace GSM_NBIoT_Module.classes {
 
         public void setConfiguration(ConfigurationFW configuration) {
             this.configuration = configuration;
+        }
+
+        public string getOldFrimware() {
+            return oldFrimware;
         }
     }
 }
