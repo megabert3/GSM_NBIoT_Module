@@ -211,7 +211,7 @@ namespace GSM_NBIoT_Module.classes {
                     Flasher.addMessageInMainLog("\n==========================================================================================");
                     Flasher.addMessageInMainLog("ПЕРЕПРОШИВКА МИКРОКОНТРОЛЛЕРА" + Environment.NewLine);
                     Flasher.addMessageInMainLog("Открываю порт");
-                    stm32L412cb.OpenSerialPort(standard, 115200, Parity.Even, 8, StopBits.One);
+                    stm32L412cb.OpenSerialPort(Enhanced, 115200, Parity.Even, 8, StopBits.One);
 
                     Stopwatch stm32FirmwareWriteStart = new Stopwatch();
                     stm32FirmwareWriteStart.Start();
@@ -232,6 +232,9 @@ namespace GSM_NBIoT_Module.classes {
                     //Выгружаю всё, что было в буфере при прошивке контроллера
                     Flasher.addProgressFlashMKLogInMainLog();
 
+                    stm32L412cb.ClosePort();
+                    Thread.Sleep(300);
+
                     Flasher.addMessageInMainLog("Запуск записанной прошивки, перезагрузка микроконтроллера" + Environment.NewLine);
 
                     cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 100);
@@ -244,10 +247,6 @@ namespace GSM_NBIoT_Module.classes {
                     stm32FirmwareWriteStart.Stop();
 
                     Flasher.addMessageInMainLog("Время перепрошивки микроконтроллера " + Flasher.parseMlsInMMssMls(stm32FirmwareWriteStart.ElapsedMilliseconds) + Environment.NewLine);
-
-                    stm32L412cb.ClosePort();
-
-                    Thread.Sleep(100);
 
                 } catch (Exception) {
                     Flasher.addProgressFlashMKLogInMainLog();
