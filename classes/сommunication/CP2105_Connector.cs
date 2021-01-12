@@ -254,6 +254,7 @@ namespace GSM_NBIoT_Module.classes {
 
                     if (resultGPIO == stageGPIO_ForWrite) {
                         MyCloseHandle(COM_Port);
+                        Flasher.addMessageInMainLogWithoutTime("\n");
                         Flasher.addMessageInMainLog("Подтверждение получено");
                         return;
                     }
@@ -299,6 +300,7 @@ namespace GSM_NBIoT_Module.classes {
 
                     if (resultGPIO == stageGPIO_ForWrite) {
                         MyCloseHandle(COM_Port);
+                        Flasher.addMessageInMainLogWithoutTime("\n");
                         Flasher.addMessageInMainLog("Подтверждение получено");
                         return;
                     }

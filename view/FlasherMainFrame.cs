@@ -139,6 +139,8 @@ namespace GSM_NBIoT_Module {
             //Лог буфер для логов прошивки микроконтроллера
             logBuffer = new StringBuilder();
 
+            Board GSM3;
+
             try {
                 //Отключаю кнопку старт
                 enableStartButton(false);
@@ -263,7 +265,7 @@ namespace GSM_NBIoT_Module {
                 //================================== Перепрошивка модема ===========================================================
                 firmwareWriteStart.Start();
 
-                Board GSM3 = new GSM3_Board(pathWFforQuectel, pathWFforMK, configurationFW);
+                GSM3 = new GSM3_Board(pathWFforQuectel, pathWFforMK, configurationFW);
 
                 //Перепрошиваю
                 GSM3.Reflash();
@@ -285,11 +287,15 @@ namespace GSM_NBIoT_Module {
                 Invoke((MethodInvoker)delegate {
                     progressBar.SetState(progressBarFlashing, 2);
                     exceptionDialog(ex.Message);
-                    enableStartButton(true);
-                    enableEditConfButton(true);
                 });
 
                 firmwareWriteStart.Stop();
+
+                if (!(ex is DeviceError)) {
+                    CP2105_Connector cp2105 = CP2105_Connector.GetCP2105_ConnectorInstance();
+                    cp2105.WriteGPIOStageAndSetFlags(cp2105.getStandardPort(), true, true, true, 300);
+                    cp2105.WriteGPIOStageAndSetFlags(cp2105.getEnhabcedPort(), true, true, 100);
+                }
 
                 //включаю кнопку старт
                 enableStartButton(true);
@@ -306,7 +312,17 @@ namespace GSM_NBIoT_Module {
             flashProcessTxtBoxStatic.Invoke((MethodInvoker)delegate {
                 //Старый вариант
                 //flashProcessTxtBoxStatic.AppendText(parseMlsInMMssMls(firmwareWriteStart.ElapsedMilliseconds) + ":    " + mess + Environment.NewLine);
-                flashProcessTxtBoxStatic.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + ":    " + mess + Environment.NewLine);
+                flashProcessTxtBoxStatic.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " >>    " + mess + Environment.NewLine);
+            });
+        }
+
+        /// <summary>
+        /// Выводит информацию в основной лог без метки времени
+        /// </summary>
+        /// <param name="mess"></param>
+        public static void addMessageInMainLogWithoutTime(string mess) {
+            flashProcessTxtBoxStatic.Invoke((MethodInvoker)delegate {
+                flashProcessTxtBoxStatic.AppendText(mess + Environment.NewLine);
             });
         }
 
@@ -314,10 +330,12 @@ namespace GSM_NBIoT_Module {
         /// Записывает ход выполнения контроллера во внутренний буфер (необходимо для быстродействия)
         /// </summary>
         /// <param name="mess"></param>
-        public static void addMessInLogBuffer(string mess) {
-            //Старый вариант
-            //logBuffer.Append(parseMlsInMMssMls(firmwareWriteStart.ElapsedMilliseconds) + ":    " + mess + Environment.NewLine);
-            logBuffer.Append(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + ":    " + mess + Environment.NewLine);
+        public static void addMessInLogBuffer(string mess) {            
+            logBuffer.Append(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " >>    " + mess + Environment.NewLine);
+        }
+
+        public static void addMessInLogBufferWithoutTime(string mess) {
+            logBuffer.Append(mess + Environment.NewLine);
         }
 
         /// <summary>

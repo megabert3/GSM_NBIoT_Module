@@ -459,12 +459,12 @@ namespace GSM_NBIoT_Module.classes {
 
                         //Если нужна полная верификация
                         if (fullVerification) {
-                            Flasher.addMessInLogBuffer("\n==========================================================================================");
+                            Flasher.addMessInLogBufferWithoutTime("==========================================================================================");
                             Flasher.addMessInLogBuffer("Полная проверка записанной прошивки" + Environment.NewLine);
                             
                             fullVerificationFirmwareInMK();
 
-                            Flasher.addMessInLogBuffer("\n==========================================================================================");
+                            Flasher.addMessInLogBufferWithoutTime("==========================================================================================");
                             Flasher.addMessInLogBuffer("Верификация прошивки прошла успешно" + Environment.NewLine);
                         }
 

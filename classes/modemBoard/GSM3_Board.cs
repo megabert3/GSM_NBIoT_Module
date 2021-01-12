@@ -36,6 +36,8 @@ namespace GSM_NBIoT_Module.classes {
         }        
 
         public override void Reflash() {
+            Flasher.addMessageInMainLogWithoutTime("==========================================================================================");
+            Flasher.addMessageInMainLog("НАЧАЛО ПЕРЕПРОШИВКИ МОДЕМА" + Environment.NewLine);
 
             Flasher.addMessageInMainLog("Поиск портов модема GSM3" + Environment.NewLine);
 
@@ -208,7 +210,7 @@ namespace GSM_NBIoT_Module.classes {
                 //Открываю COM порт
                 try {
 
-                    Flasher.addMessageInMainLog("\n==========================================================================================");
+                    Flasher.addMessageInMainLogWithoutTime("==========================================================================================");
                     Flasher.addMessageInMainLog("ПЕРЕПРОШИВКА МИКРОКОНТРОЛЛЕРА" + Environment.NewLine);
                     Flasher.addMessageInMainLog("Открываю порт");
                     stm32L412cb.OpenSerialPort(Enhanced, 115200, Parity.Even, 8, StopBits.One);
@@ -273,12 +275,12 @@ namespace GSM_NBIoT_Module.classes {
             Flasher.addMessageInMainLog("Standard порт GPIO_2 = 1" + Environment.NewLine);
 
 
-            Flasher.addMessageInMainLog("==========================================================================================");
-            Flasher.addMessageInMainLog("ПЕРЕРОШИВКА МОДЕМА УСПЕШНО ЗАВЕРШЕНА" + Environment.NewLine);
+            Flasher.addMessageInMainLogWithoutTime("==========================================================================================");
+            Flasher.addMessageInMainLog("ПЕРЕПРОШИВКА МОДЕМА УСПЕШНО ЗАВЕРШЕНА" + Environment.NewLine);
             Flasher.addMessageInMainLog("Общее время перепрошивки модема " + Flasher.parseMlsInMMssMls(Flasher.firmwareWriteStart.ElapsedMilliseconds) + Environment.NewLine);
             Flasher.setValuePogressBarFlashingStatic(1000);
 
-            Flasher.addMessageInMainLog("==========================================================================================");
+            Flasher.addMessageInMainLogWithoutTime("==========================================================================================");
             Flasher.addMessageInMainLog("ЗАПИСАННЫЕ ДАННЫЕ");
 
             if (!String.IsNullOrEmpty(bc92.getOldFrimware()) && !bc92.getOldFrimware().Equals(configuration.getfwForQuectelName())) {
@@ -289,8 +291,7 @@ namespace GSM_NBIoT_Module.classes {
             Flasher.addMessageInMainLog("Прошивка микроконтроллера: " + configuration.getFwForMKName());
             Flasher.addMessageInMainLog("Название конфигурации: " + configuration.getName() + Environment.NewLine);
 
-            Flasher.addMessageInMainLog("Дата и время выполнения прошивки: " + dtStartModemWork);
-
+            Flasher.addMessageInMainLog("Дата и время выполнения прошивки: " + DateTime.Now + Environment.NewLine + Environment.NewLine);
         }
 
         public STM32L412CB_Controller getStm32L412cb() {

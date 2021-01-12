@@ -30,7 +30,7 @@ namespace GSM_NBIoT_Module.classes {
         private string oldFrimware = "";
 
         // Время ожидания ответа от модуля Quectel в секундах
-        private long timeOutAnswer = 5000;
+        private long timeOutAnswer = 3000;
 
         //Полученные данные с модуля
         private string dataInCOM_Port = "";
@@ -68,7 +68,7 @@ namespace GSM_NBIoT_Module.classes {
                 if (verFirmware.Equals(loadFirmware)) {
                     Flasher.addMessageInMainLog("В модуль уже записана необходимая прошивка");
 
-                    Flasher.addMessageInMainLog("\n==========================================================================================");
+                    Flasher.addMessageInMainLogWithoutTime("\n==========================================================================================");
                     Flasher.addMessageInMainLog("КОНФИГУРАЦИЯ МОДУЛЯ QUECTEL" + Environment.NewLine);
 
                     //Посылаю конфигурационные команды
@@ -120,7 +120,7 @@ namespace GSM_NBIoT_Module.classes {
                     }
                 });
 
-                Flasher.addMessageInMainLog("\n==========================================================================================");
+                Flasher.addMessageInMainLogWithoutTime("\n==========================================================================================");
                 Flasher.addMessageInMainLog("ПРОШИВКА МОДУЛЯ QUECTEL" + Environment.NewLine);
 
                 Stopwatch quectelFirmwareWriteStart = new Stopwatch();
@@ -160,7 +160,7 @@ namespace GSM_NBIoT_Module.classes {
                 cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandardPort(), true, true, false, 1000);
                 Flasher.setValuePogressBarFlashingStatic(475);
 
-                Flasher.addMessageInMainLog("\n==========================================================================================");
+                Flasher.addMessageInMainLogWithoutTime("\n==========================================================================================");
                 Flasher.addMessageInMainLog("КОНФИГУРАЦИЯ МОДУЛЯ QUECTEL" + Environment.NewLine);
                 //Посылаю конфигурационные команды
                 sendATCommands(configuration.getQuectelCommandList());
@@ -190,7 +190,6 @@ namespace GSM_NBIoT_Module.classes {
 
                         Thread.Sleep(30);
 
-                        Flasher.addMessageInMainLog("");
                         Flasher.addMessageInMainLog("Отправка команды: " + command);
 
                         serialPort.WriteLine(command + "\r\n");
@@ -228,13 +227,16 @@ namespace GSM_NBIoT_Module.classes {
 
                         string[] answArr = dataInCOM_Port.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
-                        Flasher.addMessageInMainLog("Ответ:");
-
                         for (int i = 1; i < answArr.Length; i++) {
-                            Flasher.addMessageInMainLog(answArr[i]);
+
+                            if (i == 1) {
+                                Flasher.addMessageInMainLog("Ответ: " + answArr[i]);
+                            } else {
+                                Flasher.addMessageInMainLog(answArr[i]);
+                            }
                         }
 
-                        Flasher.addMessageInMainLog(Environment.NewLine);
+                        Flasher.addMessageInMainLogWithoutTime("");
 
                         if (Flasher.getValueProgressBarFlashingStatic() < 500) {
                             Flasher.setValuePogressBarFlashingStatic(Flasher.getValueProgressBarFlashingStatic() + 2);
@@ -256,7 +258,7 @@ namespace GSM_NBIoT_Module.classes {
         /// <returns>Возвращает версию прошивки модуля Quectel</returns>
         private string getVersionFrimware() {
 
-            string port = "COM" + this.cP2105_Connector.getEnhabcedPort();
+            string port = "COM" + cP2105_Connector.getEnhabcedPort();
 
             using (serialPort = new SerialPort(port, 9600, Parity.None, 8, StopBits.One)) {
 
@@ -264,43 +266,55 @@ namespace GSM_NBIoT_Module.classes {
 
                 if (serialPort.IsOpen) {
 
-                    serialPort.DiscardInBuffer();
-                    serialPort.DiscardOutBuffer();
-
-                    Thread.Sleep(30);
-
-                    serialPort.WriteLine("ATI" + "\r\n");
-
                     string portData = "";
                     answer = false;
 
-                    long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOutAnswer;
+                    for (int i = 0; i < 3; i++) {
 
-                    while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
-
-                        //Если есть данные для считывания обнуляю таймаут
-                        if (serialPort.BytesToRead != 0) {
-                            endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOutAnswer;
+                        if (i > 0) {
+                            Flasher.addMessageInMainLog("Попытка получить версию прошивки модуля № " + i + 1);
                         }
 
-                        portData += serialPort.ReadExisting();
+                        answer = false;
 
-                        if (portData.Contains("OK")) {
-                            answer = true;
-                            break;
+                        serialPort.DiscardInBuffer();
+                        serialPort.DiscardOutBuffer();
+
+                        Thread.Sleep(30);
+
+                        serialPort.WriteLine("ATI" + "\r\n");
+
+                        long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOutAnswer;
+
+                        while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
+
+                            //Если есть данные для считывания обнуляю таймаут
+                            if (serialPort.BytesToRead != 0) {
+                                endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOutAnswer;
+                            }
+
+                            portData += serialPort.ReadExisting();
+
+                            if (portData.Contains("OK")) {
+                                answer = true;
+                                break;
+
+                            } else if (portData.Contains("ERROR")) {
+                                break;
+                            }
                         }
-                    }
 
-                    if (!answer) throw new TimeoutException("Не удалось получить ответ от модуля Quectel");
+                        if (!answer) continue;
 
-                    string[] arrPortData = portData.Split('\r');
+                        string[] arrPortData = portData.Split('\r');
 
-                    foreach (string line in arrPortData) {
+                        foreach (string line in arrPortData) {
 
-                        if (line.Contains("Revision")) {
-                            int startIndex = line.IndexOf(':') + 1;
+                            if (line.Contains("Revision")) {
+                                int startIndex = line.IndexOf(':') + 1;
 
-                            return line.Substring(startIndex).Trim();
+                                return line.Substring(startIndex).Trim();
+                            }
                         }
                     }
 
