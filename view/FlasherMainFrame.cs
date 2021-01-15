@@ -282,7 +282,7 @@ namespace GSM_NBIoT_Module {
                 addMessageInMainLog("Тип ошибки: " + ex.GetType().ToString());
                 addMessageInMainLog("Метод: " + ex.TargetSite.ToString());
                 addMessageInMainLog("ОШИБКА: " + ex.Message);
-                addMessageInMainLog("");
+                addMessageInMainLogWithoutTime("");
 
                 Invoke((MethodInvoker)delegate {
                     progressBar.SetState(progressBarFlashing, 2);
@@ -293,8 +293,8 @@ namespace GSM_NBIoT_Module {
 
                 if (!(ex is DeviceError)) {
                     CP2105_Connector cp2105 = CP2105_Connector.GetCP2105_ConnectorInstance();
-                    cp2105.WriteGPIOStageAndSetFlags(cp2105.getStandardPort(), true, true, true, 300);
-                    cp2105.WriteGPIOStageAndSetFlags(cp2105.getEnhabcedPort(), true, true, 100);
+                    cp2105.WriteGPIOStageAndSetFlags(cp2105.getStandardPort(), true, true, true, 300, true);
+                    cp2105.WriteGPIOStageAndSetFlags(cp2105.getEnhancedPort(), true, true, 100, true);
                 }
 
                 //включаю кнопку старт
@@ -698,7 +698,7 @@ namespace GSM_NBIoT_Module {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
             saveFileDialog.InitialDirectory = "c:\\";
-            saveFileDialog.FileName = "taipitFlasherLog.log";
+            saveFileDialog.FileName = "taipitFlasherLog " + DateTime.Now.ToString("dd.MM.yyyy HH-mm-ss") + ".log";
             saveFileDialog.Filter = "All files (*.*)|*.*";
             saveFileDialog.FilterIndex = 0;
 

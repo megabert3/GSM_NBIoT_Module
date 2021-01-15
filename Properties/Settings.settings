@@ -14,5 +14,26 @@
     <Setting Name="lastConfiguration" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="terminal_LastCOMPortNo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">COM1</Value>
+    </Setting>
+    <Setting Name="terminal_LastBandRate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">9600</Value>
+    </Setting>
+    <Setting Name="terminal_LastDataBit" Type="System.String" Scope="User">
+      <Value Profile="(Default)">8</Value>
+    </Setting>
+    <Setting Name="terminal_LastParity" Type="System.String" Scope="User">
+      <Value Profile="(Default)">None</Value>
+    </Setting>
+    <Setting Name="terminal_LastStopBit" Type="System.String" Scope="User">
+      <Value Profile="(Default)">One</Value>
+    </Setting>
+    <Setting Name="terminal_LastMode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Text</Value>
+    </Setting>
+    <Setting Name="programName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">GSM_NBIoT_Module</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

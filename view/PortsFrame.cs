@@ -79,7 +79,7 @@ namespace GSM_NBIoT_Module.view {
             }
 
             cp.setStandardPort(std);
-            cp.setEnhabcedPort(enh);
+            cp.setEnhancedPort(enh);
 
             Settings.Default.Standard = stdStr;
             Settings.Default.Enhanced = enhStr;

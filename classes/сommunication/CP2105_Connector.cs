@@ -65,7 +65,7 @@ namespace GSM_NBIoT_Module.classes {
         }
 
         //Порты
-        private int enhabcedPort;
+        private int enhancedPort;
         private int standardPort;
 
         //======================= Маршалинг основных функций CP210xRuntime.dll ==========================
@@ -141,7 +141,7 @@ namespace GSM_NBIoT_Module.classes {
 
             StateGPIO_OnEnhabcedPort stateGPIO_OnEnhabcedPort = new StateGPIO_OnEnhabcedPort();
 
-            ReadGPIOStageAndSetFlags(enhabcedPort);
+            ReadGPIOStageAndSetFlags(enhancedPort);
 
             stateGPIO_OnEnhabcedPort.stageGPIO_0 = stageGPIO_0;
             stateGPIO_OnEnhabcedPort.stageGPIO_1 = stageGPIO_1;
@@ -221,7 +221,7 @@ namespace GSM_NBIoT_Module.classes {
         /// <param name="stageGPIO_1"></param>
         /// <param name="stageGPIO_2"></param>
         /// <param name="sleepMls"></param>
-        public void WriteGPIOStageAndSetFlags(int COM_portNo, bool stageGPIO_0, bool stageGPIO_1, bool stageGPIO_2, int sleepMls) {
+        public void WriteGPIOStageAndSetFlags(int COM_portNo, bool stageGPIO_0, bool stageGPIO_1, bool stageGPIO_2, int sleepMls, bool showInfoInLog) {
 
             string COM_portName = "\\\\.\\COM" + COM_portNo;
 
@@ -244,9 +244,11 @@ namespace GSM_NBIoT_Module.classes {
             //Если состояние ног GPIO не установилось, то пробую ещё раз
             if (resultGPIO != stageGPIO_ForWrite) {
 
-                for (int i = 1; i < 8; i++) {
+                for (int i = 1; i < 10; i++) {
 
-                    Flasher.addMessageInMainLog("Запрос подтверждения состояния ног CP2105 №" + i);
+                    if (showInfoInLog) {
+                        Flasher.addMessageInMainLog("Запрос подтверждения состояния ног CP2105 №" + i);
+                    }
 
                     Thread.Sleep(500);
 
@@ -254,8 +256,11 @@ namespace GSM_NBIoT_Module.classes {
 
                     if (resultGPIO == stageGPIO_ForWrite) {
                         MyCloseHandle(COM_Port);
-                        Flasher.addMessageInMainLogWithoutTime("\n");
-                        Flasher.addMessageInMainLog("Подтверждение получено");
+
+                        if (showInfoInLog) {
+                            Flasher.addMessageInMainLogWithoutTime("\n");
+                            Flasher.addMessageInMainLog("Подтверждение получено");
+                        }
                         return;
                     }
                 }
@@ -268,7 +273,16 @@ namespace GSM_NBIoT_Module.classes {
             MyCloseHandle(COM_Port);
         }
 
-        public void WriteGPIOStageAndSetFlags(int COM_portNo, bool stageGPIO_0, bool stageGPIO_1, int sleepMls) {
+        /// <summary>
+        /// Записывает новое состояние ножек CP2105
+        /// может вернуть ошибку DeviceError()
+        /// </summary>
+        /// <param name="COM_portNo"></param>
+        /// <param name="stageGPIO_0"></param>
+        /// <param name="stageGPIO_1"></param>
+        /// <param name="sleepMls"></param>
+        /// <param name="showInfoInLog"></param>
+        public void WriteGPIOStageAndSetFlags(int COM_portNo, bool stageGPIO_0, bool stageGPIO_1, int sleepMls, bool showInfoInLog) {
 
             string COM_portName = "\\\\.\\COM" + COM_portNo;
 
@@ -291,8 +305,11 @@ namespace GSM_NBIoT_Module.classes {
             //Если состояние ног GPIO не установилось, то пробую ещё раз
             if (resultGPIO != stageGPIO_ForWrite) {
 
-                for (int i = 1; i < 8; i++) {
-                    Flasher.addMessageInMainLog("Запрос подтверждения состояния ног CP2105 №" + i);
+                for (int i = 1; i < 10; i++) {
+
+                    if (showInfoInLog) {
+                        Flasher.addMessageInMainLog("Запрос подтверждения состояния ног CP2105 №" + i);
+                    }
 
                     Thread.Sleep(500);
 
@@ -300,8 +317,11 @@ namespace GSM_NBIoT_Module.classes {
 
                     if (resultGPIO == stageGPIO_ForWrite) {
                         MyCloseHandle(COM_Port);
-                        Flasher.addMessageInMainLogWithoutTime("\n");
-                        Flasher.addMessageInMainLog("Подтверждение получено");
+
+                        if (showInfoInLog) {
+                            Flasher.addMessageInMainLogWithoutTime("\n");
+                            Flasher.addMessageInMainLog("Подтверждение получено");
+                        }
                         return;
                     }
                 }
@@ -467,7 +487,7 @@ namespace GSM_NBIoT_Module.classes {
                 throw new DeviceNotFoundException("Не удалось найти порты модема, проверьте подключение и попробуйте ещё раз");
             }
 
-            this.enhabcedPort = enhabcedPort;
+            this.enhancedPort = enhabcedPort;
             this.standardPort = standardPort;
         }
 
@@ -515,18 +535,18 @@ namespace GSM_NBIoT_Module.classes {
         return stageGPIO_2;
     }
 
-    public int getEnhabcedPort() {
-        if (enhabcedPort == 0) throw new DeviceNotFoundException("Не выставленно значение Enhanced порта");
-        return enhabcedPort;
+    public int getEnhancedPort() {
+        if (enhancedPort == 0) throw new DeviceNotFoundException("Не выставленно значение Enhanced порта");
+        return enhancedPort;
     }
 
     public int getStandardPort() {
-        if (enhabcedPort == 0) throw new DeviceNotFoundException("Не выставленно значение Standard порта");
+        if (enhancedPort == 0) throw new DeviceNotFoundException("Не выставленно значение Standard порта");
         return standardPort;
     }
 
-    public void setEnhabcedPort(int portNo) {
-        this.enhabcedPort = portNo;
+    public void setEnhancedPort(int portNo) {
+        this.enhancedPort = portNo;
     }
 
     public void setStandardPort(int portNo) {

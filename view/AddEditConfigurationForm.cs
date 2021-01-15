@@ -435,7 +435,9 @@ namespace GSM_NBIoT_Module
 
                     foreach (DataGridViewCell cell in row.Cells) {
 
-                        quectelCommands.Append(cell.Value.ToString() + ";");
+                        if (cell.Value != null) {
+                            quectelCommands.Append(cell.Value.ToString() + ";");
+                        }
                     }
                 }
 

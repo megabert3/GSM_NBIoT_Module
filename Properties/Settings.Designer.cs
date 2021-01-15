@@ -67,5 +67,86 @@ namespace GSM_NBIoT_Module.Properties {
                 this["lastConfiguration"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM1")]
+        public string terminal_LastCOMPortNo {
+            get {
+                return ((string)(this["terminal_LastCOMPortNo"]));
+            }
+            set {
+                this["terminal_LastCOMPortNo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("9600")]
+        public string terminal_LastBandRate {
+            get {
+                return ((string)(this["terminal_LastBandRate"]));
+            }
+            set {
+                this["terminal_LastBandRate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        public string terminal_LastDataBit {
+            get {
+                return ((string)(this["terminal_LastDataBit"]));
+            }
+            set {
+                this["terminal_LastDataBit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("None")]
+        public string terminal_LastParity {
+            get {
+                return ((string)(this["terminal_LastParity"]));
+            }
+            set {
+                this["terminal_LastParity"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("One")]
+        public string terminal_LastStopBit {
+            get {
+                return ((string)(this["terminal_LastStopBit"]));
+            }
+            set {
+                this["terminal_LastStopBit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Text")]
+        public string terminal_LastMode {
+            get {
+                return ((string)(this["terminal_LastMode"]));
+            }
+            set {
+                this["terminal_LastMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("GSM_NBIoT_Module")]
+        public string programName {
+            get {
+                return ((string)(this["programName"]));
+            }
+        }
     }
 }

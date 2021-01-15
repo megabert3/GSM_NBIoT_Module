@@ -220,7 +220,6 @@
             this.terminalBtn.TabIndex = 18;
             this.terminalBtn.Text = "Терминал";
             this.terminalBtn.UseVisualStyleBackColor = true;
-            this.terminalBtn.Visible = false;
             this.terminalBtn.Click += new System.EventHandler(this.terminalBtn_Click);
             // 
             // pictureBox1

@@ -37,6 +37,18 @@ namespace GSM_NBIoT_Module.classes {
 
         public override void Reflash() {
             Flasher.addMessageInMainLogWithoutTime("==========================================================================================");
+            Flasher.addMessageInMainLog("ЗАПИСЫВАЕМЫЕ ДАННЫЕ");
+            Flasher.addMessageInMainLogWithoutTime("");
+            Flasher.addMessageInMainLog("Название конфигурации: " + configuration.getName());
+            Flasher.addMessageInMainLog("Прошивка модуля Quectel: " + configuration.getfwForQuectelName());
+            Flasher.addMessageInMainLog("Прошивка микроконтроллера: " + configuration.getFwForMKName());
+
+            Flasher.addMessageInMainLog("Версия программы: " + Properties.Settings.Default.programName + " " + Properties.Settings.Default.version);
+
+            Flasher.addMessageInMainLogWithoutTime("");
+
+            Flasher.addMessageInMainLogWithoutTime("==========================================================================================");
+
             Flasher.addMessageInMainLog("НАЧАЛО ПЕРЕПРОШИВКИ МОДЕМА" + Environment.NewLine);
 
             Flasher.addMessageInMainLog("Поиск портов модема GSM3" + Environment.NewLine);
@@ -64,15 +76,15 @@ namespace GSM_NBIoT_Module.classes {
                 }
             }
 
-            int Enhanced = cp2105.getEnhabcedPort();
+            int Enhanced = cp2105.getEnhancedPort();
             int standard = cp2105.getStandardPort();
 
             Flasher.addMessageInMainLog("Enhanced COM: " + Enhanced);
             Flasher.addMessageInMainLog("Standard COM: " + standard + Environment.NewLine);
             Flasher.setValuePogressBarFlashingStatic(50);
 
-            cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 1000);
-            cp2105.WriteGPIOStageAndSetFlags(standard, true, true, true, 1000);
+            cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 1000, true);
+            cp2105.WriteGPIOStageAndSetFlags(standard, true, true, true, 1000, true);
 
             Flasher.addMessageInMainLog("Считывание состояния ножек GPIO CP2105");
 
@@ -91,8 +103,8 @@ namespace GSM_NBIoT_Module.classes {
 
             
             Flasher.addMessageInMainLog("Состояние ножек Enhanced порта");
-            Flasher.addMessageInMainLog("GPIO_0 = " + enh_0);
-            Flasher.addMessageInMainLog("GPIO_1 = " + enh_1 + Environment.NewLine);
+            Flasher.addMessageInMainLog("GPIO_0 = " + enh_0 + " (BOOT_MCU)");
+            Flasher.addMessageInMainLog("GPIO_1 = " + enh_1 + " (RST_MCU)" + Environment.NewLine);
             Flasher.setValuePogressBarFlashingStatic(70);
 
             //Считываю состояние ножек Standard порта
@@ -112,9 +124,9 @@ namespace GSM_NBIoT_Module.classes {
             else sta_2 = 0;
 
             Flasher.addMessageInMainLog("Состояние ножек Standard порта");
-            Flasher.addMessageInMainLog("GPIO_0 = " + sta_0);
+            Flasher.addMessageInMainLog("GPIO_0 = " + sta_0 + " (RST_BC92)");
             Flasher.addMessageInMainLog("GPIO_1 = " + sta_1);
-            Flasher.addMessageInMainLog("GPIO_2 = " + sta_2 + Environment.NewLine);
+            Flasher.addMessageInMainLog("GPIO_2 = " + sta_2 + " (PSM_EINT)" + Environment.NewLine);
             Flasher.setValuePogressBarFlashingStatic(90);
 
             //Если путь для прошивки модуля quectel не пустой, то перепрошиваю модуль
@@ -126,32 +138,32 @@ namespace GSM_NBIoT_Module.classes {
 
                 Flasher.addMessageInMainLog("Отключение микроконтроллера");
                 //Заглушаю контроллер GPIO_1 = 0;
-                cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, false, 100);
-                Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 1");
-                Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 0" + Environment.NewLine);
+                cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, false, 100, true);
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 1 (BOOT_MCU)");
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 0 (RST_MCU)" + Environment.NewLine);
                 Flasher.setValuePogressBarFlashingStatic(100);
 
                 Flasher.addMessageInMainLog("Перезагрузка модуля Quectel");
                 //Делаю ресет модуля BC92 и не даю уснуть
-                cp2105.WriteGPIOStageAndSetFlags(standard, false, true, true, 1000);
-                Flasher.addMessageInMainLog("Standard порт GPIO_0 = 0");
+                cp2105.WriteGPIOStageAndSetFlags(standard, false, true, true, 1000, true);
+                Flasher.addMessageInMainLog("Standard порт GPIO_0 = 0 (RST_BC92)");
                 Flasher.addMessageInMainLog("Standard порт GPIO_1 = 1");
-                Flasher.addMessageInMainLog("Standard порт GPIO_2 = 1" + Environment.NewLine);
+                Flasher.addMessageInMainLog("Standard порт GPIO_2 = 1 (PSM_EINT)" + Environment.NewLine);
 
                 Flasher.setValuePogressBarFlashingStatic(110);
 
-                cp2105.WriteGPIOStageAndSetFlags(standard, true, true, true, 1000);
-                Flasher.addMessageInMainLog("Standard порт GPIO_0 = 1");
+                cp2105.WriteGPIOStageAndSetFlags(standard, true, true, true, 1000, true);
+                Flasher.addMessageInMainLog("Standard порт GPIO_0 = 1 (RST_BC92)");
                 Flasher.addMessageInMainLog("Standard порт GPIO_1 = 1");
-                Flasher.addMessageInMainLog("Standard порт GPIO_2 = 1" + Environment.NewLine);
+                Flasher.addMessageInMainLog("Standard порт GPIO_2 = 1 (PSM_EINT)" + Environment.NewLine);
 
                 Flasher.setValuePogressBarFlashingStatic(120);
 
                 Flasher.addMessageInMainLog("Вывод модуля Quectel из режима сна");
-                cp2105.WriteGPIOStageAndSetFlags(standard, true, true, false, 1000);
-                Flasher.addMessageInMainLog("Standard порт GPIO_0 = 1");
+                cp2105.WriteGPIOStageAndSetFlags(standard, true, true, false, 1000, true);
+                Flasher.addMessageInMainLog("Standard порт GPIO_0 = 1 (RST_BC92)");
                 Flasher.addMessageInMainLog("Standard порт GPIO_1 = 1");
-                Flasher.addMessageInMainLog("Standard порт GPIO_2 = 0" + Environment.NewLine);
+                Flasher.addMessageInMainLog("Standard порт GPIO_2 = 0 (PSM_EINT)" + Environment.NewLine);
 
                 Flasher.setValuePogressBarFlashingStatic(150);
 
@@ -169,41 +181,41 @@ namespace GSM_NBIoT_Module.classes {
 
                 //Глушу модуль BC92
                 Flasher.addMessageInMainLog("Отключение модуля Quectel");
-                cp2105.WriteGPIOStageAndSetFlags(standard, false, true, true, 100);
-                Flasher.addMessageInMainLog("Standard порт GPIO_0 = 0");
+                cp2105.WriteGPIOStageAndSetFlags(standard, false, true, true, 100, true);
+                Flasher.addMessageInMainLog("Standard порт GPIO_0 = 0 (RST_BC92)");
                 Flasher.addMessageInMainLog("Standard порт GPIO_1 = 1");
-                Flasher.addMessageInMainLog("Standard порт GPIO_2 = 1" + Environment.NewLine);
+                Flasher.addMessageInMainLog("Standard порт GPIO_2 = 1 (PSM_EINT)" + Environment.NewLine);
 
                 Flasher.setValuePogressBarFlashingStatic(510);
 
                 //Включаю контроллер
                 Flasher.addMessageInMainLog("Включение микроконтроллера");
-                cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 100);
-                Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 1");
-                Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 1" + Environment.NewLine);
+                cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 100, true);
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 1 (BOOT_MCU)");
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 1 (RST_MCU)" + Environment.NewLine);
 
                 Flasher.setValuePogressBarFlashingStatic(520);
 
                 //Даю команду контроллеру при следующем включении войти в бут
                 Flasher.addMessageInMainLog("Передача команды микроконтроллеру перейти в boot режим");
-                cp2105.WriteGPIOStageAndSetFlags(Enhanced, false, true, 100);
-                Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 0");
-                Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 1" + Environment.NewLine);
+                cp2105.WriteGPIOStageAndSetFlags(Enhanced, false, true, 100, true);
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 0 (BOOT_MCU)");
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 1 (RST_MCU)" + Environment.NewLine);
 
                 Flasher.setValuePogressBarFlashingStatic(530);
 
                 //Выключаю контроллер
                 Flasher.addMessageInMainLog("Перезагрузка микроконтроллера");
-                cp2105.WriteGPIOStageAndSetFlags(Enhanced, false, false, 100);
-                Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 0");
-                Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 0" + Environment.NewLine);
+                cp2105.WriteGPIOStageAndSetFlags(Enhanced, false, false, 100, true);
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 0 (BOOT_MCU)");
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 0 (RST_MCU)" + Environment.NewLine);
 
                 Flasher.setValuePogressBarFlashingStatic(540);
 
                 //Включаю контроллер
-                cp2105.WriteGPIOStageAndSetFlags(Enhanced, false, true, 100);
-                Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 0");
-                Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 1" + Environment.NewLine);
+                cp2105.WriteGPIOStageAndSetFlags(Enhanced, false, true, 100, true);
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 0 (BOOT_MCU)");
+                Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 1 (RST_MCU)" + Environment.NewLine);
                 Flasher.setValuePogressBarFlashingStatic(550);
 
                 //Перепрошивка контроллера =================================================
@@ -239,9 +251,9 @@ namespace GSM_NBIoT_Module.classes {
 
                     Flasher.addMessageInMainLog("Запуск записанной прошивки, перезагрузка микроконтроллера" + Environment.NewLine);
 
-                    cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 100);
-                    cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, false, 100);
-                    cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 100);
+                    cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 100, true);
+                    cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, false, 100, true);
+                    cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 100, true);
 
                     //stm32L412cb.GO();
                     Flasher.setValuePogressBarFlashingStatic(990);
@@ -264,16 +276,16 @@ namespace GSM_NBIoT_Module.classes {
             DateTime dtStartModemWork = DateTime.Now;
 
             Flasher.addMessageInMainLog("Установка значений GPIO CP2105 Standard и Enhanced портов в исходное состояние");
-            cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 1000);
-            Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 1");
-            Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 1" + Environment.NewLine);
-            Flasher.setValuePogressBarFlashingStatic(995);
+            cp2105.WriteGPIOStageAndSetFlags(Enhanced, true, true, 1000, true);
+            Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 1 (BOOT_MCU)");
+            Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 1 (RST_MCU)" + Environment.NewLine);
 
-            cp2105.WriteGPIOStageAndSetFlags(standard, true, true, true, 100);
-            Flasher.addMessageInMainLog("Standard порт GPIO_0 = 1");
+            cp2105.WriteGPIOStageAndSetFlags(standard, true, true, true, 300, true);
+            Flasher.addMessageInMainLog("Standard порт GPIO_0 = 1 (RST_BC92)");
             Flasher.addMessageInMainLog("Standard порт GPIO_1 = 1");
-            Flasher.addMessageInMainLog("Standard порт GPIO_2 = 1" + Environment.NewLine);
+            Flasher.addMessageInMainLog("Standard порт GPIO_2 = 1 (PSM_EINT)" + Environment.NewLine);
 
+            Flasher.setValuePogressBarFlashingStatic(995);
 
             Flasher.addMessageInMainLogWithoutTime("==========================================================================================");
             Flasher.addMessageInMainLog("ПЕРЕПРОШИВКА МОДЕМА УСПЕШНО ЗАВЕРШЕНА" + Environment.NewLine);
