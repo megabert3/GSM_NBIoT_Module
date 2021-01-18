@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using GSM_NBIoT_Module.classes.controllerOnBoard.Configuration;
+using GSM_NBIoT_Module.classes.applicationHelper;
 
 namespace GSM_NBIoT_Module.classes {
 
@@ -37,6 +38,9 @@ namespace GSM_NBIoT_Module.classes {
 
         //Если получена строка завершающаяя передачу данных ("ОК", "ERROR")
         private bool answer = false;
+
+        //Готовность модуля к общению
+        private static bool BC92isReady = false;
 
         //Версия прошивки модуля Quectel
         private string verFirmware;
@@ -140,25 +144,20 @@ namespace GSM_NBIoT_Module.classes {
                     Flasher.addMessageInMainLog("Время прошивки модуля " + Flasher.parseMlsInMMssMls(quectelFirmwareWriteStart.ElapsedMilliseconds) + Environment.NewLine);
                 } else {
                     throw new FileLoadException("Не удалось загрузить прошивку в модуль, перезагрузите модем и попробуйте снова");
-                }
+                }                
 
                 if (Flasher.getValueProgressBarFlashingStatic() < 450) Flasher.setValuePogressBarFlashingStatic(450);
 
-                //--------------------------------------------------------- Конфигурация модуля Quectel
-                //Ставлю в начальное положение ножки CP2105
-                cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandardPort(), true, true, true, 500, true);
-                Flasher.setValuePogressBarFlashingStatic(460);
+                //--------------------------------------------------------- Конфигурация модуля Quectel и проверка, что залита нужная прошивка
+                preparingModuletoCommunication(cP2105_Connector.getEnhancedPort(), cP2105_Connector.getStandardPort());
 
-                //Делаю ресет модуля BC92
-                cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandardPort(), false, true, true, 1000, true);
-                Flasher.setValuePogressBarFlashingStatic(465);
+                string verFW = VerFirmware;
 
-                //Поднимаю модуль BC92 и не даю уснуть
-                cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandardPort(), true, true, true, 1000, true);
-                Flasher.setValuePogressBarFlashingStatic(470);
-
-                cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandardPort(), true, true, false, 1000, true);
-                Flasher.setValuePogressBarFlashingStatic(475);
+                //Проверка, что записана необходимая прошивка
+                if (!verFW.Equals(loadFirmware)) {
+                    throw new FileLoadException("Версия прошивки, считанная из модуля, не соответствует названию записываемой\n" +
+                        "Полученная версия прошивки из модуля: " + verFW + "\n" + "Записываемая прошивка: " + loadFirmware);
+                }
 
                 Flasher.addMessageInMainLogWithoutTime("\n==========================================================================================");
                 Flasher.addMessageInMainLog("КОНФИГУРАЦИЯ МОДУЛЯ QUECTEL" + Environment.NewLine);
@@ -326,6 +325,186 @@ namespace GSM_NBIoT_Module.classes {
 
                 serialPort.Close();
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Подготавливает модуль BC92 к перепрошивке (Перезагрузка, вывод из сна).
+        /// </summary>
+        public void preparingModuleForFirmware(int enhanced, int standard) {
+
+            CP2105_Connector cp2105 = CP2105_Connector.GetCP2105_ConnectorInstance();
+
+            Flasher.addMessageInMainLog("Отключение микроконтроллера");
+            //Заглушаю контроллер GPIO_1 = 0;
+            cp2105.WriteGPIOStageAndSetFlags(enhanced, true, false, 100, true);
+            Flasher.addMessageInMainLog("Enhanced порт GPIO_0 = 1 (BOOT_MCU)");
+            Flasher.addMessageInMainLog("Enhanced порт GPIO_1 = 0 (RST_MCU)" + Environment.NewLine);
+            Flasher.setValuePogressBarFlashingStatic(100);
+
+            Flasher.addMessageInMainLog("Перезагрузка модуля Quectel");
+            //Делаю ресет модуля BC92 и не даю уснуть
+            cp2105.WriteGPIOStageAndSetFlags(standard, false, true, true, 1000, true);
+            Flasher.addMessageInMainLog("Standard порт GPIO_0 = 0 (RST_BC92)");
+            Flasher.addMessageInMainLog("Standard порт GPIO_1 = 1");
+            Flasher.addMessageInMainLog("Standard порт GPIO_2 = 1 (PSM_EINT)" + Environment.NewLine);
+
+            //Запускаю тред проверяющий готовность модуля к работе
+            Thread getRedyThreadBC92 = new Thread(new ParameterizedThreadStart(getBC92Redy));
+            getRedyThreadBC92.Start(enhanced);
+
+            Flasher.setValuePogressBarFlashingStatic(110);
+
+            cp2105.WriteGPIOStageAndSetFlags(standard, true, true, true, 1000, true);
+            Flasher.addMessageInMainLog("Standard порт GPIO_0 = 1 (RST_BC92)");
+            Flasher.addMessageInMainLog("Standard порт GPIO_1 = 1");
+            Flasher.addMessageInMainLog("Standard порт GPIO_2 = 1 (PSM_EINT)" + Environment.NewLine);
+
+            //Если модуль не готов к ответу
+            if (!BC92isReady) {
+
+                long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + 3000;
+
+                //то жду ответ
+                while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
+                    if (BC92isReady) break;
+                }
+
+                //Если не получил, по пробую ещё раз
+                if (!BC92isReady) {
+                    Flasher.addMessageInMainLogWithoutTime("");
+                    Flasher.addMessageInMainLog("Не удалось подтвердить готовность модуля к опросу");
+                    Flasher.addMessageInMainLog("Повторная перезагрузка модуля");
+                    Flasher.addMessageInMainLogWithoutTime("");
+
+                    cp2105.WriteGPIOStageAndSetFlags(standard, false, true, true, 1000, true);
+                    Flasher.addMessageInMainLog("Standard порт GPIO_0 = 0 (RST_BC92)");
+                    Flasher.addMessageInMainLog("Standard порт GPIO_1 = 1");
+                    Flasher.addMessageInMainLog("Standard порт GPIO_2 = 1 (PSM_EINT)" + Environment.NewLine);
+
+                    cp2105.WriteGPIOStageAndSetFlags(standard, true, true, true, 1000, true);
+                    Flasher.addMessageInMainLog("Standard порт GPIO_0 = 1 (RST_BC92)");
+                    Flasher.addMessageInMainLog("Standard порт GPIO_1 = 1");
+                    Flasher.addMessageInMainLog("Standard порт GPIO_2 = 1 (PSM_EINT)" + Environment.NewLine);
+
+                    endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + 3000;
+
+                    while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
+                        if (BC92isReady) break;
+                    }
+
+                    if (!BC92isReady) {
+                        getRedyThreadBC92.Abort();
+                        throw new DeviceError("Не удалось подтвердить готовность модуля к опросу.\nПерезагрузите модем и проверьте работоспособность модуля");
+                    }
+                }
+            }
+
+            Flasher.setValuePogressBarFlashingStatic(120);
+
+            Flasher.addMessageInMainLog("Вывод модуля Quectel из режима сна");
+            cp2105.WriteGPIOStageAndSetFlags(standard, true, true, false, 1000, true);
+            Flasher.addMessageInMainLog("Standard порт GPIO_0 = 1 (RST_BC92)");
+            Flasher.addMessageInMainLog("Standard порт GPIO_1 = 1");
+            Flasher.addMessageInMainLog("Standard порт GPIO_2 = 0 (PSM_EINT)" + Environment.NewLine);
+
+            Flasher.setValuePogressBarFlashingStatic(150);
+        }
+
+        /// <summary>
+        /// Перезагружает модуль и будит его.
+        /// </summary>
+        /// <param name="enhanced"></param>
+        /// <param name="standard"></param>
+        public void preparingModuletoCommunication(int enhanced, int standard) {
+
+            CP2105_Connector cp2105 = CP2105_Connector.GetCP2105_ConnectorInstance();
+
+            //Ставлю в начальное положение ножки CP2105
+            cP2105_Connector.WriteGPIOStageAndSetFlags(cP2105_Connector.getStandardPort(), true, true, true, 500, true);
+            Flasher.setValuePogressBarFlashingStatic(460);
+
+            //Делаю ресет модуля BC92 и не даю уснуть
+            cp2105.WriteGPIOStageAndSetFlags(standard, false, true, true, 1000, false);
+
+            //Запускаю тред проверяющий готовность модуля к работе
+            Thread getRedyThreadBC92 = new Thread(new ParameterizedThreadStart(getBC92Redy));
+            getRedyThreadBC92.Start(enhanced);
+
+
+            cp2105.WriteGPIOStageAndSetFlags(standard, true, true, true, 1000, false);
+            Flasher.setValuePogressBarFlashingStatic(465);
+
+            //Если модуль не готов к ответу
+            if (!BC92isReady) {
+
+                long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + 3000;
+
+                //то жду ответ
+                while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
+                    if (BC92isReady) break;
+                }
+
+                //Если не получил, по пробую ещё раз
+                if (!BC92isReady) {
+                    Flasher.addMessageInMainLog("Не удалось подтвердить готовность модуля к опросу");
+                    Flasher.addMessageInMainLog("Повторная перезагрузка модуля");
+                    Flasher.addMessageInMainLogWithoutTime("");
+
+                    cp2105.WriteGPIOStageAndSetFlags(standard, false, true, true, 1000, false);
+
+                    cp2105.WriteGPIOStageAndSetFlags(standard, true, true, true, 1000, false);
+
+                    endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + 3000;
+
+                    while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
+                        if (BC92isReady) break;
+                    }
+
+                    if (!BC92isReady) {
+                        getRedyThreadBC92.Abort();
+                        throw new DeviceError("Не удалось подтвердить готовность модуля к опросу.\nПерезагрузите модем и проверьте работоспособность модуля");
+                    }
+                }
+            }
+
+            cp2105.WriteGPIOStageAndSetFlags(standard, true, true, false, 1000, false);
+            Flasher.setValuePogressBarFlashingStatic(475);
+        }
+
+        /// <summary>
+        /// Слушает порт и ждёт ответа от модуля, что он готов к опросу
+        /// </summary>
+        /// <param name="portNumb"></param>
+        private static void getBC92Redy(Object portNumb) {
+
+            SerialPort serPort = new SerialPort("COM" + (int)portNumb, 9600, Parity.None, 8, StopBits.One);
+            serPort.Open();
+
+            string data = "";
+
+            BC92isReady = false;
+
+            while (Thread.CurrentThread.ThreadState != System.Threading.ThreadState.Aborted) {
+
+                //Если есть данные для считывания обнуляю таймаут
+                if (serPort.BytesToRead != 0) {
+                    //Считываю данные из ком порта
+                    data += serPort.ReadExisting();
+
+                    if (data.Contains("READY")) {
+                        BC92isReady = true;
+                        serPort.Close();
+                        Thread.CurrentThread.Abort();
+                        break;
+                    }
+                }
+
+                Thread.Sleep(20);
+            }
+
+            if (serPort.IsOpen) {
+                serPort.Close();
             }
         }
 

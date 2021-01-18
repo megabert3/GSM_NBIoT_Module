@@ -26,10 +26,6 @@ namespace GSM_NBIoT_Module
         //Подсказка для вывода текста при наведении на строку где прописываются команды для Quectel
         ToolTip addEditConfToolTip = new ToolTip();
 
-        //Для перетаскивания строк в dataGridView в таблице коммад для модуля Quectel
-        private int dragRow = -1;
-        private Label dragLabel = null;
-
         public AddEditConfigurationForm() {
             InitializeComponent();
         }
@@ -459,6 +455,12 @@ namespace GSM_NBIoT_Module
 
                 if (answer) {
                     quectelCommnadsdtGrdView.Rows.Clear();
+
+                    copyAllConfCommnadQuectel.Enabled = false;
+                    deleteAllConfCommnadQuectel.Enabled = false;
+                    upCommandBtn.Enabled = false;
+                    downCommandBtn.Enabled = false;
+                    deleteConfCommnadQuectel.Enabled = false;
                 }
             }
         }
@@ -480,7 +482,9 @@ namespace GSM_NBIoT_Module
 
                     DataGridViewRow row = cell.OwningRow;
 
-                    quectelCommnadsdtGrdView.Rows.Remove(row);
+                    if (cell.Value != null) {
+                        quectelCommnadsdtGrdView.Rows.Remove(row);
+                    }
                 }
             }
         }
@@ -613,7 +617,7 @@ namespace GSM_NBIoT_Module
 
         private void quectelCommnadsdtGrdView_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e) {
 
-            if (configuration.getQuectelCommandList().Count == 0) {
+            if (quectelCommnadsdtGrdView.Rows.Count == 1) {
                 copyAllConfCommnadQuectel.Enabled = false;
                 deleteAllConfCommnadQuectel.Enabled = false;
                 upCommandBtn.Enabled = false;

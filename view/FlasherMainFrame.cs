@@ -1,5 +1,6 @@
 ﻿using GSM_NBIoT_Module.classes;
 using GSM_NBIoT_Module.classes.applicationHelper;
+using GSM_NBIoT_Module.classes.applicationHelper.exceptions;
 using GSM_NBIoT_Module.classes.controllerOnBoard.Configuration;
 using GSM_NBIoT_Module.Properties;
 using GSM_NBIoT_Module.view;
@@ -291,7 +292,7 @@ namespace GSM_NBIoT_Module {
 
                 firmwareWriteStart.Stop();
 
-                if (!(ex is DeviceError)) {
+                if (!(ex is CP_Error)) {
                     CP2105_Connector cp2105 = CP2105_Connector.GetCP2105_ConnectorInstance();
                     cp2105.WriteGPIOStageAndSetFlags(cp2105.getStandardPort(), true, true, true, 300, true);
                     cp2105.WriteGPIOStageAndSetFlags(cp2105.getEnhancedPort(), true, true, 100, true);

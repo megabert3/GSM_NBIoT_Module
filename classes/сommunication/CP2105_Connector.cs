@@ -179,7 +179,7 @@ namespace GSM_NBIoT_Module.classes {
             IntPtr COM_Port = CreateFile(COM_portName);
 
             if (COM_Port.ToInt32() == -1)
-                throw new DeviceError("Не удалось открыть COM порт.");
+                throw new CP_Error("Не удалось открыть COM порт.");
 
             uint statusGPIO = 0;
 
@@ -214,7 +214,7 @@ namespace GSM_NBIoT_Module.classes {
 
         /// <summary>
         /// Записывает новое состояние ножек CP2105
-        /// может вернуть ошибку DeviceError()
+        /// 
         /// </summary>
         /// <param name="COM_portNo">Номер ком порта</param>
         /// <param name="stageGPIO_0"></param>
@@ -228,7 +228,7 @@ namespace GSM_NBIoT_Module.classes {
             IntPtr COM_Port = CreateFile(COM_portName);
 
             if (COM_Port.ToInt32() == -1)
-                throw new DeviceError("Не удалось найти дескриптор необходимый для связи по COM порту. Убедитесь, что порты модема не заняты другой программой и попробуйте снова");
+                throw new CP_Error("Не удалось найти дескриптор необходимый для связи по COM порту. Убедитесь, что порты модема не заняты другой программой и попробуйте снова");
 
             int stageGPIO_ForWrite = getCodeFoeSwithStageGPIO(stageGPIO_0, stageGPIO_1, stageGPIO_2);
 
@@ -258,8 +258,8 @@ namespace GSM_NBIoT_Module.classes {
                         MyCloseHandle(COM_Port);
 
                         if (showInfoInLog) {
-                            Flasher.addMessageInMainLogWithoutTime("\n");
                             Flasher.addMessageInMainLog("Подтверждение получено");
+                            Flasher.addMessageInMainLogWithoutTime("");
                         }
                         return;
                     }
@@ -267,7 +267,7 @@ namespace GSM_NBIoT_Module.classes {
 
                 MyCloseHandle(COM_Port);
 
-                throw new DeviceError("Не удалось выставить необходимое состояние ног CP2105, перезагрузите модем и попробуйте снова.");
+                throw new CP_Error("Не удалось выставить необходимое состояние ног CP2105, перезагрузите модем и попробуйте снова");
             }
 
             MyCloseHandle(COM_Port);
@@ -275,7 +275,6 @@ namespace GSM_NBIoT_Module.classes {
 
         /// <summary>
         /// Записывает новое состояние ножек CP2105
-        /// может вернуть ошибку DeviceError()
         /// </summary>
         /// <param name="COM_portNo"></param>
         /// <param name="stageGPIO_0"></param>
@@ -289,7 +288,7 @@ namespace GSM_NBIoT_Module.classes {
             IntPtr COM_Port = CreateFile(COM_portName);
 
             if (COM_Port.ToInt32() == -1)
-                throw new DeviceError("Не удалось найти дескриптор необходимый для связи по COM порту. Убедитесь, что порты модема не заняты другой программой и попробуйте снова");
+                throw new CP_Error("Не удалось найти дескриптор необходимый для связи по COM порту. Убедитесь, что порты модема не заняты другой программой и попробуйте снова");
 
             int stageGPIO_ForWrite = getCodeFoeSwithStageGPIO(stageGPIO_0, stageGPIO_1, false);
 
@@ -319,8 +318,8 @@ namespace GSM_NBIoT_Module.classes {
                         MyCloseHandle(COM_Port);
 
                         if (showInfoInLog) {
-                            Flasher.addMessageInMainLogWithoutTime("\n");
                             Flasher.addMessageInMainLog("Подтверждение получено");
+                            Flasher.addMessageInMainLogWithoutTime("");
                         }
                         return;
                     }
@@ -328,7 +327,7 @@ namespace GSM_NBIoT_Module.classes {
 
                 MyCloseHandle(COM_Port);
 
-                throw new DeviceError("Не удалось выставить необходимое состояние ног CP2105, перезагрузите модем и попробуйте снова.");
+                throw new CP_Error("Не удалось выставить необходимое состояние ног CP2105, перезагрузите модем и попробуйте снова.");
             }
 
             MyCloseHandle(COM_Port);
@@ -419,15 +418,15 @@ namespace GSM_NBIoT_Module.classes {
         private void returnCodeError(int code) {
             switch (code) {
                 case 0: return;
-                case 255: throw new DeviceError("CP2105_DEVICE_NOT_FOUND");
-                case 1: throw new DeviceError("CP2105_INVALID_HANDLE");
-                case 2: throw new DeviceError("CP2105_INVALID_PARAMETER");
-                case 3: throw new DeviceError("CP2105_DEVICE_IO_FAILED");
-                case 4: throw new DeviceError("CP2105_FUNCTION_NOT_SUPPORTED");
-                case 5: throw new DeviceError("CP2105_GLOBAL_DATA_ERROR");
-                case 7: throw new DeviceError("CP2105_FILE_ERROR");
-                case 8: throw new DeviceError("CP2105_COMMAND_FAILED");
-                case 9: throw new DeviceError("CP2105_INVALID_ACCESS_TYPE");
+                case 255: throw new CP_Error("CP2105_DEVICE_NOT_FOUND");
+                case 1: throw new CP_Error("CP2105_INVALID_HANDLE");
+                case 2: throw new CP_Error("CP2105_INVALID_PARAMETER");
+                case 3: throw new CP_Error("CP2105_DEVICE_IO_FAILED");
+                case 4: throw new CP_Error("CP2105_FUNCTION_NOT_SUPPORTED");
+                case 5: throw new CP_Error("CP2105_GLOBAL_DATA_ERROR");
+                case 7: throw new CP_Error("CP2105_FILE_ERROR");
+                case 8: throw new CP_Error("CP2105_COMMAND_FAILED");
+                case 9: throw new CP_Error("CP2105_INVALID_ACCESS_TYPE");
             }
         }
 
@@ -519,7 +518,7 @@ namespace GSM_NBIoT_Module.classes {
         }
 
         if (countEnhabcedPort > 1 || countStandardPort > 1)
-            throw new DeviceError("В списке устройств найдено больше одного модема, для корректной работы программы должно быть подключено не более одного модема");
+            throw new CP_Error("В списке устройств найдено больше одного модема, для корректной работы программы должно быть подключено не более одного модема");
     }
 
     //================== getters and setters =======================

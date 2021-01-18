@@ -36,7 +36,7 @@ namespace GSM_NBIoT_Module.classes {
         private CP2105_Connector CP2105_Connector = CP2105_Connector.GetCP2105_ConnectorInstance();
 
         private SerialPort serialPort = new SerialPort();
-        private int timeOut = 5000;
+        private int timeOut = 3000;
 
         //Версия бутлоадера контроллера
         private string verBootLoader = null;

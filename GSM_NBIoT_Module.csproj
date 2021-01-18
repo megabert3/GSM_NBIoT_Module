@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="classes\applicationHelper\exceptions\CP_Error.cs" />
     <Compile Include="classes\applicationHelper\progressBar.cs" />
     <Compile Include="classes\applicationHelper\exceptions\ATCommandException.cs" />
     <Compile Include="classes\applicationHelper\exceptions\MKCommandException.cs" />
