@@ -191,6 +191,8 @@ namespace GSM_NBIoT_Module.classes {
 
                         Flasher.addMessageInMainLog("Отправка команды: " + command);
 
+                        Flasher.confCommandsAndAnswerQuectel.Append("Команда: " + command + Environment.NewLine);
+
                         serialPort.WriteLine(command + "\r\n");
 
                         dataInCOM_Port = "";
@@ -230,8 +232,10 @@ namespace GSM_NBIoT_Module.classes {
 
                             if (i == 1) {
                                 Flasher.addMessageInMainLog("Ответ: " + answArr[i]);
+                                Flasher.confCommandsAndAnswerQuectel.Append("Ответ: " + answArr[i] + Environment.NewLine);
                             } else {
                                 Flasher.addMessageInMainLog(answArr[i]);
+                                Flasher.confCommandsAndAnswerQuectel.Append(answArr[i] + Environment.NewLine);
                             }
                         }
 

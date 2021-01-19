@@ -73,14 +73,123 @@
             this.cpNumbStandartPortTxtBx = new System.Windows.Forms.TextBox();
             this.standGPIO_0chBx = new System.Windows.Forms.CheckBox();
             this.searchCP2105Ports = new System.Windows.Forms.Button();
-            this.terminalLogTxtBx = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.sendBtn = new System.Windows.Forms.Button();
             this.modeGroup = new System.Windows.Forms.GroupBox();
             this.modeTextRdBtn = new System.Windows.Forms.RadioButton();
             this.modeHexRdBtn = new System.Windows.Forms.RadioButton();
             this.connectToModuleBtn = new System.Windows.Forms.Button();
             this.connectToMKBtn = new System.Windows.Forms.Button();
+            this.macrosTabControl = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.gr1bt2 = new System.Windows.Forms.Button();
+            this.gr1bt1 = new System.Windows.Forms.Button();
+            this.gr1bt13 = new System.Windows.Forms.Button();
+            this.gr1bt20 = new System.Windows.Forms.Button();
+            this.gr1bt11 = new System.Windows.Forms.Button();
+            this.gr1bt3 = new System.Windows.Forms.Button();
+            this.gr1bt10 = new System.Windows.Forms.Button();
+            this.gr1bt19 = new System.Windows.Forms.Button();
+            this.gr1bt12 = new System.Windows.Forms.Button();
+            this.gr1bt4 = new System.Windows.Forms.Button();
+            this.gr1bt9 = new System.Windows.Forms.Button();
+            this.gr1bt18 = new System.Windows.Forms.Button();
+            this.gr1bt14 = new System.Windows.Forms.Button();
+            this.gr1bt5 = new System.Windows.Forms.Button();
+            this.gr1bt8 = new System.Windows.Forms.Button();
+            this.gr1bt17 = new System.Windows.Forms.Button();
+            this.gr1bt15 = new System.Windows.Forms.Button();
+            this.gr1bt6 = new System.Windows.Forms.Button();
+            this.gr1bt7 = new System.Windows.Forms.Button();
+            this.gr1bt16 = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.gr2bt2 = new System.Windows.Forms.Button();
+            this.gr2bt1 = new System.Windows.Forms.Button();
+            this.gr2bt13 = new System.Windows.Forms.Button();
+            this.gr2bt20 = new System.Windows.Forms.Button();
+            this.gr2bt11 = new System.Windows.Forms.Button();
+            this.gr2bt3 = new System.Windows.Forms.Button();
+            this.gr2bt10 = new System.Windows.Forms.Button();
+            this.gr2bt19 = new System.Windows.Forms.Button();
+            this.gr2bt12 = new System.Windows.Forms.Button();
+            this.gr2bt4 = new System.Windows.Forms.Button();
+            this.gr2bt9 = new System.Windows.Forms.Button();
+            this.gr2bt18 = new System.Windows.Forms.Button();
+            this.gr2bt14 = new System.Windows.Forms.Button();
+            this.gr2bt5 = new System.Windows.Forms.Button();
+            this.gr2bt8 = new System.Windows.Forms.Button();
+            this.gr2bt17 = new System.Windows.Forms.Button();
+            this.gr2bt15 = new System.Windows.Forms.Button();
+            this.gr2bt6 = new System.Windows.Forms.Button();
+            this.gr2bt7 = new System.Windows.Forms.Button();
+            this.gr2bt16 = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.gr3bt2 = new System.Windows.Forms.Button();
+            this.gr3bt1 = new System.Windows.Forms.Button();
+            this.gr3bt13 = new System.Windows.Forms.Button();
+            this.gr3bt20 = new System.Windows.Forms.Button();
+            this.gr3bt11 = new System.Windows.Forms.Button();
+            this.gr3bt3 = new System.Windows.Forms.Button();
+            this.gr3bt10 = new System.Windows.Forms.Button();
+            this.gr3bt19 = new System.Windows.Forms.Button();
+            this.gr3bt12 = new System.Windows.Forms.Button();
+            this.gr3bt4 = new System.Windows.Forms.Button();
+            this.gr3bt9 = new System.Windows.Forms.Button();
+            this.gr3bt18 = new System.Windows.Forms.Button();
+            this.gr3bt14 = new System.Windows.Forms.Button();
+            this.gr3bt5 = new System.Windows.Forms.Button();
+            this.gr3bt8 = new System.Windows.Forms.Button();
+            this.gr3bt17 = new System.Windows.Forms.Button();
+            this.gr3bt15 = new System.Windows.Forms.Button();
+            this.gr3bt6 = new System.Windows.Forms.Button();
+            this.gr3bt7 = new System.Windows.Forms.Button();
+            this.gr3bt16 = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.gr4bt2 = new System.Windows.Forms.Button();
+            this.gr4bt1 = new System.Windows.Forms.Button();
+            this.gr4bt13 = new System.Windows.Forms.Button();
+            this.gr4bt20 = new System.Windows.Forms.Button();
+            this.gr4bt11 = new System.Windows.Forms.Button();
+            this.gr4bt3 = new System.Windows.Forms.Button();
+            this.gr4bt10 = new System.Windows.Forms.Button();
+            this.gr4bt19 = new System.Windows.Forms.Button();
+            this.gr4bt12 = new System.Windows.Forms.Button();
+            this.gr4bt4 = new System.Windows.Forms.Button();
+            this.gr4bt9 = new System.Windows.Forms.Button();
+            this.gr4bt18 = new System.Windows.Forms.Button();
+            this.gr4bt14 = new System.Windows.Forms.Button();
+            this.gr4bt5 = new System.Windows.Forms.Button();
+            this.gr4bt8 = new System.Windows.Forms.Button();
+            this.gr4bt17 = new System.Windows.Forms.Button();
+            this.gr4bt15 = new System.Windows.Forms.Button();
+            this.gr4bt6 = new System.Windows.Forms.Button();
+            this.gr4bt7 = new System.Windows.Forms.Button();
+            this.gr4bt16 = new System.Windows.Forms.Button();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.gr5bt2 = new System.Windows.Forms.Button();
+            this.gr5bt1 = new System.Windows.Forms.Button();
+            this.gr5bt13 = new System.Windows.Forms.Button();
+            this.gr5bt20 = new System.Windows.Forms.Button();
+            this.gr5bt11 = new System.Windows.Forms.Button();
+            this.gr5bt3 = new System.Windows.Forms.Button();
+            this.gr5bt10 = new System.Windows.Forms.Button();
+            this.gr5bt19 = new System.Windows.Forms.Button();
+            this.gr5bt12 = new System.Windows.Forms.Button();
+            this.gr5bt4 = new System.Windows.Forms.Button();
+            this.gr5bt9 = new System.Windows.Forms.Button();
+            this.gr5bt18 = new System.Windows.Forms.Button();
+            this.gr5bt14 = new System.Windows.Forms.Button();
+            this.gr5bt5 = new System.Windows.Forms.Button();
+            this.gr5bt8 = new System.Windows.Forms.Button();
+            this.gr5bt17 = new System.Windows.Forms.Button();
+            this.gr5bt15 = new System.Windows.Forms.Button();
+            this.gr5bt6 = new System.Windows.Forms.Button();
+            this.gr5bt7 = new System.Windows.Forms.Button();
+            this.gr5bt16 = new System.Windows.Forms.Button();
+            this.editMacros = new System.Windows.Forms.Button();
+            this.otherGroup = new System.Windows.Forms.GroupBox();
+            this.terminalLogTxtBx = new System.Windows.Forms.TextBox();
+            this.addEndLine = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.bandRateGroup.SuspendLayout();
             this.dataBitGroup.SuspendLayout();
@@ -90,15 +199,23 @@
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.modeGroup.SuspendLayout();
+            this.macrosTabControl.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.otherGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox1.Controls.Add(this.indBtn);
             this.groupBox1.Controls.Add(this.rescanCOMsBtn);
             this.groupBox1.Controls.Add(this.connOrDisCOMBtn);
             this.groupBox1.Controls.Add(this.comPortsListCmbBox);
-            this.groupBox1.Location = new System.Drawing.Point(12, 3);
+            this.groupBox1.Location = new System.Drawing.Point(12, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(123, 131);
             this.groupBox1.TabIndex = 0;
@@ -145,6 +262,7 @@
             // 
             // bandRateGroup
             // 
+            this.bandRateGroup.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.bandRateGroup.Controls.Add(this.customBandRateTxtBx);
             this.bandRateGroup.Controls.Add(this.customBandRateRdBtn);
             this.bandRateGroup.Controls.Add(this.bandRate256000rdBtn);
@@ -161,7 +279,7 @@
             this.bandRateGroup.Controls.Add(this.bandRate2400rdBtn);
             this.bandRateGroup.Controls.Add(this.bandRate1200rdBtn);
             this.bandRateGroup.Controls.Add(this.bandRate600rdBtn);
-            this.bandRateGroup.Location = new System.Drawing.Point(141, 3);
+            this.bandRateGroup.Location = new System.Drawing.Point(141, 6);
             this.bandRateGroup.Name = "bandRateGroup";
             this.bandRateGroup.Size = new System.Drawing.Size(276, 131);
             this.bandRateGroup.TabIndex = 1;
@@ -342,11 +460,12 @@
             // 
             // dataBitGroup
             // 
+            this.dataBitGroup.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dataBitGroup.Controls.Add(this.dataBit8rdBtn);
             this.dataBitGroup.Controls.Add(this.dataBit7rdBtn);
             this.dataBitGroup.Controls.Add(this.dataBit5rdBtn);
             this.dataBitGroup.Controls.Add(this.dataBit6rdBtn);
-            this.dataBitGroup.Location = new System.Drawing.Point(423, 3);
+            this.dataBitGroup.Location = new System.Drawing.Point(423, 6);
             this.dataBitGroup.Name = "dataBitGroup";
             this.dataBitGroup.Size = new System.Drawing.Size(65, 131);
             this.dataBitGroup.TabIndex = 2;
@@ -399,12 +518,13 @@
             // 
             // parityGroup
             // 
+            this.parityGroup.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.parityGroup.Controls.Add(this.paritySpaceRdBtn);
             this.parityGroup.Controls.Add(this.parityMarkRdBtn);
             this.parityGroup.Controls.Add(this.parityEvenRdBtn);
             this.parityGroup.Controls.Add(this.parityNoneRdBtn);
             this.parityGroup.Controls.Add(this.parityOddRdBtn);
-            this.parityGroup.Location = new System.Drawing.Point(494, 3);
+            this.parityGroup.Location = new System.Drawing.Point(494, 6);
             this.parityGroup.Name = "parityGroup";
             this.parityGroup.Size = new System.Drawing.Size(65, 131);
             this.parityGroup.TabIndex = 19;
@@ -468,10 +588,11 @@
             // 
             // stopBitGroup
             // 
+            this.stopBitGroup.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.stopBitGroup.Controls.Add(this.stopBit2RdBtn);
             this.stopBitGroup.Controls.Add(this.stopBit1RdBtn);
             this.stopBitGroup.Controls.Add(this.stopBit1_5RdBtn);
-            this.stopBitGroup.Location = new System.Drawing.Point(565, 3);
+            this.stopBitGroup.Location = new System.Drawing.Point(565, 6);
             this.stopBitGroup.Name = "stopBitGroup";
             this.stopBitGroup.Size = new System.Drawing.Size(65, 131);
             this.stopBitGroup.TabIndex = 19;
@@ -513,10 +634,10 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox6.Controls.Add(this.groupBox8);
             this.groupBox6.Controls.Add(this.groupBox7);
-            this.groupBox6.Location = new System.Drawing.Point(1233, 3);
+            this.groupBox6.Location = new System.Drawing.Point(1233, 6);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(181, 131);
             this.groupBox6.TabIndex = 20;
@@ -634,8 +755,8 @@
             // 
             // searchCP2105Ports
             // 
-            this.searchCP2105Ports.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchCP2105Ports.Location = new System.Drawing.Point(1152, 8);
+            this.searchCP2105Ports.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.searchCP2105Ports.Location = new System.Drawing.Point(1152, 11);
             this.searchCP2105Ports.Name = "searchCP2105Ports";
             this.searchCP2105Ports.Size = new System.Drawing.Size(75, 23);
             this.searchCP2105Ports.TabIndex = 2;
@@ -643,42 +764,31 @@
             this.searchCP2105Ports.UseVisualStyleBackColor = true;
             this.searchCP2105Ports.Click += new System.EventHandler(this.searchCP2105Ports_Click);
             // 
-            // terminalLogTxtBx
-            // 
-            this.terminalLogTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.terminalLogTxtBx.Location = new System.Drawing.Point(12, 170);
-            this.terminalLogTxtBx.Multiline = true;
-            this.terminalLogTxtBx.Name = "terminalLogTxtBx";
-            this.terminalLogTxtBx.Size = new System.Drawing.Size(1402, 617);
-            this.terminalLogTxtBx.TabIndex = 21;
-            // 
             // textBox5
             // 
-            this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox5.Location = new System.Drawing.Point(12, 793);
+            this.textBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.textBox5.Location = new System.Drawing.Point(12, 746);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(1294, 20);
+            this.textBox5.Size = new System.Drawing.Size(1240, 20);
             this.textBox5.TabIndex = 22;
             // 
-            // button2
+            // sendBtn
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(1312, 793);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(102, 23);
-            this.button2.TabIndex = 23;
-            this.button2.Text = "Отправить";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.sendBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.sendBtn.Location = new System.Drawing.Point(1312, 744);
+            this.sendBtn.Name = "sendBtn";
+            this.sendBtn.Size = new System.Drawing.Size(102, 23);
+            this.sendBtn.TabIndex = 23;
+            this.sendBtn.Text = "Отправить";
+            this.sendBtn.UseVisualStyleBackColor = true;
+            this.sendBtn.Click += new System.EventHandler(this.button2_Click);
             // 
             // modeGroup
             // 
+            this.modeGroup.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.modeGroup.Controls.Add(this.modeTextRdBtn);
             this.modeGroup.Controls.Add(this.modeHexRdBtn);
-            this.modeGroup.Location = new System.Drawing.Point(636, 3);
+            this.modeGroup.Location = new System.Drawing.Point(636, 6);
             this.modeGroup.Name = "modeGroup";
             this.modeGroup.Size = new System.Drawing.Size(65, 131);
             this.modeGroup.TabIndex = 20;
@@ -709,33 +819,1148 @@
             // 
             // connectToModuleBtn
             // 
-            this.connectToModuleBtn.Location = new System.Drawing.Point(186, 141);
+            this.connectToModuleBtn.Location = new System.Drawing.Point(6, 46);
             this.connectToModuleBtn.Name = "connectToModuleBtn";
             this.connectToModuleBtn.Size = new System.Drawing.Size(168, 23);
             this.connectToModuleBtn.TabIndex = 24;
             this.connectToModuleBtn.Text = "Связь с модулем";
+            this.connectToModuleBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.connectToModuleBtn.UseVisualStyleBackColor = true;
             this.connectToModuleBtn.Click += new System.EventHandler(this.connectToModuleBtn_Click);
             // 
             // connectToMKBtn
             // 
-            this.connectToMKBtn.Location = new System.Drawing.Point(12, 141);
+            this.connectToMKBtn.Location = new System.Drawing.Point(6, 19);
             this.connectToMKBtn.Name = "connectToMKBtn";
             this.connectToMKBtn.Size = new System.Drawing.Size(168, 23);
             this.connectToMKBtn.TabIndex = 25;
             this.connectToMKBtn.Text = "Связь с микроконтроллером";
+            this.connectToMKBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.connectToMKBtn.UseVisualStyleBackColor = true;
             this.connectToMKBtn.Click += new System.EventHandler(this.connectToMKBtn_Click);
+            // 
+            // macrosTabControl
+            // 
+            this.macrosTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.macrosTabControl.Controls.Add(this.tabPage1);
+            this.macrosTabControl.Controls.Add(this.tabPage2);
+            this.macrosTabControl.Controls.Add(this.tabPage3);
+            this.macrosTabControl.Controls.Add(this.tabPage4);
+            this.macrosTabControl.Controls.Add(this.tabPage5);
+            this.macrosTabControl.Location = new System.Drawing.Point(12, 773);
+            this.macrosTabControl.Name = "macrosTabControl";
+            this.macrosTabControl.SelectedIndex = 0;
+            this.macrosTabControl.Size = new System.Drawing.Size(1402, 98);
+            this.macrosTabControl.TabIndex = 26;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.gr1bt2);
+            this.tabPage1.Controls.Add(this.gr1bt1);
+            this.tabPage1.Controls.Add(this.gr1bt13);
+            this.tabPage1.Controls.Add(this.gr1bt20);
+            this.tabPage1.Controls.Add(this.gr1bt11);
+            this.tabPage1.Controls.Add(this.gr1bt3);
+            this.tabPage1.Controls.Add(this.gr1bt10);
+            this.tabPage1.Controls.Add(this.gr1bt19);
+            this.tabPage1.Controls.Add(this.gr1bt12);
+            this.tabPage1.Controls.Add(this.gr1bt4);
+            this.tabPage1.Controls.Add(this.gr1bt9);
+            this.tabPage1.Controls.Add(this.gr1bt18);
+            this.tabPage1.Controls.Add(this.gr1bt14);
+            this.tabPage1.Controls.Add(this.gr1bt5);
+            this.tabPage1.Controls.Add(this.gr1bt8);
+            this.tabPage1.Controls.Add(this.gr1bt17);
+            this.tabPage1.Controls.Add(this.gr1bt15);
+            this.tabPage1.Controls.Add(this.gr1bt6);
+            this.tabPage1.Controls.Add(this.gr1bt7);
+            this.tabPage1.Controls.Add(this.gr1bt16);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1394, 72);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt2
+            // 
+            this.gr1bt2.Location = new System.Drawing.Point(112, 6);
+            this.gr1bt2.Name = "gr1bt2";
+            this.gr1bt2.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt2.TabIndex = 19;
+            this.gr1bt2.Text = "button2";
+            this.gr1bt2.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt1
+            // 
+            this.gr1bt1.Location = new System.Drawing.Point(6, 6);
+            this.gr1bt1.Name = "gr1bt1";
+            this.gr1bt1.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt1.TabIndex = 0;
+            this.gr1bt1.Text = "button1";
+            this.gr1bt1.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt13
+            // 
+            this.gr1bt13.Location = new System.Drawing.Point(218, 35);
+            this.gr1bt13.Name = "gr1bt13";
+            this.gr1bt13.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt13.TabIndex = 11;
+            this.gr1bt13.Text = "button13";
+            this.gr1bt13.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt20
+            // 
+            this.gr1bt20.Location = new System.Drawing.Point(960, 35);
+            this.gr1bt20.Name = "gr1bt20";
+            this.gr1bt20.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt20.TabIndex = 18;
+            this.gr1bt20.Text = "button20";
+            this.gr1bt20.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt11
+            // 
+            this.gr1bt11.Location = new System.Drawing.Point(6, 35);
+            this.gr1bt11.Name = "gr1bt11";
+            this.gr1bt11.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt11.TabIndex = 9;
+            this.gr1bt11.Text = "button11";
+            this.gr1bt11.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt3
+            // 
+            this.gr1bt3.Location = new System.Drawing.Point(218, 6);
+            this.gr1bt3.Name = "gr1bt3";
+            this.gr1bt3.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt3.TabIndex = 1;
+            this.gr1bt3.Text = "button3";
+            this.gr1bt3.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt10
+            // 
+            this.gr1bt10.Location = new System.Drawing.Point(960, 6);
+            this.gr1bt10.Name = "gr1bt10";
+            this.gr1bt10.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt10.TabIndex = 8;
+            this.gr1bt10.Text = "button10";
+            this.gr1bt10.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt19
+            // 
+            this.gr1bt19.Location = new System.Drawing.Point(854, 35);
+            this.gr1bt19.Name = "gr1bt19";
+            this.gr1bt19.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt19.TabIndex = 17;
+            this.gr1bt19.Text = "button19";
+            this.gr1bt19.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt12
+            // 
+            this.gr1bt12.Location = new System.Drawing.Point(112, 35);
+            this.gr1bt12.Name = "gr1bt12";
+            this.gr1bt12.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt12.TabIndex = 10;
+            this.gr1bt12.Text = "button12";
+            this.gr1bt12.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt4
+            // 
+            this.gr1bt4.Location = new System.Drawing.Point(324, 6);
+            this.gr1bt4.Name = "gr1bt4";
+            this.gr1bt4.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt4.TabIndex = 2;
+            this.gr1bt4.Text = "button4";
+            this.gr1bt4.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt9
+            // 
+            this.gr1bt9.Location = new System.Drawing.Point(854, 6);
+            this.gr1bt9.Name = "gr1bt9";
+            this.gr1bt9.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt9.TabIndex = 7;
+            this.gr1bt9.Text = "button9";
+            this.gr1bt9.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt18
+            // 
+            this.gr1bt18.Location = new System.Drawing.Point(748, 35);
+            this.gr1bt18.Name = "gr1bt18";
+            this.gr1bt18.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt18.TabIndex = 16;
+            this.gr1bt18.Text = "button18";
+            this.gr1bt18.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt14
+            // 
+            this.gr1bt14.Location = new System.Drawing.Point(324, 35);
+            this.gr1bt14.Name = "gr1bt14";
+            this.gr1bt14.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt14.TabIndex = 12;
+            this.gr1bt14.Text = "button14";
+            this.gr1bt14.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt5
+            // 
+            this.gr1bt5.Location = new System.Drawing.Point(430, 6);
+            this.gr1bt5.Name = "gr1bt5";
+            this.gr1bt5.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt5.TabIndex = 3;
+            this.gr1bt5.Text = "button5";
+            this.gr1bt5.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt8
+            // 
+            this.gr1bt8.Location = new System.Drawing.Point(748, 6);
+            this.gr1bt8.Name = "gr1bt8";
+            this.gr1bt8.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt8.TabIndex = 6;
+            this.gr1bt8.Text = "button8";
+            this.gr1bt8.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt17
+            // 
+            this.gr1bt17.Location = new System.Drawing.Point(642, 34);
+            this.gr1bt17.Name = "gr1bt17";
+            this.gr1bt17.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt17.TabIndex = 15;
+            this.gr1bt17.Text = "button17";
+            this.gr1bt17.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt15
+            // 
+            this.gr1bt15.Location = new System.Drawing.Point(430, 34);
+            this.gr1bt15.Name = "gr1bt15";
+            this.gr1bt15.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt15.TabIndex = 13;
+            this.gr1bt15.Text = "button15";
+            this.gr1bt15.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt6
+            // 
+            this.gr1bt6.Location = new System.Drawing.Point(536, 6);
+            this.gr1bt6.Name = "gr1bt6";
+            this.gr1bt6.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt6.TabIndex = 4;
+            this.gr1bt6.Text = "button6";
+            this.gr1bt6.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt7
+            // 
+            this.gr1bt7.Location = new System.Drawing.Point(642, 6);
+            this.gr1bt7.Name = "gr1bt7";
+            this.gr1bt7.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt7.TabIndex = 5;
+            this.gr1bt7.Text = "button7";
+            this.gr1bt7.UseVisualStyleBackColor = true;
+            // 
+            // gr1bt16
+            // 
+            this.gr1bt16.Location = new System.Drawing.Point(536, 34);
+            this.gr1bt16.Name = "gr1bt16";
+            this.gr1bt16.Size = new System.Drawing.Size(100, 23);
+            this.gr1bt16.TabIndex = 14;
+            this.gr1bt16.Text = "button16";
+            this.gr1bt16.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.AutoScroll = true;
+            this.tabPage2.Controls.Add(this.gr2bt2);
+            this.tabPage2.Controls.Add(this.gr2bt1);
+            this.tabPage2.Controls.Add(this.gr2bt13);
+            this.tabPage2.Controls.Add(this.gr2bt20);
+            this.tabPage2.Controls.Add(this.gr2bt11);
+            this.tabPage2.Controls.Add(this.gr2bt3);
+            this.tabPage2.Controls.Add(this.gr2bt10);
+            this.tabPage2.Controls.Add(this.gr2bt19);
+            this.tabPage2.Controls.Add(this.gr2bt12);
+            this.tabPage2.Controls.Add(this.gr2bt4);
+            this.tabPage2.Controls.Add(this.gr2bt9);
+            this.tabPage2.Controls.Add(this.gr2bt18);
+            this.tabPage2.Controls.Add(this.gr2bt14);
+            this.tabPage2.Controls.Add(this.gr2bt5);
+            this.tabPage2.Controls.Add(this.gr2bt8);
+            this.tabPage2.Controls.Add(this.gr2bt17);
+            this.tabPage2.Controls.Add(this.gr2bt15);
+            this.tabPage2.Controls.Add(this.gr2bt6);
+            this.tabPage2.Controls.Add(this.gr2bt7);
+            this.tabPage2.Controls.Add(this.gr2bt16);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1394, 72);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt2
+            // 
+            this.gr2bt2.Location = new System.Drawing.Point(112, 6);
+            this.gr2bt2.Name = "gr2bt2";
+            this.gr2bt2.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt2.TabIndex = 39;
+            this.gr2bt2.Text = "button2";
+            this.gr2bt2.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt1
+            // 
+            this.gr2bt1.Location = new System.Drawing.Point(6, 6);
+            this.gr2bt1.Name = "gr2bt1";
+            this.gr2bt1.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt1.TabIndex = 20;
+            this.gr2bt1.Text = "button1";
+            this.gr2bt1.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt13
+            // 
+            this.gr2bt13.Location = new System.Drawing.Point(218, 35);
+            this.gr2bt13.Name = "gr2bt13";
+            this.gr2bt13.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt13.TabIndex = 31;
+            this.gr2bt13.Text = "button13";
+            this.gr2bt13.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt20
+            // 
+            this.gr2bt20.Location = new System.Drawing.Point(960, 35);
+            this.gr2bt20.Name = "gr2bt20";
+            this.gr2bt20.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt20.TabIndex = 38;
+            this.gr2bt20.Text = "button20";
+            this.gr2bt20.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt11
+            // 
+            this.gr2bt11.Location = new System.Drawing.Point(6, 35);
+            this.gr2bt11.Name = "gr2bt11";
+            this.gr2bt11.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt11.TabIndex = 29;
+            this.gr2bt11.Text = "button11";
+            this.gr2bt11.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt3
+            // 
+            this.gr2bt3.Location = new System.Drawing.Point(218, 6);
+            this.gr2bt3.Name = "gr2bt3";
+            this.gr2bt3.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt3.TabIndex = 21;
+            this.gr2bt3.Text = "button3";
+            this.gr2bt3.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt10
+            // 
+            this.gr2bt10.Location = new System.Drawing.Point(960, 6);
+            this.gr2bt10.Name = "gr2bt10";
+            this.gr2bt10.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt10.TabIndex = 28;
+            this.gr2bt10.Text = "button10";
+            this.gr2bt10.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt19
+            // 
+            this.gr2bt19.Location = new System.Drawing.Point(854, 35);
+            this.gr2bt19.Name = "gr2bt19";
+            this.gr2bt19.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt19.TabIndex = 37;
+            this.gr2bt19.Text = "button19";
+            this.gr2bt19.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt12
+            // 
+            this.gr2bt12.Location = new System.Drawing.Point(112, 35);
+            this.gr2bt12.Name = "gr2bt12";
+            this.gr2bt12.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt12.TabIndex = 30;
+            this.gr2bt12.Text = "button12";
+            this.gr2bt12.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt4
+            // 
+            this.gr2bt4.Location = new System.Drawing.Point(324, 6);
+            this.gr2bt4.Name = "gr2bt4";
+            this.gr2bt4.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt4.TabIndex = 22;
+            this.gr2bt4.Text = "button4";
+            this.gr2bt4.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt9
+            // 
+            this.gr2bt9.Location = new System.Drawing.Point(854, 6);
+            this.gr2bt9.Name = "gr2bt9";
+            this.gr2bt9.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt9.TabIndex = 27;
+            this.gr2bt9.Text = "button9";
+            this.gr2bt9.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt18
+            // 
+            this.gr2bt18.Location = new System.Drawing.Point(748, 35);
+            this.gr2bt18.Name = "gr2bt18";
+            this.gr2bt18.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt18.TabIndex = 36;
+            this.gr2bt18.Text = "button18";
+            this.gr2bt18.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt14
+            // 
+            this.gr2bt14.Location = new System.Drawing.Point(324, 35);
+            this.gr2bt14.Name = "gr2bt14";
+            this.gr2bt14.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt14.TabIndex = 32;
+            this.gr2bt14.Text = "button14";
+            this.gr2bt14.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt5
+            // 
+            this.gr2bt5.Location = new System.Drawing.Point(430, 6);
+            this.gr2bt5.Name = "gr2bt5";
+            this.gr2bt5.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt5.TabIndex = 23;
+            this.gr2bt5.Text = "button5";
+            this.gr2bt5.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt8
+            // 
+            this.gr2bt8.Location = new System.Drawing.Point(748, 6);
+            this.gr2bt8.Name = "gr2bt8";
+            this.gr2bt8.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt8.TabIndex = 26;
+            this.gr2bt8.Text = "button8";
+            this.gr2bt8.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt17
+            // 
+            this.gr2bt17.Location = new System.Drawing.Point(642, 34);
+            this.gr2bt17.Name = "gr2bt17";
+            this.gr2bt17.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt17.TabIndex = 35;
+            this.gr2bt17.Text = "button17";
+            this.gr2bt17.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt15
+            // 
+            this.gr2bt15.Location = new System.Drawing.Point(430, 34);
+            this.gr2bt15.Name = "gr2bt15";
+            this.gr2bt15.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt15.TabIndex = 33;
+            this.gr2bt15.Text = "button15";
+            this.gr2bt15.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt6
+            // 
+            this.gr2bt6.Location = new System.Drawing.Point(536, 6);
+            this.gr2bt6.Name = "gr2bt6";
+            this.gr2bt6.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt6.TabIndex = 24;
+            this.gr2bt6.Text = "button6";
+            this.gr2bt6.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt7
+            // 
+            this.gr2bt7.Location = new System.Drawing.Point(642, 6);
+            this.gr2bt7.Name = "gr2bt7";
+            this.gr2bt7.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt7.TabIndex = 25;
+            this.gr2bt7.Text = "button7";
+            this.gr2bt7.UseVisualStyleBackColor = true;
+            // 
+            // gr2bt16
+            // 
+            this.gr2bt16.Location = new System.Drawing.Point(536, 34);
+            this.gr2bt16.Name = "gr2bt16";
+            this.gr2bt16.Size = new System.Drawing.Size(100, 23);
+            this.gr2bt16.TabIndex = 34;
+            this.gr2bt16.Text = "button16";
+            this.gr2bt16.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.AutoScroll = true;
+            this.tabPage3.Controls.Add(this.gr3bt2);
+            this.tabPage3.Controls.Add(this.gr3bt1);
+            this.tabPage3.Controls.Add(this.gr3bt13);
+            this.tabPage3.Controls.Add(this.gr3bt20);
+            this.tabPage3.Controls.Add(this.gr3bt11);
+            this.tabPage3.Controls.Add(this.gr3bt3);
+            this.tabPage3.Controls.Add(this.gr3bt10);
+            this.tabPage3.Controls.Add(this.gr3bt19);
+            this.tabPage3.Controls.Add(this.gr3bt12);
+            this.tabPage3.Controls.Add(this.gr3bt4);
+            this.tabPage3.Controls.Add(this.gr3bt9);
+            this.tabPage3.Controls.Add(this.gr3bt18);
+            this.tabPage3.Controls.Add(this.gr3bt14);
+            this.tabPage3.Controls.Add(this.gr3bt5);
+            this.tabPage3.Controls.Add(this.gr3bt8);
+            this.tabPage3.Controls.Add(this.gr3bt17);
+            this.tabPage3.Controls.Add(this.gr3bt15);
+            this.tabPage3.Controls.Add(this.gr3bt6);
+            this.tabPage3.Controls.Add(this.gr3bt7);
+            this.tabPage3.Controls.Add(this.gr3bt16);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1394, 72);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt2
+            // 
+            this.gr3bt2.Location = new System.Drawing.Point(112, 6);
+            this.gr3bt2.Name = "gr3bt2";
+            this.gr3bt2.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt2.TabIndex = 39;
+            this.gr3bt2.Text = "button2";
+            this.gr3bt2.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt1
+            // 
+            this.gr3bt1.Location = new System.Drawing.Point(6, 6);
+            this.gr3bt1.Name = "gr3bt1";
+            this.gr3bt1.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt1.TabIndex = 20;
+            this.gr3bt1.Text = "button1";
+            this.gr3bt1.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt13
+            // 
+            this.gr3bt13.Location = new System.Drawing.Point(218, 35);
+            this.gr3bt13.Name = "gr3bt13";
+            this.gr3bt13.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt13.TabIndex = 31;
+            this.gr3bt13.Text = "button13";
+            this.gr3bt13.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt20
+            // 
+            this.gr3bt20.Location = new System.Drawing.Point(960, 35);
+            this.gr3bt20.Name = "gr3bt20";
+            this.gr3bt20.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt20.TabIndex = 38;
+            this.gr3bt20.Text = "button20";
+            this.gr3bt20.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt11
+            // 
+            this.gr3bt11.Location = new System.Drawing.Point(6, 35);
+            this.gr3bt11.Name = "gr3bt11";
+            this.gr3bt11.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt11.TabIndex = 29;
+            this.gr3bt11.Text = "button11";
+            this.gr3bt11.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt3
+            // 
+            this.gr3bt3.Location = new System.Drawing.Point(218, 6);
+            this.gr3bt3.Name = "gr3bt3";
+            this.gr3bt3.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt3.TabIndex = 21;
+            this.gr3bt3.Text = "button3";
+            this.gr3bt3.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt10
+            // 
+            this.gr3bt10.Location = new System.Drawing.Point(960, 6);
+            this.gr3bt10.Name = "gr3bt10";
+            this.gr3bt10.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt10.TabIndex = 28;
+            this.gr3bt10.Text = "button10";
+            this.gr3bt10.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt19
+            // 
+            this.gr3bt19.Location = new System.Drawing.Point(854, 35);
+            this.gr3bt19.Name = "gr3bt19";
+            this.gr3bt19.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt19.TabIndex = 37;
+            this.gr3bt19.Text = "button19";
+            this.gr3bt19.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt12
+            // 
+            this.gr3bt12.Location = new System.Drawing.Point(112, 35);
+            this.gr3bt12.Name = "gr3bt12";
+            this.gr3bt12.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt12.TabIndex = 30;
+            this.gr3bt12.Text = "button12";
+            this.gr3bt12.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt4
+            // 
+            this.gr3bt4.Location = new System.Drawing.Point(324, 6);
+            this.gr3bt4.Name = "gr3bt4";
+            this.gr3bt4.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt4.TabIndex = 22;
+            this.gr3bt4.Text = "button4";
+            this.gr3bt4.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt9
+            // 
+            this.gr3bt9.Location = new System.Drawing.Point(854, 6);
+            this.gr3bt9.Name = "gr3bt9";
+            this.gr3bt9.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt9.TabIndex = 27;
+            this.gr3bt9.Text = "button9";
+            this.gr3bt9.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt18
+            // 
+            this.gr3bt18.Location = new System.Drawing.Point(748, 35);
+            this.gr3bt18.Name = "gr3bt18";
+            this.gr3bt18.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt18.TabIndex = 36;
+            this.gr3bt18.Text = "button18";
+            this.gr3bt18.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt14
+            // 
+            this.gr3bt14.Location = new System.Drawing.Point(324, 35);
+            this.gr3bt14.Name = "gr3bt14";
+            this.gr3bt14.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt14.TabIndex = 32;
+            this.gr3bt14.Text = "button14";
+            this.gr3bt14.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt5
+            // 
+            this.gr3bt5.Location = new System.Drawing.Point(430, 6);
+            this.gr3bt5.Name = "gr3bt5";
+            this.gr3bt5.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt5.TabIndex = 23;
+            this.gr3bt5.Text = "button5";
+            this.gr3bt5.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt8
+            // 
+            this.gr3bt8.Location = new System.Drawing.Point(748, 6);
+            this.gr3bt8.Name = "gr3bt8";
+            this.gr3bt8.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt8.TabIndex = 26;
+            this.gr3bt8.Text = "button8";
+            this.gr3bt8.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt17
+            // 
+            this.gr3bt17.Location = new System.Drawing.Point(642, 34);
+            this.gr3bt17.Name = "gr3bt17";
+            this.gr3bt17.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt17.TabIndex = 35;
+            this.gr3bt17.Text = "button17";
+            this.gr3bt17.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt15
+            // 
+            this.gr3bt15.Location = new System.Drawing.Point(430, 34);
+            this.gr3bt15.Name = "gr3bt15";
+            this.gr3bt15.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt15.TabIndex = 33;
+            this.gr3bt15.Text = "button15";
+            this.gr3bt15.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt6
+            // 
+            this.gr3bt6.Location = new System.Drawing.Point(536, 6);
+            this.gr3bt6.Name = "gr3bt6";
+            this.gr3bt6.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt6.TabIndex = 24;
+            this.gr3bt6.Text = "button6";
+            this.gr3bt6.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt7
+            // 
+            this.gr3bt7.Location = new System.Drawing.Point(642, 6);
+            this.gr3bt7.Name = "gr3bt7";
+            this.gr3bt7.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt7.TabIndex = 25;
+            this.gr3bt7.Text = "button7";
+            this.gr3bt7.UseVisualStyleBackColor = true;
+            // 
+            // gr3bt16
+            // 
+            this.gr3bt16.Location = new System.Drawing.Point(536, 34);
+            this.gr3bt16.Name = "gr3bt16";
+            this.gr3bt16.Size = new System.Drawing.Size(100, 23);
+            this.gr3bt16.TabIndex = 34;
+            this.gr3bt16.Text = "button16";
+            this.gr3bt16.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.AutoScroll = true;
+            this.tabPage4.Controls.Add(this.gr4bt2);
+            this.tabPage4.Controls.Add(this.gr4bt1);
+            this.tabPage4.Controls.Add(this.gr4bt13);
+            this.tabPage4.Controls.Add(this.gr4bt20);
+            this.tabPage4.Controls.Add(this.gr4bt11);
+            this.tabPage4.Controls.Add(this.gr4bt3);
+            this.tabPage4.Controls.Add(this.gr4bt10);
+            this.tabPage4.Controls.Add(this.gr4bt19);
+            this.tabPage4.Controls.Add(this.gr4bt12);
+            this.tabPage4.Controls.Add(this.gr4bt4);
+            this.tabPage4.Controls.Add(this.gr4bt9);
+            this.tabPage4.Controls.Add(this.gr4bt18);
+            this.tabPage4.Controls.Add(this.gr4bt14);
+            this.tabPage4.Controls.Add(this.gr4bt5);
+            this.tabPage4.Controls.Add(this.gr4bt8);
+            this.tabPage4.Controls.Add(this.gr4bt17);
+            this.tabPage4.Controls.Add(this.gr4bt15);
+            this.tabPage4.Controls.Add(this.gr4bt6);
+            this.tabPage4.Controls.Add(this.gr4bt7);
+            this.tabPage4.Controls.Add(this.gr4bt16);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(1394, 72);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt2
+            // 
+            this.gr4bt2.Location = new System.Drawing.Point(112, 6);
+            this.gr4bt2.Name = "gr4bt2";
+            this.gr4bt2.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt2.TabIndex = 39;
+            this.gr4bt2.Text = "button2";
+            this.gr4bt2.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt1
+            // 
+            this.gr4bt1.Location = new System.Drawing.Point(6, 6);
+            this.gr4bt1.Name = "gr4bt1";
+            this.gr4bt1.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt1.TabIndex = 20;
+            this.gr4bt1.Text = "button1";
+            this.gr4bt1.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt13
+            // 
+            this.gr4bt13.Location = new System.Drawing.Point(218, 35);
+            this.gr4bt13.Name = "gr4bt13";
+            this.gr4bt13.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt13.TabIndex = 31;
+            this.gr4bt13.Text = "button13";
+            this.gr4bt13.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt20
+            // 
+            this.gr4bt20.Location = new System.Drawing.Point(960, 35);
+            this.gr4bt20.Name = "gr4bt20";
+            this.gr4bt20.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt20.TabIndex = 38;
+            this.gr4bt20.Text = "button20";
+            this.gr4bt20.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt11
+            // 
+            this.gr4bt11.Location = new System.Drawing.Point(6, 35);
+            this.gr4bt11.Name = "gr4bt11";
+            this.gr4bt11.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt11.TabIndex = 29;
+            this.gr4bt11.Text = "button11";
+            this.gr4bt11.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt3
+            // 
+            this.gr4bt3.Location = new System.Drawing.Point(218, 6);
+            this.gr4bt3.Name = "gr4bt3";
+            this.gr4bt3.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt3.TabIndex = 21;
+            this.gr4bt3.Text = "button3";
+            this.gr4bt3.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt10
+            // 
+            this.gr4bt10.Location = new System.Drawing.Point(960, 6);
+            this.gr4bt10.Name = "gr4bt10";
+            this.gr4bt10.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt10.TabIndex = 28;
+            this.gr4bt10.Text = "button10";
+            this.gr4bt10.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt19
+            // 
+            this.gr4bt19.Location = new System.Drawing.Point(854, 35);
+            this.gr4bt19.Name = "gr4bt19";
+            this.gr4bt19.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt19.TabIndex = 37;
+            this.gr4bt19.Text = "button19";
+            this.gr4bt19.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt12
+            // 
+            this.gr4bt12.Location = new System.Drawing.Point(112, 35);
+            this.gr4bt12.Name = "gr4bt12";
+            this.gr4bt12.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt12.TabIndex = 30;
+            this.gr4bt12.Text = "button12";
+            this.gr4bt12.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt4
+            // 
+            this.gr4bt4.Location = new System.Drawing.Point(324, 6);
+            this.gr4bt4.Name = "gr4bt4";
+            this.gr4bt4.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt4.TabIndex = 22;
+            this.gr4bt4.Text = "button4";
+            this.gr4bt4.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt9
+            // 
+            this.gr4bt9.Location = new System.Drawing.Point(854, 6);
+            this.gr4bt9.Name = "gr4bt9";
+            this.gr4bt9.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt9.TabIndex = 27;
+            this.gr4bt9.Text = "button9";
+            this.gr4bt9.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt18
+            // 
+            this.gr4bt18.Location = new System.Drawing.Point(748, 35);
+            this.gr4bt18.Name = "gr4bt18";
+            this.gr4bt18.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt18.TabIndex = 36;
+            this.gr4bt18.Text = "button18";
+            this.gr4bt18.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt14
+            // 
+            this.gr4bt14.Location = new System.Drawing.Point(324, 35);
+            this.gr4bt14.Name = "gr4bt14";
+            this.gr4bt14.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt14.TabIndex = 32;
+            this.gr4bt14.Text = "button14";
+            this.gr4bt14.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt5
+            // 
+            this.gr4bt5.Location = new System.Drawing.Point(430, 6);
+            this.gr4bt5.Name = "gr4bt5";
+            this.gr4bt5.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt5.TabIndex = 23;
+            this.gr4bt5.Text = "button5";
+            this.gr4bt5.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt8
+            // 
+            this.gr4bt8.Location = new System.Drawing.Point(748, 6);
+            this.gr4bt8.Name = "gr4bt8";
+            this.gr4bt8.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt8.TabIndex = 26;
+            this.gr4bt8.Text = "button8";
+            this.gr4bt8.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt17
+            // 
+            this.gr4bt17.Location = new System.Drawing.Point(642, 34);
+            this.gr4bt17.Name = "gr4bt17";
+            this.gr4bt17.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt17.TabIndex = 35;
+            this.gr4bt17.Text = "button17";
+            this.gr4bt17.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt15
+            // 
+            this.gr4bt15.Location = new System.Drawing.Point(430, 34);
+            this.gr4bt15.Name = "gr4bt15";
+            this.gr4bt15.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt15.TabIndex = 33;
+            this.gr4bt15.Text = "button15";
+            this.gr4bt15.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt6
+            // 
+            this.gr4bt6.Location = new System.Drawing.Point(536, 6);
+            this.gr4bt6.Name = "gr4bt6";
+            this.gr4bt6.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt6.TabIndex = 24;
+            this.gr4bt6.Text = "button6";
+            this.gr4bt6.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt7
+            // 
+            this.gr4bt7.Location = new System.Drawing.Point(642, 6);
+            this.gr4bt7.Name = "gr4bt7";
+            this.gr4bt7.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt7.TabIndex = 25;
+            this.gr4bt7.Text = "button7";
+            this.gr4bt7.UseVisualStyleBackColor = true;
+            // 
+            // gr4bt16
+            // 
+            this.gr4bt16.Location = new System.Drawing.Point(536, 34);
+            this.gr4bt16.Name = "gr4bt16";
+            this.gr4bt16.Size = new System.Drawing.Size(100, 23);
+            this.gr4bt16.TabIndex = 34;
+            this.gr4bt16.Text = "button16";
+            this.gr4bt16.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.AutoScroll = true;
+            this.tabPage5.Controls.Add(this.gr5bt2);
+            this.tabPage5.Controls.Add(this.gr5bt1);
+            this.tabPage5.Controls.Add(this.gr5bt13);
+            this.tabPage5.Controls.Add(this.gr5bt20);
+            this.tabPage5.Controls.Add(this.gr5bt11);
+            this.tabPage5.Controls.Add(this.gr5bt3);
+            this.tabPage5.Controls.Add(this.gr5bt10);
+            this.tabPage5.Controls.Add(this.gr5bt19);
+            this.tabPage5.Controls.Add(this.gr5bt12);
+            this.tabPage5.Controls.Add(this.gr5bt4);
+            this.tabPage5.Controls.Add(this.gr5bt9);
+            this.tabPage5.Controls.Add(this.gr5bt18);
+            this.tabPage5.Controls.Add(this.gr5bt14);
+            this.tabPage5.Controls.Add(this.gr5bt5);
+            this.tabPage5.Controls.Add(this.gr5bt8);
+            this.tabPage5.Controls.Add(this.gr5bt17);
+            this.tabPage5.Controls.Add(this.gr5bt15);
+            this.tabPage5.Controls.Add(this.gr5bt6);
+            this.tabPage5.Controls.Add(this.gr5bt7);
+            this.tabPage5.Controls.Add(this.gr5bt16);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(1394, 72);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "tabPage5";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt2
+            // 
+            this.gr5bt2.Location = new System.Drawing.Point(112, 6);
+            this.gr5bt2.Name = "gr5bt2";
+            this.gr5bt2.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt2.TabIndex = 39;
+            this.gr5bt2.Text = "button2";
+            this.gr5bt2.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt1
+            // 
+            this.gr5bt1.Location = new System.Drawing.Point(6, 6);
+            this.gr5bt1.Name = "gr5bt1";
+            this.gr5bt1.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt1.TabIndex = 20;
+            this.gr5bt1.Text = "button1";
+            this.gr5bt1.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt13
+            // 
+            this.gr5bt13.Location = new System.Drawing.Point(218, 35);
+            this.gr5bt13.Name = "gr5bt13";
+            this.gr5bt13.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt13.TabIndex = 31;
+            this.gr5bt13.Text = "button13";
+            this.gr5bt13.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt20
+            // 
+            this.gr5bt20.Location = new System.Drawing.Point(960, 35);
+            this.gr5bt20.Name = "gr5bt20";
+            this.gr5bt20.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt20.TabIndex = 38;
+            this.gr5bt20.Text = "button20";
+            this.gr5bt20.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt11
+            // 
+            this.gr5bt11.Location = new System.Drawing.Point(6, 35);
+            this.gr5bt11.Name = "gr5bt11";
+            this.gr5bt11.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt11.TabIndex = 29;
+            this.gr5bt11.Text = "button11";
+            this.gr5bt11.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt3
+            // 
+            this.gr5bt3.Location = new System.Drawing.Point(218, 6);
+            this.gr5bt3.Name = "gr5bt3";
+            this.gr5bt3.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt3.TabIndex = 21;
+            this.gr5bt3.Text = "button3";
+            this.gr5bt3.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt10
+            // 
+            this.gr5bt10.Location = new System.Drawing.Point(960, 6);
+            this.gr5bt10.Name = "gr5bt10";
+            this.gr5bt10.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt10.TabIndex = 28;
+            this.gr5bt10.Text = "button10";
+            this.gr5bt10.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt19
+            // 
+            this.gr5bt19.Location = new System.Drawing.Point(854, 35);
+            this.gr5bt19.Name = "gr5bt19";
+            this.gr5bt19.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt19.TabIndex = 37;
+            this.gr5bt19.Text = "button19";
+            this.gr5bt19.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt12
+            // 
+            this.gr5bt12.Location = new System.Drawing.Point(112, 35);
+            this.gr5bt12.Name = "gr5bt12";
+            this.gr5bt12.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt12.TabIndex = 30;
+            this.gr5bt12.Text = "button12";
+            this.gr5bt12.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt4
+            // 
+            this.gr5bt4.Location = new System.Drawing.Point(324, 6);
+            this.gr5bt4.Name = "gr5bt4";
+            this.gr5bt4.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt4.TabIndex = 22;
+            this.gr5bt4.Text = "button4";
+            this.gr5bt4.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt9
+            // 
+            this.gr5bt9.Location = new System.Drawing.Point(854, 6);
+            this.gr5bt9.Name = "gr5bt9";
+            this.gr5bt9.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt9.TabIndex = 27;
+            this.gr5bt9.Text = "button9";
+            this.gr5bt9.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt18
+            // 
+            this.gr5bt18.Location = new System.Drawing.Point(748, 35);
+            this.gr5bt18.Name = "gr5bt18";
+            this.gr5bt18.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt18.TabIndex = 36;
+            this.gr5bt18.Text = "button18";
+            this.gr5bt18.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt14
+            // 
+            this.gr5bt14.Location = new System.Drawing.Point(324, 35);
+            this.gr5bt14.Name = "gr5bt14";
+            this.gr5bt14.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt14.TabIndex = 32;
+            this.gr5bt14.Text = "button14";
+            this.gr5bt14.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt5
+            // 
+            this.gr5bt5.Location = new System.Drawing.Point(430, 6);
+            this.gr5bt5.Name = "gr5bt5";
+            this.gr5bt5.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt5.TabIndex = 23;
+            this.gr5bt5.Text = "button5";
+            this.gr5bt5.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt8
+            // 
+            this.gr5bt8.Location = new System.Drawing.Point(748, 6);
+            this.gr5bt8.Name = "gr5bt8";
+            this.gr5bt8.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt8.TabIndex = 26;
+            this.gr5bt8.Text = "button8";
+            this.gr5bt8.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt17
+            // 
+            this.gr5bt17.Location = new System.Drawing.Point(642, 34);
+            this.gr5bt17.Name = "gr5bt17";
+            this.gr5bt17.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt17.TabIndex = 35;
+            this.gr5bt17.Text = "button17";
+            this.gr5bt17.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt15
+            // 
+            this.gr5bt15.Location = new System.Drawing.Point(430, 34);
+            this.gr5bt15.Name = "gr5bt15";
+            this.gr5bt15.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt15.TabIndex = 33;
+            this.gr5bt15.Text = "button15";
+            this.gr5bt15.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt6
+            // 
+            this.gr5bt6.Location = new System.Drawing.Point(536, 6);
+            this.gr5bt6.Name = "gr5bt6";
+            this.gr5bt6.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt6.TabIndex = 24;
+            this.gr5bt6.Text = "button6";
+            this.gr5bt6.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt7
+            // 
+            this.gr5bt7.Location = new System.Drawing.Point(642, 6);
+            this.gr5bt7.Name = "gr5bt7";
+            this.gr5bt7.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt7.TabIndex = 25;
+            this.gr5bt7.Text = "button7";
+            this.gr5bt7.UseVisualStyleBackColor = true;
+            // 
+            // gr5bt16
+            // 
+            this.gr5bt16.Location = new System.Drawing.Point(536, 34);
+            this.gr5bt16.Name = "gr5bt16";
+            this.gr5bt16.Size = new System.Drawing.Size(100, 23);
+            this.gr5bt16.TabIndex = 34;
+            this.gr5bt16.Text = "button16";
+            this.gr5bt16.UseVisualStyleBackColor = true;
+            // 
+            // editMacros
+            // 
+            this.editMacros.Location = new System.Drawing.Point(6, 101);
+            this.editMacros.Name = "editMacros";
+            this.editMacros.Size = new System.Drawing.Size(168, 23);
+            this.editMacros.TabIndex = 27;
+            this.editMacros.Text = "Настройки макросов";
+            this.editMacros.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.editMacros.UseVisualStyleBackColor = true;
+            // 
+            // otherGroup
+            // 
+            this.otherGroup.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.otherGroup.Controls.Add(this.connectToMKBtn);
+            this.otherGroup.Controls.Add(this.editMacros);
+            this.otherGroup.Controls.Add(this.connectToModuleBtn);
+            this.otherGroup.Location = new System.Drawing.Point(707, 6);
+            this.otherGroup.Name = "otherGroup";
+            this.otherGroup.Size = new System.Drawing.Size(200, 131);
+            this.otherGroup.TabIndex = 28;
+            this.otherGroup.TabStop = false;
+            this.otherGroup.Text = "Другое";
+            // 
+            // terminalLogTxtBx
+            // 
+            this.terminalLogTxtBx.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.terminalLogTxtBx.Location = new System.Drawing.Point(12, 143);
+            this.terminalLogTxtBx.Multiline = true;
+            this.terminalLogTxtBx.Name = "terminalLogTxtBx";
+            this.terminalLogTxtBx.Size = new System.Drawing.Size(1402, 595);
+            this.terminalLogTxtBx.TabIndex = 21;
+            // 
+            // addEndLine
+            // 
+            this.addEndLine.AutoSize = true;
+            this.addEndLine.Location = new System.Drawing.Point(1258, 748);
+            this.addEndLine.Name = "addEndLine";
+            this.addEndLine.Size = new System.Drawing.Size(54, 17);
+            this.addEndLine.TabIndex = 29;
+            this.addEndLine.Text = "+ \\r\\n";
+            this.addEndLine.UseVisualStyleBackColor = true;
             // 
             // Terminal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1426, 859);
-            this.Controls.Add(this.connectToMKBtn);
-            this.Controls.Add(this.connectToModuleBtn);
+            this.ClientSize = new System.Drawing.Size(1426, 877);
+            this.Controls.Add(this.addEndLine);
+            this.Controls.Add(this.otherGroup);
+            this.Controls.Add(this.macrosTabControl);
             this.Controls.Add(this.modeGroup);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.sendBtn);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.terminalLogTxtBx);
             this.Controls.Add(this.searchCP2105Ports);
@@ -767,6 +1992,13 @@
             this.groupBox7.PerformLayout();
             this.modeGroup.ResumeLayout(false);
             this.modeGroup.PerformLayout();
+            this.macrosTabControl.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.otherGroup.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -823,14 +2055,123 @@
         private System.Windows.Forms.CheckBox standGPIO_1chBx;
         private System.Windows.Forms.CheckBox standGPIO_0chBx;
         private System.Windows.Forms.Button searchCP2105Ports;
-        private System.Windows.Forms.TextBox terminalLogTxtBx;
         private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button sendBtn;
         private System.Windows.Forms.GroupBox modeGroup;
         private System.Windows.Forms.RadioButton modeTextRdBtn;
         private System.Windows.Forms.RadioButton modeHexRdBtn;
         private System.Windows.Forms.Button indBtn;
         private System.Windows.Forms.Button connectToModuleBtn;
         private System.Windows.Forms.Button connectToMKBtn;
+        private System.Windows.Forms.TabControl macrosTabControl;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Button editMacros;
+        private System.Windows.Forms.GroupBox otherGroup;
+        private System.Windows.Forms.Button gr1bt10;
+        private System.Windows.Forms.Button gr1bt9;
+        private System.Windows.Forms.Button gr1bt8;
+        private System.Windows.Forms.Button gr1bt7;
+        private System.Windows.Forms.Button gr1bt6;
+        private System.Windows.Forms.Button gr1bt5;
+        private System.Windows.Forms.Button gr1bt4;
+        private System.Windows.Forms.Button gr1bt3;
+        private System.Windows.Forms.Button gr1bt1;
+        private System.Windows.Forms.Button gr1bt19;
+        private System.Windows.Forms.Button gr1bt18;
+        private System.Windows.Forms.Button gr1bt17;
+        private System.Windows.Forms.Button gr1bt16;
+        private System.Windows.Forms.Button gr1bt15;
+        private System.Windows.Forms.Button gr1bt14;
+        private System.Windows.Forms.Button gr1bt13;
+        private System.Windows.Forms.Button gr1bt12;
+        private System.Windows.Forms.Button gr1bt11;
+        private System.Windows.Forms.Button gr1bt2;
+        private System.Windows.Forms.Button gr1bt20;
+        private System.Windows.Forms.TextBox terminalLogTxtBx;
+        private System.Windows.Forms.Button gr2bt2;
+        private System.Windows.Forms.Button gr2bt1;
+        private System.Windows.Forms.Button gr2bt13;
+        private System.Windows.Forms.Button gr2bt20;
+        private System.Windows.Forms.Button gr2bt11;
+        private System.Windows.Forms.Button gr2bt3;
+        private System.Windows.Forms.Button gr2bt10;
+        private System.Windows.Forms.Button gr2bt19;
+        private System.Windows.Forms.Button gr2bt12;
+        private System.Windows.Forms.Button gr2bt4;
+        private System.Windows.Forms.Button gr2bt9;
+        private System.Windows.Forms.Button gr2bt18;
+        private System.Windows.Forms.Button gr2bt14;
+        private System.Windows.Forms.Button gr2bt5;
+        private System.Windows.Forms.Button gr2bt8;
+        private System.Windows.Forms.Button gr2bt17;
+        private System.Windows.Forms.Button gr2bt15;
+        private System.Windows.Forms.Button gr2bt6;
+        private System.Windows.Forms.Button gr2bt7;
+        private System.Windows.Forms.Button gr2bt16;
+        private System.Windows.Forms.Button gr3bt2;
+        private System.Windows.Forms.Button gr3bt1;
+        private System.Windows.Forms.Button gr3bt13;
+        private System.Windows.Forms.Button gr3bt20;
+        private System.Windows.Forms.Button gr3bt11;
+        private System.Windows.Forms.Button gr3bt3;
+        private System.Windows.Forms.Button gr3bt10;
+        private System.Windows.Forms.Button gr3bt19;
+        private System.Windows.Forms.Button gr3bt12;
+        private System.Windows.Forms.Button gr3bt4;
+        private System.Windows.Forms.Button gr3bt9;
+        private System.Windows.Forms.Button gr3bt18;
+        private System.Windows.Forms.Button gr3bt14;
+        private System.Windows.Forms.Button gr3bt5;
+        private System.Windows.Forms.Button gr3bt8;
+        private System.Windows.Forms.Button gr3bt17;
+        private System.Windows.Forms.Button gr3bt15;
+        private System.Windows.Forms.Button gr3bt6;
+        private System.Windows.Forms.Button gr3bt7;
+        private System.Windows.Forms.Button gr3bt16;
+        private System.Windows.Forms.Button gr4bt2;
+        private System.Windows.Forms.Button gr4bt1;
+        private System.Windows.Forms.Button gr4bt13;
+        private System.Windows.Forms.Button gr4bt20;
+        private System.Windows.Forms.Button gr4bt11;
+        private System.Windows.Forms.Button gr4bt3;
+        private System.Windows.Forms.Button gr4bt10;
+        private System.Windows.Forms.Button gr4bt19;
+        private System.Windows.Forms.Button gr4bt12;
+        private System.Windows.Forms.Button gr4bt4;
+        private System.Windows.Forms.Button gr4bt9;
+        private System.Windows.Forms.Button gr4bt18;
+        private System.Windows.Forms.Button gr4bt14;
+        private System.Windows.Forms.Button gr4bt5;
+        private System.Windows.Forms.Button gr4bt8;
+        private System.Windows.Forms.Button gr4bt17;
+        private System.Windows.Forms.Button gr4bt15;
+        private System.Windows.Forms.Button gr4bt6;
+        private System.Windows.Forms.Button gr4bt7;
+        private System.Windows.Forms.Button gr4bt16;
+        private System.Windows.Forms.Button gr5bt2;
+        private System.Windows.Forms.Button gr5bt1;
+        private System.Windows.Forms.Button gr5bt13;
+        private System.Windows.Forms.Button gr5bt20;
+        private System.Windows.Forms.Button gr5bt11;
+        private System.Windows.Forms.Button gr5bt3;
+        private System.Windows.Forms.Button gr5bt10;
+        private System.Windows.Forms.Button gr5bt19;
+        private System.Windows.Forms.Button gr5bt12;
+        private System.Windows.Forms.Button gr5bt4;
+        private System.Windows.Forms.Button gr5bt9;
+        private System.Windows.Forms.Button gr5bt18;
+        private System.Windows.Forms.Button gr5bt14;
+        private System.Windows.Forms.Button gr5bt5;
+        private System.Windows.Forms.Button gr5bt8;
+        private System.Windows.Forms.Button gr5bt17;
+        private System.Windows.Forms.Button gr5bt15;
+        private System.Windows.Forms.Button gr5bt6;
+        private System.Windows.Forms.Button gr5bt7;
+        private System.Windows.Forms.Button gr5bt16;
+        private System.Windows.Forms.CheckBox addEndLine;
     }
 }

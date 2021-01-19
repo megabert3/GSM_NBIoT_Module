@@ -295,7 +295,21 @@ namespace GSM_NBIoT_Module.classes {
             Flasher.addMessageInMainLog("Прошивка микроконтроллера: " + configuration.getFwForMKName());
             Flasher.addMessageInMainLog("Название конфигурации: " + configuration.getName() + Environment.NewLine);
 
-            Flasher.addMessageInMainLog("Дата и время выполнения прошивки: " + DateTime.Now + Environment.NewLine + Environment.NewLine);
+            Flasher.addMessageInMainLog("Дата и время выполнения прошивки: " + DateTime.Now + Environment.NewLine);
+
+            if (!String.IsNullOrEmpty(Flasher.confCommandsAndAnswerQuectel.ToString())) {
+                Flasher.addMessageInMainLog("Ответ модуля на конфигурационные команды:");
+
+                string[] separator = { Environment.NewLine };
+                string[] answArr = Flasher.confCommandsAndAnswerQuectel.ToString().Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (string str in answArr) {
+                    Flasher.addMessageInMainLog(str);
+                }
+            }
+
+            Flasher.confCommandsAndAnswerQuectel.ToString();
+
         }
 
         public STM32L412CB_Controller getStm32L412cb() {

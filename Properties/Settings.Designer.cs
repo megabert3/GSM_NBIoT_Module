@@ -25,7 +25,7 @@ namespace GSM_NBIoT_Module.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(" V1.9.2")]
+        [global::System.Configuration.DefaultSettingValueAttribute(" V1.9.3")]
         public string version {
             get {
                 return ((string)(this["version"]));
@@ -146,6 +146,18 @@ namespace GSM_NBIoT_Module.Properties {
         public string programName {
             get {
                 return ((string)(this["programName"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Параметр {
+            get {
+                return ((string)(this["Параметр"]));
+            }
+            set {
+                this["Параметр"] = value;
             }
         }
     }

@@ -46,6 +46,9 @@ namespace GSM_NBIoT_Module {
         //Буфер сообщений для перепрошивки микроконтроллера
         private static StringBuilder logBuffer;
 
+        //Буфер для хранения информации о конфигурации модуля Quectel
+        public static StringBuilder confCommandsAndAnswerQuectel;
+
         private void Flasher_Load(object sender, EventArgs e) {
             //Устанавливаю статическому полю ссылку на основное окно Лога (Для статического доступа к окну поля из всей программы)
             flashProcessTxtBoxStatic = flashProcessRichTxtBox;
@@ -120,6 +123,8 @@ namespace GSM_NBIoT_Module {
 
             //Обнуляю значение прогресс бара
             progressBarFlashing.Value = 0;
+
+            confCommandsAndAnswerQuectel = new StringBuilder("");
 
             switch (modemTypeCmBox.SelectedItem) {
 
@@ -245,7 +250,7 @@ namespace GSM_NBIoT_Module {
 
                     if (matches.Count > 0) {
                         Invoke((MethodInvoker)delegate {
-                            exceptionDialog("Путь к прошивке не должен содержать русские символы или пробельные символы + \n" + pathWFforQuectel);
+                            exceptionDialog("Путь к прошивке не должен содержать русские символы или пробельные символы\n" + pathWFforQuectel);
                             enableStartButton(true);
                             enableEditConfButton(true);
                         });

@@ -1,17 +1,9 @@
 ﻿using GSM_NBIoT_Module.classes;
-using GSM_NBIoT_Module.classes.applicationHelper;
 using GSM_NBIoT_Module.classes.applicationHelper.exceptions;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static GSM_NBIoT_Module.classes.CP2105_Connector;
 
@@ -359,7 +351,7 @@ namespace GSM_NBIoT_Module.view {
             try {
                 cP2105.amountDevicesConnect();
 
-            }catch (DeviceError ex) {
+            }catch (CP_Error ex) {
 
                 Flasher.exceptionDialog(ex.Message);
                 Cursor = Cursors.Default;
@@ -435,7 +427,7 @@ namespace GSM_NBIoT_Module.view {
 
             try {
                 cP2105.WriteGPIOStageAndSetFlags(stdPortNo, standGPIO_0chBx.Checked, standGPIO_1chBx.Checked, standGPIO_2chBx.Checked, 100, false);
-            } catch (DeviceError ex) {
+            } catch (CP_Error ex) {
 
                 Flasher.exceptionDialog(ex.Message);
                 Cursor = Cursors.Default;
@@ -476,7 +468,7 @@ namespace GSM_NBIoT_Module.view {
 
             try {
                 cP2105.WriteGPIOStageAndSetFlags(stdPortNo, enhanGPIO_0chBx.Checked, enhanGPIO_1chBx.Checked, 100, false);
-            } catch (DeviceError ex) {
+            } catch (CP_Error ex) {
 
                 Flasher.exceptionDialog(ex.Message);
                 Cursor = Cursors.Default;
@@ -560,7 +552,7 @@ namespace GSM_NBIoT_Module.view {
                     standGPIO_1chBx.Checked = stageSta.stageGPIO_1;
                     standGPIO_2chBx.Checked = stageSta.stageGPIO_2;
 
-                } catch (DeviceError ex) {
+                } catch (CP_Error ex) {
                     Flasher.exceptionDialog(ex.Message);
                     Cursor = Cursors.Default;
                     return;
@@ -648,7 +640,7 @@ namespace GSM_NBIoT_Module.view {
                     standGPIO_1chBx.Checked = stageSta.stageGPIO_1;
                     standGPIO_2chBx.Checked = stageSta.stageGPIO_2;
 
-                } catch (DeviceError ex) {
+                } catch (CP_Error ex) {
                     Flasher.exceptionDialog(ex.Message);
                     Cursor = Cursors.Default;
                     return;
@@ -685,7 +677,9 @@ namespace GSM_NBIoT_Module.view {
         }
 
         private void button2_Click(object sender, EventArgs e) {
-            serialPort.WriteLine(textBox5.Text + "\r\n");
+            if (serialPort.IsOpen) {
+                serialPort.WriteLine(textBox5.Text + "\r\n");
+            }
 
             textBox5.Text = "";
         }

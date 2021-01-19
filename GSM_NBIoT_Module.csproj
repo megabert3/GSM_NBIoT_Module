@@ -61,6 +61,8 @@
     <Compile Include="classes\modemBoard\Board.cs" />
     <Compile Include="classes\GSM_NBIoT_Module\BC92_Module.cs" />
     <Compile Include="classes\modemBoard\GSM3_Board.cs" />
+    <Compile Include="classes\terminal\MacrosesGroupStorage.cs" />
+    <Compile Include="classes\terminal\MacrosesGroup.cs" />
     <Compile Include="classes\сommunication\CP2105_Connector.cs" />
     <Compile Include="classes\controllerOnBoard\STM32L412CB_Controller.cs" />
     <Compile Include="classes\GSM_NBIoT_Module\CommunicationModule.cs" />

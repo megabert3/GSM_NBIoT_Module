@@ -109,6 +109,7 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
 
             using (FileStream fs = new FileStream(pathForSerialization, FileMode.Create)) {
                 formatter.Serialize(fs, configurationFileStorage);
+                fs.Close();
             }
         }
 
@@ -132,6 +133,7 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
 
             using (FileStream fs = new FileStream(pathForSerialization, FileMode.OpenOrCreate)) {
                 configurationFileStorage = (ConfigurationFileStorage)formatter.Deserialize(fs);
+                fs.Close();
             }
         }
 
