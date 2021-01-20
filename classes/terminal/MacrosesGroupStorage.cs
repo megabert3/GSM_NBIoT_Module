@@ -79,5 +79,9 @@ namespace GSM_NBIoT_Module.classes.terminal {
                 fs.Close();
             }
         }
+
+        public List<MacrosesGroup> getmacrosesGroupsList() {
+            return macrosesGroupsList;
+        }
     }
 }

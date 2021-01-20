@@ -1,5 +1,6 @@
 ﻿using GSM_NBIoT_Module.classes;
 using GSM_NBIoT_Module.classes.applicationHelper.exceptions;
+using GSM_NBIoT_Module.view.terminal;
 using System;
 using System.Drawing;
 using System.IO;
@@ -682,6 +683,10 @@ namespace GSM_NBIoT_Module.view {
             }
 
             textBox5.Text = "";
+        }
+
+        private void editMacros_Click(object sender, EventArgs e) {
+            new MacrosSettings().ShowDialog();
         }
     }
 }

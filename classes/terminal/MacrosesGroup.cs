@@ -18,21 +18,28 @@ namespace GSM_NBIoT_Module.classes.terminal {
         //Хранилице макросов в группе
         private Dictionary<int, Macros> macrosesDic = new Dictionary<int, Macros>();
 
+        /// <summary>
+        /// Класс макроса для быстрой отправки сообщения в COM порт
+        /// </summary>
+        /// <param name="name"></param>
         public MacrosesGroup(string name) {
             this.name = name;
 
             //Количество кнопок макросов в окне терминала 20
             for (int i = 1; i <= 20; i++) {
 
-                macrosesDic.Add(1, new Macros("", "", false, 1000));
+                macrosesDic.Add(i, new Macros("", "", false, 1000));
             }
         }
 
-        public string Name { get; set; }
+        public string Name {
+            get { return name; } set { name = value; }
+        }
 
         /// <summary>
-        /// Структура отдельного макроса (для быстрой отправки команды в COM порт)
-        /// </summary>
+        /// Класс макроса для быстрой отправки сообщения в COM порт
+        /// </summary>        
+        [Serializable]
         public struct Macros {
             public string macrosName;
             public string macrosValue;
@@ -45,6 +52,23 @@ namespace GSM_NBIoT_Module.classes.terminal {
                 this.macrosIncycle = macrosIncycle;
                 this.timeCycle = timeCycle;
             }
+
+            /// <exception cref="ArgumentException()">
+            /// Отрицательное значение
+            /// </exception>
+            public int TimeCycle {
+                get {
+                    return timeCycle;
+                }
+                set {
+                    if (timeCycle < 0)
+                        throw new ArgumentException("Значение времени не может быть отрицательным");
+                }
+            }
+        }
+
+        public Dictionary<int, Macros> getMacrosesDic() {
+            return macrosesDic;
         }
     }
 }

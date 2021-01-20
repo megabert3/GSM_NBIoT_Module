@@ -56,8 +56,8 @@
     <Compile Include="classes\applicationHelper\exceptions\MKCommandException.cs" />
     <Compile Include="classes\applicationHelper\exceptions\DeviceNotFoundException.cs" />
     <Compile Include="classes\applicationHelper\exceptions\DeviceError.cs" />
-    <Compile Include="classes\Configuration\ConfigurationFileStorage.cs" />
-    <Compile Include="classes\Configuration\ConfigurationFW.cs" />
+    <Compile Include="classes\configuration\ConfigurationFileStorage.cs" />
+    <Compile Include="classes\configuration\ConfigurationFW.cs" />
     <Compile Include="classes\modemBoard\Board.cs" />
     <Compile Include="classes\GSM_NBIoT_Module\BC92_Module.cs" />
     <Compile Include="classes\modemBoard\GSM3_Board.cs" />
@@ -105,10 +105,16 @@
     <Compile Include="view\SetPasswordForm.Designer.cs">
       <DependentUpon>SetPasswordForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="view\Terminal.cs">
+    <Compile Include="view\terminal\MacrosSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\Terminal.Designer.cs">
+    <Compile Include="view\terminal\MacrosSettings.Designer.cs">
+      <DependentUpon>MacrosSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\terminal\Terminal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\terminal\Terminal.Designer.cs">
       <DependentUpon>Terminal.cs</DependentUpon>
     </Compile>
     <Compile Include="view\PortsFrame.cs">
@@ -151,7 +157,10 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="view\Terminal.resx">
+    <EmbeddedResource Include="view\terminal\MacrosSettings.resx">
+      <DependentUpon>MacrosSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\terminal\Terminal.resx">
       <DependentUpon>Terminal.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

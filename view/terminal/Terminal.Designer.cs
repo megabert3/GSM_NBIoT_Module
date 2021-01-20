@@ -1918,6 +1918,7 @@
             this.editMacros.Text = "Настройки макросов";
             this.editMacros.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.editMacros.UseVisualStyleBackColor = true;
+            this.editMacros.Click += new System.EventHandler(this.editMacros_Click);
             // 
             // otherGroup
             // 
