@@ -703,10 +703,12 @@ namespace GSM_NBIoT_Module {
         private void saveLogBtn_Click(object sender, EventArgs e) {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
-            saveFileDialog.InitialDirectory = "c:\\";
-            saveFileDialog.FileName = "taipitFlasherLog " + DateTime.Now.ToString("dd.MM.yyyy HH-mm-ss") + ".log";
+            saveFileDialog.RestoreDirectory = true;
+            //saveFileDialog.InitialDirectory = "c:\\";
+            saveFileDialog.FileName = "taipitFlasherLog " + DateTime.Now.ToString("yyyy_MM_dd_HH-mm-ss") + ".log";
             saveFileDialog.Filter = "All files (*.*)|*.*";
             saveFileDialog.FilterIndex = 0;
+           
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK) {
 

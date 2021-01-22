@@ -76,14 +76,18 @@ namespace GSM_NBIoT_Module.classes {
                     Flasher.addMessageInMainLog("КОНФИГУРАЦИЯ МОДУЛЯ QUECTEL" + Environment.NewLine);
 
                     //Посылаю конфигурационные команды
+                    
                     sendATCommands(configuration.getQuectelCommandList());
+                    
                     return;
                 }
 
             } catch (TimeoutException ex) {
-                Flasher.addMessageInMainLog("Не удалось получить версию прошивки");
+                Flasher.addMessageInMainLog("Не удалось получить версию прошивки" + ex.ToString());
+                return;
             } catch (InvalidOperationException ex) {
-                Flasher.addMessageInMainLog("Не удалось получить версию прошивки");
+                Flasher.addMessageInMainLog("Не удалось получить версию прошивки" + ex.ToString());
+                return;
             }
 
             Flasher.setValuePogressBarFlashingStatic(180);
@@ -217,7 +221,14 @@ namespace GSM_NBIoT_Module.classes {
                             }
 
                             if (dataInCOM_Port.Contains("ERROR")) {
-                                throw new ATCommandException("Не удалось записать команду: " + command + ". Ответ модуля Quectel ERROR");
+                                bool answerDialog = Flasher.YesOrNoDialog("Не удалось записать команду: " + command + ", ответ модуля Quectel ERROR.\nПродолжить конфигурирование и перепрошивку модема?", "Ответ модуля ERROR");
+                                if (answerDialog) {
+                                    endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOutAnswer;
+                                    answer = true;
+                                    break;
+                                } else {
+                                    throw new ATCommandException("Не удалось записать команду: " + command + ", ответ модуля Quectel ERROR");
+                                }
                             }
                         }
 
@@ -367,7 +378,7 @@ namespace GSM_NBIoT_Module.classes {
             //Если модуль не готов к ответу
             if (!BC92isReady) {
 
-                long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + 3000;
+                long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + 5000;
 
                 //то жду ответ
                 while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
@@ -391,7 +402,7 @@ namespace GSM_NBIoT_Module.classes {
                     Flasher.addMessageInMainLog("Standard порт GPIO_1 = 1");
                     Flasher.addMessageInMainLog("Standard порт GPIO_2 = 1 (PSM_EINT)" + Environment.NewLine);
 
-                    endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + 3000;
+                    endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + 5000;
 
                     while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
                         if (BC92isReady) break;

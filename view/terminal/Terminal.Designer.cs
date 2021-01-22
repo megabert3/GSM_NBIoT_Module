@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Terminal));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.indBtn = new System.Windows.Forms.Button();
             this.rescanCOMsBtn = new System.Windows.Forms.Button();
@@ -73,7 +74,7 @@
             this.cpNumbStandartPortTxtBx = new System.Windows.Forms.TextBox();
             this.standGPIO_0chBx = new System.Windows.Forms.CheckBox();
             this.searchCP2105Ports = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.messInCOMTxtBx = new System.Windows.Forms.TextBox();
             this.sendBtn = new System.Windows.Forms.Button();
             this.modeGroup = new System.Windows.Forms.GroupBox();
             this.modeTextRdBtn = new System.Windows.Forms.RadioButton();
@@ -190,6 +191,7 @@
             this.otherGroup = new System.Windows.Forms.GroupBox();
             this.terminalLogTxtBx = new System.Windows.Forms.TextBox();
             this.addEndLine = new System.Windows.Forms.CheckBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1.SuspendLayout();
             this.bandRateGroup.SuspendLayout();
             this.dataBitGroup.SuspendLayout();
@@ -764,24 +766,26 @@
             this.searchCP2105Ports.UseVisualStyleBackColor = true;
             this.searchCP2105Ports.Click += new System.EventHandler(this.searchCP2105Ports_Click);
             // 
-            // textBox5
+            // messInCOMTxtBx
             // 
-            this.textBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox5.Location = new System.Drawing.Point(12, 746);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(1240, 20);
-            this.textBox5.TabIndex = 22;
+            this.messInCOMTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.messInCOMTxtBx.Location = new System.Drawing.Point(12, 746);
+            this.messInCOMTxtBx.Name = "messInCOMTxtBx";
+            this.messInCOMTxtBx.Size = new System.Drawing.Size(1240, 20);
+            this.messInCOMTxtBx.TabIndex = 22;
+            this.messInCOMTxtBx.KeyDown += new System.Windows.Forms.KeyEventHandler(this.messInCOMTxtBx_KeyDown);
             // 
             // sendBtn
             // 
-            this.sendBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.sendBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.sendBtn.Location = new System.Drawing.Point(1312, 744);
             this.sendBtn.Name = "sendBtn";
             this.sendBtn.Size = new System.Drawing.Size(102, 23);
             this.sendBtn.TabIndex = 23;
             this.sendBtn.Text = "Отправить";
             this.sendBtn.UseVisualStyleBackColor = true;
-            this.sendBtn.Click += new System.EventHandler(this.button2_Click);
+            this.sendBtn.Click += new System.EventHandler(this.sendBtn_Click);
             // 
             // modeGroup
             // 
@@ -1935,16 +1939,23 @@
             // 
             // terminalLogTxtBx
             // 
-            this.terminalLogTxtBx.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.terminalLogTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.terminalLogTxtBx.Location = new System.Drawing.Point(12, 143);
             this.terminalLogTxtBx.Multiline = true;
             this.terminalLogTxtBx.Name = "terminalLogTxtBx";
+            this.terminalLogTxtBx.ReadOnly = true;
+            this.terminalLogTxtBx.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.terminalLogTxtBx.Size = new System.Drawing.Size(1402, 595);
             this.terminalLogTxtBx.TabIndex = 21;
             // 
             // addEndLine
             // 
+            this.addEndLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.addEndLine.AutoSize = true;
+            this.addEndLine.Checked = true;
+            this.addEndLine.CheckState = System.Windows.Forms.CheckState.Checked;
             this.addEndLine.Location = new System.Drawing.Point(1258, 748);
             this.addEndLine.Name = "addEndLine";
             this.addEndLine.Size = new System.Drawing.Size(54, 17);
@@ -1952,17 +1963,37 @@
             this.addEndLine.Text = "+ \\r\\n";
             this.addEndLine.UseVisualStyleBackColor = true;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 9;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 100);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1402, 100);
+            this.tableLayoutPanel1.TabIndex = 30;
+            // 
             // Terminal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1426, 877);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.addEndLine);
             this.Controls.Add(this.otherGroup);
             this.Controls.Add(this.macrosTabControl);
             this.Controls.Add(this.modeGroup);
             this.Controls.Add(this.sendBtn);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.messInCOMTxtBx);
             this.Controls.Add(this.terminalLogTxtBx);
             this.Controls.Add(this.searchCP2105Ports);
             this.Controls.Add(this.groupBox6);
@@ -1971,6 +2002,8 @@
             this.Controls.Add(this.dataBitGroup);
             this.Controls.Add(this.bandRateGroup);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "Terminal";
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -2056,7 +2089,7 @@
         private System.Windows.Forms.CheckBox standGPIO_1chBx;
         private System.Windows.Forms.CheckBox standGPIO_0chBx;
         private System.Windows.Forms.Button searchCP2105Ports;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox messInCOMTxtBx;
         private System.Windows.Forms.Button sendBtn;
         private System.Windows.Forms.GroupBox modeGroup;
         private System.Windows.Forms.RadioButton modeTextRdBtn;
@@ -2072,26 +2105,6 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Button editMacros;
         private System.Windows.Forms.GroupBox otherGroup;
-        private System.Windows.Forms.Button gr1bt10;
-        private System.Windows.Forms.Button gr1bt9;
-        private System.Windows.Forms.Button gr1bt8;
-        private System.Windows.Forms.Button gr1bt7;
-        private System.Windows.Forms.Button gr1bt6;
-        private System.Windows.Forms.Button gr1bt5;
-        private System.Windows.Forms.Button gr1bt4;
-        private System.Windows.Forms.Button gr1bt3;
-        private System.Windows.Forms.Button gr1bt1;
-        private System.Windows.Forms.Button gr1bt19;
-        private System.Windows.Forms.Button gr1bt18;
-        private System.Windows.Forms.Button gr1bt17;
-        private System.Windows.Forms.Button gr1bt16;
-        private System.Windows.Forms.Button gr1bt15;
-        private System.Windows.Forms.Button gr1bt14;
-        private System.Windows.Forms.Button gr1bt13;
-        private System.Windows.Forms.Button gr1bt12;
-        private System.Windows.Forms.Button gr1bt11;
-        private System.Windows.Forms.Button gr1bt2;
-        private System.Windows.Forms.Button gr1bt20;
         private System.Windows.Forms.TextBox terminalLogTxtBx;
         private System.Windows.Forms.Button gr2bt2;
         private System.Windows.Forms.Button gr2bt1;
@@ -2174,5 +2187,26 @@
         private System.Windows.Forms.Button gr5bt7;
         private System.Windows.Forms.Button gr5bt16;
         private System.Windows.Forms.CheckBox addEndLine;
+        private System.Windows.Forms.Button gr1bt2;
+        private System.Windows.Forms.Button gr1bt1;
+        private System.Windows.Forms.Button gr1bt13;
+        private System.Windows.Forms.Button gr1bt20;
+        private System.Windows.Forms.Button gr1bt11;
+        private System.Windows.Forms.Button gr1bt3;
+        private System.Windows.Forms.Button gr1bt10;
+        private System.Windows.Forms.Button gr1bt19;
+        private System.Windows.Forms.Button gr1bt12;
+        private System.Windows.Forms.Button gr1bt4;
+        private System.Windows.Forms.Button gr1bt9;
+        private System.Windows.Forms.Button gr1bt18;
+        private System.Windows.Forms.Button gr1bt14;
+        private System.Windows.Forms.Button gr1bt5;
+        private System.Windows.Forms.Button gr1bt8;
+        private System.Windows.Forms.Button gr1bt17;
+        private System.Windows.Forms.Button gr1bt15;
+        private System.Windows.Forms.Button gr1bt6;
+        private System.Windows.Forms.Button gr1bt7;
+        private System.Windows.Forms.Button gr1bt16;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

@@ -1,12 +1,17 @@
 ﻿using GSM_NBIoT_Module.classes;
 using GSM_NBIoT_Module.classes.applicationHelper.exceptions;
+using GSM_NBIoT_Module.classes.terminal;
 using GSM_NBIoT_Module.view.terminal;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.IO.Ports;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using static GSM_NBIoT_Module.classes.CP2105_Connector;
+using static GSM_NBIoT_Module.classes.terminal.MacrosesGroup;
 
 namespace GSM_NBIoT_Module.view {
     public partial class Terminal : Form {
@@ -31,8 +36,9 @@ namespace GSM_NBIoT_Module.view {
             defaultColor = indBtn.BackColor;
             indBtn.Enabled = false;
 
-            //Устанавливаю слушатели
+            refreshMacrosBtns();
 
+            //Устанавливаю слушатели
             serialPort.DataReceived += new SerialDataReceivedEventHandler(sp_DataReceived);
 
             foreach (Control radBtn in bandRateGroup.Controls) {
@@ -148,7 +154,6 @@ namespace GSM_NBIoT_Module.view {
             } else if (Properties.Settings.Default.terminal_LastMode.Equals("Hex")) {
                 modeHexRdBtn.PerformClick();
             }
-
         }
 
         /// <summary>
@@ -384,14 +389,18 @@ namespace GSM_NBIoT_Module.view {
             cpNumbStandartPortTxtBx.Text = stand.ToString();
             cpNumbEnhancedPortTxtBx.Text = enh.ToString();
 
-            StateGPIO_OnStandardPort stageGPIOSta = cP2105.GetStageGPIOStandardPort();
+            try {
+                StateGPIO_OnStandardPort stageGPIOSta = cP2105.GetStageGPIOStandardPort();
             standGPIO_0chBx.Checked = stageGPIOSta.stageGPIO_0;
             standGPIO_1chBx.Checked = stageGPIOSta.stageGPIO_1;
             standGPIO_2chBx.Checked = stageGPIOSta.stageGPIO_2;
-
-            StateGPIO_OnEnhabcedPort stageGPIOEnh = cP2105.GetStageGPIOEnhabcedPort();
-            enhanGPIO_0chBx.Checked = stageGPIOEnh.stageGPIO_0;
-            enhanGPIO_1chBx.Checked = stageGPIOEnh.stageGPIO_1;
+            
+                StateGPIO_OnEnhabcedPort stageGPIOEnh = cP2105.GetStageGPIOEnhabcedPort();
+                enhanGPIO_0chBx.Checked = stageGPIOEnh.stageGPIO_0;
+                enhanGPIO_1chBx.Checked = stageGPIOEnh.stageGPIO_1;
+            }catch (CP_Error ex) {
+                Flasher.exceptionDialog(ex.Message);
+            }
 
             Cursor = Cursors.Default;
 
@@ -670,23 +679,132 @@ namespace GSM_NBIoT_Module.view {
             }
         }
 
+        private int dataByte;
+        private bool first = true;
         private void sp_DataReceived(object sender, SerialDataReceivedEventArgs e) {
             
             terminalLogTxtBx.Invoke((MethodInvoker)delegate {
-                terminalLogTxtBx.AppendText(serialPort.ReadLine() + "\r\n");
+                while (serialPort.BytesToRead != 0) {
+                    dataByte = serialPort.ReadByte();
+
+                    switch (dataByte) {
+                        case 13:
+                            terminalLogTxtBx.AppendText(Environment.NewLine);
+                            first = true;
+                            break;
+                        case 10:
+                            terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + Environment.NewLine);
+                            first = true;
+                            break;
+                        default:
+                            if (first) {
+                                terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + Convert.ToChar(dataByte).ToString());
+                                first = false;
+                            } else {
+                                terminalLogTxtBx.AppendText(Convert.ToChar(dataByte).ToString());
+                            }
+                            break;
+                    }
+                }
             });
-        }
-
-        private void button2_Click(object sender, EventArgs e) {
-            if (serialPort.IsOpen) {
-                serialPort.WriteLine(textBox5.Text + "\r\n");
-            }
-
-            textBox5.Text = "";
         }
 
         private void editMacros_Click(object sender, EventArgs e) {
             new MacrosSettings().ShowDialog();
+        }
+
+        /// <summary>
+        /// Обновляет название кнопок в сответствии с именем макроса
+        /// </summary>
+        public void refreshMacrosBtns() {
+            MacrosesGroupStorage macrosStorage = MacrosesGroupStorage.getMacrosesGroupStorageInstance();
+
+            //Устанавливаю вкладкам имена групп
+            for (int i = 0; i < 5; i++) {
+
+                MacrosesGroup macrosesGroup = macrosStorage.getmacrosesGroupsList().ElementAt(i);
+
+                TabPage tabPage = macrosTabControl.GetControl(i) as TabPage;
+
+                //Установка названия группы
+                tabPage.Text = macrosesGroup.Name;
+
+                Button btn;
+                int indexBtn;
+                Macros macros;
+
+                //Установка имени кнопки именем макроса
+                foreach (Control btnControl in tabPage.Controls) {
+                    btn = btnControl as Button;
+                    indexBtn = Convert.ToInt32(btnControl.Name.Substring(5));
+
+                    macros = macrosesGroup.getMacrosesDic()[indexBtn];
+
+                    btn.Text = macros.macrosName;
+                }
+            }
+        }
+
+        private void macrosBtn_Click(object sender, EventArgs e) {
+
+        }
+
+        object locker = new object();
+        /// <summary>
+        /// Отправляет данные в COM порт
+        /// </summary>
+        /// <param name="mess"></param>
+        private void sendCommandInCOMPort(string mess) {
+            if (serialPort.IsOpen) {
+
+                if (String.IsNullOrEmpty(mess)) return;
+
+                //outputMessegeToTerminalLog(mess);
+
+                //Если стоит добавить \r\n
+                if (addEndLine.Checked) {
+                    mess = mess + "\r\n";
+                }
+
+                byte[] messByteArr = Encoding.Default.GetBytes(mess);
+
+                //Отправка данных в ком порт
+                lock (locker) {
+                    serialPort.Write(messByteArr, 0, messByteArr.Length);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Выводит отправляемое в COM порт сообщение в лог
+        /// </summary>
+        /// <param name="messInLog"></param>
+        private void outputMessegeToTerminalLog(string messInLog) {
+            terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " << " + messInLog + Environment.NewLine);
+            terminalLogTxtBx.AppendText(Environment.NewLine);
+        }
+
+        /// <summary>
+        /// Выводит полученное из COM порта сообщение в лог
+        /// </summary>
+        /// <param name="messInLog"></param>
+        private void inputMessegeToTerminalLog(string messInLog) {
+            terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " >> " + messInLog + Environment.NewLine);
+            terminalLogTxtBx.AppendText(Environment.NewLine);
+        }
+
+        private void messInCOMTxtBx_KeyDown(object sender, KeyEventArgs e) {
+
+            if (e.KeyCode == Keys.Enter) {
+                if (messInCOMTxtBx.Focused) {
+                    sendBtn.PerformClick();
+                }
+            }
+        }
+
+        private void sendBtn_Click(object sender, EventArgs e) {
+            sendCommandInCOMPort(messInCOMTxtBx.Text);
+            messInCOMTxtBx.Text = "";
         }
     }
 }
