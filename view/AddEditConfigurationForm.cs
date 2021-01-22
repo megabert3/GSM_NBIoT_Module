@@ -559,7 +559,6 @@ namespace GSM_NBIoT_Module
             } else if (e.KeyCode == Keys.Escape) {
                 Close();
             }
-
         }
 
         private void upCommandBtn_Click(object sender, EventArgs e) {

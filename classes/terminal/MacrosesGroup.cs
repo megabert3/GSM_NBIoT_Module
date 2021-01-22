@@ -10,7 +10,7 @@ namespace GSM_NBIoT_Module.classes.terminal {
     /// Класс макроса для быстрой отправки сообщения в COM порт
     /// </summary>
     [Serializable]
-    public class MacrosesGroup {
+    public class MacrosesGroup : ICloneable {
 
         //Название группы
         private string name = "";
@@ -69,6 +69,10 @@ namespace GSM_NBIoT_Module.classes.terminal {
 
         public Dictionary<int, Macros> getMacrosesDic() {
             return macrosesDic;
+        }
+
+        public object Clone() {
+            return MemberwiseClone(); ;
         }
     }
 }

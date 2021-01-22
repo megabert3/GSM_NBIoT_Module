@@ -710,7 +710,7 @@ namespace GSM_NBIoT_Module.view {
         }
 
         private void editMacros_Click(object sender, EventArgs e) {
-            new MacrosSettings().ShowDialog();
+            new MacrosSettings(this).ShowDialog();
         }
 
         /// <summary>
@@ -722,7 +722,7 @@ namespace GSM_NBIoT_Module.view {
             //Устанавливаю вкладкам имена групп
             for (int i = 0; i < 5; i++) {
 
-                MacrosesGroup macrosesGroup = macrosStorage.getmacrosesGroupsList().ElementAt(i);
+                MacrosesGroup macrosesGroup = macrosStorage.getMacrosesGroupsList().ElementAt(i);
 
                 TabPage tabPage = macrosTabControl.GetControl(i) as TabPage;
 
@@ -805,6 +805,14 @@ namespace GSM_NBIoT_Module.view {
         private void sendBtn_Click(object sender, EventArgs e) {
             sendCommandInCOMPort(messInCOMTxtBx.Text);
             messInCOMTxtBx.Text = "";
+        }
+
+        /// <summary>
+        /// Возвращает индекс выбранной страницы TabControl с макросами
+        /// </summary>
+        /// <returns></returns>
+        public int getMacrosPanelIndex() {
+            return macrosTabControl.SelectedIndex;
         }
     }
 }

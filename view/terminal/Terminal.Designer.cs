@@ -192,6 +192,7 @@
             this.terminalLogTxtBx = new System.Windows.Forms.TextBox();
             this.addEndLine = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1.SuspendLayout();
             this.bandRateGroup.SuspendLayout();
             this.dataBitGroup.SuspendLayout();
@@ -208,24 +209,27 @@
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.otherGroup.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox1.Controls.Add(this.indBtn);
             this.groupBox1.Controls.Add(this.rescanCOMsBtn);
             this.groupBox1.Controls.Add(this.connOrDisCOMBtn);
             this.groupBox1.Controls.Add(this.comPortsListCmbBox);
-            this.groupBox1.Location = new System.Drawing.Point(12, 6);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(123, 131);
+            this.groupBox1.Size = new System.Drawing.Size(134, 119);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "COM порт";
             // 
             // indBtn
             // 
+            this.indBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.indBtn.FlatAppearance.BorderSize = 0;
             this.indBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.indBtn.Location = new System.Drawing.Point(6, 48);
@@ -236,6 +240,7 @@
             // 
             // rescanCOMsBtn
             // 
+            this.rescanCOMsBtn.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.rescanCOMsBtn.Image = global::GSM_NBIoT_Module.Properties.Resources.restart_15px;
             this.rescanCOMsBtn.Location = new System.Drawing.Point(95, 19);
             this.rescanCOMsBtn.Name = "rescanCOMsBtn";
@@ -246,6 +251,7 @@
             // 
             // connOrDisCOMBtn
             // 
+            this.connOrDisCOMBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.connOrDisCOMBtn.Location = new System.Drawing.Point(28, 47);
             this.connOrDisCOMBtn.Name = "connOrDisCOMBtn";
             this.connOrDisCOMBtn.Size = new System.Drawing.Size(89, 21);
@@ -256,6 +262,7 @@
             // 
             // comPortsListCmbBox
             // 
+            this.comPortsListCmbBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comPortsListCmbBox.FormattingEnabled = true;
             this.comPortsListCmbBox.Location = new System.Drawing.Point(6, 19);
             this.comPortsListCmbBox.Name = "comPortsListCmbBox";
@@ -264,7 +271,6 @@
             // 
             // bandRateGroup
             // 
-            this.bandRateGroup.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.bandRateGroup.Controls.Add(this.customBandRateTxtBx);
             this.bandRateGroup.Controls.Add(this.customBandRateRdBtn);
             this.bandRateGroup.Controls.Add(this.bandRate256000rdBtn);
@@ -281,16 +287,17 @@
             this.bandRateGroup.Controls.Add(this.bandRate2400rdBtn);
             this.bandRateGroup.Controls.Add(this.bandRate1200rdBtn);
             this.bandRateGroup.Controls.Add(this.bandRate600rdBtn);
-            this.bandRateGroup.Location = new System.Drawing.Point(141, 6);
+            this.bandRateGroup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bandRateGroup.Location = new System.Drawing.Point(143, 3);
             this.bandRateGroup.Name = "bandRateGroup";
-            this.bandRateGroup.Size = new System.Drawing.Size(276, 131);
+            this.bandRateGroup.Size = new System.Drawing.Size(414, 119);
             this.bandRateGroup.TabIndex = 1;
             this.bandRateGroup.TabStop = false;
             this.bandRateGroup.Text = "Скорость";
             // 
             // customBandRateTxtBx
             // 
-            this.customBandRateTxtBx.Location = new System.Drawing.Point(191, 105);
+            this.customBandRateTxtBx.Location = new System.Drawing.Point(191, 89);
             this.customBandRateTxtBx.Name = "customBandRateTxtBx";
             this.customBandRateTxtBx.Size = new System.Drawing.Size(75, 20);
             this.customBandRateTxtBx.TabIndex = 2;
@@ -298,7 +305,7 @@
             // customBandRateRdBtn
             // 
             this.customBandRateRdBtn.AutoSize = true;
-            this.customBandRateRdBtn.Location = new System.Drawing.Point(135, 107);
+            this.customBandRateRdBtn.Location = new System.Drawing.Point(135, 91);
             this.customBandRateRdBtn.Name = "customBandRateRdBtn";
             this.customBandRateRdBtn.Size = new System.Drawing.Size(50, 17);
             this.customBandRateRdBtn.TabIndex = 14;
@@ -309,7 +316,7 @@
             // bandRate256000rdBtn
             // 
             this.bandRate256000rdBtn.AutoSize = true;
-            this.bandRate256000rdBtn.Location = new System.Drawing.Point(135, 85);
+            this.bandRate256000rdBtn.Location = new System.Drawing.Point(135, 73);
             this.bandRate256000rdBtn.Name = "bandRate256000rdBtn";
             this.bandRate256000rdBtn.Size = new System.Drawing.Size(61, 17);
             this.bandRate256000rdBtn.TabIndex = 13;
@@ -320,7 +327,7 @@
             // bandRate128000rdBtn
             // 
             this.bandRate128000rdBtn.AutoSize = true;
-            this.bandRate128000rdBtn.Location = new System.Drawing.Point(135, 63);
+            this.bandRate128000rdBtn.Location = new System.Drawing.Point(135, 55);
             this.bandRate128000rdBtn.Name = "bandRate128000rdBtn";
             this.bandRate128000rdBtn.Size = new System.Drawing.Size(61, 17);
             this.bandRate128000rdBtn.TabIndex = 12;
@@ -331,7 +338,7 @@
             // bandRate115200rdBtn
             // 
             this.bandRate115200rdBtn.AutoSize = true;
-            this.bandRate115200rdBtn.Location = new System.Drawing.Point(135, 41);
+            this.bandRate115200rdBtn.Location = new System.Drawing.Point(135, 37);
             this.bandRate115200rdBtn.Name = "bandRate115200rdBtn";
             this.bandRate115200rdBtn.Size = new System.Drawing.Size(61, 17);
             this.bandRate115200rdBtn.TabIndex = 11;
@@ -353,7 +360,7 @@
             // bandRate56000rdBtn
             // 
             this.bandRate56000rdBtn.AutoSize = true;
-            this.bandRate56000rdBtn.Location = new System.Drawing.Point(68, 107);
+            this.bandRate56000rdBtn.Location = new System.Drawing.Point(68, 91);
             this.bandRate56000rdBtn.Name = "bandRate56000rdBtn";
             this.bandRate56000rdBtn.Size = new System.Drawing.Size(55, 17);
             this.bandRate56000rdBtn.TabIndex = 9;
@@ -364,7 +371,7 @@
             // bandRate38400rdBtn
             // 
             this.bandRate38400rdBtn.AutoSize = true;
-            this.bandRate38400rdBtn.Location = new System.Drawing.Point(68, 85);
+            this.bandRate38400rdBtn.Location = new System.Drawing.Point(68, 73);
             this.bandRate38400rdBtn.Name = "bandRate38400rdBtn";
             this.bandRate38400rdBtn.Size = new System.Drawing.Size(55, 17);
             this.bandRate38400rdBtn.TabIndex = 8;
@@ -375,7 +382,7 @@
             // bandRate28800rdBtn
             // 
             this.bandRate28800rdBtn.AutoSize = true;
-            this.bandRate28800rdBtn.Location = new System.Drawing.Point(68, 63);
+            this.bandRate28800rdBtn.Location = new System.Drawing.Point(68, 55);
             this.bandRate28800rdBtn.Name = "bandRate28800rdBtn";
             this.bandRate28800rdBtn.Size = new System.Drawing.Size(55, 17);
             this.bandRate28800rdBtn.TabIndex = 7;
@@ -386,7 +393,7 @@
             // bandRate19200rdBtn
             // 
             this.bandRate19200rdBtn.AutoSize = true;
-            this.bandRate19200rdBtn.Location = new System.Drawing.Point(68, 41);
+            this.bandRate19200rdBtn.Location = new System.Drawing.Point(68, 37);
             this.bandRate19200rdBtn.Name = "bandRate19200rdBtn";
             this.bandRate19200rdBtn.Size = new System.Drawing.Size(55, 17);
             this.bandRate19200rdBtn.TabIndex = 6;
@@ -408,7 +415,7 @@
             // bandRate9600rdBtn
             // 
             this.bandRate9600rdBtn.AutoSize = true;
-            this.bandRate9600rdBtn.Location = new System.Drawing.Point(7, 106);
+            this.bandRate9600rdBtn.Location = new System.Drawing.Point(7, 91);
             this.bandRate9600rdBtn.Name = "bandRate9600rdBtn";
             this.bandRate9600rdBtn.Size = new System.Drawing.Size(49, 17);
             this.bandRate9600rdBtn.TabIndex = 4;
@@ -419,7 +426,7 @@
             // bandRate4800rdBtn
             // 
             this.bandRate4800rdBtn.AutoSize = true;
-            this.bandRate4800rdBtn.Location = new System.Drawing.Point(7, 84);
+            this.bandRate4800rdBtn.Location = new System.Drawing.Point(7, 73);
             this.bandRate4800rdBtn.Name = "bandRate4800rdBtn";
             this.bandRate4800rdBtn.Size = new System.Drawing.Size(49, 17);
             this.bandRate4800rdBtn.TabIndex = 3;
@@ -430,7 +437,7 @@
             // bandRate2400rdBtn
             // 
             this.bandRate2400rdBtn.AutoSize = true;
-            this.bandRate2400rdBtn.Location = new System.Drawing.Point(7, 62);
+            this.bandRate2400rdBtn.Location = new System.Drawing.Point(7, 55);
             this.bandRate2400rdBtn.Name = "bandRate2400rdBtn";
             this.bandRate2400rdBtn.Size = new System.Drawing.Size(49, 17);
             this.bandRate2400rdBtn.TabIndex = 2;
@@ -441,7 +448,7 @@
             // bandRate1200rdBtn
             // 
             this.bandRate1200rdBtn.AutoSize = true;
-            this.bandRate1200rdBtn.Location = new System.Drawing.Point(7, 40);
+            this.bandRate1200rdBtn.Location = new System.Drawing.Point(7, 37);
             this.bandRate1200rdBtn.Name = "bandRate1200rdBtn";
             this.bandRate1200rdBtn.Size = new System.Drawing.Size(49, 17);
             this.bandRate1200rdBtn.TabIndex = 1;
@@ -462,22 +469,23 @@
             // 
             // dataBitGroup
             // 
-            this.dataBitGroup.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dataBitGroup.Controls.Add(this.dataBit8rdBtn);
             this.dataBitGroup.Controls.Add(this.dataBit7rdBtn);
             this.dataBitGroup.Controls.Add(this.dataBit5rdBtn);
             this.dataBitGroup.Controls.Add(this.dataBit6rdBtn);
-            this.dataBitGroup.Location = new System.Drawing.Point(423, 6);
+            this.dataBitGroup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataBitGroup.Location = new System.Drawing.Point(563, 3);
             this.dataBitGroup.Name = "dataBitGroup";
-            this.dataBitGroup.Size = new System.Drawing.Size(65, 131);
+            this.dataBitGroup.Size = new System.Drawing.Size(64, 119);
             this.dataBitGroup.TabIndex = 2;
             this.dataBitGroup.TabStop = false;
             this.dataBitGroup.Text = "Data Bits";
             // 
             // dataBit8rdBtn
             // 
+            this.dataBit8rdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dataBit8rdBtn.AutoSize = true;
-            this.dataBit8rdBtn.Location = new System.Drawing.Point(6, 100);
+            this.dataBit8rdBtn.Location = new System.Drawing.Point(6, 86);
             this.dataBit8rdBtn.Name = "dataBit8rdBtn";
             this.dataBit8rdBtn.Size = new System.Drawing.Size(31, 17);
             this.dataBit8rdBtn.TabIndex = 18;
@@ -487,8 +495,9 @@
             // 
             // dataBit7rdBtn
             // 
+            this.dataBit7rdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dataBit7rdBtn.AutoSize = true;
-            this.dataBit7rdBtn.Location = new System.Drawing.Point(6, 73);
+            this.dataBit7rdBtn.Location = new System.Drawing.Point(6, 68);
             this.dataBit7rdBtn.Name = "dataBit7rdBtn";
             this.dataBit7rdBtn.Size = new System.Drawing.Size(31, 17);
             this.dataBit7rdBtn.TabIndex = 17;
@@ -498,8 +507,9 @@
             // 
             // dataBit5rdBtn
             // 
+            this.dataBit5rdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dataBit5rdBtn.AutoSize = true;
-            this.dataBit5rdBtn.Location = new System.Drawing.Point(6, 19);
+            this.dataBit5rdBtn.Location = new System.Drawing.Point(6, 32);
             this.dataBit5rdBtn.Name = "dataBit5rdBtn";
             this.dataBit5rdBtn.Size = new System.Drawing.Size(31, 17);
             this.dataBit5rdBtn.TabIndex = 15;
@@ -509,8 +519,9 @@
             // 
             // dataBit6rdBtn
             // 
+            this.dataBit6rdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dataBit6rdBtn.AutoSize = true;
-            this.dataBit6rdBtn.Location = new System.Drawing.Point(6, 46);
+            this.dataBit6rdBtn.Location = new System.Drawing.Point(6, 50);
             this.dataBit6rdBtn.Name = "dataBit6rdBtn";
             this.dataBit6rdBtn.Size = new System.Drawing.Size(31, 17);
             this.dataBit6rdBtn.TabIndex = 16;
@@ -520,23 +531,24 @@
             // 
             // parityGroup
             // 
-            this.parityGroup.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.parityGroup.Controls.Add(this.paritySpaceRdBtn);
             this.parityGroup.Controls.Add(this.parityMarkRdBtn);
             this.parityGroup.Controls.Add(this.parityEvenRdBtn);
             this.parityGroup.Controls.Add(this.parityNoneRdBtn);
             this.parityGroup.Controls.Add(this.parityOddRdBtn);
-            this.parityGroup.Location = new System.Drawing.Point(494, 6);
+            this.parityGroup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.parityGroup.Location = new System.Drawing.Point(633, 3);
             this.parityGroup.Name = "parityGroup";
-            this.parityGroup.Size = new System.Drawing.Size(65, 131);
+            this.parityGroup.Size = new System.Drawing.Size(64, 119);
             this.parityGroup.TabIndex = 19;
             this.parityGroup.TabStop = false;
             this.parityGroup.Text = "Parity";
             // 
             // paritySpaceRdBtn
             // 
+            this.paritySpaceRdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.paritySpaceRdBtn.AutoSize = true;
-            this.paritySpaceRdBtn.Location = new System.Drawing.Point(6, 107);
+            this.paritySpaceRdBtn.Location = new System.Drawing.Point(6, 96);
             this.paritySpaceRdBtn.Name = "paritySpaceRdBtn";
             this.paritySpaceRdBtn.Size = new System.Drawing.Size(54, 17);
             this.paritySpaceRdBtn.TabIndex = 19;
@@ -546,8 +558,9 @@
             // 
             // parityMarkRdBtn
             // 
+            this.parityMarkRdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.parityMarkRdBtn.AutoSize = true;
-            this.parityMarkRdBtn.Location = new System.Drawing.Point(6, 85);
+            this.parityMarkRdBtn.Location = new System.Drawing.Point(6, 78);
             this.parityMarkRdBtn.Name = "parityMarkRdBtn";
             this.parityMarkRdBtn.Size = new System.Drawing.Size(48, 17);
             this.parityMarkRdBtn.TabIndex = 18;
@@ -557,8 +570,9 @@
             // 
             // parityEvenRdBtn
             // 
+            this.parityEvenRdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.parityEvenRdBtn.AutoSize = true;
-            this.parityEvenRdBtn.Location = new System.Drawing.Point(6, 63);
+            this.parityEvenRdBtn.Location = new System.Drawing.Point(6, 60);
             this.parityEvenRdBtn.Name = "parityEvenRdBtn";
             this.parityEvenRdBtn.Size = new System.Drawing.Size(49, 17);
             this.parityEvenRdBtn.TabIndex = 17;
@@ -568,8 +582,9 @@
             // 
             // parityNoneRdBtn
             // 
+            this.parityNoneRdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.parityNoneRdBtn.AutoSize = true;
-            this.parityNoneRdBtn.Location = new System.Drawing.Point(6, 19);
+            this.parityNoneRdBtn.Location = new System.Drawing.Point(6, 24);
             this.parityNoneRdBtn.Name = "parityNoneRdBtn";
             this.parityNoneRdBtn.Size = new System.Drawing.Size(49, 17);
             this.parityNoneRdBtn.TabIndex = 15;
@@ -579,8 +594,9 @@
             // 
             // parityOddRdBtn
             // 
+            this.parityOddRdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.parityOddRdBtn.AutoSize = true;
-            this.parityOddRdBtn.Location = new System.Drawing.Point(6, 41);
+            this.parityOddRdBtn.Location = new System.Drawing.Point(6, 42);
             this.parityOddRdBtn.Name = "parityOddRdBtn";
             this.parityOddRdBtn.Size = new System.Drawing.Size(43, 17);
             this.parityOddRdBtn.TabIndex = 16;
@@ -590,21 +606,22 @@
             // 
             // stopBitGroup
             // 
-            this.stopBitGroup.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.stopBitGroup.Controls.Add(this.stopBit2RdBtn);
             this.stopBitGroup.Controls.Add(this.stopBit1RdBtn);
             this.stopBitGroup.Controls.Add(this.stopBit1_5RdBtn);
-            this.stopBitGroup.Location = new System.Drawing.Point(565, 6);
+            this.stopBitGroup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.stopBitGroup.Location = new System.Drawing.Point(703, 3);
             this.stopBitGroup.Name = "stopBitGroup";
-            this.stopBitGroup.Size = new System.Drawing.Size(65, 131);
+            this.stopBitGroup.Size = new System.Drawing.Size(64, 119);
             this.stopBitGroup.TabIndex = 19;
             this.stopBitGroup.TabStop = false;
             this.stopBitGroup.Text = "Stop Bits";
             // 
             // stopBit2RdBtn
             // 
+            this.stopBit2RdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.stopBit2RdBtn.AutoSize = true;
-            this.stopBit2RdBtn.Location = new System.Drawing.Point(6, 94);
+            this.stopBit2RdBtn.Location = new System.Drawing.Point(6, 87);
             this.stopBit2RdBtn.Name = "stopBit2RdBtn";
             this.stopBit2RdBtn.Size = new System.Drawing.Size(40, 17);
             this.stopBit2RdBtn.TabIndex = 17;
@@ -614,8 +631,9 @@
             // 
             // stopBit1RdBtn
             // 
+            this.stopBit1RdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.stopBit1RdBtn.AutoSize = true;
-            this.stopBit1RdBtn.Location = new System.Drawing.Point(6, 19);
+            this.stopBit1RdBtn.Location = new System.Drawing.Point(6, 31);
             this.stopBit1RdBtn.Name = "stopBit1RdBtn";
             this.stopBit1RdBtn.Size = new System.Drawing.Size(31, 17);
             this.stopBit1RdBtn.TabIndex = 15;
@@ -625,8 +643,9 @@
             // 
             // stopBit1_5RdBtn
             // 
+            this.stopBit1_5RdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.stopBit1_5RdBtn.AutoSize = true;
-            this.stopBit1_5RdBtn.Location = new System.Drawing.Point(6, 56);
+            this.stopBit1_5RdBtn.Location = new System.Drawing.Point(6, 59);
             this.stopBit1_5RdBtn.Name = "stopBit1_5RdBtn";
             this.stopBit1_5RdBtn.Size = new System.Drawing.Size(40, 17);
             this.stopBit1_5RdBtn.TabIndex = 16;
@@ -639,9 +658,9 @@
             this.groupBox6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox6.Controls.Add(this.groupBox8);
             this.groupBox6.Controls.Add(this.groupBox7);
-            this.groupBox6.Location = new System.Drawing.Point(1233, 6);
+            this.groupBox6.Location = new System.Drawing.Point(78, 3);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(181, 131);
+            this.groupBox6.Size = new System.Drawing.Size(206, 113);
             this.groupBox6.TabIndex = 20;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "CP2105";
@@ -652,9 +671,9 @@
             this.groupBox8.Controls.Add(this.enhanGPIO_0chBx);
             this.groupBox8.Controls.Add(this.label2);
             this.groupBox8.Controls.Add(this.cpNumbEnhancedPortTxtBx);
-            this.groupBox8.Location = new System.Drawing.Point(91, 19);
+            this.groupBox8.Location = new System.Drawing.Point(91, 12);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(82, 106);
+            this.groupBox8.Size = new System.Drawing.Size(82, 98);
             this.groupBox8.TabIndex = 1;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Enhanced";
@@ -702,9 +721,9 @@
             this.groupBox7.Controls.Add(this.standGPIO_1chBx);
             this.groupBox7.Controls.Add(this.cpNumbStandartPortTxtBx);
             this.groupBox7.Controls.Add(this.standGPIO_0chBx);
-            this.groupBox7.Location = new System.Drawing.Point(7, 19);
+            this.groupBox7.Location = new System.Drawing.Point(7, 12);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(78, 104);
+            this.groupBox7.Size = new System.Drawing.Size(78, 98);
             this.groupBox7.TabIndex = 0;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Standard";
@@ -757,10 +776,10 @@
             // 
             // searchCP2105Ports
             // 
-            this.searchCP2105Ports.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.searchCP2105Ports.Location = new System.Drawing.Point(1152, 11);
+            this.searchCP2105Ports.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchCP2105Ports.Location = new System.Drawing.Point(3, 3);
             this.searchCP2105Ports.Name = "searchCP2105Ports";
-            this.searchCP2105Ports.Size = new System.Drawing.Size(75, 23);
+            this.searchCP2105Ports.Size = new System.Drawing.Size(66, 23);
             this.searchCP2105Ports.TabIndex = 2;
             this.searchCP2105Ports.Text = "Поиск";
             this.searchCP2105Ports.UseVisualStyleBackColor = true;
@@ -789,20 +808,21 @@
             // 
             // modeGroup
             // 
-            this.modeGroup.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.modeGroup.Controls.Add(this.modeTextRdBtn);
             this.modeGroup.Controls.Add(this.modeHexRdBtn);
-            this.modeGroup.Location = new System.Drawing.Point(636, 6);
+            this.modeGroup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.modeGroup.Location = new System.Drawing.Point(773, 3);
             this.modeGroup.Name = "modeGroup";
-            this.modeGroup.Size = new System.Drawing.Size(65, 131);
+            this.modeGroup.Size = new System.Drawing.Size(64, 119);
             this.modeGroup.TabIndex = 20;
             this.modeGroup.TabStop = false;
             this.modeGroup.Text = "Mode";
             // 
             // modeTextRdBtn
             // 
+            this.modeTextRdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.modeTextRdBtn.AutoSize = true;
-            this.modeTextRdBtn.Location = new System.Drawing.Point(6, 19);
+            this.modeTextRdBtn.Location = new System.Drawing.Point(6, 32);
             this.modeTextRdBtn.Name = "modeTextRdBtn";
             this.modeTextRdBtn.Size = new System.Drawing.Size(46, 17);
             this.modeTextRdBtn.TabIndex = 15;
@@ -812,8 +832,9 @@
             // 
             // modeHexRdBtn
             // 
+            this.modeHexRdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.modeHexRdBtn.AutoSize = true;
-            this.modeHexRdBtn.Location = new System.Drawing.Point(6, 42);
+            this.modeHexRdBtn.Location = new System.Drawing.Point(6, 55);
             this.modeHexRdBtn.Name = "modeHexRdBtn";
             this.modeHexRdBtn.Size = new System.Drawing.Size(44, 17);
             this.modeHexRdBtn.TabIndex = 16;
@@ -823,6 +844,7 @@
             // 
             // connectToModuleBtn
             // 
+            this.connectToModuleBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.connectToModuleBtn.Location = new System.Drawing.Point(6, 46);
             this.connectToModuleBtn.Name = "connectToModuleBtn";
             this.connectToModuleBtn.Size = new System.Drawing.Size(168, 23);
@@ -834,6 +856,7 @@
             // 
             // connectToMKBtn
             // 
+            this.connectToMKBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.connectToMKBtn.Location = new System.Drawing.Point(6, 19);
             this.connectToMKBtn.Name = "connectToMKBtn";
             this.connectToMKBtn.Size = new System.Drawing.Size(168, 23);
@@ -1915,7 +1938,8 @@
             // 
             // editMacros
             // 
-            this.editMacros.Location = new System.Drawing.Point(6, 101);
+            this.editMacros.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.editMacros.Location = new System.Drawing.Point(6, 91);
             this.editMacros.Name = "editMacros";
             this.editMacros.Size = new System.Drawing.Size(168, 23);
             this.editMacros.TabIndex = 27;
@@ -1926,13 +1950,13 @@
             // 
             // otherGroup
             // 
-            this.otherGroup.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.otherGroup.Controls.Add(this.connectToMKBtn);
             this.otherGroup.Controls.Add(this.editMacros);
             this.otherGroup.Controls.Add(this.connectToModuleBtn);
-            this.otherGroup.Location = new System.Drawing.Point(707, 6);
+            this.otherGroup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.otherGroup.Location = new System.Drawing.Point(843, 3);
             this.otherGroup.Name = "otherGroup";
-            this.otherGroup.Size = new System.Drawing.Size(200, 131);
+            this.otherGroup.Size = new System.Drawing.Size(204, 119);
             this.otherGroup.TabIndex = 28;
             this.otherGroup.TabStop = false;
             this.otherGroup.Text = "Другое";
@@ -1943,6 +1967,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.terminalLogTxtBx.Location = new System.Drawing.Point(12, 143);
+            this.terminalLogTxtBx.MinimumSize = new System.Drawing.Size(800, 0);
             this.terminalLogTxtBx.Multiline = true;
             this.terminalLogTxtBx.Name = "terminalLogTxtBx";
             this.terminalLogTxtBx.ReadOnly = true;
@@ -1965,22 +1990,48 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 9;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 100);
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 8;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 7, 0);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.bandRateGroup, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.otherGroup, 6, 0);
+            this.tableLayoutPanel1.Controls.Add(this.dataBitGroup, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.parityGroup, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.modeGroup, 5, 0);
+            this.tableLayoutPanel1.Controls.Add(this.stopBitGroup, 4, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
+            this.tableLayoutPanel1.MinimumSize = new System.Drawing.Size(0, 125);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1402, 100);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1402, 125);
             this.tableLayoutPanel1.TabIndex = 30;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel2.Controls.Add(this.searchCP2105Ports, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.groupBox6, 1, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(1108, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(291, 119);
+            this.tableLayoutPanel2.TabIndex = 31;
             // 
             // Terminal
             // 
@@ -1989,19 +2040,10 @@
             this.ClientSize = new System.Drawing.Size(1426, 877);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.addEndLine);
-            this.Controls.Add(this.otherGroup);
             this.Controls.Add(this.macrosTabControl);
-            this.Controls.Add(this.modeGroup);
             this.Controls.Add(this.sendBtn);
             this.Controls.Add(this.messInCOMTxtBx);
             this.Controls.Add(this.terminalLogTxtBx);
-            this.Controls.Add(this.searchCP2105Ports);
-            this.Controls.Add(this.groupBox6);
-            this.Controls.Add(this.stopBitGroup);
-            this.Controls.Add(this.parityGroup);
-            this.Controls.Add(this.dataBitGroup);
-            this.Controls.Add(this.bandRateGroup);
-            this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Terminal";
@@ -2033,6 +2075,8 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.otherGroup.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2208,5 +2252,6 @@
         private System.Windows.Forms.Button gr1bt7;
         private System.Windows.Forms.Button gr1bt16;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
     }
 }

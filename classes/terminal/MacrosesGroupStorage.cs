@@ -80,8 +80,12 @@ namespace GSM_NBIoT_Module.classes.terminal {
             }
         }
 
-        public List<MacrosesGroup> getmacrosesGroupsList() {
+        public List<MacrosesGroup> getMacrosesGroupsList() {
             return macrosesGroupsList;
+        }
+
+        public void setMacrosesGroupsList(List<MacrosesGroup> macrosesGroups) {
+            this.macrosesGroupsList = macrosesGroups;
         }
     }
 }
