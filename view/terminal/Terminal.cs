@@ -814,5 +814,13 @@ namespace GSM_NBIoT_Module.view {
         public int getMacrosPanelIndex() {
             return macrosTabControl.SelectedIndex;
         }
+
+        private void Terminal_SizeChanged(object sender, EventArgs e) {
+            if (groupBox6.Location.Y > 5) {
+                splitContainer1.SplitterDistance = 125 * 2;
+            } else {
+                splitContainer1.SplitterDistance = 125;
+            }
+        }
     }
 }

@@ -191,8 +191,8 @@
             this.otherGroup = new System.Windows.Forms.GroupBox();
             this.terminalLogTxtBx = new System.Windows.Forms.TextBox();
             this.addEndLine = new System.Windows.Forms.CheckBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox1.SuspendLayout();
             this.bandRateGroup.SuspendLayout();
             this.dataBitGroup.SuspendLayout();
@@ -209,8 +209,11 @@
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.otherGroup.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -219,7 +222,6 @@
             this.groupBox1.Controls.Add(this.rescanCOMsBtn);
             this.groupBox1.Controls.Add(this.connOrDisCOMBtn);
             this.groupBox1.Controls.Add(this.comPortsListCmbBox);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(134, 119);
@@ -287,10 +289,9 @@
             this.bandRateGroup.Controls.Add(this.bandRate2400rdBtn);
             this.bandRateGroup.Controls.Add(this.bandRate1200rdBtn);
             this.bandRateGroup.Controls.Add(this.bandRate600rdBtn);
-            this.bandRateGroup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bandRateGroup.Location = new System.Drawing.Point(143, 3);
             this.bandRateGroup.Name = "bandRateGroup";
-            this.bandRateGroup.Size = new System.Drawing.Size(414, 119);
+            this.bandRateGroup.Size = new System.Drawing.Size(272, 119);
             this.bandRateGroup.TabIndex = 1;
             this.bandRateGroup.TabStop = false;
             this.bandRateGroup.Text = "Скорость";
@@ -473,8 +474,7 @@
             this.dataBitGroup.Controls.Add(this.dataBit7rdBtn);
             this.dataBitGroup.Controls.Add(this.dataBit5rdBtn);
             this.dataBitGroup.Controls.Add(this.dataBit6rdBtn);
-            this.dataBitGroup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataBitGroup.Location = new System.Drawing.Point(563, 3);
+            this.dataBitGroup.Location = new System.Drawing.Point(421, 3);
             this.dataBitGroup.Name = "dataBitGroup";
             this.dataBitGroup.Size = new System.Drawing.Size(64, 119);
             this.dataBitGroup.TabIndex = 2;
@@ -485,7 +485,7 @@
             // 
             this.dataBit8rdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dataBit8rdBtn.AutoSize = true;
-            this.dataBit8rdBtn.Location = new System.Drawing.Point(6, 86);
+            this.dataBit8rdBtn.Location = new System.Drawing.Point(6, 75);
             this.dataBit8rdBtn.Name = "dataBit8rdBtn";
             this.dataBit8rdBtn.Size = new System.Drawing.Size(31, 17);
             this.dataBit8rdBtn.TabIndex = 18;
@@ -497,7 +497,7 @@
             // 
             this.dataBit7rdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dataBit7rdBtn.AutoSize = true;
-            this.dataBit7rdBtn.Location = new System.Drawing.Point(6, 68);
+            this.dataBit7rdBtn.Location = new System.Drawing.Point(6, 57);
             this.dataBit7rdBtn.Name = "dataBit7rdBtn";
             this.dataBit7rdBtn.Size = new System.Drawing.Size(31, 17);
             this.dataBit7rdBtn.TabIndex = 17;
@@ -509,7 +509,7 @@
             // 
             this.dataBit5rdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dataBit5rdBtn.AutoSize = true;
-            this.dataBit5rdBtn.Location = new System.Drawing.Point(6, 32);
+            this.dataBit5rdBtn.Location = new System.Drawing.Point(6, 21);
             this.dataBit5rdBtn.Name = "dataBit5rdBtn";
             this.dataBit5rdBtn.Size = new System.Drawing.Size(31, 17);
             this.dataBit5rdBtn.TabIndex = 15;
@@ -521,7 +521,7 @@
             // 
             this.dataBit6rdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dataBit6rdBtn.AutoSize = true;
-            this.dataBit6rdBtn.Location = new System.Drawing.Point(6, 50);
+            this.dataBit6rdBtn.Location = new System.Drawing.Point(6, 39);
             this.dataBit6rdBtn.Name = "dataBit6rdBtn";
             this.dataBit6rdBtn.Size = new System.Drawing.Size(31, 17);
             this.dataBit6rdBtn.TabIndex = 16;
@@ -536,8 +536,7 @@
             this.parityGroup.Controls.Add(this.parityEvenRdBtn);
             this.parityGroup.Controls.Add(this.parityNoneRdBtn);
             this.parityGroup.Controls.Add(this.parityOddRdBtn);
-            this.parityGroup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.parityGroup.Location = new System.Drawing.Point(633, 3);
+            this.parityGroup.Location = new System.Drawing.Point(491, 3);
             this.parityGroup.Name = "parityGroup";
             this.parityGroup.Size = new System.Drawing.Size(64, 119);
             this.parityGroup.TabIndex = 19;
@@ -548,7 +547,7 @@
             // 
             this.paritySpaceRdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.paritySpaceRdBtn.AutoSize = true;
-            this.paritySpaceRdBtn.Location = new System.Drawing.Point(6, 96);
+            this.paritySpaceRdBtn.Location = new System.Drawing.Point(6, 92);
             this.paritySpaceRdBtn.Name = "paritySpaceRdBtn";
             this.paritySpaceRdBtn.Size = new System.Drawing.Size(54, 17);
             this.paritySpaceRdBtn.TabIndex = 19;
@@ -560,7 +559,7 @@
             // 
             this.parityMarkRdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.parityMarkRdBtn.AutoSize = true;
-            this.parityMarkRdBtn.Location = new System.Drawing.Point(6, 78);
+            this.parityMarkRdBtn.Location = new System.Drawing.Point(6, 74);
             this.parityMarkRdBtn.Name = "parityMarkRdBtn";
             this.parityMarkRdBtn.Size = new System.Drawing.Size(48, 17);
             this.parityMarkRdBtn.TabIndex = 18;
@@ -572,7 +571,7 @@
             // 
             this.parityEvenRdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.parityEvenRdBtn.AutoSize = true;
-            this.parityEvenRdBtn.Location = new System.Drawing.Point(6, 60);
+            this.parityEvenRdBtn.Location = new System.Drawing.Point(6, 56);
             this.parityEvenRdBtn.Name = "parityEvenRdBtn";
             this.parityEvenRdBtn.Size = new System.Drawing.Size(49, 17);
             this.parityEvenRdBtn.TabIndex = 17;
@@ -584,7 +583,7 @@
             // 
             this.parityNoneRdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.parityNoneRdBtn.AutoSize = true;
-            this.parityNoneRdBtn.Location = new System.Drawing.Point(6, 24);
+            this.parityNoneRdBtn.Location = new System.Drawing.Point(6, 20);
             this.parityNoneRdBtn.Name = "parityNoneRdBtn";
             this.parityNoneRdBtn.Size = new System.Drawing.Size(49, 17);
             this.parityNoneRdBtn.TabIndex = 15;
@@ -596,7 +595,7 @@
             // 
             this.parityOddRdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.parityOddRdBtn.AutoSize = true;
-            this.parityOddRdBtn.Location = new System.Drawing.Point(6, 42);
+            this.parityOddRdBtn.Location = new System.Drawing.Point(6, 38);
             this.parityOddRdBtn.Name = "parityOddRdBtn";
             this.parityOddRdBtn.Size = new System.Drawing.Size(43, 17);
             this.parityOddRdBtn.TabIndex = 16;
@@ -609,8 +608,7 @@
             this.stopBitGroup.Controls.Add(this.stopBit2RdBtn);
             this.stopBitGroup.Controls.Add(this.stopBit1RdBtn);
             this.stopBitGroup.Controls.Add(this.stopBit1_5RdBtn);
-            this.stopBitGroup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.stopBitGroup.Location = new System.Drawing.Point(703, 3);
+            this.stopBitGroup.Location = new System.Drawing.Point(561, 3);
             this.stopBitGroup.Name = "stopBitGroup";
             this.stopBitGroup.Size = new System.Drawing.Size(64, 119);
             this.stopBitGroup.TabIndex = 19;
@@ -621,7 +619,7 @@
             // 
             this.stopBit2RdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.stopBit2RdBtn.AutoSize = true;
-            this.stopBit2RdBtn.Location = new System.Drawing.Point(6, 87);
+            this.stopBit2RdBtn.Location = new System.Drawing.Point(6, 76);
             this.stopBit2RdBtn.Name = "stopBit2RdBtn";
             this.stopBit2RdBtn.Size = new System.Drawing.Size(40, 17);
             this.stopBit2RdBtn.TabIndex = 17;
@@ -633,7 +631,7 @@
             // 
             this.stopBit1RdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.stopBit1RdBtn.AutoSize = true;
-            this.stopBit1RdBtn.Location = new System.Drawing.Point(6, 31);
+            this.stopBit1RdBtn.Location = new System.Drawing.Point(6, 20);
             this.stopBit1RdBtn.Name = "stopBit1RdBtn";
             this.stopBit1RdBtn.Size = new System.Drawing.Size(31, 17);
             this.stopBit1RdBtn.TabIndex = 15;
@@ -645,7 +643,7 @@
             // 
             this.stopBit1_5RdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.stopBit1_5RdBtn.AutoSize = true;
-            this.stopBit1_5RdBtn.Location = new System.Drawing.Point(6, 59);
+            this.stopBit1_5RdBtn.Location = new System.Drawing.Point(6, 48);
             this.stopBit1_5RdBtn.Name = "stopBit1_5RdBtn";
             this.stopBit1_5RdBtn.Size = new System.Drawing.Size(40, 17);
             this.stopBit1_5RdBtn.TabIndex = 16;
@@ -656,11 +654,12 @@
             // groupBox6
             // 
             this.groupBox6.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox6.Controls.Add(this.searchCP2105Ports);
             this.groupBox6.Controls.Add(this.groupBox8);
             this.groupBox6.Controls.Add(this.groupBox7);
-            this.groupBox6.Location = new System.Drawing.Point(78, 3);
+            this.groupBox6.Location = new System.Drawing.Point(911, 3);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(206, 113);
+            this.groupBox6.Size = new System.Drawing.Size(250, 119);
             this.groupBox6.TabIndex = 20;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "CP2105";
@@ -671,9 +670,9 @@
             this.groupBox8.Controls.Add(this.enhanGPIO_0chBx);
             this.groupBox8.Controls.Add(this.label2);
             this.groupBox8.Controls.Add(this.cpNumbEnhancedPortTxtBx);
-            this.groupBox8.Location = new System.Drawing.Point(91, 12);
+            this.groupBox8.Location = new System.Drawing.Point(160, 10);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(82, 98);
+            this.groupBox8.Size = new System.Drawing.Size(82, 104);
             this.groupBox8.TabIndex = 1;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Enhanced";
@@ -721,9 +720,9 @@
             this.groupBox7.Controls.Add(this.standGPIO_1chBx);
             this.groupBox7.Controls.Add(this.cpNumbStandartPortTxtBx);
             this.groupBox7.Controls.Add(this.standGPIO_0chBx);
-            this.groupBox7.Location = new System.Drawing.Point(7, 12);
+            this.groupBox7.Location = new System.Drawing.Point(76, 10);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(78, 98);
+            this.groupBox7.Size = new System.Drawing.Size(78, 104);
             this.groupBox7.TabIndex = 0;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Standard";
@@ -776,8 +775,8 @@
             // 
             // searchCP2105Ports
             // 
-            this.searchCP2105Ports.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchCP2105Ports.Location = new System.Drawing.Point(3, 3);
+            this.searchCP2105Ports.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.searchCP2105Ports.Location = new System.Drawing.Point(5, 15);
             this.searchCP2105Ports.Name = "searchCP2105Ports";
             this.searchCP2105Ports.Size = new System.Drawing.Size(66, 23);
             this.searchCP2105Ports.TabIndex = 2;
@@ -789,7 +788,7 @@
             // 
             this.messInCOMTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.messInCOMTxtBx.Location = new System.Drawing.Point(12, 746);
+            this.messInCOMTxtBx.Location = new System.Drawing.Point(13, 737);
             this.messInCOMTxtBx.Name = "messInCOMTxtBx";
             this.messInCOMTxtBx.Size = new System.Drawing.Size(1240, 20);
             this.messInCOMTxtBx.TabIndex = 22;
@@ -798,7 +797,7 @@
             // sendBtn
             // 
             this.sendBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.sendBtn.Location = new System.Drawing.Point(1312, 744);
+            this.sendBtn.Location = new System.Drawing.Point(1313, 735);
             this.sendBtn.Name = "sendBtn";
             this.sendBtn.Size = new System.Drawing.Size(102, 23);
             this.sendBtn.TabIndex = 23;
@@ -810,8 +809,7 @@
             // 
             this.modeGroup.Controls.Add(this.modeTextRdBtn);
             this.modeGroup.Controls.Add(this.modeHexRdBtn);
-            this.modeGroup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.modeGroup.Location = new System.Drawing.Point(773, 3);
+            this.modeGroup.Location = new System.Drawing.Point(631, 3);
             this.modeGroup.Name = "modeGroup";
             this.modeGroup.Size = new System.Drawing.Size(64, 119);
             this.modeGroup.TabIndex = 20;
@@ -822,7 +820,7 @@
             // 
             this.modeTextRdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.modeTextRdBtn.AutoSize = true;
-            this.modeTextRdBtn.Location = new System.Drawing.Point(6, 32);
+            this.modeTextRdBtn.Location = new System.Drawing.Point(6, 20);
             this.modeTextRdBtn.Name = "modeTextRdBtn";
             this.modeTextRdBtn.Size = new System.Drawing.Size(46, 17);
             this.modeTextRdBtn.TabIndex = 15;
@@ -834,7 +832,7 @@
             // 
             this.modeHexRdBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.modeHexRdBtn.AutoSize = true;
-            this.modeHexRdBtn.Location = new System.Drawing.Point(6, 55);
+            this.modeHexRdBtn.Location = new System.Drawing.Point(6, 43);
             this.modeHexRdBtn.Name = "modeHexRdBtn";
             this.modeHexRdBtn.Size = new System.Drawing.Size(44, 17);
             this.modeHexRdBtn.TabIndex = 16;
@@ -875,10 +873,10 @@
             this.macrosTabControl.Controls.Add(this.tabPage3);
             this.macrosTabControl.Controls.Add(this.tabPage4);
             this.macrosTabControl.Controls.Add(this.tabPage5);
-            this.macrosTabControl.Location = new System.Drawing.Point(12, 773);
+            this.macrosTabControl.Location = new System.Drawing.Point(12, 763);
             this.macrosTabControl.Name = "macrosTabControl";
             this.macrosTabControl.SelectedIndex = 0;
-            this.macrosTabControl.Size = new System.Drawing.Size(1402, 98);
+            this.macrosTabControl.Size = new System.Drawing.Size(1402, 108);
             this.macrosTabControl.TabIndex = 26;
             // 
             // tabPage1
@@ -907,7 +905,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1394, 72);
+            this.tabPage1.Size = new System.Drawing.Size(1394, 82);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1953,8 +1951,7 @@
             this.otherGroup.Controls.Add(this.connectToMKBtn);
             this.otherGroup.Controls.Add(this.editMacros);
             this.otherGroup.Controls.Add(this.connectToModuleBtn);
-            this.otherGroup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.otherGroup.Location = new System.Drawing.Point(843, 3);
+            this.otherGroup.Location = new System.Drawing.Point(701, 3);
             this.otherGroup.Name = "otherGroup";
             this.otherGroup.Size = new System.Drawing.Size(204, 119);
             this.otherGroup.TabIndex = 28;
@@ -1963,16 +1960,14 @@
             // 
             // terminalLogTxtBx
             // 
-            this.terminalLogTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.terminalLogTxtBx.Location = new System.Drawing.Point(12, 143);
-            this.terminalLogTxtBx.MinimumSize = new System.Drawing.Size(800, 0);
+            this.terminalLogTxtBx.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.terminalLogTxtBx.Location = new System.Drawing.Point(0, 0);
+            this.terminalLogTxtBx.MinimumSize = new System.Drawing.Size(800, 4);
             this.terminalLogTxtBx.Multiline = true;
             this.terminalLogTxtBx.Name = "terminalLogTxtBx";
             this.terminalLogTxtBx.ReadOnly = true;
             this.terminalLogTxtBx.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.terminalLogTxtBx.Size = new System.Drawing.Size(1402, 595);
+            this.terminalLogTxtBx.Size = new System.Drawing.Size(1404, 590);
             this.terminalLogTxtBx.TabIndex = 21;
             // 
             // addEndLine
@@ -1981,69 +1976,59 @@
             this.addEndLine.AutoSize = true;
             this.addEndLine.Checked = true;
             this.addEndLine.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.addEndLine.Location = new System.Drawing.Point(1258, 748);
+            this.addEndLine.Location = new System.Drawing.Point(1259, 739);
             this.addEndLine.Name = "addEndLine";
             this.addEndLine.Size = new System.Drawing.Size(54, 17);
             this.addEndLine.TabIndex = 29;
             this.addEndLine.Text = "+ \\r\\n";
             this.addEndLine.UseVisualStyleBackColor = true;
             // 
-            // tableLayoutPanel1
+            // flowLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.flowLayoutPanel1.Controls.Add(this.groupBox1);
+            this.flowLayoutPanel1.Controls.Add(this.bandRateGroup);
+            this.flowLayoutPanel1.Controls.Add(this.dataBitGroup);
+            this.flowLayoutPanel1.Controls.Add(this.parityGroup);
+            this.flowLayoutPanel1.Controls.Add(this.stopBitGroup);
+            this.flowLayoutPanel1.Controls.Add(this.modeGroup);
+            this.flowLayoutPanel1.Controls.Add(this.otherGroup);
+            this.flowLayoutPanel1.Controls.Add(this.groupBox6);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1404, 123);
+            this.flowLayoutPanel1.TabIndex = 32;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 8;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 7, 0);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.bandRateGroup, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.otherGroup, 6, 0);
-            this.tableLayoutPanel1.Controls.Add(this.dataBitGroup, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.parityGroup, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.modeGroup, 5, 0);
-            this.tableLayoutPanel1.Controls.Add(this.stopBitGroup, 4, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
-            this.tableLayoutPanel1.MinimumSize = new System.Drawing.Size(0, 125);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1402, 125);
-            this.tableLayoutPanel1.TabIndex = 30;
+            this.splitContainer1.Location = new System.Drawing.Point(10, 12);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // tableLayoutPanel2
+            // splitContainer1.Panel1
             // 
-            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel2.Controls.Add(this.searchCP2105Ports, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.groupBox6, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(1108, 3);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(291, 119);
-            this.tableLayoutPanel2.TabIndex = 31;
+            this.splitContainer1.Panel1.Controls.Add(this.flowLayoutPanel1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.terminalLogTxtBx);
+            this.splitContainer1.Size = new System.Drawing.Size(1404, 717);
+            this.splitContainer1.SplitterDistance = 123;
+            this.splitContainer1.TabIndex = 33;
             // 
             // Terminal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1426, 877);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.addEndLine);
             this.Controls.Add(this.macrosTabControl);
             this.Controls.Add(this.sendBtn);
             this.Controls.Add(this.messInCOMTxtBx);
-            this.Controls.Add(this.terminalLogTxtBx);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Terminal";
@@ -2052,6 +2037,7 @@
             this.Text = "Терминал";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Terminal_FormClosing);
             this.Load += new System.EventHandler(this.Terminal_Load);
+            this.SizeChanged += new System.EventHandler(this.Terminal_SizeChanged);
             this.groupBox1.ResumeLayout(false);
             this.bandRateGroup.ResumeLayout(false);
             this.bandRateGroup.PerformLayout();
@@ -2075,8 +2061,12 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.otherGroup.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2251,7 +2241,7 @@
         private System.Windows.Forms.Button gr1bt6;
         private System.Windows.Forms.Button gr1bt7;
         private System.Windows.Forms.Button gr1bt16;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }

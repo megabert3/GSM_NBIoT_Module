@@ -30,6 +30,26 @@
             this.macrosTabLotPnl = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.repeatCmBx20 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx19 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx18 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx17 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx16 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx15 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx14 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx13 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx12 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx11 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx10 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx9 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx8 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx7 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx6 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx5 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx4 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx3 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx2 = new System.Windows.Forms.CheckBox();
+            this.repeatCmBx1 = new System.Windows.Forms.CheckBox();
             this.timeDelayTxtBx20 = new System.Windows.Forms.TextBox();
             this.macrosNametxtBox20 = new System.Windows.Forms.TextBox();
             this.dataTxtBox20 = new System.Windows.Forms.TextBox();
@@ -98,47 +118,27 @@
             this.thirdGroupBtn = new System.Windows.Forms.Button();
             this.secondGroupBtn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.repeatCmBx1 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx2 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx3 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx4 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx5 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx6 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx7 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx8 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx9 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx10 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx11 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx12 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx13 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx14 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx15 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx16 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx17 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx18 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx19 = new System.Windows.Forms.CheckBox();
-            this.repeatCmBx20 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.macrosTabLotPnl.SuspendLayout();
             this.groupsBtntabLtPnl.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -323,6 +323,206 @@
             this.label3.Size = new System.Drawing.Size(104, 13);
             this.label3.TabIndex = 85;
             this.label3.Text = "Название макроса";
+            // 
+            // repeatCmBx20
+            // 
+            this.repeatCmBx20.AutoSize = true;
+            this.repeatCmBx20.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx20.Location = new System.Drawing.Point(434, 483);
+            this.repeatCmBx20.Name = "repeatCmBx20";
+            this.repeatCmBx20.Size = new System.Drawing.Size(15, 20);
+            this.repeatCmBx20.TabIndex = 83;
+            this.repeatCmBx20.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx19
+            // 
+            this.repeatCmBx19.AutoSize = true;
+            this.repeatCmBx19.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx19.Location = new System.Drawing.Point(434, 459);
+            this.repeatCmBx19.Name = "repeatCmBx19";
+            this.repeatCmBx19.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx19.TabIndex = 82;
+            this.repeatCmBx19.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx18
+            // 
+            this.repeatCmBx18.AutoSize = true;
+            this.repeatCmBx18.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx18.Location = new System.Drawing.Point(434, 435);
+            this.repeatCmBx18.Name = "repeatCmBx18";
+            this.repeatCmBx18.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx18.TabIndex = 81;
+            this.repeatCmBx18.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx17
+            // 
+            this.repeatCmBx17.AutoSize = true;
+            this.repeatCmBx17.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx17.Location = new System.Drawing.Point(434, 411);
+            this.repeatCmBx17.Name = "repeatCmBx17";
+            this.repeatCmBx17.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx17.TabIndex = 80;
+            this.repeatCmBx17.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx16
+            // 
+            this.repeatCmBx16.AutoSize = true;
+            this.repeatCmBx16.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx16.Location = new System.Drawing.Point(434, 387);
+            this.repeatCmBx16.Name = "repeatCmBx16";
+            this.repeatCmBx16.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx16.TabIndex = 79;
+            this.repeatCmBx16.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx15
+            // 
+            this.repeatCmBx15.AutoSize = true;
+            this.repeatCmBx15.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx15.Location = new System.Drawing.Point(434, 363);
+            this.repeatCmBx15.Name = "repeatCmBx15";
+            this.repeatCmBx15.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx15.TabIndex = 78;
+            this.repeatCmBx15.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx14
+            // 
+            this.repeatCmBx14.AutoSize = true;
+            this.repeatCmBx14.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx14.Location = new System.Drawing.Point(434, 339);
+            this.repeatCmBx14.Name = "repeatCmBx14";
+            this.repeatCmBx14.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx14.TabIndex = 77;
+            this.repeatCmBx14.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx13
+            // 
+            this.repeatCmBx13.AutoSize = true;
+            this.repeatCmBx13.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx13.Location = new System.Drawing.Point(434, 315);
+            this.repeatCmBx13.Name = "repeatCmBx13";
+            this.repeatCmBx13.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx13.TabIndex = 76;
+            this.repeatCmBx13.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx12
+            // 
+            this.repeatCmBx12.AutoSize = true;
+            this.repeatCmBx12.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx12.Location = new System.Drawing.Point(434, 291);
+            this.repeatCmBx12.Name = "repeatCmBx12";
+            this.repeatCmBx12.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx12.TabIndex = 75;
+            this.repeatCmBx12.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx11
+            // 
+            this.repeatCmBx11.AutoSize = true;
+            this.repeatCmBx11.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx11.Location = new System.Drawing.Point(434, 267);
+            this.repeatCmBx11.Name = "repeatCmBx11";
+            this.repeatCmBx11.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx11.TabIndex = 74;
+            this.repeatCmBx11.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx10
+            // 
+            this.repeatCmBx10.AutoSize = true;
+            this.repeatCmBx10.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx10.Location = new System.Drawing.Point(434, 243);
+            this.repeatCmBx10.Name = "repeatCmBx10";
+            this.repeatCmBx10.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx10.TabIndex = 73;
+            this.repeatCmBx10.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx9
+            // 
+            this.repeatCmBx9.AutoSize = true;
+            this.repeatCmBx9.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx9.Location = new System.Drawing.Point(434, 219);
+            this.repeatCmBx9.Name = "repeatCmBx9";
+            this.repeatCmBx9.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx9.TabIndex = 72;
+            this.repeatCmBx9.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx8
+            // 
+            this.repeatCmBx8.AutoSize = true;
+            this.repeatCmBx8.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx8.Location = new System.Drawing.Point(434, 195);
+            this.repeatCmBx8.Name = "repeatCmBx8";
+            this.repeatCmBx8.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx8.TabIndex = 71;
+            this.repeatCmBx8.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx7
+            // 
+            this.repeatCmBx7.AutoSize = true;
+            this.repeatCmBx7.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx7.Location = new System.Drawing.Point(434, 171);
+            this.repeatCmBx7.Name = "repeatCmBx7";
+            this.repeatCmBx7.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx7.TabIndex = 70;
+            this.repeatCmBx7.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx6
+            // 
+            this.repeatCmBx6.AutoSize = true;
+            this.repeatCmBx6.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx6.Location = new System.Drawing.Point(434, 147);
+            this.repeatCmBx6.Name = "repeatCmBx6";
+            this.repeatCmBx6.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx6.TabIndex = 69;
+            this.repeatCmBx6.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx5
+            // 
+            this.repeatCmBx5.AutoSize = true;
+            this.repeatCmBx5.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx5.Location = new System.Drawing.Point(434, 123);
+            this.repeatCmBx5.Name = "repeatCmBx5";
+            this.repeatCmBx5.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx5.TabIndex = 68;
+            this.repeatCmBx5.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx4
+            // 
+            this.repeatCmBx4.AutoSize = true;
+            this.repeatCmBx4.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx4.Location = new System.Drawing.Point(434, 99);
+            this.repeatCmBx4.Name = "repeatCmBx4";
+            this.repeatCmBx4.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx4.TabIndex = 67;
+            this.repeatCmBx4.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx3
+            // 
+            this.repeatCmBx3.AutoSize = true;
+            this.repeatCmBx3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx3.Location = new System.Drawing.Point(434, 75);
+            this.repeatCmBx3.Name = "repeatCmBx3";
+            this.repeatCmBx3.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx3.TabIndex = 66;
+            this.repeatCmBx3.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx2
+            // 
+            this.repeatCmBx2.AutoSize = true;
+            this.repeatCmBx2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx2.Location = new System.Drawing.Point(434, 51);
+            this.repeatCmBx2.Name = "repeatCmBx2";
+            this.repeatCmBx2.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx2.TabIndex = 65;
+            this.repeatCmBx2.UseVisualStyleBackColor = true;
+            // 
+            // repeatCmBx1
+            // 
+            this.repeatCmBx1.AutoSize = true;
+            this.repeatCmBx1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.repeatCmBx1.Location = new System.Drawing.Point(434, 27);
+            this.repeatCmBx1.Name = "repeatCmBx1";
+            this.repeatCmBx1.Size = new System.Drawing.Size(15, 18);
+            this.repeatCmBx1.TabIndex = 64;
+            this.repeatCmBx1.UseVisualStyleBackColor = true;
             // 
             // timeDelayTxtBx20
             // 
@@ -957,206 +1157,6 @@
             this.panel1.Size = new System.Drawing.Size(478, 510);
             this.panel1.TabIndex = 9;
             // 
-            // repeatCmBx1
-            // 
-            this.repeatCmBx1.AutoSize = true;
-            this.repeatCmBx1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx1.Location = new System.Drawing.Point(434, 27);
-            this.repeatCmBx1.Name = "repeatCmBx1";
-            this.repeatCmBx1.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx1.TabIndex = 64;
-            this.repeatCmBx1.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx2
-            // 
-            this.repeatCmBx2.AutoSize = true;
-            this.repeatCmBx2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx2.Location = new System.Drawing.Point(434, 51);
-            this.repeatCmBx2.Name = "repeatCmBx2";
-            this.repeatCmBx2.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx2.TabIndex = 65;
-            this.repeatCmBx2.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx3
-            // 
-            this.repeatCmBx3.AutoSize = true;
-            this.repeatCmBx3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx3.Location = new System.Drawing.Point(434, 75);
-            this.repeatCmBx3.Name = "repeatCmBx3";
-            this.repeatCmBx3.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx3.TabIndex = 66;
-            this.repeatCmBx3.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx4
-            // 
-            this.repeatCmBx4.AutoSize = true;
-            this.repeatCmBx4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx4.Location = new System.Drawing.Point(434, 99);
-            this.repeatCmBx4.Name = "repeatCmBx4";
-            this.repeatCmBx4.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx4.TabIndex = 67;
-            this.repeatCmBx4.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx5
-            // 
-            this.repeatCmBx5.AutoSize = true;
-            this.repeatCmBx5.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx5.Location = new System.Drawing.Point(434, 123);
-            this.repeatCmBx5.Name = "repeatCmBx5";
-            this.repeatCmBx5.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx5.TabIndex = 68;
-            this.repeatCmBx5.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx6
-            // 
-            this.repeatCmBx6.AutoSize = true;
-            this.repeatCmBx6.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx6.Location = new System.Drawing.Point(434, 147);
-            this.repeatCmBx6.Name = "repeatCmBx6";
-            this.repeatCmBx6.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx6.TabIndex = 69;
-            this.repeatCmBx6.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx7
-            // 
-            this.repeatCmBx7.AutoSize = true;
-            this.repeatCmBx7.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx7.Location = new System.Drawing.Point(434, 171);
-            this.repeatCmBx7.Name = "repeatCmBx7";
-            this.repeatCmBx7.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx7.TabIndex = 70;
-            this.repeatCmBx7.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx8
-            // 
-            this.repeatCmBx8.AutoSize = true;
-            this.repeatCmBx8.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx8.Location = new System.Drawing.Point(434, 195);
-            this.repeatCmBx8.Name = "repeatCmBx8";
-            this.repeatCmBx8.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx8.TabIndex = 71;
-            this.repeatCmBx8.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx9
-            // 
-            this.repeatCmBx9.AutoSize = true;
-            this.repeatCmBx9.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx9.Location = new System.Drawing.Point(434, 219);
-            this.repeatCmBx9.Name = "repeatCmBx9";
-            this.repeatCmBx9.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx9.TabIndex = 72;
-            this.repeatCmBx9.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx10
-            // 
-            this.repeatCmBx10.AutoSize = true;
-            this.repeatCmBx10.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx10.Location = new System.Drawing.Point(434, 243);
-            this.repeatCmBx10.Name = "repeatCmBx10";
-            this.repeatCmBx10.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx10.TabIndex = 73;
-            this.repeatCmBx10.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx11
-            // 
-            this.repeatCmBx11.AutoSize = true;
-            this.repeatCmBx11.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx11.Location = new System.Drawing.Point(434, 267);
-            this.repeatCmBx11.Name = "repeatCmBx11";
-            this.repeatCmBx11.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx11.TabIndex = 74;
-            this.repeatCmBx11.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx12
-            // 
-            this.repeatCmBx12.AutoSize = true;
-            this.repeatCmBx12.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx12.Location = new System.Drawing.Point(434, 291);
-            this.repeatCmBx12.Name = "repeatCmBx12";
-            this.repeatCmBx12.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx12.TabIndex = 75;
-            this.repeatCmBx12.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx13
-            // 
-            this.repeatCmBx13.AutoSize = true;
-            this.repeatCmBx13.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx13.Location = new System.Drawing.Point(434, 315);
-            this.repeatCmBx13.Name = "repeatCmBx13";
-            this.repeatCmBx13.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx13.TabIndex = 76;
-            this.repeatCmBx13.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx14
-            // 
-            this.repeatCmBx14.AutoSize = true;
-            this.repeatCmBx14.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx14.Location = new System.Drawing.Point(434, 339);
-            this.repeatCmBx14.Name = "repeatCmBx14";
-            this.repeatCmBx14.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx14.TabIndex = 77;
-            this.repeatCmBx14.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx15
-            // 
-            this.repeatCmBx15.AutoSize = true;
-            this.repeatCmBx15.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx15.Location = new System.Drawing.Point(434, 363);
-            this.repeatCmBx15.Name = "repeatCmBx15";
-            this.repeatCmBx15.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx15.TabIndex = 78;
-            this.repeatCmBx15.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx16
-            // 
-            this.repeatCmBx16.AutoSize = true;
-            this.repeatCmBx16.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx16.Location = new System.Drawing.Point(434, 387);
-            this.repeatCmBx16.Name = "repeatCmBx16";
-            this.repeatCmBx16.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx16.TabIndex = 79;
-            this.repeatCmBx16.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx17
-            // 
-            this.repeatCmBx17.AutoSize = true;
-            this.repeatCmBx17.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx17.Location = new System.Drawing.Point(434, 411);
-            this.repeatCmBx17.Name = "repeatCmBx17";
-            this.repeatCmBx17.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx17.TabIndex = 80;
-            this.repeatCmBx17.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx18
-            // 
-            this.repeatCmBx18.AutoSize = true;
-            this.repeatCmBx18.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx18.Location = new System.Drawing.Point(434, 435);
-            this.repeatCmBx18.Name = "repeatCmBx18";
-            this.repeatCmBx18.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx18.TabIndex = 81;
-            this.repeatCmBx18.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx19
-            // 
-            this.repeatCmBx19.AutoSize = true;
-            this.repeatCmBx19.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx19.Location = new System.Drawing.Point(434, 459);
-            this.repeatCmBx19.Name = "repeatCmBx19";
-            this.repeatCmBx19.Size = new System.Drawing.Size(15, 18);
-            this.repeatCmBx19.TabIndex = 82;
-            this.repeatCmBx19.UseVisualStyleBackColor = true;
-            // 
-            // repeatCmBx20
-            // 
-            this.repeatCmBx20.AutoSize = true;
-            this.repeatCmBx20.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx20.Location = new System.Drawing.Point(434, 483);
-            this.repeatCmBx20.Name = "repeatCmBx20";
-            this.repeatCmBx20.Size = new System.Drawing.Size(15, 20);
-            this.repeatCmBx20.TabIndex = 83;
-            this.repeatCmBx20.UseVisualStyleBackColor = true;
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
@@ -1210,185 +1210,15 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(28, 501);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
-            // label6
+            // label25
             // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 25);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(16, 13);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "1:";
-            // 
-            // label7
-            // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 48);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(16, 13);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "2:";
-            // 
-            // label8
-            // 
-            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 72);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(16, 13);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "3:";
-            // 
-            // label9
-            // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 96);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(16, 13);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "4:";
-            // 
-            // label10
-            // 
-            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(9, 120);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(16, 13);
-            this.label10.TabIndex = 5;
-            this.label10.Text = "5:";
-            // 
-            // label11
-            // 
-            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(9, 144);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(16, 13);
-            this.label11.TabIndex = 6;
-            this.label11.Text = "6:";
-            // 
-            // label12
-            // 
-            this.label12.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(9, 168);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(16, 13);
-            this.label12.TabIndex = 7;
-            this.label12.Text = "7:";
-            // 
-            // label13
-            // 
-            this.label13.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(9, 192);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(16, 13);
-            this.label13.TabIndex = 8;
-            this.label13.Text = "8:";
-            // 
-            // label14
-            // 
-            this.label14.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(9, 216);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(16, 13);
-            this.label14.TabIndex = 9;
-            this.label14.Text = "9:";
-            // 
-            // label15
-            // 
-            this.label15.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(3, 239);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(22, 13);
-            this.label15.TabIndex = 10;
-            this.label15.Text = "10:";
-            // 
-            // label16
-            // 
-            this.label16.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(3, 263);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(22, 13);
-            this.label16.TabIndex = 11;
-            this.label16.Text = "11:";
-            // 
-            // label17
-            // 
-            this.label17.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(3, 288);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(22, 13);
-            this.label17.TabIndex = 12;
-            this.label17.Text = "12:";
-            // 
-            // label18
-            // 
-            this.label18.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(3, 312);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(22, 13);
-            this.label18.TabIndex = 13;
-            this.label18.Text = "13:";
-            // 
-            // label19
-            // 
-            this.label19.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(3, 336);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(22, 13);
-            this.label19.TabIndex = 14;
-            this.label19.Text = "14:";
-            // 
-            // label20
-            // 
-            this.label20.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(3, 360);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(22, 13);
-            this.label20.TabIndex = 15;
-            this.label20.Text = "15:";
-            // 
-            // label21
-            // 
-            this.label21.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(3, 384);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(22, 13);
-            this.label21.TabIndex = 16;
-            this.label21.Text = "16:";
-            // 
-            // label22
-            // 
-            this.label22.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(3, 408);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(22, 13);
-            this.label22.TabIndex = 17;
-            this.label22.Text = "17:";
-            // 
-            // label23
-            // 
-            this.label23.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(3, 432);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(22, 13);
-            this.label23.TabIndex = 18;
-            this.label23.Text = "18:";
+            this.label25.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(3, 481);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(22, 13);
+            this.label25.TabIndex = 20;
+            this.label25.Text = "20:";
             // 
             // label24
             // 
@@ -1400,15 +1230,185 @@
             this.label24.TabIndex = 19;
             this.label24.Text = "19:";
             // 
-            // label25
+            // label23
             // 
-            this.label25.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(3, 481);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(22, 13);
-            this.label25.TabIndex = 20;
-            this.label25.Text = "20:";
+            this.label23.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(3, 432);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(22, 13);
+            this.label23.TabIndex = 18;
+            this.label23.Text = "18:";
+            // 
+            // label22
+            // 
+            this.label22.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(3, 408);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(22, 13);
+            this.label22.TabIndex = 17;
+            this.label22.Text = "17:";
+            // 
+            // label21
+            // 
+            this.label21.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(3, 384);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(22, 13);
+            this.label21.TabIndex = 16;
+            this.label21.Text = "16:";
+            // 
+            // label20
+            // 
+            this.label20.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(3, 360);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(22, 13);
+            this.label20.TabIndex = 15;
+            this.label20.Text = "15:";
+            // 
+            // label19
+            // 
+            this.label19.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(3, 336);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(22, 13);
+            this.label19.TabIndex = 14;
+            this.label19.Text = "14:";
+            // 
+            // label18
+            // 
+            this.label18.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(3, 312);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(22, 13);
+            this.label18.TabIndex = 13;
+            this.label18.Text = "13:";
+            // 
+            // label17
+            // 
+            this.label17.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(3, 288);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(22, 13);
+            this.label17.TabIndex = 12;
+            this.label17.Text = "12:";
+            // 
+            // label16
+            // 
+            this.label16.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(3, 263);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(22, 13);
+            this.label16.TabIndex = 11;
+            this.label16.Text = "11:";
+            // 
+            // label15
+            // 
+            this.label15.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(3, 239);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(22, 13);
+            this.label15.TabIndex = 10;
+            this.label15.Text = "10:";
+            // 
+            // label14
+            // 
+            this.label14.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(9, 216);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(16, 13);
+            this.label14.TabIndex = 9;
+            this.label14.Text = "9:";
+            // 
+            // label13
+            // 
+            this.label13.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(9, 192);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(16, 13);
+            this.label13.TabIndex = 8;
+            this.label13.Text = "8:";
+            // 
+            // label12
+            // 
+            this.label12.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(9, 168);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(16, 13);
+            this.label12.TabIndex = 7;
+            this.label12.Text = "7:";
+            // 
+            // label11
+            // 
+            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(9, 144);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(16, 13);
+            this.label11.TabIndex = 6;
+            this.label11.Text = "6:";
+            // 
+            // label10
+            // 
+            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(9, 120);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(16, 13);
+            this.label10.TabIndex = 5;
+            this.label10.Text = "5:";
+            // 
+            // label9
+            // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(9, 96);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(16, 13);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "4:";
+            // 
+            // label8
+            // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(9, 72);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(16, 13);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "3:";
+            // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 48);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(16, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "2:";
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 25);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(16, 13);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "1:";
             // 
             // MacrosSettings
             // 
