@@ -13,7 +13,7 @@ using static GSM_NBIoT_Module.classes.terminal.MacrosesGroup;
 namespace GSM_NBIoT_Module.view.terminal {
     public partial class MacrosSettings : Form {
         //Окно терминала
-        Terminal terminalForm;
+        private Terminal terminalForm;
 
         //Иммитация tgBtn нажата кнопка группы или нет
         private bool firstGroupBtnIsPressed = false;
@@ -22,7 +22,15 @@ namespace GSM_NBIoT_Module.view.terminal {
         private bool fourthGroupBtnIsPressed = false;
         private bool fifthGroupBtnIsPressed = false;
 
+        //Изменения в макросах до сохранения
         private List<MacrosesGroup> localMacrosesGroup;
+
+        //Цвет кнопки по умолчанию
+        private Color defaultBtnColor;
+        private Color selectedColorBtn = Color.PaleGreen;
+
+        //Были ли изменения пользователем (предложение сохранить)
+        private bool txtBoxTextIsChanges = false;
 
         public MacrosSettings() {
             InitializeComponent();
@@ -31,6 +39,7 @@ namespace GSM_NBIoT_Module.view.terminal {
         public MacrosSettings(Form terminalForm) {
             InitializeComponent();
             this.terminalForm = terminalForm as Terminal;
+            defaultBtnColor = saveBtn.BackColor;
         }
 
         private void MacrosSettings_Load(object sender, EventArgs e) {
@@ -38,7 +47,9 @@ namespace GSM_NBIoT_Module.view.terminal {
             //Инициализирую начальную версию
             localMacrosesGroup = new List<MacrosesGroup>();
 
-            foreach (MacrosesGroup macrosesGroup in MacrosesGroupStorage.getMacrosesGroupStorageInstance().getMacrosesGroupsList()) {
+            MacrosesGroupStorage macrosStorage = MacrosesGroupStorage.getMacrosesGroupStorageInstance();
+
+            foreach (MacrosesGroup macrosesGroup in macrosStorage.getMacrosesGroupsList()) {
                 localMacrosesGroup.Add(macrosesGroup.Clone() as MacrosesGroup);
             }
 
@@ -59,6 +70,18 @@ namespace GSM_NBIoT_Module.view.terminal {
                 case 4:
                     fifthGroupBtn.PerformClick();
                     break;
+            }
+
+            //Установка слушателей текс боксам и чек боксам таблицы
+            foreach (Control crl in macrosTabLotPnl.Controls) {
+
+                if (crl is TextBox) {
+                    crl.TextChanged += textBoxDataAndName_TextChaged;
+
+                } else if (crl is CheckBox) {
+                    (crl as CheckBox).CheckedChanged += checkBoxRepeat_CheckedChanged;
+
+                }
             }
         }
 
@@ -97,7 +120,14 @@ namespace GSM_NBIoT_Module.view.terminal {
 
         //Отвечает за индекс группы которая была до того как пользователь решил сменить группу редактирования макросов
         private int oldGroupIndex;
+        /// <summary>
+        /// Сохраняет прошлые изменения в значениях макроса на определённой странице
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void groupBtn_Click(object sender, EventArgs e) {
+
+            setColorSelectedBtn(sender as Button);
 
             if (sender == firstGroupBtn) {
 
@@ -181,10 +211,28 @@ namespace GSM_NBIoT_Module.view.terminal {
         }
 
         /// <summary>
+        /// Расскрашивает кнопку, соответствующую выбранной группе макросов
+        /// </summary>
+        /// <param name="selectedBtn"></param>
+        private void setColorSelectedBtn(Button selectedBtn) {
+
+            foreach (Control btn in groupsBtntabLtPnl.Controls) {
+
+                if (btn == selectedBtn) {
+                    btn.BackColor = selectedColorBtn;
+                } else {
+                    btn.BackColor = defaultBtnColor;
+                }
+            }
+        }
+
+        /// <summary>
         /// Сохраняет локальные изменения в макроса при переключении группы макросов пользователем
         /// </summary>
         private void saveOldGroupValues() {
             if (oldGroupIndex != 0) {
+
+                localMacrosesGroup.ElementAt(oldGroupIndex - 1).Name = nameGroupTxtBx.Text;
 
                 Dictionary<int, Macros> macrosDic = localMacrosesGroup.ElementAt(oldGroupIndex - 1).getMacrosesDic();
 
@@ -218,11 +266,49 @@ namespace GSM_NBIoT_Module.view.terminal {
         }
 
         private void SaveBtn_Click(object sender, EventArgs e) {
+            saveOldGroupValues();
             MacrosesGroupStorage macrosesGroup = MacrosesGroupStorage.getMacrosesGroupStorageInstance();
             macrosesGroup.setMacrosesGroupsList(localMacrosesGroup);
             MacrosesGroupStorage.serializeMacrosesGroupStorage();
             terminalForm.refreshMacrosBtns();
+            txtBoxTextIsChanges = false;
             Close();
+        }
+
+        /// <summary>
+        /// Действие при изменении текста в текст бокс
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxDataAndName_TextChaged(object sender, EventArgs e) {
+            txtBoxTextIsChanges = true;
+
+            TextBox textBox = sender as TextBox;
+
+            if (textBox.Name.Contains("time")) {
+
+                int value = -1;
+
+                if (!int.TryParse(textBox.Text, out value)) {
+                    Flasher.exceptionDialog("Значение должно быть натуральным числом");
+                    textBox.Focus();
+                    textBox.SelectAll();
+                }
+            }
+        }
+
+        private void checkBoxRepeat_CheckedChanged(object sender, EventArgs e) {
+            txtBoxTextIsChanges = true;
+        }
+
+        private void MacrosSettings_FormClosing(object sender, FormClosingEventArgs e) {
+
+            if (txtBoxTextIsChanges) {
+                bool answer = Flasher.YesOrNoDialog("Сохранить изменения в макросах?", "Сохранение изменений");
+
+                if (answer) saveBtn.PerformClick();
+
+            }
         }
     }
 }

@@ -28,7 +28,7 @@ namespace GSM_NBIoT_Module.classes.terminal {
             //Количество кнопок макросов в окне терминала 20
             for (int i = 1; i <= 20; i++) {
 
-                macrosesDic.Add(i, new Macros(i.ToString(), (i + 10).ToString(), false, 1000));
+                macrosesDic.Add(i, new Macros("", "", false, 1000));
             }
         }
 

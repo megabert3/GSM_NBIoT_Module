@@ -2038,6 +2038,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Terminal_FormClosing);
             this.Load += new System.EventHandler(this.Terminal_Load);
             this.SizeChanged += new System.EventHandler(this.Terminal_SizeChanged);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Terminal_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.bandRateGroup.ResumeLayout(false);
             this.bandRateGroup.PerformLayout();

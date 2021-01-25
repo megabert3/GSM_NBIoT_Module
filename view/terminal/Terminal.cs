@@ -154,6 +154,13 @@ namespace GSM_NBIoT_Module.view {
             } else if (Properties.Settings.Default.terminal_LastMode.Equals("Hex")) {
                 modeHexRdBtn.PerformClick();
             }
+
+            //Установка слушателя кнопкам макросов
+            foreach (Control tabPage in macrosTabControl.Controls) {
+                foreach (Control btn in tabPage.Controls) {
+                    btn.Click += macrosBtns_Click;
+                }
+            }            
         }
 
         /// <summary>
@@ -822,5 +829,64 @@ namespace GSM_NBIoT_Module.view {
                 splitContainer1.SplitterDistance = 125;
             }
         }
+
+        private void macrosBtns_Click(object sender, EventArgs e) {
+            MacrosesGroupStorage macrosStorage = MacrosesGroupStorage.getMacrosesGroupStorageInstance();
+
+            MacrosesGroup macrosGroup = macrosStorage.getMacrosesGroupsList().ElementAt(macrosTabControl.SelectedIndex);
+
+            Macros macros = macrosGroup.getMacrosesDic()[Convert.ToInt32((sender as Button).Name.Substring(5))];
+
+            sendCommandInCOMPort(macros.macrosValue);
+        }
+
+        private void Terminal_KeyDown(object sender, KeyEventArgs e) {
+
+            if (e.KeyCode == Keys.NumPad1 || e.KeyCode == Keys.D1) {
+                selectHotCaseMacrosBtn(1);
+
+            } else if (e.KeyCode == Keys.NumPad2 || e.KeyCode == Keys.D2) {
+                selectHotCaseMacrosBtn(2);
+
+            } else if (e.KeyCode == Keys.NumPad3 || e.KeyCode == Keys.D3) {
+                selectHotCaseMacrosBtn(3);
+
+            } else if (e.KeyCode == Keys.NumPad4 || e.KeyCode == Keys.D4) {
+                selectHotCaseMacrosBtn(4);
+
+            } else if (e.KeyCode == Keys.NumPad5 || e.KeyCode == Keys.D5) {
+                selectHotCaseMacrosBtn(5);
+
+            } else if (e.KeyCode == Keys.NumPad6 || e.KeyCode == Keys.D6) {
+                selectHotCaseMacrosBtn(6);
+
+            } else if (e.KeyCode == Keys.NumPad7 || e.KeyCode == Keys.D7) {
+                selectHotCaseMacrosBtn(7);
+
+            } else if (e.KeyCode == Keys.NumPad8 || e.KeyCode == Keys.D8) {
+                selectHotCaseMacrosBtn(8);
+
+            } else if (e.KeyCode == Keys.NumPad9 || e.KeyCode == Keys.D9) {
+                selectHotCaseMacrosBtn(9);
+
+            } else if (e.KeyCode == Keys.NumPad0 || e.KeyCode == Keys.D0) {
+                selectHotCaseMacrosBtn(10);
+
+            }
+        }
+
+        /// <summary>
+        /// Нажимает на кнопку по порядуому номеру макроса
+        /// </summary>
+        /// <param name="i"></param>
+        private void selectHotCaseMacrosBtn (int i) {
+            foreach (Control btn in macrosTabControl.SelectedTab.Controls) {
+                if (Convert.ToInt32(btn.Name.Substring(5)) == i) {
+                    (btn as Button).PerformClick();
+                    break;
+                }
+            }
+        }
+
     }
 }

@@ -23,7 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.SaveBtn = new System.Windows.Forms.Button();
+            this.saveBtn = new System.Windows.Forms.Button();
             this.CancelBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.nameGroupTxtBx = new System.Windows.Forms.TextBox();
@@ -145,16 +145,16 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // SaveBtn
+            // saveBtn
             // 
-            this.SaveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveBtn.Location = new System.Drawing.Point(369, 576);
-            this.SaveBtn.Name = "SaveBtn";
-            this.SaveBtn.Size = new System.Drawing.Size(100, 23);
-            this.SaveBtn.TabIndex = 1;
-            this.SaveBtn.Text = "Сохранить";
-            this.SaveBtn.UseVisualStyleBackColor = true;
-            this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
+            this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveBtn.Location = new System.Drawing.Point(369, 576);
+            this.saveBtn.Name = "saveBtn";
+            this.saveBtn.Size = new System.Drawing.Size(100, 23);
+            this.saveBtn.TabIndex = 1;
+            this.saveBtn.Text = "Сохранить";
+            this.saveBtn.UseVisualStyleBackColor = true;
+            this.saveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
             // 
             // CancelBtn
             // 
@@ -1420,10 +1420,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nameGroupTxtBx);
             this.Controls.Add(this.CancelBtn);
-            this.Controls.Add(this.SaveBtn);
+            this.Controls.Add(this.saveBtn);
             this.Name = "MacrosSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройка макросов";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MacrosSettings_FormClosing);
             this.Load += new System.EventHandler(this.MacrosSettings_Load);
             this.macrosTabLotPnl.ResumeLayout(false);
             this.macrosTabLotPnl.PerformLayout();
@@ -1437,7 +1438,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button SaveBtn;
+        private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.Button CancelBtn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox nameGroupTxtBx;
