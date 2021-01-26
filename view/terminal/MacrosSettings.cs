@@ -126,87 +126,91 @@ namespace GSM_NBIoT_Module.view.terminal {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void groupBtn_Click(object sender, EventArgs e) {
+            try {
+                if (sender == firstGroupBtn) {
 
-            setColorSelectedBtn(sender as Button);
+                    if (!firstGroupBtnIsPressed) {
 
-            if (sender == firstGroupBtn) {
+                        saveOldGroupValues();
+                        oldGroupIndex = 1;
 
-                if (!firstGroupBtnIsPressed) {
+                        firstGroupBtnIsPressed = true;
+                        secondGroupBtnIsPressed = false;
+                        thirdGroupBtnIsPressed = false;
+                        fourthGroupBtnIsPressed = false;
+                        fifthGroupBtnIsPressed = false;
 
-                    saveOldGroupValues();
-                    oldGroupIndex = 1;
+                        setMacrosInfoInTable(0);
+                    }
 
-                    firstGroupBtnIsPressed = true;
-                    secondGroupBtnIsPressed = false;
-                    thirdGroupBtnIsPressed = false;
-                    fourthGroupBtnIsPressed = false;
-                    fifthGroupBtnIsPressed = false;
+                } else if (sender == secondGroupBtn) {
 
-                    setMacrosInfoInTable(0);
+                    if (!secondGroupBtnIsPressed) {
+
+                        saveOldGroupValues();
+                        oldGroupIndex = 2;
+
+                        firstGroupBtnIsPressed = false;
+                        secondGroupBtnIsPressed = true;
+                        thirdGroupBtnIsPressed = false;
+                        fourthGroupBtnIsPressed = false;
+                        fifthGroupBtnIsPressed = false;
+
+                        setMacrosInfoInTable(1);
+                    }
+
+
+                } else if (sender == thirdGroupBtn) {
+
+                    if (!thirdGroupBtnIsPressed) {
+
+                        saveOldGroupValues();
+                        oldGroupIndex = 3;
+
+                        firstGroupBtnIsPressed = false;
+                        secondGroupBtnIsPressed = false;
+                        thirdGroupBtnIsPressed = true;
+                        fourthGroupBtnIsPressed = false;
+                        fifthGroupBtnIsPressed = false;
+
+                        setMacrosInfoInTable(2);
+                    }
+                } else if (sender == fourthGroupBtn) {
+
+                    if (!fourthGroupBtnIsPressed) {
+
+                        saveOldGroupValues();
+                        oldGroupIndex = 4;
+
+                        firstGroupBtnIsPressed = false;
+                        secondGroupBtnIsPressed = false;
+                        thirdGroupBtnIsPressed = false;
+                        fourthGroupBtnIsPressed = true;
+                        fifthGroupBtnIsPressed = false;
+
+                        setMacrosInfoInTable(3);
+                    }
+                } else if (sender == fifthGroupBtn) {
+
+                    if (!fifthGroupBtnIsPressed) {
+
+                        saveOldGroupValues();
+                        oldGroupIndex = 5;
+
+                        firstGroupBtnIsPressed = false;
+                        secondGroupBtnIsPressed = false;
+                        thirdGroupBtnIsPressed = false;
+                        fourthGroupBtnIsPressed = false;
+                        fifthGroupBtnIsPressed = true;
+
+                        setMacrosInfoInTable(4);
+                    }
                 }
 
-            } else if (sender == secondGroupBtn) {
+                setColorSelectedBtn(sender as Button);
 
-                if (!secondGroupBtnIsPressed) {
-
-                    saveOldGroupValues();
-                    oldGroupIndex = 2;
-
-                    firstGroupBtnIsPressed = false;
-                    secondGroupBtnIsPressed = true;
-                    thirdGroupBtnIsPressed = false;
-                    fourthGroupBtnIsPressed = false;
-                    fifthGroupBtnIsPressed = false;
-
-                    setMacrosInfoInTable(1);
-                }
-
-                
-            } else if (sender == thirdGroupBtn) {
-
-                if (!thirdGroupBtnIsPressed) {
-
-                    saveOldGroupValues();
-                    oldGroupIndex = 3;
-
-                    firstGroupBtnIsPressed = false;
-                    secondGroupBtnIsPressed = false;
-                    thirdGroupBtnIsPressed = true;
-                    fourthGroupBtnIsPressed = false;
-                    fifthGroupBtnIsPressed = false;
-
-                    setMacrosInfoInTable(2);
-                }
-            } else if (sender == fourthGroupBtn) {
-
-                if (!fourthGroupBtnIsPressed) {
-
-                    saveOldGroupValues();
-                    oldGroupIndex = 4;
-
-                    firstGroupBtnIsPressed = false;
-                    secondGroupBtnIsPressed = false;
-                    thirdGroupBtnIsPressed = false;
-                    fourthGroupBtnIsPressed = true;
-                    fifthGroupBtnIsPressed = false;
-
-                    setMacrosInfoInTable(3);
-                }
-            } else if (sender == fifthGroupBtn) {
-
-                if (!fifthGroupBtnIsPressed) {
-
-                    saveOldGroupValues();
-                    oldGroupIndex = 5;
-
-                    firstGroupBtnIsPressed = false;
-                    secondGroupBtnIsPressed = false;
-                    thirdGroupBtnIsPressed = false;
-                    fourthGroupBtnIsPressed = false;
-                    fifthGroupBtnIsPressed = true;
-
-                    setMacrosInfoInTable(4);
-                }
+            } catch (FormatException ex) {
+                Flasher.exceptionDialog(ex.Message);
             }
         }
 
@@ -226,11 +230,13 @@ namespace GSM_NBIoT_Module.view.terminal {
             }
         }
 
+
         /// <summary>
         /// Сохраняет локальные изменения в макроса при переключении группы макросов пользователем
         /// </summary>
         private void saveOldGroupValues() {
             if (oldGroupIndex != 0) {
+                int k;
 
                 localMacrosesGroup.ElementAt(oldGroupIndex - 1).Name = nameGroupTxtBx.Text;
 
@@ -250,7 +256,16 @@ namespace GSM_NBIoT_Module.view.terminal {
 
                     //Установка времени задержки в цикле для макроса (перед отправкой сообщения)
                     txtBox = macrosTabLotPnl.GetControlFromPosition(2, i) as TextBox;
-                    macros.timeCycle = Convert.ToInt32(txtBox.Text);
+
+                    k = -1;
+                    if (int.TryParse(txtBox.Text, out k)) {
+                        macros.timeCycle = k;
+
+                    } else {
+                        txtBox.Focus();
+                        txtBox.SelectAll();
+                        throw new FormatException("Неверный формат числа. Значение должно быть целочисленным");
+                    }
 
                     //Установка флага циклической отправки
                     checkBox = macrosTabLotPnl.GetControlFromPosition(3, i) as CheckBox;
@@ -266,11 +281,18 @@ namespace GSM_NBIoT_Module.view.terminal {
         }
 
         private void SaveBtn_Click(object sender, EventArgs e) {
-            saveOldGroupValues();
+            try {
+                saveOldGroupValues();
+            } catch (FormatException ex) {
+                Flasher.exceptionDialog(ex.Message);
+                return;
+            }
+
             MacrosesGroupStorage macrosesGroup = MacrosesGroupStorage.getMacrosesGroupStorageInstance();
             macrosesGroup.setMacrosesGroupsList(localMacrosesGroup);
             MacrosesGroupStorage.serializeMacrosesGroupStorage();
             terminalForm.refreshMacrosBtns();
+            terminalForm.refreshToolTipsForMacros();
             txtBoxTextIsChanges = false;
             Close();
         }
@@ -307,7 +329,6 @@ namespace GSM_NBIoT_Module.view.terminal {
                 bool answer = Flasher.YesOrNoDialog("Сохранить изменения в макросах?", "Сохранение изменений");
 
                 if (answer) saveBtn.PerformClick();
-
             }
         }
     }

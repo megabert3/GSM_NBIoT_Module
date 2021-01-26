@@ -97,9 +97,18 @@ namespace GSM_NBIoT_Module.classes {
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool CloseHandle(IntPtr hObject);
-        private static bool MyCloseHandle(IntPtr hObject) {
-            return CloseHandle(hObject);
+        private static void MyCloseHandle(IntPtr hObject) {
+            if (!CloseHandle(hObject)) {
+                throw new CP_Error("Не удалось закрыть COM порт");
+            }
         }
+
+        [DllImport("kernel32.dll")]
+        private static extern uint GetLastError();
+        private static uint getLastError() {
+            return GetLastError();
+        }
+        
 
         /// <summary>
         /// Считывание состояния ножек GPIO

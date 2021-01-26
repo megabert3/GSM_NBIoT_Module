@@ -193,6 +193,9 @@
             this.addEndLine = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.clearLog = new System.Windows.Forms.Button();
+            this.saveLog = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.bandRateGroup.SuspendLayout();
             this.dataBitGroup.SuspendLayout();
@@ -214,6 +217,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -657,7 +661,7 @@
             this.groupBox6.Controls.Add(this.searchCP2105Ports);
             this.groupBox6.Controls.Add(this.groupBox8);
             this.groupBox6.Controls.Add(this.groupBox7);
-            this.groupBox6.Location = new System.Drawing.Point(911, 3);
+            this.groupBox6.Location = new System.Drawing.Point(1040, 3);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(250, 119);
             this.groupBox6.TabIndex = 20;
@@ -788,9 +792,9 @@
             // 
             this.messInCOMTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.messInCOMTxtBx.Location = new System.Drawing.Point(13, 737);
+            this.messInCOMTxtBx.Location = new System.Drawing.Point(12, 737);
             this.messInCOMTxtBx.Name = "messInCOMTxtBx";
-            this.messInCOMTxtBx.Size = new System.Drawing.Size(1240, 20);
+            this.messInCOMTxtBx.Size = new System.Drawing.Size(1241, 20);
             this.messInCOMTxtBx.TabIndex = 22;
             this.messInCOMTxtBx.KeyDown += new System.Windows.Forms.KeyEventHandler(this.messInCOMTxtBx_KeyDown);
             // 
@@ -876,7 +880,7 @@
             this.macrosTabControl.Location = new System.Drawing.Point(12, 763);
             this.macrosTabControl.Name = "macrosTabControl";
             this.macrosTabControl.SelectedIndex = 0;
-            this.macrosTabControl.Size = new System.Drawing.Size(1402, 108);
+            this.macrosTabControl.Size = new System.Drawing.Size(1295, 108);
             this.macrosTabControl.TabIndex = 26;
             // 
             // tabPage1
@@ -905,7 +909,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1394, 82);
+            this.tabPage1.Size = new System.Drawing.Size(1287, 82);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1936,27 +1940,25 @@
             // 
             // editMacros
             // 
-            this.editMacros.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.editMacros.Location = new System.Drawing.Point(6, 91);
+            this.editMacros.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.editMacros.Location = new System.Drawing.Point(1313, 782);
             this.editMacros.Name = "editMacros";
-            this.editMacros.Size = new System.Drawing.Size(168, 23);
+            this.editMacros.Size = new System.Drawing.Size(102, 23);
             this.editMacros.TabIndex = 27;
-            this.editMacros.Text = "Настройки макросов";
-            this.editMacros.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.editMacros.Text = "Макросы";
             this.editMacros.UseVisualStyleBackColor = true;
             this.editMacros.Click += new System.EventHandler(this.editMacros_Click);
             // 
             // otherGroup
             // 
             this.otherGroup.Controls.Add(this.connectToMKBtn);
-            this.otherGroup.Controls.Add(this.editMacros);
             this.otherGroup.Controls.Add(this.connectToModuleBtn);
             this.otherGroup.Location = new System.Drawing.Point(701, 3);
             this.otherGroup.Name = "otherGroup";
             this.otherGroup.Size = new System.Drawing.Size(204, 119);
             this.otherGroup.TabIndex = 28;
             this.otherGroup.TabStop = false;
-            this.otherGroup.Text = "Другое";
+            this.otherGroup.Text = "Связь";
             // 
             // terminalLogTxtBx
             // 
@@ -1967,7 +1969,7 @@
             this.terminalLogTxtBx.Name = "terminalLogTxtBx";
             this.terminalLogTxtBx.ReadOnly = true;
             this.terminalLogTxtBx.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.terminalLogTxtBx.Size = new System.Drawing.Size(1404, 590);
+            this.terminalLogTxtBx.Size = new System.Drawing.Size(1401, 586);
             this.terminalLogTxtBx.TabIndex = 21;
             // 
             // addEndLine
@@ -1992,11 +1994,12 @@
             this.flowLayoutPanel1.Controls.Add(this.stopBitGroup);
             this.flowLayoutPanel1.Controls.Add(this.modeGroup);
             this.flowLayoutPanel1.Controls.Add(this.otherGroup);
+            this.flowLayoutPanel1.Controls.Add(this.groupBox2);
             this.flowLayoutPanel1.Controls.Add(this.groupBox6);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1404, 123);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1401, 123);
             this.flowLayoutPanel1.TabIndex = 32;
             // 
             // splitContainer1
@@ -2004,26 +2007,62 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(10, 12);
+            this.splitContainer1.Location = new System.Drawing.Point(13, 12);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.flowLayoutPanel1);
+            this.splitContainer1.Panel1MinSize = 0;
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.terminalLogTxtBx);
-            this.splitContainer1.Size = new System.Drawing.Size(1404, 717);
+            this.splitContainer1.Size = new System.Drawing.Size(1401, 717);
             this.splitContainer1.SplitterDistance = 123;
+            this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.TabIndex = 33;
+            // 
+            // clearLog
+            // 
+            this.clearLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.clearLog.Location = new System.Drawing.Point(12, 17);
+            this.clearLog.Name = "clearLog";
+            this.clearLog.Size = new System.Drawing.Size(102, 23);
+            this.clearLog.TabIndex = 34;
+            this.clearLog.Text = "Очистить лог";
+            this.clearLog.UseVisualStyleBackColor = true;
+            this.clearLog.Click += new System.EventHandler(this.clearLog_Click);
+            // 
+            // saveLog
+            // 
+            this.saveLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveLog.Location = new System.Drawing.Point(12, 46);
+            this.saveLog.Name = "saveLog";
+            this.saveLog.Size = new System.Drawing.Size(102, 23);
+            this.saveLog.TabIndex = 35;
+            this.saveLog.Text = "Сохранить лог";
+            this.saveLog.UseVisualStyleBackColor = true;
+            this.saveLog.Click += new System.EventHandler(this.saveLog_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.saveLog);
+            this.groupBox2.Controls.Add(this.clearLog);
+            this.groupBox2.Location = new System.Drawing.Point(911, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(123, 119);
+            this.groupBox2.TabIndex = 29;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Лог";
             // 
             // Terminal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1426, 877);
+            this.Controls.Add(this.editMacros);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.addEndLine);
             this.Controls.Add(this.macrosTabControl);
@@ -2068,6 +2107,7 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2244,5 +2284,8 @@
         private System.Windows.Forms.Button gr1bt16;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Button clearLog;
+        private System.Windows.Forms.Button saveLog;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }

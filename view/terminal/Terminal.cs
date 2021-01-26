@@ -4,6 +4,7 @@ using GSM_NBIoT_Module.classes.terminal;
 using GSM_NBIoT_Module.view.terminal;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Ports;
@@ -26,6 +27,8 @@ namespace GSM_NBIoT_Module.view {
 
         //Стандартный цвет кнопки
         private Color defaultColor;
+
+        private ToolTip toolTipForMacros;
 
         public Terminal() {
             InitializeComponent();
@@ -113,39 +116,47 @@ namespace GSM_NBIoT_Module.view {
             switch (Properties.Settings.Default.terminal_LastParity) {
                 case "Even": {
                         parityEvenRdBtn.PerformClick();
-                    } break;
+                    }
+                    break;
 
                 case "Mark": {
                         parityMarkRdBtn.PerformClick();
-                    } break;
+                    }
+                    break;
 
                 case "None": {
                         parityNoneRdBtn.PerformClick();
-                    } break;
+                    }
+                    break;
 
                 case "Odd": {
                         parityOddRdBtn.PerformClick();
-                    } break;
+                    }
+                    break;
 
                 case "Space": {
                         paritySpaceRdBtn.PerformClick();
-                    } break;
+                    }
+                    break;
             }
 
             //StopBit
-            switch(Properties.Settings.Default.terminal_LastStopBit) {
+            switch (Properties.Settings.Default.terminal_LastStopBit) {
                 case "One": {
                         stopBit1RdBtn.PerformClick();
 
-                    } break;
+                    }
+                    break;
                 case "OnePointFive": {
                         stopBit1_5RdBtn.PerformClick();
 
-                    } break;
+                    }
+                    break;
                 case "Two": {
                         stopBit2RdBtn.PerformClick();
 
-                } break;
+                    }
+                    break;
             }
 
             //Мод
@@ -160,7 +171,9 @@ namespace GSM_NBIoT_Module.view {
                 foreach (Control btn in tabPage.Controls) {
                     btn.Click += macrosBtns_Click;
                 }
-            }            
+            }
+
+            refreshToolTipsForMacros();
         }
 
         /// <summary>
@@ -171,7 +184,7 @@ namespace GSM_NBIoT_Module.view {
         private void connOrDisCOMBtn_Click(object sender, EventArgs e) {
 
             if (!connect) {
-                
+
                 //Установка COM порта
                 if (String.IsNullOrEmpty(comPortsListCmbBox.Text.Trim())) {
                     Flasher.exceptionDialog("Выберите номер COM порта");
@@ -184,7 +197,7 @@ namespace GSM_NBIoT_Module.view {
                     Flasher.exceptionDialog("Неверный формат имени COM порта");
                     return;
                 }
-                
+
                 //Установка скорости
                 //Если выбрана пользователькая скорость
                 if (customBandRateRdBtn.Checked) {
@@ -218,6 +231,9 @@ namespace GSM_NBIoT_Module.view {
                     Flasher.exceptionDialog("Возникла ошибка при открытии COM порта:\n" + ex.Message);
                     return;
                 }
+
+                Properties.Settings.Default.terminal_LastCOMPortNo = comPortsListCmbBox.Text;
+                Properties.Settings.Default.Save();
 
                 enablePortSettings(false);
                 indBtn.BackColor = Color.Lime;
@@ -364,7 +380,7 @@ namespace GSM_NBIoT_Module.view {
             try {
                 cP2105.amountDevicesConnect();
 
-            }catch (CP_Error ex) {
+            } catch (CP_Error ex) {
 
                 Flasher.exceptionDialog(ex.Message);
                 Cursor = Cursors.Default;
@@ -379,13 +395,13 @@ namespace GSM_NBIoT_Module.view {
             try {
                 cP2105.FindDevicePorts();
 
-            }catch (DeviceNotFoundException ex) {
+            } catch (DeviceNotFoundException ex) {
 
                 Flasher.exceptionDialog(ex.Message);
                 Cursor = Cursors.Default;
 
                 if (connectToCOM) {
-                   connOrDisCOMBtn.PerformClick();
+                    connOrDisCOMBtn.PerformClick();
                 }
                 return;
             }
@@ -398,14 +414,15 @@ namespace GSM_NBIoT_Module.view {
 
             try {
                 StateGPIO_OnStandardPort stageGPIOSta = cP2105.GetStageGPIOStandardPort();
-            standGPIO_0chBx.Checked = stageGPIOSta.stageGPIO_0;
-            standGPIO_1chBx.Checked = stageGPIOSta.stageGPIO_1;
-            standGPIO_2chBx.Checked = stageGPIOSta.stageGPIO_2;
-            
+                standGPIO_0chBx.Checked = stageGPIOSta.stageGPIO_0;
+                standGPIO_1chBx.Checked = stageGPIOSta.stageGPIO_1;
+                standGPIO_2chBx.Checked = stageGPIOSta.stageGPIO_2;
+
                 StateGPIO_OnEnhabcedPort stageGPIOEnh = cP2105.GetStageGPIOEnhabcedPort();
                 enhanGPIO_0chBx.Checked = stageGPIOEnh.stageGPIO_0;
                 enhanGPIO_1chBx.Checked = stageGPIOEnh.stageGPIO_1;
-            }catch (CP_Error ex) {
+
+            } catch (CP_Error ex) {
                 Flasher.exceptionDialog(ex.Message);
             }
 
@@ -509,7 +526,7 @@ namespace GSM_NBIoT_Module.view {
             int enh;
 
             Cursor = Cursors.WaitCursor;
-            
+
             //Если поле с COM портом пустое
             if (String.IsNullOrEmpty(cpNumbStandartPortTxtBx.Text.Trim()) ||
                 String.IsNullOrEmpty(cpNumbEnhancedPortTxtBx.Text.Trim())) {
@@ -526,14 +543,14 @@ namespace GSM_NBIoT_Module.view {
                     sta = Convert.ToInt32(cpNumbStandartPortTxtBx.Text.Trim());
                     enh = Convert.ToInt32(cpNumbEnhancedPortTxtBx.Text.Trim());
                 }
-                
+
                 //Если есть какое-то значение
             } else {
 
                 //то проверяю на валидность
                 try {
                     sta = Convert.ToInt32(cpNumbStandartPortTxtBx.Text.Trim());
-                    enh = Convert.ToInt32(cpNumbEnhancedPortTxtBx.Text.Trim()); 
+                    enh = Convert.ToInt32(cpNumbEnhancedPortTxtBx.Text.Trim());
                 } catch (FormatException) {
                     //Повторяю поиск
                     searchCP2105Ports.PerformClick();
@@ -689,26 +706,49 @@ namespace GSM_NBIoT_Module.view {
         private int dataByte;
         private bool first = true;
         private void sp_DataReceived(object sender, SerialDataReceivedEventArgs e) {
-            
+
             terminalLogTxtBx.Invoke((MethodInvoker)delegate {
                 while (serialPort.BytesToRead != 0) {
                     dataByte = serialPort.ReadByte();
 
                     switch (dataByte) {
+
+                        //Эквивалентно /r
                         case 13:
                             terminalLogTxtBx.AppendText(Environment.NewLine);
                             first = true;
                             break;
+
+                        //Эквивалентно /n
                         case 10:
                             terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + Environment.NewLine);
                             first = true;
                             break;
+
                         default:
+
+                            //Если первый байт после получения байтов переноса строки, то добавляю таймштамп
                             if (first) {
-                                terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + Convert.ToChar(dataByte).ToString());
+
+                                //Если в текством формате
+                                if (modeTextRdBtn.Checked) {
+                                    terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + Convert.ToChar(dataByte).ToString());
+                                    
+                                    //Если в HEX формате
+                                } else {
+                                    terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + dataByte.ToString("X2") + " ");
+                                }
+
                                 first = false;
                             } else {
-                                terminalLogTxtBx.AppendText(Convert.ToChar(dataByte).ToString());
+
+                                if (modeTextRdBtn.Checked) {
+                                    terminalLogTxtBx.AppendText(Convert.ToChar(dataByte).ToString());
+
+                                } else {
+                                    terminalLogTxtBx.AppendText(dataByte.ToString("X2") + " ");
+
+                                }
                             }
                             break;
                     }
@@ -756,7 +796,9 @@ namespace GSM_NBIoT_Module.view {
 
         }
 
-        object locker = new object();
+        private object locker = new object();
+        private List<byte> sendByteList;
+        private char[] charArr;
         /// <summary>
         /// Отправляет данные в COM порт
         /// </summary>
@@ -766,20 +808,56 @@ namespace GSM_NBIoT_Module.view {
 
                 if (String.IsNullOrEmpty(mess)) return;
 
-                //outputMessegeToTerminalLog(mess);
-
-                //Если стоит добавить \r\n
-                if (addEndLine.Checked) {
-                    mess = mess + "\r\n";
+                if (mess.Equals("Nikita pidorok?")) {
+                    addMessInComLog("Nikita pidorok?");
+                    addMessInComLog("");
+                    addMessInComLog("DA");
+                    addMessInComLog("");
+                    addMessInComLog("OK");
+                    return;
                 }
 
-                byte[] messByteArr = Encoding.Default.GetBytes(mess);
+                sendByteList = new List<byte>();
+
+                charArr = mess.ToCharArray();
+
+                for (int i = 0; i < charArr.Length; i++) {
+                    if (charArr[i] == '$') {
+                        //Проверка, что после знака есть ещё символы
+                        if (i < charArr.Length - 2) {
+                            try {
+                                sendByteList.Add(Convert.ToByte((charArr[i + 1].ToString() + charArr[i + 2].ToString()), 16));
+                                i += 2;
+                            }catch (FormatException) {
+                                Flasher.exceptionDialog("Не удалось преобразовать значение " + charArr[i + 1].ToString() + charArr[i + 2].ToString() + " в байты");
+                                return;
+                            }
+                            //Если нет
+                        } else {
+                            Flasher.exceptionDialog("Не удалось преобразовать значение в байты");
+                            return;
+                        }
+
+                    } else {
+                        sendByteList.Add(Encoding.ASCII.GetBytes(charArr[i].ToString())[0]);
+                    }
+                }
+
+                //Если нужно добавить \r\n
+                if (addEndLine.Checked) {
+                    sendByteList.Add(13);
+                    sendByteList.Add(10);
+                }
 
                 //Отправка данных в ком порт
                 lock (locker) {
-                    serialPort.Write(messByteArr, 0, messByteArr.Length);
+                    serialPort.Write(sendByteList.ToArray(), 0, sendByteList.Count);
                 }
             }
+        }
+
+        private void addMessInComLog(string mess) {
+            terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + mess + Environment.NewLine);
         }
 
         /// <summary>
@@ -826,7 +904,9 @@ namespace GSM_NBIoT_Module.view {
             if (groupBox6.Location.Y > 5) {
                 splitContainer1.SplitterDistance = 125 * 2;
             } else {
-                splitContainer1.SplitterDistance = 125;
+                try {
+                    splitContainer1.SplitterDistance = 125;
+                } catch (InvalidOperationException) { }
             }
         }
 
@@ -873,13 +953,17 @@ namespace GSM_NBIoT_Module.view {
                 selectHotCaseMacrosBtn(10);
 
             }
+
+            if (e.KeyCode == Keys.Escape) {
+                clearLog.PerformClick();
+            }
         }
 
         /// <summary>
         /// Нажимает на кнопку по порядуому номеру макроса
         /// </summary>
         /// <param name="i"></param>
-        private void selectHotCaseMacrosBtn (int i) {
+        private void selectHotCaseMacrosBtn(int i) {
             foreach (Control btn in macrosTabControl.SelectedTab.Controls) {
                 if (Convert.ToInt32(btn.Name.Substring(5)) == i) {
                     (btn as Button).PerformClick();
@@ -888,5 +972,75 @@ namespace GSM_NBIoT_Module.view {
             }
         }
 
+        /// <summary>
+        /// Обновляет содержание подсказок для макросов
+        /// </summary>
+        public void refreshToolTipsForMacros() {
+
+            List<MacrosesGroup> macrosesGroupList = MacrosesGroupStorage.getMacrosesGroupStorageInstance().getMacrosesGroupsList();
+
+            toolTipForMacros = new ToolTip();
+            toolTipForMacros.InitialDelay = 250;
+            toolTipForMacros.ReshowDelay = 150;
+
+            MacrosesGroup macrosesGroup;
+            Macros macros;
+            string toolTipMess;
+            for (int i = 0; i < 5; i++) {
+                macrosesGroup = macrosesGroupList.ElementAt(i);
+
+                for (int j = 1; j <= 20; j++) {
+                    macros = macrosesGroup.getMacrosesDic()[j];
+
+                    foreach (Control btn in macrosTabControl.GetControl(i).Controls) {
+
+                        if (Convert.ToInt32(btn.Name.Substring(5)) == j) {
+
+                            toolTipMess = "Отправляемые данные: " + macros.macrosValue;
+
+                            if (macros.macrosIncycle) {
+                                toolTipMess += "\nПериод отправки: " + macros.timeCycle + " мс";
+                            }
+
+                            if (j <= 10) {
+
+                                if (j != 10) {
+                                    toolTipMess += "\nНажнимите цифру " + j + " для отправки данных в порт";
+                                } else {
+                                    toolTipMess += "\nНажнимите цифру 0 для отправки данных в порт";
+                                }
+                            }
+
+                            toolTipForMacros.SetToolTip(btn, toolTipMess);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void clearLog_Click(object sender, EventArgs e) {
+            bool answer = Flasher.YesOrNoDialog("Вы уверены, что хотите очистить лог?", "Очистка лога");
+
+            if (answer) terminalLogTxtBx.Clear();
+        }
+
+        private void saveLog_Click(object sender, EventArgs e) {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.RestoreDirectory = true;
+            saveFileDialog.FileName = "taipitTerminalLog_" + DateTime.Now.ToString("yyyy_MM_dd_HH-mm-ss") + ".log";
+            saveFileDialog.Filter = "All files (*.*)|*.*";
+            saveFileDialog.FilterIndex = 0;
+
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+
+                // сохраняем текст в файл
+                File.WriteAllText(saveFileDialog.FileName, terminalLogTxtBx.Text);
+
+                Flasher.successfullyDialog("Лог успешно сохранен", "Сохранение лога");
+            }
+        }
     }
 }
