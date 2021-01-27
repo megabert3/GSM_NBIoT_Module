@@ -25,7 +25,7 @@ namespace GSM_NBIoT_Module.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(" V2.0.1")]
+        [global::System.Configuration.DefaultSettingValueAttribute(" V2.1.0")]
         public string version {
             get {
                 return ((string)(this["version"]));
@@ -131,12 +131,12 @@ namespace GSM_NBIoT_Module.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Text")]
-        public string terminal_LastMode {
+        public string terminal_inputLastMode {
             get {
-                return ((string)(this["terminal_LastMode"]));
+                return ((string)(this["terminal_inputLastMode"]));
             }
             set {
-                this["terminal_LastMode"] = value;
+                this["terminal_inputLastMode"] = value;
             }
         }
         
@@ -146,6 +146,18 @@ namespace GSM_NBIoT_Module.Properties {
         public string programName {
             get {
                 return ((string)(this["programName"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Text")]
+        public string terminal_outLastMode {
+            get {
+                return ((string)(this["terminal_outLastMode"]));
+            }
+            set {
+                this["terminal_outLastMode"] = value;
             }
         }
     }

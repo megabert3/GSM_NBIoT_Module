@@ -41,6 +41,8 @@ namespace GSM_NBIoT_Module.view {
 
             refreshMacrosBtns();
 
+            setToolTipsTerminalFrame();
+
             //Устанавливаю слушатели
             serialPort.DataReceived += new SerialDataReceivedEventHandler(sp_DataReceived);
 
@@ -159,10 +161,17 @@ namespace GSM_NBIoT_Module.view {
                     break;
             }
 
-            //Мод
-            if (Properties.Settings.Default.terminal_LastMode.Equals("Text")) {
+            //Вывод информации из лога
+            if (Properties.Settings.Default.terminal_inputLastMode.Equals("Text")) {
+                inputModeTextRdBtn.PerformClick();
+            } else if (Properties.Settings.Default.terminal_inputLastMode.Equals("Hex")) {
+                inputModeHexRdBtn.PerformClick();
+            }
+
+            //ввод информации в лог
+            if (Properties.Settings.Default.terminal_outLastMode.Equals("Text")) {
                 modeTextRdBtn.PerformClick();
-            } else if (Properties.Settings.Default.terminal_LastMode.Equals("Hex")) {
+            } else if (Properties.Settings.Default.terminal_outLastMode.Equals("Hex")) {
                 modeHexRdBtn.PerformClick();
             }
 
@@ -232,7 +241,24 @@ namespace GSM_NBIoT_Module.view {
                     return;
                 }
 
+                //Сохраняю последние используемые настройки
                 Properties.Settings.Default.terminal_LastCOMPortNo = comPortsListCmbBox.Text;
+                Properties.Settings.Default.terminal_LastBandRate = serialPort.BaudRate.ToString();
+                Properties.Settings.Default.terminal_LastDataBit = serialPort.DataBits.ToString();
+                Properties.Settings.Default.terminal_LastParity = serialPort.Parity.ToString();
+                Properties.Settings.Default.terminal_LastStopBit = serialPort.StopBits.ToString();
+                if (inputModeTextRdBtn.Checked) {
+                    Properties.Settings.Default.terminal_inputLastMode = "Text";
+                } else {
+                    Properties.Settings.Default.terminal_inputLastMode = "Hex";
+                }
+
+                if (modeTextRdBtn.Checked) {
+                    Properties.Settings.Default.terminal_outLastMode = "Text";
+                } else {
+                    Properties.Settings.Default.terminal_outLastMode = "Hex";
+                } 
+                
                 Properties.Settings.Default.Save();
 
                 enablePortSettings(false);
@@ -731,7 +757,7 @@ namespace GSM_NBIoT_Module.view {
                             if (first) {
 
                                 //Если в текством формате
-                                if (modeTextRdBtn.Checked) {
+                                if (inputModeTextRdBtn.Checked) {
                                     terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + Convert.ToChar(dataByte).ToString());
                                     
                                     //Если в HEX формате
@@ -742,7 +768,7 @@ namespace GSM_NBIoT_Module.view {
                                 first = false;
                             } else {
 
-                                if (modeTextRdBtn.Checked) {
+                                if (inputModeTextRdBtn.Checked) {
                                     terminalLogTxtBx.AppendText(Convert.ToChar(dataByte).ToString());
 
                                 } else {
@@ -792,10 +818,6 @@ namespace GSM_NBIoT_Module.view {
             }
         }
 
-        private void macrosBtn_Click(object sender, EventArgs e) {
-
-        }
-
         private object locker = new object();
         private List<byte> sendByteList;
         private char[] charArr;
@@ -817,29 +839,43 @@ namespace GSM_NBIoT_Module.view {
                     return;
                 }
 
-                sendByteList = new List<byte>();
+                if (modeTextRdBtn.Checked) {
 
-                charArr = mess.ToCharArray();
+                    sendByteList = new List<byte>();
 
-                for (int i = 0; i < charArr.Length; i++) {
-                    if (charArr[i] == '$') {
-                        //Проверка, что после знака есть ещё символы
-                        if (i < charArr.Length - 2) {
-                            try {
-                                sendByteList.Add(Convert.ToByte((charArr[i + 1].ToString() + charArr[i + 2].ToString()), 16));
-                                i += 2;
-                            }catch (FormatException) {
-                                Flasher.exceptionDialog("Не удалось преобразовать значение " + charArr[i + 1].ToString() + charArr[i + 2].ToString() + " в байты");
+                    charArr = mess.ToCharArray();
+
+                    for (int i = 0; i < charArr.Length; i++) {
+                        if (charArr[i] == '$') {
+                            //Проверка, что после знака есть ещё символы
+                            if (i < charArr.Length - 2) {
+                                try {
+                                    sendByteList.Add(Convert.ToByte((charArr[i + 1].ToString() + charArr[i + 2].ToString()), 16));
+                                    i += 2;
+                                } catch (FormatException) {
+                                    Flasher.exceptionDialog("Не удалось преобразовать значение " + charArr[i + 1].ToString() + charArr[i + 2].ToString() + " в байты");
+                                    return;
+                                }
+                                //Если нет
+                            } else {
+                                Flasher.exceptionDialog("Не удалось преобразовать значение в байты после знака \'$\'");
                                 return;
                             }
-                            //Если нет
-                        } else {
-                            Flasher.exceptionDialog("Не удалось преобразовать значение в байты");
-                            return;
-                        }
 
-                    } else {
-                        sendByteList.Add(Encoding.ASCII.GetBytes(charArr[i].ToString())[0]);
+                        } else {
+                            sendByteList.Add(Encoding.ASCII.GetBytes(charArr[i].ToString())[0]);
+                        }
+                    }
+
+                } else {
+                    try {
+                        sendByteList = new List<byte>(StringToByteArray(mess.Trim()));
+                    } catch (ArgumentException) {
+                        Flasher.exceptionDialog("Неверный формат введнных данных. Значение не должно иметь пробелов и иметь диапазон от 00 до FF");
+                        return;
+                    } catch (FormatException) {
+                        Flasher.exceptionDialog("Неверный формат введнных данных. Значение не должно иметь пробелов и иметь диапазон от 00 до FF");
+                        return;
                     }
                 }
 
@@ -854,6 +890,18 @@ namespace GSM_NBIoT_Module.view {
                     serialPort.Write(sendByteList.ToArray(), 0, sendByteList.Count);
                 }
             }
+        }
+
+        /// <summary>
+        /// Конвертирует стринговые байты в числовые
+        /// </summary>
+        /// <param name="hex"></param>
+        /// <returns></returns>
+        public byte[] StringToByteArray(string hex) {
+            return Enumerable.Range(0, hex.Length)
+                             .Where(x => x % 2 == 0)
+                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+                             .ToArray();
         }
 
         private void addMessInComLog(string mess) {
@@ -901,11 +949,11 @@ namespace GSM_NBIoT_Module.view {
         }
 
         private void Terminal_SizeChanged(object sender, EventArgs e) {
-            if (groupBox6.Location.Y > 5) {
-                splitContainer1.SplitterDistance = 125 * 2;
+            if (groupBox2.Location.Y > 5) {
+                splitContainer1.SplitterDistance = 144 * 2 + 1;
             } else {
                 try {
-                    splitContainer1.SplitterDistance = 125;
+                    splitContainer1.SplitterDistance = 144;
                 } catch (InvalidOperationException) { }
             }
         }
@@ -956,6 +1004,10 @@ namespace GSM_NBIoT_Module.view {
 
             if (e.KeyCode == Keys.Escape) {
                 clearLog.PerformClick();
+            }
+
+            if (e.KeyCode == Keys.S && e.Modifiers == Keys.Control) {
+                saveLog.PerformClick();
             }
         }
 
@@ -1041,6 +1093,32 @@ namespace GSM_NBIoT_Module.view {
 
                 Flasher.successfullyDialog("Лог успешно сохранен", "Сохранение лога");
             }
+        }
+
+        /// <summary>
+        /// Выставляет необходимые подсказки кнопкам и группам
+        /// </summary>
+        private void setToolTipsTerminalFrame() {
+            ToolTip toolTip = new ToolTip();
+            toolTip.AutoPopDelay = 5000;
+            toolTip.InitialDelay = 250;
+            toolTip.ReshowDelay = 100;
+
+            toolTip.SetToolTip(groupBox3, "Выбор отображения информации в логе");
+            toolTip.SetToolTip(inputModeTextRdBtn, "Нажмите чтобы информация в логе отображалась в текстовом формате");
+            toolTip.SetToolTip(inputModeHexRdBtn, "Нажмите чтобы информация в логе отображалась в шестнадцатеричном формате");
+
+            toolTip.SetToolTip(modeGroup, "Выбор формата ввода информации");
+            toolTip.SetToolTip(modeTextRdBtn, "Нажмите, если хотите вводить информацию в текстовом виде");
+            toolTip.SetToolTip(modeHexRdBtn, "Нажмите, если хотите вводить информацию в шестнадцатеричном формате");
+
+            toolTip.SetToolTip(clearLog, "Очистка лога сообщений\nНажмите: Esc");
+            toolTip.SetToolTip(saveLog, "Сохранение лога\nНажмите Ctrl+C");
+            toolTip.SetToolTip(connectToModuleBtn, "Автоматически выставляет параметры, необходимые для общения с модулем Qectel");
+            toolTip.SetToolTip(connectToMKBtn, "Автоматически выставляет параметры, необходимые для общения с микрокотроллером");
+
+            toolTip.SetToolTip(groupBox6, "Управление состоянием ног CP2105");
+            toolTip.SetToolTip(searchCP2105Ports, "Находит порты модема и считывает состояния ног CP2105");
         }
     }
 }

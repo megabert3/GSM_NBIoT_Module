@@ -58,9 +58,9 @@ namespace GSM_NBIoT_Module {
 
             //Установка подсказки
             ToolTip toolTip = new ToolTip();
-            toolTip.InitialDelay = 1000;
+            toolTip.InitialDelay = 500;
             toolTip.AutoPopDelay = 5000;
-            toolTip.ReshowDelay = 500;
+            toolTip.ReshowDelay = 250;
 
             toolTip.ShowAlways = true;
 
@@ -116,6 +116,12 @@ namespace GSM_NBIoT_Module {
         //END
 
         private void startFlashBtn_Click(object sender, EventArgs e) {
+
+            if (configurationForm != null) {
+                exceptionDialog("Закройте окно конфигураций");
+                return;
+            }
+
             flashProcessRichTxtBox.Focus();
 
             //Стиль прогресс бара
@@ -151,7 +157,7 @@ namespace GSM_NBIoT_Module {
                 //Отключаю кнопку старт
                 enableStartButton(false);
                 //Отключаю кнопку конфигурации
-                enableEditConfButton(false);
+                enableEditConfAndTerminalBtn(false);
 
                 //============================================================= Передаю выбранный конфиурационный файл
                 string selectedConfiguration = "";
@@ -178,7 +184,7 @@ namespace GSM_NBIoT_Module {
                     Invoke((MethodInvoker)delegate {
                         exceptionDialog("Для работы программы необходимо создать конфигурационный файл");
                         enableStartButton(true);
-                        enableEditConfButton(true);
+                        enableEditConfAndTerminalBtn(true);
                     });
 
                     return;
@@ -199,7 +205,7 @@ namespace GSM_NBIoT_Module {
                             exceptionDialog("Программе не удалось найти папку с прошивками для микроконтроллера \"StorageMKFW\", проверьте целостность программы" +
                                 " или переустановите её и попробуйте снова");
                             enableStartButton(true);
-                            enableEditConfButton(true);
+                            enableEditConfAndTerminalBtn(true);
                         });
                         return;
                     }
@@ -211,7 +217,7 @@ namespace GSM_NBIoT_Module {
                             exceptionDialog("Программе не удалось найти файл с прошивкой для микроконтроллера " + "\"" + configurationFW.getFwForMKName() + "\" " +
                                 "необходимо добавить файл в папку \"StorageMKFW\"");
                             enableStartButton(true);
-                            enableEditConfButton(true);
+                            enableEditConfAndTerminalBtn(true);
                         });
                         return;
                     }
@@ -227,7 +233,7 @@ namespace GSM_NBIoT_Module {
                             exceptionDialog("Программе не удалось найти папку с прошивками для модуля Quectel \"StorageQuectelFW\", проверьте целостность программы" +
                                 " или переустановите её и попробуйте снова");
                             enableStartButton(true);
-                            enableEditConfButton(true);
+                            enableEditConfAndTerminalBtn(true);
                         });
                         return;
                     }
@@ -239,7 +245,7 @@ namespace GSM_NBIoT_Module {
                             exceptionDialog("Программе не удалось найти файл с прошивкой для модуля Quectel " + "\"" + configurationFW.getfwForQuectelName() + "\" " +
                                 "необходимо добавить файл в папку \"StorageQuectelFW\"");
                             enableStartButton(true);
-                            enableEditConfButton(true);
+                            enableEditConfAndTerminalBtn(true);
                         });
                         return;
                     }
@@ -252,7 +258,7 @@ namespace GSM_NBIoT_Module {
                         Invoke((MethodInvoker)delegate {
                             exceptionDialog("Путь к прошивке не должен содержать русские символы или пробельные символы\n" + pathWFforQuectel);
                             enableStartButton(true);
-                            enableEditConfButton(true);
+                            enableEditConfAndTerminalBtn(true);
                         });
                         return;
                     }
@@ -263,7 +269,7 @@ namespace GSM_NBIoT_Module {
                     Invoke((MethodInvoker)delegate {
                         exceptionDialog("В конфигурации не указана прошивка ни для микроконтроллера, ни для модуля Quectel");
                         enableStartButton(true);
-                        enableEditConfButton(true);
+                        enableEditConfAndTerminalBtn(true);
                     });
                     return;
                 }
@@ -280,7 +286,7 @@ namespace GSM_NBIoT_Module {
 
                 //включаю кнопку старт
                 enableStartButton(true);
-                enableEditConfButton(true);
+                enableEditConfAndTerminalBtn(true);
 
             } catch (Exception ex) {
                 addProgressFlashMKLogInMainLog();               
@@ -305,7 +311,7 @@ namespace GSM_NBIoT_Module {
 
                 //включаю кнопку старт
                 enableStartButton(true);
-                enableEditConfButton(true);
+                enableEditConfAndTerminalBtn(true);
             }
         }
 
@@ -367,9 +373,10 @@ namespace GSM_NBIoT_Module {
         /// Отключает кнопку конфигурации
         /// </summary>
         /// <param name="stateButton"></param>
-        private void enableEditConfButton(bool stateButton) {
+        private void enableEditConfAndTerminalBtn(bool stateButton) {
             startFlashBtn.Invoke((MethodInvoker)delegate {
                 editConfiguration.Enabled = stateButton;
+                terminalBtn.Enabled = stateButton;
             });
         }
         
@@ -676,7 +683,6 @@ namespace GSM_NBIoT_Module {
             }
         }
 
-
         /// <summary>
         /// Показывает всплывающую подсказку на указателе мыши
         /// </summary>
@@ -719,7 +725,7 @@ namespace GSM_NBIoT_Module {
         }
 
         private void terminalBtn_Click(object sender, EventArgs e) {
-            new Terminal().Show();
+            new Terminal().ShowDialog();
         }
 
         private void Flasher_FormClosing(object sender, FormClosingEventArgs e) {
@@ -728,6 +734,13 @@ namespace GSM_NBIoT_Module {
                     Flasher.exceptionDialog("Нельзя выйти во время перепрошивки модема");
                     e.Cancel = true;
                 }
+            }
+        }
+
+        private void Flasher_KeyDown(object sender, KeyEventArgs e) {
+
+            if (e.KeyCode == Keys.S && e.Modifiers == Keys.Control) {
+                saveLogBtn.PerformClick();
             }
         }
     }

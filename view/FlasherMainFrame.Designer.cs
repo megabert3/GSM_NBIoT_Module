@@ -273,6 +273,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Flasher_FormClosing);
             this.Load += new System.EventHandler(this.Flasher_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Flasher_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="version" Type="System.String" Scope="Application">
-      <Value Profile="(Default)"> V2.0.1</Value>
+      <Value Profile="(Default)"> V2.1.0</Value>
     </Setting>
     <Setting Name="Standard" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -29,11 +29,14 @@
     <Setting Name="terminal_LastStopBit" Type="System.String" Scope="User">
       <Value Profile="(Default)">One</Value>
     </Setting>
-    <Setting Name="terminal_LastMode" Type="System.String" Scope="User">
+    <Setting Name="terminal_inputLastMode" Type="System.String" Scope="User">
       <Value Profile="(Default)">Text</Value>
     </Setting>
     <Setting Name="programName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">GSM_NBIoT_Module</Value>
+    </Setting>
+    <Setting Name="terminal_outLastMode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Text</Value>
     </Setting>
   </Settings>
 </SettingsFile>
