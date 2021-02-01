@@ -83,6 +83,12 @@ namespace GSM_NBIoT_Module.view.terminal {
 
                 }
             }
+
+            //Установка слушателей кнопкам отправки в таблицу
+            for (int i = 1; i <= 20; i++) {
+                Button btn = macrosTabLotPnl.GetControlFromPosition(4, i) as Button;
+                btn.Click += sendDataBtn_Click;
+            }
         }
 
         private TextBox txtBox;
@@ -230,7 +236,6 @@ namespace GSM_NBIoT_Module.view.terminal {
             }
         }
 
-
         /// <summary>
         /// Сохраняет локальные изменения в макроса при переключении группы макросов пользователем
         /// </summary>
@@ -328,8 +333,16 @@ namespace GSM_NBIoT_Module.view.terminal {
             if (txtBoxTextIsChanges) {
                 bool answer = Flasher.YesOrNoDialog("Сохранить изменения в макросах?", "Сохранение изменений");
 
-                if (answer) saveBtn.PerformClick();
+                if (answer) {
+                    saveBtn.PerformClick();
+                }
             }
+        }
+
+        private void sendDataBtn_Click(object sender, EventArgs e) {
+            int btnIndex = Convert.ToInt32((sender as Button).Name.Substring(1));
+            TextBox txtBox = macrosTabLotPnl.GetControlFromPosition(0, btnIndex) as TextBox;
+            terminalForm.sendCommandInCOMPort(txtBox.Text);
         }
     }
 }

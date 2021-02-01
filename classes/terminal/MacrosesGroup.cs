@@ -62,7 +62,7 @@ namespace GSM_NBIoT_Module.classes.terminal {
                 }
                 set {
                     if (timeCycle < 0)
-                        throw new ArgumentException("Значение времени не может быть отрицательным");
+                        throw new ArgumentException("Значение времени не может быть отрицательным, время не повернуть вспять");
                 }
             }
         }

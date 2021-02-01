@@ -207,6 +207,8 @@
     <None Include="Resources\restart_15px.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\arrowLeft.png" />
+    <None Include="Resources\double_right_10px.png" />
     <Content Include="unnamed.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

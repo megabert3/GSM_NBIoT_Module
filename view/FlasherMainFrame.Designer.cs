@@ -269,6 +269,7 @@
             this.Controls.Add(this.progressBarFlashing);
             this.Controls.Add(this.pathToSTM32FirmwareTextBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "Flasher";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Flasher_FormClosing);

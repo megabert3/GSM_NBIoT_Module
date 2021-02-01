@@ -620,7 +620,8 @@ namespace GSM_NBIoT_Module.view {
 
                 comPortsListCmbBox.Text = "COM" + enh;
 
-                bandRate128000rdBtn.PerformClick();
+                customBandRateRdBtn.PerformClick();
+                customBandRateTxtBx.Text = "125000";
                 dataBit8rdBtn.PerformClick();
                 parityNoneRdBtn.PerformClick();
                 stopBit1RdBtn.PerformClick();
@@ -804,7 +805,7 @@ namespace GSM_NBIoT_Module.view {
 
                 Button btn;
                 int indexBtn;
-                Macros macros;
+                MacrosesGroup.Macros macros;
 
                 //Установка имени кнопки именем макроса
                 foreach (Control btnControl in tabPage.Controls) {
@@ -825,7 +826,7 @@ namespace GSM_NBIoT_Module.view {
         /// Отправляет данные в COM порт
         /// </summary>
         /// <param name="mess"></param>
-        private void sendCommandInCOMPort(string mess) {
+        public void sendCommandInCOMPort(string mess) {
             if (serialPort.IsOpen) {
 
                 if (String.IsNullOrEmpty(mess)) return;
@@ -963,43 +964,87 @@ namespace GSM_NBIoT_Module.view {
 
             MacrosesGroup macrosGroup = macrosStorage.getMacrosesGroupsList().ElementAt(macrosTabControl.SelectedIndex);
 
-            Macros macros = macrosGroup.getMacrosesDic()[Convert.ToInt32((sender as Button).Name.Substring(5))];
+            MacrosesGroup.Macros macros = macrosGroup.getMacrosesDic()[Convert.ToInt32((sender as Button).Name.Substring(5))];
 
             sendCommandInCOMPort(macros.macrosValue);
         }
 
         private void Terminal_KeyDown(object sender, KeyEventArgs e) {
 
-            if (e.KeyCode == Keys.NumPad1 || e.KeyCode == Keys.D1) {
-                selectHotCaseMacrosBtn(1);
+            if (!messInCOMTxtBx.Focused) {
 
-            } else if (e.KeyCode == Keys.NumPad2 || e.KeyCode == Keys.D2) {
-                selectHotCaseMacrosBtn(2);
+                if ((e.KeyCode == Keys.NumPad1 || e.KeyCode == Keys.D1)
+                    && e.Modifiers == Keys.Control) {
+                    selectHotCaseMacrosBtn(11);
 
-            } else if (e.KeyCode == Keys.NumPad3 || e.KeyCode == Keys.D3) {
-                selectHotCaseMacrosBtn(3);
+                } else if ((e.KeyCode == Keys.NumPad2 || e.KeyCode == Keys.D2)
+                    && e.Modifiers == Keys.Control) {
+                    selectHotCaseMacrosBtn(12);
 
-            } else if (e.KeyCode == Keys.NumPad4 || e.KeyCode == Keys.D4) {
-                selectHotCaseMacrosBtn(4);
+                } else if ((e.KeyCode == Keys.NumPad3 || e.KeyCode == Keys.D3)
+                     && e.Modifiers == Keys.Control) {
+                    selectHotCaseMacrosBtn(13);
 
-            } else if (e.KeyCode == Keys.NumPad5 || e.KeyCode == Keys.D5) {
-                selectHotCaseMacrosBtn(5);
+                } else if ((e.KeyCode == Keys.NumPad4 || e.KeyCode == Keys.D4)
+                     && e.Modifiers == Keys.Control) {
+                    selectHotCaseMacrosBtn(14);
 
-            } else if (e.KeyCode == Keys.NumPad6 || e.KeyCode == Keys.D6) {
-                selectHotCaseMacrosBtn(6);
+                } else if ((e.KeyCode == Keys.NumPad5 || e.KeyCode == Keys.D5)
+                     && e.Modifiers == Keys.Control) {
+                    selectHotCaseMacrosBtn(15);
 
-            } else if (e.KeyCode == Keys.NumPad7 || e.KeyCode == Keys.D7) {
-                selectHotCaseMacrosBtn(7);
+                } else if ((e.KeyCode == Keys.NumPad6 || e.KeyCode == Keys.D6)
+                     && e.Modifiers == Keys.Control) {
+                    selectHotCaseMacrosBtn(16);
 
-            } else if (e.KeyCode == Keys.NumPad8 || e.KeyCode == Keys.D8) {
-                selectHotCaseMacrosBtn(8);
+                } else if ((e.KeyCode == Keys.NumPad7 || e.KeyCode == Keys.D7)
+                     && e.Modifiers == Keys.Control) {
+                    selectHotCaseMacrosBtn(17);
 
-            } else if (e.KeyCode == Keys.NumPad9 || e.KeyCode == Keys.D9) {
-                selectHotCaseMacrosBtn(9);
+                } else if ((e.KeyCode == Keys.NumPad8 || e.KeyCode == Keys.D8)
+                     && e.Modifiers == Keys.Control) {
+                    selectHotCaseMacrosBtn(18);
 
-            } else if (e.KeyCode == Keys.NumPad0 || e.KeyCode == Keys.D0) {
-                selectHotCaseMacrosBtn(10);
+                } else if ((e.KeyCode == Keys.NumPad9 || e.KeyCode == Keys.D9)
+                     && e.Modifiers == Keys.Control) {
+                    selectHotCaseMacrosBtn(19);
 
+                } else if ((e.KeyCode == Keys.NumPad0 || e.KeyCode == Keys.D0)
+                     && e.Modifiers == Keys.Control) {
+                    selectHotCaseMacrosBtn(20);
+
+                    //Отправка макросов начиная с 1
+                } else if (e.KeyCode == Keys.NumPad1 || e.KeyCode == Keys.D1) {
+                    selectHotCaseMacrosBtn(1);
+
+                } else if (e.KeyCode == Keys.NumPad2 || e.KeyCode == Keys.D2) {
+                    selectHotCaseMacrosBtn(2); 
+
+                } else if (e.KeyCode == Keys.NumPad3 || e.KeyCode == Keys.D3) {
+                    selectHotCaseMacrosBtn(3);
+
+                } else if (e.KeyCode == Keys.NumPad4 || e.KeyCode == Keys.D4) {
+                    selectHotCaseMacrosBtn(4);
+
+                } else if (e.KeyCode == Keys.NumPad5 || e.KeyCode == Keys.D5) {
+                    selectHotCaseMacrosBtn(5);
+
+                } else if (e.KeyCode == Keys.NumPad6 || e.KeyCode == Keys.D6) {
+                    selectHotCaseMacrosBtn(6);
+
+                } else if (e.KeyCode == Keys.NumPad7 || e.KeyCode == Keys.D7) {
+                    selectHotCaseMacrosBtn(7);
+
+                } else if (e.KeyCode == Keys.NumPad8 || e.KeyCode == Keys.D8) {
+                    selectHotCaseMacrosBtn(8);
+
+                } else if (e.KeyCode == Keys.NumPad9 || e.KeyCode == Keys.D9) {
+                    selectHotCaseMacrosBtn(9);
+
+                } else if (e.KeyCode == Keys.NumPad0 || e.KeyCode == Keys.D0) {
+                    selectHotCaseMacrosBtn(10);
+
+                } 
             }
 
             if (e.KeyCode == Keys.Escape) {
@@ -1036,7 +1081,7 @@ namespace GSM_NBIoT_Module.view {
             toolTipForMacros.ReshowDelay = 150;
 
             MacrosesGroup macrosesGroup;
-            Macros macros;
+            MacrosesGroup.Macros macros;
             string toolTipMess;
             for (int i = 0; i < 5; i++) {
                 macrosesGroup = macrosesGroupList.ElementAt(i);
@@ -1060,6 +1105,13 @@ namespace GSM_NBIoT_Module.view {
                                     toolTipMess += "\nНажнимите цифру " + j + " для отправки данных в порт";
                                 } else {
                                     toolTipMess += "\nНажнимите цифру 0 для отправки данных в порт";
+                                }
+                            } else {
+
+                                if (j != 20) {
+                                    toolTipMess += "\nЗажмите Ctrl и нажнимите цифру " + (j - 10) + " для отправки данных в порт";
+                                } else {
+                                    toolTipMess += "\nЗажмите Ctrl и нажмите цифру 0 для отправки данных в порт";
                                 }
                             }
 
@@ -1112,13 +1164,13 @@ namespace GSM_NBIoT_Module.view {
             toolTip.SetToolTip(modeTextRdBtn, "Нажмите, если хотите вводить информацию в текстовом виде");
             toolTip.SetToolTip(modeHexRdBtn, "Нажмите, если хотите вводить информацию в шестнадцатеричном формате");
 
-            toolTip.SetToolTip(clearLog, "Очистка лога сообщений\nНажмите: Esc");
-            toolTip.SetToolTip(saveLog, "Сохранение лога\nНажмите Ctrl+C");
+            toolTip.SetToolTip(clearLog, "Очистка лога сообщений\nИспользуйте: Esc");
+            toolTip.SetToolTip(saveLog, "Сохранение лога\nИспользуйте: Ctrl+S");
             toolTip.SetToolTip(connectToModuleBtn, "Автоматически выставляет параметры, необходимые для общения с модулем Qectel");
             toolTip.SetToolTip(connectToMKBtn, "Автоматически выставляет параметры, необходимые для общения с микрокотроллером");
 
             toolTip.SetToolTip(groupBox6, "Управление состоянием ног CP2105");
             toolTip.SetToolTip(searchCP2105Ports, "Находит порты модема и считывает состояния ног CP2105");
-        }
+        }        
     }
 }
