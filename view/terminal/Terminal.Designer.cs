@@ -1995,6 +1995,7 @@
             this.addEndLine.TabIndex = 29;
             this.addEndLine.Text = "+ CL RF";
             this.addEndLine.UseVisualStyleBackColor = true;
+            this.addEndLine.CheckedChanged += new System.EventHandler(this.addEndLine_CheckedChanged);
             // 
             // flowLayoutPanel1
             // 
@@ -2139,6 +2140,7 @@
             this.clEqualsRf.TabIndex = 34;
             this.clEqualsRf.Text = "  CL=RF";
             this.clEqualsRf.UseVisualStyleBackColor = true;
+            this.clEqualsRf.CheckedChanged += new System.EventHandler(this.clEqualsRf_CheckedChanged);
             // 
             // showOrHideControlPanel
             // 

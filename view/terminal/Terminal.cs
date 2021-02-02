@@ -33,11 +33,17 @@ namespace GSM_NBIoT_Module.view {
         //Окно с настройкой макросов
         private MacrosSettings macrosSettingsFlame;
 
+        //Буфер посленних введённых комманд
+        List<string> lastCommandsList = new List<string>(10);
+        //Индекс выбора последних введённых комманд
+        private int lastCommandChoiseIndex = 0;
+
         public Terminal() {
             InitializeComponent();
         }
 
         private void Terminal_Load(object sender, EventArgs e) {
+
             //Индикатор
             defaultColor = indBtn.BackColor;
             indBtn.Enabled = false;
@@ -178,6 +184,18 @@ namespace GSM_NBIoT_Module.view {
                 modeHexRdBtn.PerformClick();
             }
 
+            if (Properties.Settings.Default.terminal_CLequalsRF) {
+                clEqualsRf.Checked = true;
+            } else {
+                clEqualsRf.Checked = false;
+            }
+
+            if (Properties.Settings.Default.terminal_plus_CL_RF) {
+                addEndLine.Checked = true;
+            } else {
+                addEndLine.Checked = false;
+            }
+
             //Установка слушателя кнопкам макросов
             foreach (Control tabPage in macrosTabControl.Controls) {
                 foreach (Control btn in tabPage.Controls) {
@@ -186,6 +204,11 @@ namespace GSM_NBIoT_Module.view {
             }
 
             refreshToolTipsForMacros();
+
+            //Заполняю лист пустыми значениями
+            for (int i = 0; i < 11; i++) {
+                lastCommandsList.Add("");
+            }
         }
 
         /// <summary>
@@ -260,8 +283,8 @@ namespace GSM_NBIoT_Module.view {
                     Properties.Settings.Default.terminal_outLastMode = "Text";
                 } else {
                     Properties.Settings.Default.terminal_outLastMode = "Hex";
-                } 
-                
+                }
+
                 Properties.Settings.Default.Save();
 
                 enablePortSettings(false);
@@ -786,24 +809,35 @@ namespace GSM_NBIoT_Module.view {
                                 break;
                         }
 
-                        //Если режим ввода HEX
+                        //Если режим вывода информации HEX
                     } else {
                         switch (dataByte) {
 
                             //Эквивалентно /r
                             case 13: {
-                                    //Если установлен флаг, что /r == /n
-                                    terminalLogTxtBx.AppendText(dataByte.ToString() + " ");
 
+                                    //terminalLogTxtBx.AppendText(dataByte.ToString() + " ");
+
+                                    //Если установлен флаг, что /r == /n
                                     if (clEqualsRf.Checked) {
                                         if (first) {
-                                            terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + Environment.NewLine);
+                                            terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + dataByte.ToString() + Environment.NewLine);
 
                                         } else {
-                                            terminalLogTxtBx.AppendText(Environment.NewLine);
-
+                                            terminalLogTxtBx.AppendText(dataByte.ToString() + Environment.NewLine);
                                         }
+
                                         first = true;
+
+                                    } else {
+                                        if (first) {
+                                            terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + dataByte.ToString() + " ");
+
+                                        } else {
+
+                                            terminalLogTxtBx.AppendText(dataByte.ToString() + " ");
+                                        }
+
                                     }
                                 }
                                 break;
@@ -812,10 +846,10 @@ namespace GSM_NBIoT_Module.view {
                             case 10: {
 
                                     if (first) {
-                                        terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > 10 " + Environment.NewLine);
+                                        terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + dataByte.ToString() + Environment.NewLine);
 
                                     } else {
-                                        terminalLogTxtBx.AppendText("10 " + Environment.NewLine);
+                                        terminalLogTxtBx.AppendText(dataByte.ToString() + Environment.NewLine);
                                     }
                                     first = true;
                                 }
@@ -851,7 +885,7 @@ namespace GSM_NBIoT_Module.view {
             } else {
                 macrosSettingsFlame = new MacrosSettings(this);
                 macrosSettingsFlame.Show();
-            }           
+            }
         }
 
         /// <summary>
@@ -905,6 +939,8 @@ namespace GSM_NBIoT_Module.view {
             if (serialPort.IsOpen) {
 
                 if (String.IsNullOrEmpty(mess)) return;
+
+                addMessInLocalBuff(mess);
 
                 if (modeTextRdBtn.Checked) {
 
@@ -963,6 +999,23 @@ namespace GSM_NBIoT_Module.view {
         }
 
         /// <summary>
+        /// Добавляет сообщение в буфер к 10 последним результатам
+        /// </summary>
+        /// <param name="mess"></param>
+        private void addMessInLocalBuff(string mess) {
+
+            if (lastCommandsList.Count > 10) {
+                lastCommandsList.RemoveAt(10);
+                lastCommandsList.Insert(1, mess);
+
+            } else {
+                lastCommandsList.Insert(1, mess);
+            }
+
+            lastCommandChoiseIndex = 0;
+        }
+
+        /// <summary>
         /// Конвертирует стринговые байты в числовые
         /// </summary>
         /// <param name="hex"></param>
@@ -1002,6 +1055,28 @@ namespace GSM_NBIoT_Module.view {
                 if (messInCOMTxtBx.Focused) {
                     sendBtn.PerformClick();
                 }
+
+                //Достаёт прошлые отправленные сообщения в COM порт
+            } else if (e.KeyCode == Keys.Down) {
+
+                //В бeфере не больше 11
+                if (lastCommandChoiseIndex < 10) {
+
+                    //Если значение в буфере пустое, то больше значений не было
+                    if (String.IsNullOrEmpty(lastCommandsList.ElementAt(lastCommandChoiseIndex + 1))) return;
+
+                    lastCommandChoiseIndex++;
+                }
+
+                messInCOMTxtBx.Text = lastCommandsList.ElementAt(lastCommandChoiseIndex);
+                messInCOMTxtBx.SelectionStart = messInCOMTxtBx.Text.Length;
+
+            } else if (e.KeyCode == Keys.Up) {
+
+                if (lastCommandChoiseIndex > 0) lastCommandChoiseIndex--;
+
+                messInCOMTxtBx.Text = lastCommandsList.ElementAt(lastCommandChoiseIndex);
+                messInCOMTxtBx.SelectionStart = messInCOMTxtBx.Text.Length;
             }
         }
 
@@ -1249,6 +1324,8 @@ namespace GSM_NBIoT_Module.view {
             toolTip.SetToolTip(showOrHideControlPanel, "Нажмите чтобы скрыть/раскрыть панель с настройками\nИспользуйте: S");
 
             toolTip.SetToolTip(editMacros, "Нажмите чтобы перейти в настройки макросов\nИспользуйте: Ctrl+M");
+
+            toolTip.SetToolTip(clEqualsRf, "Использовать байт CR как новую строку");
         }
 
         private void showOrHideControlPanel_Click(object sender, EventArgs e) {
@@ -1259,6 +1336,16 @@ namespace GSM_NBIoT_Module.view {
             } else {
                 splitContainer1.SplitterDistance = groupBox2.Location.Y + groupBox2.Size.Height;
             }
+        }
+
+        private void addEndLine_CheckedChanged(object sender, EventArgs e) {
+            Properties.Settings.Default.terminal_plus_CL_RF = addEndLine.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void clEqualsRf_CheckedChanged(object sender, EventArgs e) {
+            Properties.Settings.Default.terminal_CLequalsRF = clEqualsRf.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }

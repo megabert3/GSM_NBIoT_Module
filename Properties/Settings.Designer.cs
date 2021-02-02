@@ -160,5 +160,29 @@ namespace GSM_NBIoT_Module.Properties {
                 this["terminal_outLastMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool terminal_plus_CL_RF {
+            get {
+                return ((bool)(this["terminal_plus_CL_RF"]));
+            }
+            set {
+                this["terminal_plus_CL_RF"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool terminal_CLequalsRF {
+            get {
+                return ((bool)(this["terminal_CLequalsRF"]));
+            }
+            set {
+                this["terminal_CLequalsRF"] = value;
+            }
+        }
     }
 }

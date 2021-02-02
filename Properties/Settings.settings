@@ -38,5 +38,11 @@
     <Setting Name="terminal_outLastMode" Type="System.String" Scope="User">
       <Value Profile="(Default)">Text</Value>
     </Setting>
+    <Setting Name="terminal_plus_CL_RF" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="terminal_CLequalsRF" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
