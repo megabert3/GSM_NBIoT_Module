@@ -29,6 +29,26 @@
             this.label1 = new System.Windows.Forms.Label();
             this.nameGroupTxtBx = new System.Windows.Forms.TextBox();
             this.macrosTabLotPnl = new System.Windows.Forms.TableLayoutPanel();
+            this.label26 = new System.Windows.Forms.Label();
+            this.b20 = new System.Windows.Forms.Button();
+            this.b19 = new System.Windows.Forms.Button();
+            this.b18 = new System.Windows.Forms.Button();
+            this.b17 = new System.Windows.Forms.Button();
+            this.b16 = new System.Windows.Forms.Button();
+            this.b15 = new System.Windows.Forms.Button();
+            this.b14 = new System.Windows.Forms.Button();
+            this.b13 = new System.Windows.Forms.Button();
+            this.b12 = new System.Windows.Forms.Button();
+            this.b11 = new System.Windows.Forms.Button();
+            this.b10 = new System.Windows.Forms.Button();
+            this.b9 = new System.Windows.Forms.Button();
+            this.b8 = new System.Windows.Forms.Button();
+            this.b7 = new System.Windows.Forms.Button();
+            this.b6 = new System.Windows.Forms.Button();
+            this.b5 = new System.Windows.Forms.Button();
+            this.b4 = new System.Windows.Forms.Button();
+            this.b3 = new System.Windows.Forms.Button();
+            this.b2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.repeatCmBx20 = new System.Windows.Forms.CheckBox();
@@ -112,6 +132,7 @@
             this.macrosNametxtBox1 = new System.Windows.Forms.TextBox();
             this.dataTxtBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.b1 = new System.Windows.Forms.Button();
             this.firstGroupBtn = new System.Windows.Forms.Button();
             this.groupsBtntabLtPnl = new System.Windows.Forms.TableLayoutPanel();
             this.fifthGroupBtn = new System.Windows.Forms.Button();
@@ -140,27 +161,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.b2 = new System.Windows.Forms.Button();
-            this.b3 = new System.Windows.Forms.Button();
-            this.b4 = new System.Windows.Forms.Button();
-            this.b5 = new System.Windows.Forms.Button();
-            this.b6 = new System.Windows.Forms.Button();
-            this.b7 = new System.Windows.Forms.Button();
-            this.b8 = new System.Windows.Forms.Button();
-            this.b9 = new System.Windows.Forms.Button();
-            this.b10 = new System.Windows.Forms.Button();
-            this.b11 = new System.Windows.Forms.Button();
-            this.b12 = new System.Windows.Forms.Button();
-            this.b13 = new System.Windows.Forms.Button();
-            this.b14 = new System.Windows.Forms.Button();
-            this.b15 = new System.Windows.Forms.Button();
-            this.b16 = new System.Windows.Forms.Button();
-            this.b17 = new System.Windows.Forms.Button();
-            this.b18 = new System.Windows.Forms.Button();
-            this.b19 = new System.Windows.Forms.Button();
-            this.b20 = new System.Windows.Forms.Button();
-            this.label26 = new System.Windows.Forms.Label();
-            this.b1 = new System.Windows.Forms.Button();
             this.macrosTabLotPnl.SuspendLayout();
             this.groupsBtntabLtPnl.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -344,6 +344,206 @@
             this.macrosTabLotPnl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.999487F));
             this.macrosTabLotPnl.Size = new System.Drawing.Size(449, 506);
             this.macrosTabLotPnl.TabIndex = 6;
+            // 
+            // label26
+            // 
+            this.label26.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(382, 5);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(61, 13);
+            this.label26.TabIndex = 110;
+            this.label26.Text = "Отправить";
+            // 
+            // b20
+            // 
+            this.b20.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b20.Image = ((System.Drawing.Image)(resources.GetObject("b20.Image")));
+            this.b20.Location = new System.Drawing.Point(382, 483);
+            this.b20.Name = "b20";
+            this.b20.Size = new System.Drawing.Size(64, 20);
+            this.b20.TabIndex = 108;
+            this.b20.UseVisualStyleBackColor = true;
+            // 
+            // b19
+            // 
+            this.b19.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b19.Image = ((System.Drawing.Image)(resources.GetObject("b19.Image")));
+            this.b19.Location = new System.Drawing.Point(382, 459);
+            this.b19.Name = "b19";
+            this.b19.Size = new System.Drawing.Size(64, 18);
+            this.b19.TabIndex = 107;
+            this.b19.UseVisualStyleBackColor = true;
+            // 
+            // b18
+            // 
+            this.b18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b18.Image = ((System.Drawing.Image)(resources.GetObject("b18.Image")));
+            this.b18.Location = new System.Drawing.Point(382, 435);
+            this.b18.Name = "b18";
+            this.b18.Size = new System.Drawing.Size(64, 18);
+            this.b18.TabIndex = 106;
+            this.b18.UseVisualStyleBackColor = true;
+            // 
+            // b17
+            // 
+            this.b17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b17.Image = ((System.Drawing.Image)(resources.GetObject("b17.Image")));
+            this.b17.Location = new System.Drawing.Point(382, 411);
+            this.b17.Name = "b17";
+            this.b17.Size = new System.Drawing.Size(64, 18);
+            this.b17.TabIndex = 105;
+            this.b17.UseVisualStyleBackColor = true;
+            // 
+            // b16
+            // 
+            this.b16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b16.Image = ((System.Drawing.Image)(resources.GetObject("b16.Image")));
+            this.b16.Location = new System.Drawing.Point(382, 387);
+            this.b16.Name = "b16";
+            this.b16.Size = new System.Drawing.Size(64, 18);
+            this.b16.TabIndex = 104;
+            this.b16.UseVisualStyleBackColor = true;
+            // 
+            // b15
+            // 
+            this.b15.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b15.Image = ((System.Drawing.Image)(resources.GetObject("b15.Image")));
+            this.b15.Location = new System.Drawing.Point(382, 363);
+            this.b15.Name = "b15";
+            this.b15.Size = new System.Drawing.Size(64, 18);
+            this.b15.TabIndex = 103;
+            this.b15.UseVisualStyleBackColor = true;
+            // 
+            // b14
+            // 
+            this.b14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b14.Image = ((System.Drawing.Image)(resources.GetObject("b14.Image")));
+            this.b14.Location = new System.Drawing.Point(382, 339);
+            this.b14.Name = "b14";
+            this.b14.Size = new System.Drawing.Size(64, 18);
+            this.b14.TabIndex = 102;
+            this.b14.UseVisualStyleBackColor = true;
+            // 
+            // b13
+            // 
+            this.b13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b13.Image = ((System.Drawing.Image)(resources.GetObject("b13.Image")));
+            this.b13.Location = new System.Drawing.Point(382, 315);
+            this.b13.Name = "b13";
+            this.b13.Size = new System.Drawing.Size(64, 18);
+            this.b13.TabIndex = 101;
+            this.b13.UseVisualStyleBackColor = true;
+            // 
+            // b12
+            // 
+            this.b12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b12.Image = ((System.Drawing.Image)(resources.GetObject("b12.Image")));
+            this.b12.Location = new System.Drawing.Point(382, 291);
+            this.b12.Name = "b12";
+            this.b12.Size = new System.Drawing.Size(64, 18);
+            this.b12.TabIndex = 100;
+            this.b12.UseVisualStyleBackColor = true;
+            // 
+            // b11
+            // 
+            this.b11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b11.Image = ((System.Drawing.Image)(resources.GetObject("b11.Image")));
+            this.b11.Location = new System.Drawing.Point(382, 267);
+            this.b11.Name = "b11";
+            this.b11.Size = new System.Drawing.Size(64, 18);
+            this.b11.TabIndex = 99;
+            this.b11.UseVisualStyleBackColor = true;
+            // 
+            // b10
+            // 
+            this.b10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b10.Image = ((System.Drawing.Image)(resources.GetObject("b10.Image")));
+            this.b10.Location = new System.Drawing.Point(382, 243);
+            this.b10.Name = "b10";
+            this.b10.Size = new System.Drawing.Size(64, 18);
+            this.b10.TabIndex = 98;
+            this.b10.UseVisualStyleBackColor = true;
+            // 
+            // b9
+            // 
+            this.b9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b9.Image = ((System.Drawing.Image)(resources.GetObject("b9.Image")));
+            this.b9.Location = new System.Drawing.Point(382, 219);
+            this.b9.Name = "b9";
+            this.b9.Size = new System.Drawing.Size(64, 18);
+            this.b9.TabIndex = 97;
+            this.b9.UseVisualStyleBackColor = true;
+            // 
+            // b8
+            // 
+            this.b8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b8.Image = ((System.Drawing.Image)(resources.GetObject("b8.Image")));
+            this.b8.Location = new System.Drawing.Point(382, 195);
+            this.b8.Name = "b8";
+            this.b8.Size = new System.Drawing.Size(64, 18);
+            this.b8.TabIndex = 96;
+            this.b8.UseVisualStyleBackColor = true;
+            // 
+            // b7
+            // 
+            this.b7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b7.Image = ((System.Drawing.Image)(resources.GetObject("b7.Image")));
+            this.b7.Location = new System.Drawing.Point(382, 171);
+            this.b7.Name = "b7";
+            this.b7.Size = new System.Drawing.Size(64, 18);
+            this.b7.TabIndex = 95;
+            this.b7.UseVisualStyleBackColor = true;
+            // 
+            // b6
+            // 
+            this.b6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b6.Image = ((System.Drawing.Image)(resources.GetObject("b6.Image")));
+            this.b6.Location = new System.Drawing.Point(382, 147);
+            this.b6.Name = "b6";
+            this.b6.Size = new System.Drawing.Size(64, 18);
+            this.b6.TabIndex = 94;
+            this.b6.UseVisualStyleBackColor = true;
+            // 
+            // b5
+            // 
+            this.b5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b5.Image = ((System.Drawing.Image)(resources.GetObject("b5.Image")));
+            this.b5.Location = new System.Drawing.Point(382, 123);
+            this.b5.Name = "b5";
+            this.b5.Size = new System.Drawing.Size(64, 18);
+            this.b5.TabIndex = 93;
+            this.b5.UseVisualStyleBackColor = true;
+            // 
+            // b4
+            // 
+            this.b4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b4.Image = ((System.Drawing.Image)(resources.GetObject("b4.Image")));
+            this.b4.Location = new System.Drawing.Point(382, 99);
+            this.b4.Name = "b4";
+            this.b4.Size = new System.Drawing.Size(64, 18);
+            this.b4.TabIndex = 92;
+            this.b4.UseVisualStyleBackColor = true;
+            // 
+            // b3
+            // 
+            this.b3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b3.Image = ((System.Drawing.Image)(resources.GetObject("b3.Image")));
+            this.b3.Location = new System.Drawing.Point(382, 75);
+            this.b3.Name = "b3";
+            this.b3.Size = new System.Drawing.Size(64, 18);
+            this.b3.TabIndex = 91;
+            this.b3.UseVisualStyleBackColor = true;
+            // 
+            // b2
+            // 
+            this.b2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b2.Image = ((System.Drawing.Image)(resources.GetObject("b2.Image")));
+            this.b2.Location = new System.Drawing.Point(382, 51);
+            this.b2.Name = "b2";
+            this.b2.Size = new System.Drawing.Size(64, 18);
+            this.b2.TabIndex = 90;
+            this.b2.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -1054,6 +1254,16 @@
             this.label2.TabIndex = 84;
             this.label2.Text = "Данные для отправки";
             // 
+            // b1
+            // 
+            this.b1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b1.Image = ((System.Drawing.Image)(resources.GetObject("b1.Image")));
+            this.b1.Location = new System.Drawing.Point(382, 27);
+            this.b1.Name = "b1";
+            this.b1.Size = new System.Drawing.Size(64, 18);
+            this.b1.TabIndex = 87;
+            this.b1.UseVisualStyleBackColor = true;
+            // 
             // firstGroupBtn
             // 
             this.firstGroupBtn.Location = new System.Drawing.Point(3, 3);
@@ -1160,7 +1370,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label8, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(-2, 7);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 7);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 21;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
@@ -1389,227 +1599,17 @@
             this.label6.TabIndex = 1;
             this.label6.Text = "1:";
             // 
-            // b2
-            // 
-            this.b2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b2.Image = ((System.Drawing.Image)(resources.GetObject("b2.Image")));
-            this.b2.Location = new System.Drawing.Point(382, 51);
-            this.b2.Name = "b2";
-            this.b2.Size = new System.Drawing.Size(64, 18);
-            this.b2.TabIndex = 90;
-            this.b2.UseVisualStyleBackColor = true;
-            // 
-            // b3
-            // 
-            this.b3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b3.Image = ((System.Drawing.Image)(resources.GetObject("b3.Image")));
-            this.b3.Location = new System.Drawing.Point(382, 75);
-            this.b3.Name = "b3";
-            this.b3.Size = new System.Drawing.Size(64, 18);
-            this.b3.TabIndex = 91;
-            this.b3.UseVisualStyleBackColor = true;
-            // 
-            // b4
-            // 
-            this.b4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b4.Image = ((System.Drawing.Image)(resources.GetObject("b4.Image")));
-            this.b4.Location = new System.Drawing.Point(382, 99);
-            this.b4.Name = "b4";
-            this.b4.Size = new System.Drawing.Size(64, 18);
-            this.b4.TabIndex = 92;
-            this.b4.UseVisualStyleBackColor = true;
-            // 
-            // b5
-            // 
-            this.b5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b5.Image = ((System.Drawing.Image)(resources.GetObject("b5.Image")));
-            this.b5.Location = new System.Drawing.Point(382, 123);
-            this.b5.Name = "b5";
-            this.b5.Size = new System.Drawing.Size(64, 18);
-            this.b5.TabIndex = 93;
-            this.b5.UseVisualStyleBackColor = true;
-            // 
-            // b6
-            // 
-            this.b6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b6.Image = ((System.Drawing.Image)(resources.GetObject("b6.Image")));
-            this.b6.Location = new System.Drawing.Point(382, 147);
-            this.b6.Name = "b6";
-            this.b6.Size = new System.Drawing.Size(64, 18);
-            this.b6.TabIndex = 94;
-            this.b6.UseVisualStyleBackColor = true;
-            // 
-            // b7
-            // 
-            this.b7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b7.Image = ((System.Drawing.Image)(resources.GetObject("b7.Image")));
-            this.b7.Location = new System.Drawing.Point(382, 171);
-            this.b7.Name = "b7";
-            this.b7.Size = new System.Drawing.Size(64, 18);
-            this.b7.TabIndex = 95;
-            this.b7.UseVisualStyleBackColor = true;
-            // 
-            // b8
-            // 
-            this.b8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b8.Image = ((System.Drawing.Image)(resources.GetObject("b8.Image")));
-            this.b8.Location = new System.Drawing.Point(382, 195);
-            this.b8.Name = "b8";
-            this.b8.Size = new System.Drawing.Size(64, 18);
-            this.b8.TabIndex = 96;
-            this.b8.UseVisualStyleBackColor = true;
-            // 
-            // b9
-            // 
-            this.b9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b9.Image = ((System.Drawing.Image)(resources.GetObject("b9.Image")));
-            this.b9.Location = new System.Drawing.Point(382, 219);
-            this.b9.Name = "b9";
-            this.b9.Size = new System.Drawing.Size(64, 18);
-            this.b9.TabIndex = 97;
-            this.b9.UseVisualStyleBackColor = true;
-            // 
-            // b10
-            // 
-            this.b10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b10.Image = ((System.Drawing.Image)(resources.GetObject("b10.Image")));
-            this.b10.Location = new System.Drawing.Point(382, 243);
-            this.b10.Name = "b10";
-            this.b10.Size = new System.Drawing.Size(64, 18);
-            this.b10.TabIndex = 98;
-            this.b10.UseVisualStyleBackColor = true;
-            // 
-            // b11
-            // 
-            this.b11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b11.Image = ((System.Drawing.Image)(resources.GetObject("b11.Image")));
-            this.b11.Location = new System.Drawing.Point(382, 267);
-            this.b11.Name = "b11";
-            this.b11.Size = new System.Drawing.Size(64, 18);
-            this.b11.TabIndex = 99;
-            this.b11.UseVisualStyleBackColor = true;
-            // 
-            // b12
-            // 
-            this.b12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b12.Image = ((System.Drawing.Image)(resources.GetObject("b12.Image")));
-            this.b12.Location = new System.Drawing.Point(382, 291);
-            this.b12.Name = "b12";
-            this.b12.Size = new System.Drawing.Size(64, 18);
-            this.b12.TabIndex = 100;
-            this.b12.UseVisualStyleBackColor = true;
-            // 
-            // b13
-            // 
-            this.b13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b13.Image = ((System.Drawing.Image)(resources.GetObject("b13.Image")));
-            this.b13.Location = new System.Drawing.Point(382, 315);
-            this.b13.Name = "b13";
-            this.b13.Size = new System.Drawing.Size(64, 18);
-            this.b13.TabIndex = 101;
-            this.b13.UseVisualStyleBackColor = true;
-            // 
-            // b14
-            // 
-            this.b14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b14.Image = ((System.Drawing.Image)(resources.GetObject("b14.Image")));
-            this.b14.Location = new System.Drawing.Point(382, 339);
-            this.b14.Name = "b14";
-            this.b14.Size = new System.Drawing.Size(64, 18);
-            this.b14.TabIndex = 102;
-            this.b14.UseVisualStyleBackColor = true;
-            // 
-            // b15
-            // 
-            this.b15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b15.Image = ((System.Drawing.Image)(resources.GetObject("b15.Image")));
-            this.b15.Location = new System.Drawing.Point(382, 363);
-            this.b15.Name = "b15";
-            this.b15.Size = new System.Drawing.Size(64, 18);
-            this.b15.TabIndex = 103;
-            this.b15.UseVisualStyleBackColor = true;
-            // 
-            // b16
-            // 
-            this.b16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b16.Image = ((System.Drawing.Image)(resources.GetObject("b16.Image")));
-            this.b16.Location = new System.Drawing.Point(382, 387);
-            this.b16.Name = "b16";
-            this.b16.Size = new System.Drawing.Size(64, 18);
-            this.b16.TabIndex = 104;
-            this.b16.UseVisualStyleBackColor = true;
-            // 
-            // b17
-            // 
-            this.b17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b17.Image = ((System.Drawing.Image)(resources.GetObject("b17.Image")));
-            this.b17.Location = new System.Drawing.Point(382, 411);
-            this.b17.Name = "b17";
-            this.b17.Size = new System.Drawing.Size(64, 18);
-            this.b17.TabIndex = 105;
-            this.b17.UseVisualStyleBackColor = true;
-            // 
-            // b18
-            // 
-            this.b18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b18.Image = ((System.Drawing.Image)(resources.GetObject("b18.Image")));
-            this.b18.Location = new System.Drawing.Point(382, 435);
-            this.b18.Name = "b18";
-            this.b18.Size = new System.Drawing.Size(64, 18);
-            this.b18.TabIndex = 106;
-            this.b18.UseVisualStyleBackColor = true;
-            // 
-            // b19
-            // 
-            this.b19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b19.Image = ((System.Drawing.Image)(resources.GetObject("b19.Image")));
-            this.b19.Location = new System.Drawing.Point(382, 459);
-            this.b19.Name = "b19";
-            this.b19.Size = new System.Drawing.Size(64, 18);
-            this.b19.TabIndex = 107;
-            this.b19.UseVisualStyleBackColor = true;
-            // 
-            // b20
-            // 
-            this.b20.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b20.Image = ((System.Drawing.Image)(resources.GetObject("b20.Image")));
-            this.b20.Location = new System.Drawing.Point(382, 483);
-            this.b20.Name = "b20";
-            this.b20.Size = new System.Drawing.Size(64, 20);
-            this.b20.TabIndex = 108;
-            this.b20.UseVisualStyleBackColor = true;
-            // 
-            // label26
-            // 
-            this.label26.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(382, 5);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(61, 13);
-            this.label26.TabIndex = 110;
-            this.label26.Text = "Отправить";
-            // 
-            // b1
-            // 
-            this.b1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b1.Image = ((System.Drawing.Image)(resources.GetObject("b1.Image")));
-            this.b1.Location = new System.Drawing.Point(382, 27);
-            this.b1.Name = "b1";
-            this.b1.Size = new System.Drawing.Size(64, 18);
-            this.b1.TabIndex = 87;
-            this.b1.UseVisualStyleBackColor = true;
-            // 
             // MacrosSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(627, 613);
+            this.Controls.Add(this.saveBtn);
+            this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupsBtntabLtPnl);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nameGroupTxtBx);
-            this.Controls.Add(this.CancelBtn);
-            this.Controls.Add(this.saveBtn);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MacrosSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

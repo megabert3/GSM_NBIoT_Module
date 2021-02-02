@@ -30,6 +30,9 @@ namespace GSM_NBIoT_Module.view {
 
         private ToolTip toolTipForMacros;
 
+        //Окно с настройкой макросов
+        private MacrosSettings macrosSettingsFlame;
+
         public Terminal() {
             InitializeComponent();
         }
@@ -361,7 +364,6 @@ namespace GSM_NBIoT_Module.view {
             }
         }
 
-
         /// <summary>
         /// Блокирует группы с настройками ком порта
         /// </summary>
@@ -374,6 +376,7 @@ namespace GSM_NBIoT_Module.view {
         }
 
         private void rescanCOMsBtn_Click(object sender, EventArgs e) {
+
             comPortsListCmbBox.Items.Clear();
             comPortsListCmbBox.Items.AddRange(SerialPort.GetPortNames());
 
@@ -726,7 +729,7 @@ namespace GSM_NBIoT_Module.view {
             } catch (IOException ex) {
                 e.Cancel = true;
 
-                Flasher.addMessageInMainLog("Произошла ошибка при закрытии COM порта\n" + ex.Message + "\nЗакройте COM порт");
+                Flasher.addMessageInMainLog("Произошла ошибка при закрытии COM порта\n" + ex.Message);
             }
         }
 
@@ -735,56 +738,127 @@ namespace GSM_NBIoT_Module.view {
         private void sp_DataReceived(object sender, SerialDataReceivedEventArgs e) {
 
             terminalLogTxtBx.Invoke((MethodInvoker)delegate {
+
                 while (serialPort.BytesToRead != 0) {
                     dataByte = serialPort.ReadByte();
 
-                    switch (dataByte) {
+                    //Если режим текста
+                    if (inputModeTextRdBtn.Checked) {
 
-                        //Эквивалентно /r
-                        case 13:
-                            terminalLogTxtBx.AppendText(Environment.NewLine);
-                            first = true;
-                            break;
+                        switch (dataByte) {
 
-                        //Эквивалентно /n
-                        case 10:
-                            terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + Environment.NewLine);
-                            first = true;
-                            break;
+                            //Эквивалентно /r
+                            case 13: {
+                                    //Если установлен флаг, что /r == /n
+                                    if (clEqualsRf.Checked) {
+                                        if (first) {
+                                            terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + Environment.NewLine);
 
-                        default:
+                                        } else {
+                                            terminalLogTxtBx.AppendText(Environment.NewLine);
 
-                            //Если первый байт после получения байтов переноса строки, то добавляю таймштамп
-                            if (first) {
-
-                                //Если в текством формате
-                                if (inputModeTextRdBtn.Checked) {
-                                    terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + Convert.ToChar(dataByte).ToString());
-                                    
-                                    //Если в HEX формате
-                                } else {
-                                    terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + dataByte.ToString("X2") + " ");
+                                        }
+                                        first = true;
+                                    }
                                 }
+                                break;
 
-                                first = false;
-                            } else {
+                            //Эквивалентно /n
+                            case 10: {
+                                    if (first) {
+                                        terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + Environment.NewLine);
 
-                                if (inputModeTextRdBtn.Checked) {
-                                    terminalLogTxtBx.AppendText(Convert.ToChar(dataByte).ToString());
-
-                                } else {
-                                    terminalLogTxtBx.AppendText(dataByte.ToString("X2") + " ");
-
+                                    } else {
+                                        terminalLogTxtBx.AppendText(Environment.NewLine);
+                                    }
+                                    first = true;
                                 }
-                            }
-                            break;
+                                break;
+
+                            default: {
+                                    if (first) {
+                                        terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + Convert.ToChar(dataByte).ToString());
+                                        first = false;
+                                    } else {
+                                        terminalLogTxtBx.AppendText(Convert.ToChar(dataByte).ToString());
+                                    }
+                                }
+                                break;
+                        }
+
+                        //Если режим ввода HEX
+                    } else {
+                        switch (dataByte) {
+
+                            //Эквивалентно /r
+                            case 13: {
+                                    //Если установлен флаг, что /r == /n
+                                    terminalLogTxtBx.AppendText(dataByte.ToString() + " ");
+
+                                    if (clEqualsRf.Checked) {
+                                        if (first) {
+                                            terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + Environment.NewLine);
+
+                                        } else {
+                                            terminalLogTxtBx.AppendText(Environment.NewLine);
+
+                                        }
+                                        first = true;
+                                    }
+                                }
+                                break;
+
+                            //Эквивалентно /n
+                            case 10: {
+
+                                    if (first) {
+                                        terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > 10 " + Environment.NewLine);
+
+                                    } else {
+                                        terminalLogTxtBx.AppendText("10 " + Environment.NewLine);
+                                    }
+                                    first = true;
+                                }
+                                break;
+
+                            default: {
+                                    if (first) {
+                                        terminalLogTxtBx.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " > " + dataByte.ToString("X2") + " ");
+                                        first = false;
+
+                                    } else {
+                                        terminalLogTxtBx.AppendText(dataByte.ToString("X2") + " ");
+                                    }
+                                }
+                                break;
+                        }
                     }
                 }
             });
         }
 
         private void editMacros_Click(object sender, EventArgs e) {
-            new MacrosSettings(this).ShowDialog();
+
+            //Если окно уже открыто
+            if (macrosSettingsFlame != null) {
+                macrosSettingsFlame.Activate();
+
+                if (macrosSettingsFlame.WindowState == FormWindowState.Minimized) {
+                    macrosSettingsFlame.WindowState = FormWindowState.Normal;
+                }
+                macrosSettingsFlame.BringToFront();
+
+            } else {
+                macrosSettingsFlame = new MacrosSettings(this);
+                macrosSettingsFlame.Show();
+            }           
+        }
+
+        /// <summary>
+        /// Устанавливает нулевую ссылку на окно редактирования макросов при его закрытии
+        /// </summary>
+        public void setNullMacrosForm() {
+            macrosSettingsFlame = null;
         }
 
         /// <summary>
@@ -805,16 +879,17 @@ namespace GSM_NBIoT_Module.view {
 
                 Button btn;
                 int indexBtn;
-                MacrosesGroup.Macros macros;
+                Macros macros;
 
                 //Установка имени кнопки именем макроса
                 foreach (Control btnControl in tabPage.Controls) {
+
                     btn = btnControl as Button;
                     indexBtn = Convert.ToInt32(btnControl.Name.Substring(5));
 
                     macros = macrosesGroup.getMacrosesDic()[indexBtn];
 
-                    btn.Text = macros.macrosName;
+                    btn.Text = macros.MacrosName;
                 }
             }
         }
@@ -830,15 +905,6 @@ namespace GSM_NBIoT_Module.view {
             if (serialPort.IsOpen) {
 
                 if (String.IsNullOrEmpty(mess)) return;
-
-                if (mess.Equals("Nikita pidorok?")) {
-                    addMessInComLog("Nikita pidorok?");
-                    addMessInComLog("");
-                    addMessInComLog("DA");
-                    addMessInComLog("");
-                    addMessInComLog("OK");
-                    return;
-                }
 
                 if (modeTextRdBtn.Checked) {
 
@@ -890,6 +956,9 @@ namespace GSM_NBIoT_Module.view {
                 lock (locker) {
                     serialPort.Write(sendByteList.ToArray(), 0, sendByteList.Count);
                 }
+
+            } else {
+                Flasher.exceptionDialog("Откройте COM порт для отправки данных");
             }
         }
 
@@ -964,14 +1033,25 @@ namespace GSM_NBIoT_Module.view {
 
             MacrosesGroup macrosGroup = macrosStorage.getMacrosesGroupsList().ElementAt(macrosTabControl.SelectedIndex);
 
-            MacrosesGroup.Macros macros = macrosGroup.getMacrosesDic()[Convert.ToInt32((sender as Button).Name.Substring(5))];
+            Macros macros = macrosGroup.getMacrosesDic()[Convert.ToInt32((sender as Button).Name.Substring(5))];
 
-            sendCommandInCOMPort(macros.macrosValue);
+            sendCommandInCOMPort(macros.MacrosValue);
         }
 
         private void Terminal_KeyDown(object sender, KeyEventArgs e) {
 
-            if (!messInCOMTxtBx.Focused) {
+            if (e.KeyCode == Keys.Escape) {
+                clearLog.PerformClick();
+
+            } else if (e.KeyCode == Keys.M && e.Modifiers == Keys.Control) {
+                editMacros.PerformClick();
+
+            } else if (e.KeyCode == Keys.S && e.Modifiers == Keys.Control) {
+                saveLog.PerformClick();
+                return;
+            }
+
+            if (!messInCOMTxtBx.Focused) {   
 
                 if ((e.KeyCode == Keys.NumPad1 || e.KeyCode == Keys.D1)
                     && e.Modifiers == Keys.Control) {
@@ -1018,7 +1098,7 @@ namespace GSM_NBIoT_Module.view {
                     selectHotCaseMacrosBtn(1);
 
                 } else if (e.KeyCode == Keys.NumPad2 || e.KeyCode == Keys.D2) {
-                    selectHotCaseMacrosBtn(2); 
+                    selectHotCaseMacrosBtn(2);
 
                 } else if (e.KeyCode == Keys.NumPad3 || e.KeyCode == Keys.D3) {
                     selectHotCaseMacrosBtn(3);
@@ -1044,15 +1124,9 @@ namespace GSM_NBIoT_Module.view {
                 } else if (e.KeyCode == Keys.NumPad0 || e.KeyCode == Keys.D0) {
                     selectHotCaseMacrosBtn(10);
 
-                } 
-            }
-
-            if (e.KeyCode == Keys.Escape) {
-                clearLog.PerformClick();
-            }
-
-            if (e.KeyCode == Keys.S && e.Modifiers == Keys.Control) {
-                saveLog.PerformClick();
+                } else if (e.KeyCode == Keys.S) {
+                    showOrHideControlPanel.PerformClick();
+                }
             }
         }
 
@@ -1081,7 +1155,7 @@ namespace GSM_NBIoT_Module.view {
             toolTipForMacros.ReshowDelay = 150;
 
             MacrosesGroup macrosesGroup;
-            MacrosesGroup.Macros macros;
+            Macros macros;
             string toolTipMess;
             for (int i = 0; i < 5; i++) {
                 macrosesGroup = macrosesGroupList.ElementAt(i);
@@ -1093,10 +1167,10 @@ namespace GSM_NBIoT_Module.view {
 
                         if (Convert.ToInt32(btn.Name.Substring(5)) == j) {
 
-                            toolTipMess = "Отправляемые данные: " + macros.macrosValue;
+                            toolTipMess = "Отправляемые данные: " + macros.MacrosValue;
 
-                            if (macros.macrosIncycle) {
-                                toolTipMess += "\nПериод отправки: " + macros.timeCycle + " мс";
+                            if (macros.MacrosInCycle) {
+                                toolTipMess += "\nПериод отправки: " + macros.TimeCycle + " мс";
                             }
 
                             if (j <= 10) {
@@ -1171,6 +1245,20 @@ namespace GSM_NBIoT_Module.view {
 
             toolTip.SetToolTip(groupBox6, "Управление состоянием ног CP2105");
             toolTip.SetToolTip(searchCP2105Ports, "Находит порты модема и считывает состояния ног CP2105");
-        }        
+
+            toolTip.SetToolTip(showOrHideControlPanel, "Нажмите чтобы скрыть/раскрыть панель с настройками\nИспользуйте: S");
+
+            toolTip.SetToolTip(editMacros, "Нажмите чтобы перейти в настройки макросов\nИспользуйте: Ctrl+M");
+        }
+
+        private void showOrHideControlPanel_Click(object sender, EventArgs e) {
+            int position = groupBox2.Size.Height / 2;
+
+            if (splitContainer1.SplitterDistance > position) {
+                splitContainer1.SplitterDistance = 0;
+            } else {
+                splitContainer1.SplitterDistance = groupBox2.Location.Y + groupBox2.Size.Height;
+            }
+        }
     }
 }

@@ -108,19 +108,19 @@ namespace GSM_NBIoT_Module.view.terminal {
 
                 //Установка отправляемых данных
                 txtBox = macrosTabLotPnl.GetControlFromPosition(0, macros.Key) as TextBox;
-                txtBox.Text = macros.Value.macrosValue;
+                txtBox.Text = macros.Value.MacrosValue;
 
                 //Установка названия макроса
                 txtBox = macrosTabLotPnl.GetControlFromPosition(1, macros.Key) as TextBox;
-                txtBox.Text = macros.Value.macrosName;
+                txtBox.Text = macros.Value.MacrosName;
 
                 //Установка времени задержки в цикле для макроса (перед отправкой сообщения)
                 txtBox = macrosTabLotPnl.GetControlFromPosition(2, macros.Key) as TextBox;
-                txtBox.Text = macros.Value.timeCycle.ToString();
+                txtBox.Text = macros.Value.TimeCycle.ToString();
 
                 //Установка флага циклической отправки
                 checkBox = macrosTabLotPnl.GetControlFromPosition(3, macros.Key) as CheckBox;
-                checkBox.Checked = macros.Value.macrosIncycle;
+                checkBox.Checked = macros.Value.MacrosInCycle;
             }
         }
 
@@ -249,22 +249,22 @@ namespace GSM_NBIoT_Module.view.terminal {
 
                 for (int i = 1; i <= 20; i++) {
 
-                    Macros macros = new Macros();
+                    Macros macros = macrosDic[i];
 
                     //Установка отправляемых данных
                     txtBox = macrosTabLotPnl.GetControlFromPosition(0, i) as TextBox;
-                    macros.macrosValue = txtBox.Text;
+                    macros.MacrosValue = txtBox.Text;
 
                     //Установка названия макроса
                     txtBox = macrosTabLotPnl.GetControlFromPosition(1, i) as TextBox;
-                    macros.macrosName = txtBox.Text;
+                    macros.MacrosName = txtBox.Text;
 
                     //Установка времени задержки в цикле для макроса (перед отправкой сообщения)
                     txtBox = macrosTabLotPnl.GetControlFromPosition(2, i) as TextBox;
 
                     k = -1;
                     if (int.TryParse(txtBox.Text, out k)) {
-                        macros.timeCycle = k;
+                        macros.TimeCycle = k;
 
                     } else {
                         txtBox.Focus();
@@ -274,7 +274,7 @@ namespace GSM_NBIoT_Module.view.terminal {
 
                     //Установка флага циклической отправки
                     checkBox = macrosTabLotPnl.GetControlFromPosition(3, i) as CheckBox;
-                    macros.macrosIncycle = checkBox.Checked;
+                    macros.MacrosInCycle = checkBox.Checked;
 
                     macrosDic[i] = macros;
                 }
@@ -337,6 +337,8 @@ namespace GSM_NBIoT_Module.view.terminal {
                     saveBtn.PerformClick();
                 }
             }
+
+            terminalForm.setNullMacrosForm();
         }
 
         private void sendDataBtn_Click(object sender, EventArgs e) {

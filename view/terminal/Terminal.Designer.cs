@@ -201,6 +201,8 @@
             this.clearLog = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.clEqualsRf = new System.Windows.Forms.CheckBox();
+            this.showOrHideControlPanel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.bandRateGroup.SuspendLayout();
             this.dataBitGroup.SuspendLayout();
@@ -809,9 +811,9 @@
             // sendBtn
             // 
             this.sendBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.sendBtn.Location = new System.Drawing.Point(1313, 619);
+            this.sendBtn.Location = new System.Drawing.Point(1325, 619);
             this.sendBtn.Name = "sendBtn";
-            this.sendBtn.Size = new System.Drawing.Size(102, 23);
+            this.sendBtn.Size = new System.Drawing.Size(90, 23);
             this.sendBtn.TabIndex = 23;
             this.sendBtn.Text = "Отправить";
             this.sendBtn.UseVisualStyleBackColor = true;
@@ -1969,14 +1971,16 @@
             // 
             // terminalLogTxtBx
             // 
-            this.terminalLogTxtBx.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.terminalLogTxtBx.Location = new System.Drawing.Point(0, 0);
+            this.terminalLogTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.terminalLogTxtBx.Location = new System.Drawing.Point(0, 10);
             this.terminalLogTxtBx.MinimumSize = new System.Drawing.Size(800, 4);
             this.terminalLogTxtBx.Multiline = true;
             this.terminalLogTxtBx.Name = "terminalLogTxtBx";
             this.terminalLogTxtBx.ReadOnly = true;
             this.terminalLogTxtBx.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.terminalLogTxtBx.Size = new System.Drawing.Size(1401, 446);
+            this.terminalLogTxtBx.Size = new System.Drawing.Size(1401, 433);
             this.terminalLogTxtBx.TabIndex = 21;
             // 
             // addEndLine
@@ -1985,11 +1989,11 @@
             this.addEndLine.AutoSize = true;
             this.addEndLine.Checked = true;
             this.addEndLine.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.addEndLine.Location = new System.Drawing.Point(1259, 623);
+            this.addEndLine.Location = new System.Drawing.Point(1257, 623);
             this.addEndLine.Name = "addEndLine";
-            this.addEndLine.Size = new System.Drawing.Size(54, 17);
+            this.addEndLine.Size = new System.Drawing.Size(65, 17);
             this.addEndLine.TabIndex = 29;
-            this.addEndLine.Text = "+ \\r\\n";
+            this.addEndLine.Text = "+ CL RF";
             this.addEndLine.UseVisualStyleBackColor = true;
             // 
             // flowLayoutPanel1
@@ -2000,7 +2004,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1401, 149);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1401, 147);
             this.flowLayoutPanel1.TabIndex = 32;
             // 
             // groupBox4
@@ -2020,6 +2024,7 @@
             // groupBox5
             // 
             this.groupBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox5.Controls.Add(this.clEqualsRf);
             this.groupBox5.Controls.Add(this.modeGroup);
             this.groupBox5.Controls.Add(this.saveLog);
             this.groupBox5.Controls.Add(this.groupBox3);
@@ -2105,7 +2110,7 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(12, 12);
+            this.splitContainer1.Location = new System.Drawing.Point(12, 16);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -2116,11 +2121,36 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.showOrHideControlPanel);
             this.splitContainer1.Panel2.Controls.Add(this.terminalLogTxtBx);
-            this.splitContainer1.Size = new System.Drawing.Size(1401, 601);
-            this.splitContainer1.SplitterDistance = 149;
-            this.splitContainer1.SplitterWidth = 6;
+            this.splitContainer1.Size = new System.Drawing.Size(1401, 597);
+            this.splitContainer1.SplitterDistance = 147;
             this.splitContainer1.TabIndex = 33;
+            // 
+            // clEqualsRf
+            // 
+            this.clEqualsRf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.clEqualsRf.AutoSize = true;
+            this.clEqualsRf.Checked = true;
+            this.clEqualsRf.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.clEqualsRf.Location = new System.Drawing.Point(151, 83);
+            this.clEqualsRf.Name = "clEqualsRf";
+            this.clEqualsRf.Size = new System.Drawing.Size(65, 17);
+            this.clEqualsRf.TabIndex = 34;
+            this.clEqualsRf.Text = "  CL=RF";
+            this.clEqualsRf.UseVisualStyleBackColor = true;
+            // 
+            // showOrHideControlPanel
+            // 
+            this.showOrHideControlPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.showOrHideControlPanel.Location = new System.Drawing.Point(0, 2);
+            this.showOrHideControlPanel.Name = "showOrHideControlPanel";
+            this.showOrHideControlPanel.Size = new System.Drawing.Size(1398, 6);
+            this.showOrHideControlPanel.TabIndex = 22;
+            this.showOrHideControlPanel.Text = "button1";
+            this.showOrHideControlPanel.UseVisualStyleBackColor = true;
+            this.showOrHideControlPanel.Click += new System.EventHandler(this.showOrHideControlPanel_Click);
             // 
             // Terminal
             // 
@@ -2169,6 +2199,7 @@
             this.flowLayoutPanel1.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -2361,5 +2392,7 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox clEqualsRf;
+        private System.Windows.Forms.Button showOrHideControlPanel;
     }
 }
