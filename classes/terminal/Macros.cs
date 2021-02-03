@@ -1,7 +1,9 @@
-﻿using System;
+﻿using GSM_NBIoT_Module.view;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GSM_NBIoT_Module.classes.terminal {
@@ -19,6 +21,9 @@ namespace GSM_NBIoT_Module.classes.terminal {
         private bool macrosInCycle = false;
         //Пауза между отправкой данных с какой-то переодичностью
         private int timeCycle = 1000;
+
+        //Треад для циклической отпраки сообщений
+        private Thread cycleThreadSendData;
 
         public Macros(string macrosName, string macrosValue, bool macrosIncycle, int timeCycle) {
             this.macrosName = macrosName;
@@ -68,6 +73,33 @@ namespace GSM_NBIoT_Module.classes.terminal {
 
         public object Clone() {
             return MemberwiseClone();
+        }
+
+        /// <summary>
+        /// Запускает циклическую отправку данных в COM порт
+        /// </summary>
+        /// <param name="terminalForm"></param>
+        public void startCycleSendDataInCOM(Terminal terminalForm) {
+
+            cycleThreadSendData = new Thread(delegate() {
+
+                while (Thread.CurrentThread.IsAlive) {
+
+                    terminalForm.sendCommandInCOMPort(macrosValue);
+
+                    Thread.Sleep(timeCycle);
+                }
+            });
+
+            cycleThreadSendData.Start();
+        }
+
+        /// <summary>
+        /// Возвращает состояние потока циклической отправки данных в COM порт
+        /// </summary>
+        /// <returns></returns>
+        public bool cycleThreadIsLeave() {
+            return cycleThreadSendData.IsAlive;
         }
     }
 }

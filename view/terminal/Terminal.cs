@@ -273,6 +273,7 @@ namespace GSM_NBIoT_Module.view {
                 Properties.Settings.Default.terminal_LastDataBit = serialPort.DataBits.ToString();
                 Properties.Settings.Default.terminal_LastParity = serialPort.Parity.ToString();
                 Properties.Settings.Default.terminal_LastStopBit = serialPort.StopBits.ToString();
+
                 if (inputModeTextRdBtn.Checked) {
                     Properties.Settings.Default.terminal_inputLastMode = "Text";
                 } else {
