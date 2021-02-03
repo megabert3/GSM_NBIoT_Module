@@ -194,6 +194,7 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.clEqualsRf = new System.Windows.Forms.CheckBox();
             this.saveLog = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.inputModeTextRdBtn = new System.Windows.Forms.RadioButton();
@@ -201,7 +202,6 @@
             this.clearLog = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.clEqualsRf = new System.Windows.Forms.CheckBox();
             this.showOrHideControlPanel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.bandRateGroup.SuspendLayout();
@@ -1974,7 +1974,7 @@
             this.terminalLogTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.terminalLogTxtBx.BackColor = System.Drawing.Color.Silver;
+            this.terminalLogTxtBx.BackColor = System.Drawing.SystemColors.Control;
             this.terminalLogTxtBx.Location = new System.Drawing.Point(0, 10);
             this.terminalLogTxtBx.MinimumSize = new System.Drawing.Size(800, 4);
             this.terminalLogTxtBx.Multiline = true;
@@ -2000,7 +2000,7 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Silver;
+            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.MenuBar;
             this.flowLayoutPanel1.Controls.Add(this.groupBox4);
             this.flowLayoutPanel1.Controls.Add(this.groupBox5);
             this.flowLayoutPanel1.Controls.Add(this.groupBox2);
@@ -2038,6 +2038,20 @@
             this.groupBox5.TabIndex = 33;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Работа с логом";
+            // 
+            // clEqualsRf
+            // 
+            this.clEqualsRf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.clEqualsRf.AutoSize = true;
+            this.clEqualsRf.Checked = true;
+            this.clEqualsRf.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.clEqualsRf.Location = new System.Drawing.Point(151, 83);
+            this.clEqualsRf.Name = "clEqualsRf";
+            this.clEqualsRf.Size = new System.Drawing.Size(65, 17);
+            this.clEqualsRf.TabIndex = 34;
+            this.clEqualsRf.Text = "  CL=RF";
+            this.clEqualsRf.UseVisualStyleBackColor = true;
+            this.clEqualsRf.CheckedChanged += new System.EventHandler(this.clEqualsRf_CheckedChanged);
             // 
             // saveLog
             // 
@@ -2130,20 +2144,6 @@
             this.splitContainer1.SplitterDistance = 147;
             this.splitContainer1.TabIndex = 33;
             // 
-            // clEqualsRf
-            // 
-            this.clEqualsRf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.clEqualsRf.AutoSize = true;
-            this.clEqualsRf.Checked = true;
-            this.clEqualsRf.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.clEqualsRf.Location = new System.Drawing.Point(151, 83);
-            this.clEqualsRf.Name = "clEqualsRf";
-            this.clEqualsRf.Size = new System.Drawing.Size(65, 17);
-            this.clEqualsRf.TabIndex = 34;
-            this.clEqualsRf.Text = "  CL=RF";
-            this.clEqualsRf.UseVisualStyleBackColor = true;
-            this.clEqualsRf.CheckedChanged += new System.EventHandler(this.clEqualsRf_CheckedChanged);
-            // 
             // showOrHideControlPanel
             // 
             this.showOrHideControlPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -2160,7 +2160,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1426, 761);
             this.Controls.Add(this.editMacros);
             this.Controls.Add(this.splitContainer1);

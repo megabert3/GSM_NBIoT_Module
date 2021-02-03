@@ -22,6 +22,7 @@ namespace GSM_NBIoT_Module.classes.terminal {
         //Пауза между отправкой данных с какой-то переодичностью
         private int timeCycle = 1000;
 
+        [NonSerialized]
         //Треад для циклической отпраки сообщений
         private Thread cycleThreadSendData;
 

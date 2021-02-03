@@ -286,6 +286,9 @@ namespace GSM_NBIoT_Module.view.terminal {
         }
 
         private void SaveBtn_Click(object sender, EventArgs e) {
+
+            terminalForm.abortAllCycleMacros();
+
             try {
                 saveOldGroupValues();
             } catch (FormatException ex) {

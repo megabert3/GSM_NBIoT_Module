@@ -32,9 +32,13 @@ namespace GSM_NBIoT_Module.view {
         private MacrosSettings macrosSettingsFlame;
 
         //Буфер посленних введённых комманд
-        List<string> lastCommandsList = new List<string>(10);
+        private List<string> lastCommandsList = new List<string>();
+
         //Индекс выбора последних введённых комманд
         private int lastCommandChoiseIndex = 0;
+
+        //Лист с макросами которые запущены в цикле
+        public List<string> threadMacroses = new List<string>();
 
         public Terminal() {
             InitializeComponent();
@@ -295,6 +299,7 @@ namespace GSM_NBIoT_Module.view {
             } else {
 
                 try {
+                    abortAllCycleMacros();
                     serialPort.Close();
                 } catch (IOException ex) {
                     Flasher.exceptionDialog("Возникла ошибка при закрытии COM порта:\n" + ex.Message);
@@ -746,6 +751,8 @@ namespace GSM_NBIoT_Module.view {
 
         private void Terminal_FormClosing(object sender, FormClosingEventArgs e) {
             try {
+                abortAllCycleMacros();
+
                 serialPort.Close();
 
             } catch (IOException ex) {
@@ -925,6 +932,8 @@ namespace GSM_NBIoT_Module.view {
                     btn.Text = macros.MacrosName;
                 }
             }
+
+            refreshCycleThreadMacros();
         }
 
         private object locker = new object();
@@ -938,6 +947,8 @@ namespace GSM_NBIoT_Module.view {
             if (serialPort.IsOpen) {
 
                 if (String.IsNullOrEmpty(mess)) return;
+
+                //lastCommandChoiseIndex = 0;
 
                 addMessInLocalBuff(mess);
 
@@ -1112,12 +1123,24 @@ namespace GSM_NBIoT_Module.view {
             //Если опция переодической отправки сообщений включена
             if (macros.MacrosInCycle) {
 
+                if (!serialPort.IsOpen) {
+                    Flasher.exceptionDialog("Откройте COM порт для отправки данных");
+                    return;
+                }
+                
+                if (threadMacroses.Count >= 10) {
+                    Flasher.exceptionDialog("Нельзя использовать больше 10 циклических макросов");
+                    return;
+                }
+
                 //Если поток циклической отправки был когда-либо создан
                 if (macros.getCycleThreadSendData() != null) {
 
                     //Если поток циклической отправки ещё работает
                     if (macros.cycleThreadIsLeave()) {
                         macros.getCycleThreadSendData().Abort();
+
+                        threadMacroses.Remove((sender as Button).Name);
 
                         //Меняю цвет кнопки на стандартный
                         (sender as Button).BackColor = defaultColor;
@@ -1126,6 +1149,9 @@ namespace GSM_NBIoT_Module.view {
                     } else {
                         //Запускаю новый
                         macros.startCycleSendDataInCOM(this);
+
+                        threadMacroses.Add((sender as Button).Name);
+
                         (sender as Button).BackColor = Color.PaleGreen;
                     }
 
@@ -1134,6 +1160,7 @@ namespace GSM_NBIoT_Module.view {
 
                     //Запускаю новый
                     macros.startCycleSendDataInCOM(this);
+                    threadMacroses.Add((sender as Button).Name);
                     (sender as Button).BackColor = Color.PaleGreen;
                 }
 
@@ -1156,7 +1183,11 @@ namespace GSM_NBIoT_Module.view {
                 return;
             }
 
-            if (!messInCOMTxtBx.Focused) {   
+            if (!messInCOMTxtBx.Focused &&
+                customBandRateTxtBx.Focused &&
+                cpNumbStandartPortTxtBx.Focused &&
+                cpNumbEnhancedPortTxtBx.Focused &&
+                comPortsListCmbBox.Focused) {   
 
                 if ((e.KeyCode == Keys.NumPad1 || e.KeyCode == Keys.D1)
                     && e.Modifiers == Keys.Control) {
@@ -1376,6 +1407,74 @@ namespace GSM_NBIoT_Module.view {
         private void clEqualsRf_CheckedChanged(object sender, EventArgs e) {
             Properties.Settings.Default.terminal_CLequalsRF = clEqualsRf.Checked;
             Properties.Settings.Default.Save();
+        }
+
+        /// <summary>
+        /// Останавливает все циклические макросы
+        /// </summary>
+        public void abortAllCycleMacros() {
+
+            MacrosesGroupStorage macrosStorage = MacrosesGroupStorage.getMacrosesGroupStorageInstance();
+
+            //Останавливаю потоки
+            foreach (MacrosesGroup macrosesGroup in macrosStorage.getMacrosesGroupsList()) {
+
+                foreach (Macros macros in macrosesGroup.getMacrosesDic().Values) {
+                    if (macros.getCycleThreadSendData() != null) {
+                        if (macros.getCycleThreadSendData().IsAlive) {
+                            macros.getCycleThreadSendData().Abort();
+                        }
+                    }
+                }
+            }
+
+            //Выставляю цвет макроса
+            foreach (Control tab in macrosTabControl.Controls) {
+                foreach (Control btn in tab.Controls) {
+
+                    (btn as Button).BackColor = defaultColor;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Запускает ранее запущенные макросы после изменении в окне редактирования макросов
+        /// </summary>
+        private void refreshCycleThreadMacros() {
+
+            //Прохожусь по списку ранее запущенных макросов
+            for (int i = 0; i < threadMacroses.Count; i++) {
+
+                Macros macros = returmMacrosOnBtn(threadMacroses.ElementAt(i));
+
+                if (macros.MacrosInCycle) {
+                    int group = Convert.ToInt32(threadMacroses.ElementAt(i).Substring(2, 1)) - 1;
+
+                    foreach (Control macrosBtn in macrosTabControl.GetControl(group).Controls) {
+                        if (threadMacroses.ElementAt(i).Equals((macrosBtn as Button).Name)) {
+                            (macrosBtn as Button).BackColor = Color.PaleGreen;
+                            macros.startCycleSendDataInCOM(this);
+                            break;
+                        }
+                    }
+
+                } else {
+                    threadMacroses.RemoveAt(i);
+                    i--;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Возвращает макрос принадлежащий к ID кнопки
+        /// </summary>
+        /// <param name="btnText"></param>
+        /// <returns></returns>
+        private Macros returmMacrosOnBtn(string btnText) {
+            int group = Convert.ToInt32(btnText.Substring(2,1)) - 1;
+            int macrosId = Convert.ToInt32(btnText.Substring(5));
+
+            return MacrosesGroupStorage.getMacrosesGroupStorageInstance().getMacrosesGroupsList().ElementAt(group).getMacrosesDic()[macrosId];
         }
     }
 }
