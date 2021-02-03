@@ -101,5 +101,9 @@ namespace GSM_NBIoT_Module.classes.terminal {
         public bool cycleThreadIsLeave() {
             return cycleThreadSendData.IsAlive;
         }
+
+        public Thread getCycleThreadSendData() {
+            return cycleThreadSendData;
+        }
     }
 }

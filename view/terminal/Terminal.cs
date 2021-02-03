@@ -4,7 +4,6 @@ using GSM_NBIoT_Module.classes.terminal;
 using GSM_NBIoT_Module.view.terminal;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Ports;
@@ -12,7 +11,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using static GSM_NBIoT_Module.classes.CP2105_Connector;
-using static GSM_NBIoT_Module.classes.terminal.MacrosesGroup;
 
 namespace GSM_NBIoT_Module.view {
     public partial class Terminal : Form {
@@ -1111,7 +1109,38 @@ namespace GSM_NBIoT_Module.view {
 
             Macros macros = macrosGroup.getMacrosesDic()[Convert.ToInt32((sender as Button).Name.Substring(5))];
 
-            sendCommandInCOMPort(macros.MacrosValue);
+            //Если опция переодической отправки сообщений включена
+            if (macros.MacrosInCycle) {
+
+                //Если поток циклической отправки был когда-либо создан
+                if (macros.getCycleThreadSendData() != null) {
+
+                    //Если поток циклической отправки ещё работает
+                    if (macros.cycleThreadIsLeave()) {
+                        macros.getCycleThreadSendData().Abort();
+
+                        //Меняю цвет кнопки на стандартный
+                        (sender as Button).BackColor = defaultColor;
+
+                        //Если поток был убит
+                    } else {
+                        //Запускаю новый
+                        macros.startCycleSendDataInCOM(this);
+                        (sender as Button).BackColor = Color.PaleGreen;
+                    }
+
+                    //Если не было
+                } else {
+
+                    //Запускаю новый
+                    macros.startCycleSendDataInCOM(this);
+                    (sender as Button).BackColor = Color.PaleGreen;
+                }
+
+                //Если выключена, то просто единоразово отправляю данные в COM порт
+            } else {
+                sendCommandInCOMPort(macros.MacrosValue);
+            }
         }
 
         private void Terminal_KeyDown(object sender, KeyEventArgs e) {

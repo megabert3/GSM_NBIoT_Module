@@ -1974,6 +1974,7 @@
             this.terminalLogTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.terminalLogTxtBx.BackColor = System.Drawing.Color.Silver;
             this.terminalLogTxtBx.Location = new System.Drawing.Point(0, 10);
             this.terminalLogTxtBx.MinimumSize = new System.Drawing.Size(800, 4);
             this.terminalLogTxtBx.Multiline = true;
@@ -1999,7 +2000,7 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Silver;
             this.flowLayoutPanel1.Controls.Add(this.groupBox4);
             this.flowLayoutPanel1.Controls.Add(this.groupBox5);
             this.flowLayoutPanel1.Controls.Add(this.groupBox2);
@@ -2159,6 +2160,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1426, 761);
             this.Controls.Add(this.editMacros);
             this.Controls.Add(this.splitContainer1);
