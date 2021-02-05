@@ -189,7 +189,6 @@
             this.gr5bt16 = new System.Windows.Forms.Button();
             this.editMacros = new System.Windows.Forms.Button();
             this.otherGroup = new System.Windows.Forms.GroupBox();
-            this.terminalLogTxtBx = new System.Windows.Forms.TextBox();
             this.addEndLine = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -202,7 +201,14 @@
             this.clearLog = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.terminalLogRichTxtBx = new System.Windows.Forms.RichTextBox();
             this.showOrHideControlPanel = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.bandRateGroup.SuspendLayout();
             this.dataBitGroup.SuspendLayout();
@@ -228,6 +234,13 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            this.tabPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -1969,21 +1982,6 @@
             this.otherGroup.TabStop = false;
             this.otherGroup.Text = "Связь c";
             // 
-            // terminalLogTxtBx
-            // 
-            this.terminalLogTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.terminalLogTxtBx.BackColor = System.Drawing.SystemColors.Control;
-            this.terminalLogTxtBx.Location = new System.Drawing.Point(0, 10);
-            this.terminalLogTxtBx.MinimumSize = new System.Drawing.Size(800, 4);
-            this.terminalLogTxtBx.Multiline = true;
-            this.terminalLogTxtBx.Name = "terminalLogTxtBx";
-            this.terminalLogTxtBx.ReadOnly = true;
-            this.terminalLogTxtBx.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.terminalLogTxtBx.Size = new System.Drawing.Size(1401, 433);
-            this.terminalLogTxtBx.TabIndex = 21;
-            // 
             // addEndLine
             // 
             this.addEndLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -2138,11 +2136,23 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Panel2.Controls.Add(this.showOrHideControlPanel);
-            this.splitContainer1.Panel2.Controls.Add(this.terminalLogTxtBx);
             this.splitContainer1.Size = new System.Drawing.Size(1401, 597);
             this.splitContainer1.SplitterDistance = 147;
+            this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 33;
+            // 
+            // terminalLogRichTxtBx
+            // 
+            this.terminalLogRichTxtBx.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.terminalLogRichTxtBx.Location = new System.Drawing.Point(3, 3);
+            this.terminalLogRichTxtBx.Name = "terminalLogRichTxtBx";
+            this.terminalLogRichTxtBx.ReadOnly = true;
+            this.terminalLogRichTxtBx.Size = new System.Drawing.Size(1389, 408);
+            this.terminalLogRichTxtBx.TabIndex = 24;
+            this.terminalLogRichTxtBx.Text = "";
+            this.terminalLogRichTxtBx.TextChanged += new System.EventHandler(this.terminalLogRichTxtBx_TextChanged);
             // 
             // showOrHideControlPanel
             // 
@@ -2155,6 +2165,78 @@
             this.showOrHideControlPanel.Text = "button1";
             this.showOrHideControlPanel.UseVisualStyleBackColor = true;
             this.showOrHideControlPanel.Click += new System.EventHandler(this.showOrHideControlPanel_Click);
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage6);
+            this.tabControl1.Controls.Add(this.tabPage7);
+            this.tabControl1.Location = new System.Drawing.Point(0, 7);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1403, 440);
+            this.tabControl1.TabIndex = 25;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.terminalLogRichTxtBx);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(1395, 414);
+            this.tabPage6.TabIndex = 0;
+            this.tabPage6.Text = "Основное окно сообщений";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.splitContainer2);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(1395, 414);
+            this.tabPage7.TabIndex = 1;
+            this.tabPage7.Text = "Окно отсортированных сообщений";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.richTextBox1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.richTextBox2);
+            this.splitContainer2.Size = new System.Drawing.Size(1389, 408);
+            this.splitContainer2.SplitterDistance = 699;
+            this.splitContainer2.TabIndex = 0;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox1.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.Size = new System.Drawing.Size(699, 408);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = "";
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox2.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.ReadOnly = true;
+            this.richTextBox2.Size = new System.Drawing.Size(686, 408);
+            this.richTextBox2.TabIndex = 1;
+            this.richTextBox2.Text = "";
             // 
             // Terminal
             // 
@@ -2210,9 +2292,15 @@
             this.groupBox2.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage7.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2285,7 +2373,6 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Button editMacros;
         private System.Windows.Forms.GroupBox otherGroup;
-        private System.Windows.Forms.TextBox terminalLogTxtBx;
         private System.Windows.Forms.Button gr2bt2;
         private System.Windows.Forms.Button gr2bt1;
         private System.Windows.Forms.Button gr2bt13;
@@ -2399,5 +2486,12 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox clEqualsRf;
         private System.Windows.Forms.Button showOrHideControlPanel;
+        private System.Windows.Forms.RichTextBox terminalLogRichTxtBx;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox richTextBox2;
     }
 }

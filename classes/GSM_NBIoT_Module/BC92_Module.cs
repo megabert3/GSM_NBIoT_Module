@@ -84,10 +84,9 @@ namespace GSM_NBIoT_Module.classes {
 
             } catch (TimeoutException ex) {
                 Flasher.addMessageInMainLog("Не удалось получить версию прошивки" + ex.ToString());
-                return;
+                
             } catch (InvalidOperationException ex) {
                 Flasher.addMessageInMainLog("Не удалось получить версию прошивки" + ex.ToString());
-                return;
             }
 
             Flasher.setValuePogressBarFlashingStatic(180);
@@ -408,10 +407,12 @@ namespace GSM_NBIoT_Module.classes {
                         if (BC92isReady) break;
                     }
 
-                    if (!BC92isReady) {
+                    //Раньше выкидывал ошибку, но отказался от этого по причине если в модуле вообще нет прошивки или залита криво
+                    /*if (!BC92isReady) {
                         getRedyThreadBC92.Abort();
                         throw new DeviceError("Не удалось подтвердить готовность модуля к опросу.\nПерезагрузите модем и проверьте работоспособность модуля");
-                    }
+                    }*/
+                    Flasher.addMessageInMainLog("Не удалось подтвердить готовность модуля к опросу, попытка перепрошить");
                 }
             }
 

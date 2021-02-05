@@ -247,7 +247,7 @@ namespace GSM_NBIoT_Module.view.terminal {
 
                 Dictionary<int, Macros> macrosDic = localMacrosesGroup.ElementAt(oldGroupIndex - 1).getMacrosesDic();
 
-                for (int i = 1; i <= 20; i++) {
+                for (int i = 1; i <= macrosDic.Count; i++) {
 
                     Macros macros = macrosDic[i];
 

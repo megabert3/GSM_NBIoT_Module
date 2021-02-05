@@ -322,8 +322,6 @@ namespace GSM_NBIoT_Module {
         public static void addMessageInMainLog(string mess) {
 
             flashProcessTxtBoxStatic.Invoke((MethodInvoker)delegate {
-                //Старый вариант
-                //flashProcessTxtBoxStatic.AppendText(parseMlsInMMssMls(firmwareWriteStart.ElapsedMilliseconds) + ":    " + mess + Environment.NewLine);
                 flashProcessTxtBoxStatic.AppendText(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fff") + " >>    " + mess + Environment.NewLine);
             });
         }
