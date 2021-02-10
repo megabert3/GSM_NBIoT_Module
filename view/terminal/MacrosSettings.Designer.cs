@@ -30,25 +30,6 @@
             this.nameGroupTxtBx = new System.Windows.Forms.TextBox();
             this.macrosTabLotPnl = new System.Windows.Forms.TableLayoutPanel();
             this.label26 = new System.Windows.Forms.Label();
-            this.b20 = new System.Windows.Forms.Button();
-            this.b19 = new System.Windows.Forms.Button();
-            this.b18 = new System.Windows.Forms.Button();
-            this.b17 = new System.Windows.Forms.Button();
-            this.b16 = new System.Windows.Forms.Button();
-            this.b15 = new System.Windows.Forms.Button();
-            this.b14 = new System.Windows.Forms.Button();
-            this.b13 = new System.Windows.Forms.Button();
-            this.b12 = new System.Windows.Forms.Button();
-            this.b11 = new System.Windows.Forms.Button();
-            this.b10 = new System.Windows.Forms.Button();
-            this.b9 = new System.Windows.Forms.Button();
-            this.b8 = new System.Windows.Forms.Button();
-            this.b7 = new System.Windows.Forms.Button();
-            this.b6 = new System.Windows.Forms.Button();
-            this.b5 = new System.Windows.Forms.Button();
-            this.b4 = new System.Windows.Forms.Button();
-            this.b3 = new System.Windows.Forms.Button();
-            this.b2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.repeatCmBx20 = new System.Windows.Forms.CheckBox();
@@ -132,7 +113,6 @@
             this.macrosNametxtBox1 = new System.Windows.Forms.TextBox();
             this.dataTxtBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.b1 = new System.Windows.Forms.Button();
             this.firstGroupBtn = new System.Windows.Forms.Button();
             this.groupsBtntabLtPnl = new System.Windows.Forms.TableLayoutPanel();
             this.fifthGroupBtn = new System.Windows.Forms.Button();
@@ -162,17 +142,38 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.topMostChBx = new System.Windows.Forms.CheckBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.b20 = new System.Windows.Forms.Button();
+            this.b19 = new System.Windows.Forms.Button();
+            this.b18 = new System.Windows.Forms.Button();
+            this.b17 = new System.Windows.Forms.Button();
+            this.b16 = new System.Windows.Forms.Button();
+            this.b15 = new System.Windows.Forms.Button();
+            this.b14 = new System.Windows.Forms.Button();
+            this.b13 = new System.Windows.Forms.Button();
+            this.b12 = new System.Windows.Forms.Button();
+            this.b11 = new System.Windows.Forms.Button();
+            this.b10 = new System.Windows.Forms.Button();
+            this.b9 = new System.Windows.Forms.Button();
+            this.b8 = new System.Windows.Forms.Button();
+            this.b7 = new System.Windows.Forms.Button();
+            this.b6 = new System.Windows.Forms.Button();
+            this.b5 = new System.Windows.Forms.Button();
+            this.b4 = new System.Windows.Forms.Button();
+            this.b3 = new System.Windows.Forms.Button();
+            this.b2 = new System.Windows.Forms.Button();
+            this.b1 = new System.Windows.Forms.Button();
             this.macrosTabLotPnl.SuspendLayout();
             this.groupsBtntabLtPnl.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // saveBtn
             // 
             this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveBtn.Location = new System.Drawing.Point(379, 576);
+            this.saveBtn.Location = new System.Drawing.Point(371, 576);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(100, 23);
             this.saveBtn.TabIndex = 1;
@@ -183,7 +184,7 @@
             // CancelBtn
             // 
             this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.CancelBtn.Location = new System.Drawing.Point(504, 576);
+            this.CancelBtn.Location = new System.Drawing.Point(496, 576);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(100, 23);
             this.CancelBtn.TabIndex = 2;
@@ -206,7 +207,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.nameGroupTxtBx.Location = new System.Drawing.Point(142, 24);
             this.nameGroupTxtBx.Name = "nameGroupTxtBx";
-            this.nameGroupTxtBx.Size = new System.Drawing.Size(216, 20);
+            this.nameGroupTxtBx.Size = new System.Drawing.Size(208, 20);
             this.nameGroupTxtBx.TabIndex = 4;
             // 
             // macrosTabLotPnl
@@ -347,214 +348,24 @@
             this.macrosTabLotPnl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.80006F));
             this.macrosTabLotPnl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.799386F));
             this.macrosTabLotPnl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.999487F));
-            this.macrosTabLotPnl.Size = new System.Drawing.Size(449, 506);
+            this.macrosTabLotPnl.Size = new System.Drawing.Size(446, 506);
             this.macrosTabLotPnl.TabIndex = 6;
             // 
             // label26
             // 
             this.label26.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(382, 5);
+            this.label26.Location = new System.Drawing.Point(380, 5);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(61, 13);
             this.label26.TabIndex = 110;
             this.label26.Text = "Отправить";
             // 
-            // b20
-            // 
-            this.b20.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b20.Image = ((System.Drawing.Image)(resources.GetObject("b20.Image")));
-            this.b20.Location = new System.Drawing.Point(382, 483);
-            this.b20.Name = "b20";
-            this.b20.Size = new System.Drawing.Size(64, 20);
-            this.b20.TabIndex = 108;
-            this.b20.UseVisualStyleBackColor = true;
-            // 
-            // b19
-            // 
-            this.b19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b19.Image = ((System.Drawing.Image)(resources.GetObject("b19.Image")));
-            this.b19.Location = new System.Drawing.Point(382, 459);
-            this.b19.Name = "b19";
-            this.b19.Size = new System.Drawing.Size(64, 18);
-            this.b19.TabIndex = 107;
-            this.b19.UseVisualStyleBackColor = true;
-            // 
-            // b18
-            // 
-            this.b18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b18.Image = ((System.Drawing.Image)(resources.GetObject("b18.Image")));
-            this.b18.Location = new System.Drawing.Point(382, 435);
-            this.b18.Name = "b18";
-            this.b18.Size = new System.Drawing.Size(64, 18);
-            this.b18.TabIndex = 106;
-            this.b18.UseVisualStyleBackColor = true;
-            // 
-            // b17
-            // 
-            this.b17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b17.Image = ((System.Drawing.Image)(resources.GetObject("b17.Image")));
-            this.b17.Location = new System.Drawing.Point(382, 411);
-            this.b17.Name = "b17";
-            this.b17.Size = new System.Drawing.Size(64, 18);
-            this.b17.TabIndex = 105;
-            this.b17.UseVisualStyleBackColor = true;
-            // 
-            // b16
-            // 
-            this.b16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b16.Image = ((System.Drawing.Image)(resources.GetObject("b16.Image")));
-            this.b16.Location = new System.Drawing.Point(382, 387);
-            this.b16.Name = "b16";
-            this.b16.Size = new System.Drawing.Size(64, 18);
-            this.b16.TabIndex = 104;
-            this.b16.UseVisualStyleBackColor = true;
-            // 
-            // b15
-            // 
-            this.b15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b15.Image = ((System.Drawing.Image)(resources.GetObject("b15.Image")));
-            this.b15.Location = new System.Drawing.Point(382, 363);
-            this.b15.Name = "b15";
-            this.b15.Size = new System.Drawing.Size(64, 18);
-            this.b15.TabIndex = 103;
-            this.b15.UseVisualStyleBackColor = true;
-            // 
-            // b14
-            // 
-            this.b14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b14.Image = ((System.Drawing.Image)(resources.GetObject("b14.Image")));
-            this.b14.Location = new System.Drawing.Point(382, 339);
-            this.b14.Name = "b14";
-            this.b14.Size = new System.Drawing.Size(64, 18);
-            this.b14.TabIndex = 102;
-            this.b14.UseVisualStyleBackColor = true;
-            // 
-            // b13
-            // 
-            this.b13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b13.Image = ((System.Drawing.Image)(resources.GetObject("b13.Image")));
-            this.b13.Location = new System.Drawing.Point(382, 315);
-            this.b13.Name = "b13";
-            this.b13.Size = new System.Drawing.Size(64, 18);
-            this.b13.TabIndex = 101;
-            this.b13.UseVisualStyleBackColor = true;
-            // 
-            // b12
-            // 
-            this.b12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b12.Image = ((System.Drawing.Image)(resources.GetObject("b12.Image")));
-            this.b12.Location = new System.Drawing.Point(382, 291);
-            this.b12.Name = "b12";
-            this.b12.Size = new System.Drawing.Size(64, 18);
-            this.b12.TabIndex = 100;
-            this.b12.UseVisualStyleBackColor = true;
-            // 
-            // b11
-            // 
-            this.b11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b11.Image = ((System.Drawing.Image)(resources.GetObject("b11.Image")));
-            this.b11.Location = new System.Drawing.Point(382, 267);
-            this.b11.Name = "b11";
-            this.b11.Size = new System.Drawing.Size(64, 18);
-            this.b11.TabIndex = 99;
-            this.b11.UseVisualStyleBackColor = true;
-            // 
-            // b10
-            // 
-            this.b10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b10.Image = ((System.Drawing.Image)(resources.GetObject("b10.Image")));
-            this.b10.Location = new System.Drawing.Point(382, 243);
-            this.b10.Name = "b10";
-            this.b10.Size = new System.Drawing.Size(64, 18);
-            this.b10.TabIndex = 98;
-            this.b10.UseVisualStyleBackColor = true;
-            // 
-            // b9
-            // 
-            this.b9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b9.Image = ((System.Drawing.Image)(resources.GetObject("b9.Image")));
-            this.b9.Location = new System.Drawing.Point(382, 219);
-            this.b9.Name = "b9";
-            this.b9.Size = new System.Drawing.Size(64, 18);
-            this.b9.TabIndex = 97;
-            this.b9.UseVisualStyleBackColor = true;
-            // 
-            // b8
-            // 
-            this.b8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b8.Image = ((System.Drawing.Image)(resources.GetObject("b8.Image")));
-            this.b8.Location = new System.Drawing.Point(382, 195);
-            this.b8.Name = "b8";
-            this.b8.Size = new System.Drawing.Size(64, 18);
-            this.b8.TabIndex = 96;
-            this.b8.UseVisualStyleBackColor = true;
-            // 
-            // b7
-            // 
-            this.b7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b7.Image = ((System.Drawing.Image)(resources.GetObject("b7.Image")));
-            this.b7.Location = new System.Drawing.Point(382, 171);
-            this.b7.Name = "b7";
-            this.b7.Size = new System.Drawing.Size(64, 18);
-            this.b7.TabIndex = 95;
-            this.b7.UseVisualStyleBackColor = true;
-            // 
-            // b6
-            // 
-            this.b6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b6.Image = ((System.Drawing.Image)(resources.GetObject("b6.Image")));
-            this.b6.Location = new System.Drawing.Point(382, 147);
-            this.b6.Name = "b6";
-            this.b6.Size = new System.Drawing.Size(64, 18);
-            this.b6.TabIndex = 94;
-            this.b6.UseVisualStyleBackColor = true;
-            // 
-            // b5
-            // 
-            this.b5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b5.Image = ((System.Drawing.Image)(resources.GetObject("b5.Image")));
-            this.b5.Location = new System.Drawing.Point(382, 123);
-            this.b5.Name = "b5";
-            this.b5.Size = new System.Drawing.Size(64, 18);
-            this.b5.TabIndex = 93;
-            this.b5.UseVisualStyleBackColor = true;
-            // 
-            // b4
-            // 
-            this.b4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b4.Image = ((System.Drawing.Image)(resources.GetObject("b4.Image")));
-            this.b4.Location = new System.Drawing.Point(382, 99);
-            this.b4.Name = "b4";
-            this.b4.Size = new System.Drawing.Size(64, 18);
-            this.b4.TabIndex = 92;
-            this.b4.UseVisualStyleBackColor = true;
-            // 
-            // b3
-            // 
-            this.b3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b3.Image = ((System.Drawing.Image)(resources.GetObject("b3.Image")));
-            this.b3.Location = new System.Drawing.Point(382, 75);
-            this.b3.Name = "b3";
-            this.b3.Size = new System.Drawing.Size(64, 18);
-            this.b3.TabIndex = 91;
-            this.b3.UseVisualStyleBackColor = true;
-            // 
-            // b2
-            // 
-            this.b2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b2.Image = ((System.Drawing.Image)(resources.GetObject("b2.Image")));
-            this.b2.Location = new System.Drawing.Point(382, 51);
-            this.b2.Name = "b2";
-            this.b2.Size = new System.Drawing.Size(64, 18);
-            this.b2.TabIndex = 90;
-            this.b2.UseVisualStyleBackColor = true;
-            // 
             // label4
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(316, 5);
+            this.label4.Location = new System.Drawing.Point(314, 5);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(0, 13);
             this.label4.TabIndex = 86;
@@ -563,7 +374,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(182, 5);
+            this.label3.Location = new System.Drawing.Point(181, 5);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(104, 13);
             this.label3.TabIndex = 85;
@@ -573,7 +384,7 @@
             // 
             this.repeatCmBx20.AutoSize = true;
             this.repeatCmBx20.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx20.Location = new System.Drawing.Point(360, 483);
+            this.repeatCmBx20.Location = new System.Drawing.Point(358, 483);
             this.repeatCmBx20.Name = "repeatCmBx20";
             this.repeatCmBx20.Size = new System.Drawing.Size(15, 20);
             this.repeatCmBx20.TabIndex = 83;
@@ -583,7 +394,7 @@
             // 
             this.repeatCmBx19.AutoSize = true;
             this.repeatCmBx19.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx19.Location = new System.Drawing.Point(360, 459);
+            this.repeatCmBx19.Location = new System.Drawing.Point(358, 459);
             this.repeatCmBx19.Name = "repeatCmBx19";
             this.repeatCmBx19.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx19.TabIndex = 82;
@@ -593,7 +404,7 @@
             // 
             this.repeatCmBx18.AutoSize = true;
             this.repeatCmBx18.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx18.Location = new System.Drawing.Point(360, 435);
+            this.repeatCmBx18.Location = new System.Drawing.Point(358, 435);
             this.repeatCmBx18.Name = "repeatCmBx18";
             this.repeatCmBx18.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx18.TabIndex = 81;
@@ -603,7 +414,7 @@
             // 
             this.repeatCmBx17.AutoSize = true;
             this.repeatCmBx17.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx17.Location = new System.Drawing.Point(360, 411);
+            this.repeatCmBx17.Location = new System.Drawing.Point(358, 411);
             this.repeatCmBx17.Name = "repeatCmBx17";
             this.repeatCmBx17.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx17.TabIndex = 80;
@@ -613,7 +424,7 @@
             // 
             this.repeatCmBx16.AutoSize = true;
             this.repeatCmBx16.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx16.Location = new System.Drawing.Point(360, 387);
+            this.repeatCmBx16.Location = new System.Drawing.Point(358, 387);
             this.repeatCmBx16.Name = "repeatCmBx16";
             this.repeatCmBx16.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx16.TabIndex = 79;
@@ -623,7 +434,7 @@
             // 
             this.repeatCmBx15.AutoSize = true;
             this.repeatCmBx15.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx15.Location = new System.Drawing.Point(360, 363);
+            this.repeatCmBx15.Location = new System.Drawing.Point(358, 363);
             this.repeatCmBx15.Name = "repeatCmBx15";
             this.repeatCmBx15.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx15.TabIndex = 78;
@@ -633,7 +444,7 @@
             // 
             this.repeatCmBx14.AutoSize = true;
             this.repeatCmBx14.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx14.Location = new System.Drawing.Point(360, 339);
+            this.repeatCmBx14.Location = new System.Drawing.Point(358, 339);
             this.repeatCmBx14.Name = "repeatCmBx14";
             this.repeatCmBx14.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx14.TabIndex = 77;
@@ -643,7 +454,7 @@
             // 
             this.repeatCmBx13.AutoSize = true;
             this.repeatCmBx13.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx13.Location = new System.Drawing.Point(360, 315);
+            this.repeatCmBx13.Location = new System.Drawing.Point(358, 315);
             this.repeatCmBx13.Name = "repeatCmBx13";
             this.repeatCmBx13.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx13.TabIndex = 76;
@@ -653,7 +464,7 @@
             // 
             this.repeatCmBx12.AutoSize = true;
             this.repeatCmBx12.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx12.Location = new System.Drawing.Point(360, 291);
+            this.repeatCmBx12.Location = new System.Drawing.Point(358, 291);
             this.repeatCmBx12.Name = "repeatCmBx12";
             this.repeatCmBx12.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx12.TabIndex = 75;
@@ -663,7 +474,7 @@
             // 
             this.repeatCmBx11.AutoSize = true;
             this.repeatCmBx11.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx11.Location = new System.Drawing.Point(360, 267);
+            this.repeatCmBx11.Location = new System.Drawing.Point(358, 267);
             this.repeatCmBx11.Name = "repeatCmBx11";
             this.repeatCmBx11.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx11.TabIndex = 74;
@@ -673,7 +484,7 @@
             // 
             this.repeatCmBx10.AutoSize = true;
             this.repeatCmBx10.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx10.Location = new System.Drawing.Point(360, 243);
+            this.repeatCmBx10.Location = new System.Drawing.Point(358, 243);
             this.repeatCmBx10.Name = "repeatCmBx10";
             this.repeatCmBx10.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx10.TabIndex = 73;
@@ -683,7 +494,7 @@
             // 
             this.repeatCmBx9.AutoSize = true;
             this.repeatCmBx9.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx9.Location = new System.Drawing.Point(360, 219);
+            this.repeatCmBx9.Location = new System.Drawing.Point(358, 219);
             this.repeatCmBx9.Name = "repeatCmBx9";
             this.repeatCmBx9.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx9.TabIndex = 72;
@@ -693,7 +504,7 @@
             // 
             this.repeatCmBx8.AutoSize = true;
             this.repeatCmBx8.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx8.Location = new System.Drawing.Point(360, 195);
+            this.repeatCmBx8.Location = new System.Drawing.Point(358, 195);
             this.repeatCmBx8.Name = "repeatCmBx8";
             this.repeatCmBx8.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx8.TabIndex = 71;
@@ -703,7 +514,7 @@
             // 
             this.repeatCmBx7.AutoSize = true;
             this.repeatCmBx7.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx7.Location = new System.Drawing.Point(360, 171);
+            this.repeatCmBx7.Location = new System.Drawing.Point(358, 171);
             this.repeatCmBx7.Name = "repeatCmBx7";
             this.repeatCmBx7.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx7.TabIndex = 70;
@@ -713,7 +524,7 @@
             // 
             this.repeatCmBx6.AutoSize = true;
             this.repeatCmBx6.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx6.Location = new System.Drawing.Point(360, 147);
+            this.repeatCmBx6.Location = new System.Drawing.Point(358, 147);
             this.repeatCmBx6.Name = "repeatCmBx6";
             this.repeatCmBx6.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx6.TabIndex = 69;
@@ -723,7 +534,7 @@
             // 
             this.repeatCmBx5.AutoSize = true;
             this.repeatCmBx5.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx5.Location = new System.Drawing.Point(360, 123);
+            this.repeatCmBx5.Location = new System.Drawing.Point(358, 123);
             this.repeatCmBx5.Name = "repeatCmBx5";
             this.repeatCmBx5.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx5.TabIndex = 68;
@@ -733,7 +544,7 @@
             // 
             this.repeatCmBx4.AutoSize = true;
             this.repeatCmBx4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx4.Location = new System.Drawing.Point(360, 99);
+            this.repeatCmBx4.Location = new System.Drawing.Point(358, 99);
             this.repeatCmBx4.Name = "repeatCmBx4";
             this.repeatCmBx4.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx4.TabIndex = 67;
@@ -743,7 +554,7 @@
             // 
             this.repeatCmBx3.AutoSize = true;
             this.repeatCmBx3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx3.Location = new System.Drawing.Point(360, 75);
+            this.repeatCmBx3.Location = new System.Drawing.Point(358, 75);
             this.repeatCmBx3.Name = "repeatCmBx3";
             this.repeatCmBx3.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx3.TabIndex = 66;
@@ -753,7 +564,7 @@
             // 
             this.repeatCmBx2.AutoSize = true;
             this.repeatCmBx2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx2.Location = new System.Drawing.Point(360, 51);
+            this.repeatCmBx2.Location = new System.Drawing.Point(358, 51);
             this.repeatCmBx2.Name = "repeatCmBx2";
             this.repeatCmBx2.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx2.TabIndex = 65;
@@ -763,7 +574,7 @@
             // 
             this.repeatCmBx1.AutoSize = true;
             this.repeatCmBx1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.repeatCmBx1.Location = new System.Drawing.Point(360, 27);
+            this.repeatCmBx1.Location = new System.Drawing.Point(358, 27);
             this.repeatCmBx1.Name = "repeatCmBx1";
             this.repeatCmBx1.Size = new System.Drawing.Size(15, 18);
             this.repeatCmBx1.TabIndex = 64;
@@ -772,7 +583,7 @@
             // timeDelayTxtBx20
             // 
             this.timeDelayTxtBx20.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx20.Location = new System.Drawing.Point(316, 483);
+            this.timeDelayTxtBx20.Location = new System.Drawing.Point(314, 483);
             this.timeDelayTxtBx20.Name = "timeDelayTxtBx20";
             this.timeDelayTxtBx20.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx20.TabIndex = 62;
@@ -780,9 +591,9 @@
             // macrosNametxtBox20
             // 
             this.macrosNametxtBox20.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox20.Location = new System.Drawing.Point(182, 483);
+            this.macrosNametxtBox20.Location = new System.Drawing.Point(181, 483);
             this.macrosNametxtBox20.Name = "macrosNametxtBox20";
-            this.macrosNametxtBox20.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox20.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox20.TabIndex = 61;
             // 
             // dataTxtBox20
@@ -790,13 +601,13 @@
             this.dataTxtBox20.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox20.Location = new System.Drawing.Point(3, 483);
             this.dataTxtBox20.Name = "dataTxtBox20";
-            this.dataTxtBox20.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox20.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox20.TabIndex = 60;
             // 
             // timeDelayTxtBx19
             // 
             this.timeDelayTxtBx19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx19.Location = new System.Drawing.Point(316, 459);
+            this.timeDelayTxtBx19.Location = new System.Drawing.Point(314, 459);
             this.timeDelayTxtBx19.Name = "timeDelayTxtBx19";
             this.timeDelayTxtBx19.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx19.TabIndex = 59;
@@ -804,9 +615,9 @@
             // macrosNametxtBox19
             // 
             this.macrosNametxtBox19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox19.Location = new System.Drawing.Point(182, 459);
+            this.macrosNametxtBox19.Location = new System.Drawing.Point(181, 459);
             this.macrosNametxtBox19.Name = "macrosNametxtBox19";
-            this.macrosNametxtBox19.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox19.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox19.TabIndex = 58;
             // 
             // dataTxtBox19
@@ -814,13 +625,13 @@
             this.dataTxtBox19.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox19.Location = new System.Drawing.Point(3, 459);
             this.dataTxtBox19.Name = "dataTxtBox19";
-            this.dataTxtBox19.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox19.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox19.TabIndex = 57;
             // 
             // timeDelayTxtBx18
             // 
             this.timeDelayTxtBx18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx18.Location = new System.Drawing.Point(316, 435);
+            this.timeDelayTxtBx18.Location = new System.Drawing.Point(314, 435);
             this.timeDelayTxtBx18.Name = "timeDelayTxtBx18";
             this.timeDelayTxtBx18.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx18.TabIndex = 56;
@@ -828,9 +639,9 @@
             // macrosNametxtBox18
             // 
             this.macrosNametxtBox18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox18.Location = new System.Drawing.Point(182, 435);
+            this.macrosNametxtBox18.Location = new System.Drawing.Point(181, 435);
             this.macrosNametxtBox18.Name = "macrosNametxtBox18";
-            this.macrosNametxtBox18.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox18.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox18.TabIndex = 55;
             // 
             // dataTxtBox18
@@ -838,13 +649,13 @@
             this.dataTxtBox18.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox18.Location = new System.Drawing.Point(3, 435);
             this.dataTxtBox18.Name = "dataTxtBox18";
-            this.dataTxtBox18.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox18.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox18.TabIndex = 54;
             // 
             // timeDelayTxtBx17
             // 
             this.timeDelayTxtBx17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx17.Location = new System.Drawing.Point(316, 411);
+            this.timeDelayTxtBx17.Location = new System.Drawing.Point(314, 411);
             this.timeDelayTxtBx17.Name = "timeDelayTxtBx17";
             this.timeDelayTxtBx17.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx17.TabIndex = 53;
@@ -852,9 +663,9 @@
             // macrosNametxtBox17
             // 
             this.macrosNametxtBox17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox17.Location = new System.Drawing.Point(182, 411);
+            this.macrosNametxtBox17.Location = new System.Drawing.Point(181, 411);
             this.macrosNametxtBox17.Name = "macrosNametxtBox17";
-            this.macrosNametxtBox17.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox17.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox17.TabIndex = 52;
             // 
             // dataTxtBox17
@@ -862,13 +673,13 @@
             this.dataTxtBox17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox17.Location = new System.Drawing.Point(3, 411);
             this.dataTxtBox17.Name = "dataTxtBox17";
-            this.dataTxtBox17.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox17.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox17.TabIndex = 51;
             // 
             // timeDelayTxtBx16
             // 
             this.timeDelayTxtBx16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx16.Location = new System.Drawing.Point(316, 387);
+            this.timeDelayTxtBx16.Location = new System.Drawing.Point(314, 387);
             this.timeDelayTxtBx16.Name = "timeDelayTxtBx16";
             this.timeDelayTxtBx16.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx16.TabIndex = 50;
@@ -876,9 +687,9 @@
             // macrosNametxtBox16
             // 
             this.macrosNametxtBox16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox16.Location = new System.Drawing.Point(182, 387);
+            this.macrosNametxtBox16.Location = new System.Drawing.Point(181, 387);
             this.macrosNametxtBox16.Name = "macrosNametxtBox16";
-            this.macrosNametxtBox16.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox16.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox16.TabIndex = 49;
             // 
             // dataTxtBox16
@@ -886,13 +697,13 @@
             this.dataTxtBox16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox16.Location = new System.Drawing.Point(3, 387);
             this.dataTxtBox16.Name = "dataTxtBox16";
-            this.dataTxtBox16.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox16.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox16.TabIndex = 48;
             // 
             // timeDelayTxtBx15
             // 
             this.timeDelayTxtBx15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx15.Location = new System.Drawing.Point(316, 363);
+            this.timeDelayTxtBx15.Location = new System.Drawing.Point(314, 363);
             this.timeDelayTxtBx15.Name = "timeDelayTxtBx15";
             this.timeDelayTxtBx15.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx15.TabIndex = 47;
@@ -900,9 +711,9 @@
             // macrosNametxtBox15
             // 
             this.macrosNametxtBox15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox15.Location = new System.Drawing.Point(182, 363);
+            this.macrosNametxtBox15.Location = new System.Drawing.Point(181, 363);
             this.macrosNametxtBox15.Name = "macrosNametxtBox15";
-            this.macrosNametxtBox15.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox15.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox15.TabIndex = 46;
             // 
             // dataTxtBox15
@@ -910,13 +721,13 @@
             this.dataTxtBox15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox15.Location = new System.Drawing.Point(3, 363);
             this.dataTxtBox15.Name = "dataTxtBox15";
-            this.dataTxtBox15.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox15.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox15.TabIndex = 45;
             // 
             // timeDelayTxtBx14
             // 
             this.timeDelayTxtBx14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx14.Location = new System.Drawing.Point(316, 339);
+            this.timeDelayTxtBx14.Location = new System.Drawing.Point(314, 339);
             this.timeDelayTxtBx14.Name = "timeDelayTxtBx14";
             this.timeDelayTxtBx14.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx14.TabIndex = 44;
@@ -924,9 +735,9 @@
             // macrosNametxtBox14
             // 
             this.macrosNametxtBox14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox14.Location = new System.Drawing.Point(182, 339);
+            this.macrosNametxtBox14.Location = new System.Drawing.Point(181, 339);
             this.macrosNametxtBox14.Name = "macrosNametxtBox14";
-            this.macrosNametxtBox14.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox14.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox14.TabIndex = 43;
             // 
             // dataTxtBox14
@@ -934,13 +745,13 @@
             this.dataTxtBox14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox14.Location = new System.Drawing.Point(3, 339);
             this.dataTxtBox14.Name = "dataTxtBox14";
-            this.dataTxtBox14.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox14.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox14.TabIndex = 42;
             // 
             // timeDelayTxtBx13
             // 
             this.timeDelayTxtBx13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx13.Location = new System.Drawing.Point(316, 315);
+            this.timeDelayTxtBx13.Location = new System.Drawing.Point(314, 315);
             this.timeDelayTxtBx13.Name = "timeDelayTxtBx13";
             this.timeDelayTxtBx13.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx13.TabIndex = 41;
@@ -948,9 +759,9 @@
             // macrosNametxtBox13
             // 
             this.macrosNametxtBox13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox13.Location = new System.Drawing.Point(182, 315);
+            this.macrosNametxtBox13.Location = new System.Drawing.Point(181, 315);
             this.macrosNametxtBox13.Name = "macrosNametxtBox13";
-            this.macrosNametxtBox13.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox13.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox13.TabIndex = 40;
             // 
             // dataTxtBox13
@@ -958,13 +769,13 @@
             this.dataTxtBox13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox13.Location = new System.Drawing.Point(3, 315);
             this.dataTxtBox13.Name = "dataTxtBox13";
-            this.dataTxtBox13.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox13.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox13.TabIndex = 39;
             // 
             // timeDelayTxtBx12
             // 
             this.timeDelayTxtBx12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx12.Location = new System.Drawing.Point(316, 291);
+            this.timeDelayTxtBx12.Location = new System.Drawing.Point(314, 291);
             this.timeDelayTxtBx12.Name = "timeDelayTxtBx12";
             this.timeDelayTxtBx12.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx12.TabIndex = 38;
@@ -972,9 +783,9 @@
             // macrosNametxtBox12
             // 
             this.macrosNametxtBox12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox12.Location = new System.Drawing.Point(182, 291);
+            this.macrosNametxtBox12.Location = new System.Drawing.Point(181, 291);
             this.macrosNametxtBox12.Name = "macrosNametxtBox12";
-            this.macrosNametxtBox12.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox12.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox12.TabIndex = 37;
             // 
             // dataTxtBox12
@@ -982,13 +793,13 @@
             this.dataTxtBox12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox12.Location = new System.Drawing.Point(3, 291);
             this.dataTxtBox12.Name = "dataTxtBox12";
-            this.dataTxtBox12.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox12.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox12.TabIndex = 36;
             // 
             // timeDelayTxtBx11
             // 
             this.timeDelayTxtBx11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx11.Location = new System.Drawing.Point(316, 267);
+            this.timeDelayTxtBx11.Location = new System.Drawing.Point(314, 267);
             this.timeDelayTxtBx11.Name = "timeDelayTxtBx11";
             this.timeDelayTxtBx11.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx11.TabIndex = 35;
@@ -996,9 +807,9 @@
             // macrosNametxtBox11
             // 
             this.macrosNametxtBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox11.Location = new System.Drawing.Point(182, 267);
+            this.macrosNametxtBox11.Location = new System.Drawing.Point(181, 267);
             this.macrosNametxtBox11.Name = "macrosNametxtBox11";
-            this.macrosNametxtBox11.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox11.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox11.TabIndex = 34;
             // 
             // dataTxtBox11
@@ -1006,13 +817,13 @@
             this.dataTxtBox11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox11.Location = new System.Drawing.Point(3, 267);
             this.dataTxtBox11.Name = "dataTxtBox11";
-            this.dataTxtBox11.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox11.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox11.TabIndex = 33;
             // 
             // timeDelayTxtBx10
             // 
             this.timeDelayTxtBx10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx10.Location = new System.Drawing.Point(316, 243);
+            this.timeDelayTxtBx10.Location = new System.Drawing.Point(314, 243);
             this.timeDelayTxtBx10.Name = "timeDelayTxtBx10";
             this.timeDelayTxtBx10.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx10.TabIndex = 32;
@@ -1020,9 +831,9 @@
             // macrosNametxtBox10
             // 
             this.macrosNametxtBox10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox10.Location = new System.Drawing.Point(182, 243);
+            this.macrosNametxtBox10.Location = new System.Drawing.Point(181, 243);
             this.macrosNametxtBox10.Name = "macrosNametxtBox10";
-            this.macrosNametxtBox10.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox10.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox10.TabIndex = 31;
             // 
             // dataTxtBox10
@@ -1030,13 +841,13 @@
             this.dataTxtBox10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox10.Location = new System.Drawing.Point(3, 243);
             this.dataTxtBox10.Name = "dataTxtBox10";
-            this.dataTxtBox10.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox10.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox10.TabIndex = 30;
             // 
             // timeDelayTxtBx9
             // 
             this.timeDelayTxtBx9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx9.Location = new System.Drawing.Point(316, 219);
+            this.timeDelayTxtBx9.Location = new System.Drawing.Point(314, 219);
             this.timeDelayTxtBx9.Name = "timeDelayTxtBx9";
             this.timeDelayTxtBx9.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx9.TabIndex = 29;
@@ -1044,9 +855,9 @@
             // macrosNametxtBox9
             // 
             this.macrosNametxtBox9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox9.Location = new System.Drawing.Point(182, 219);
+            this.macrosNametxtBox9.Location = new System.Drawing.Point(181, 219);
             this.macrosNametxtBox9.Name = "macrosNametxtBox9";
-            this.macrosNametxtBox9.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox9.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox9.TabIndex = 28;
             // 
             // dataTxtBox9
@@ -1054,13 +865,13 @@
             this.dataTxtBox9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox9.Location = new System.Drawing.Point(3, 219);
             this.dataTxtBox9.Name = "dataTxtBox9";
-            this.dataTxtBox9.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox9.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox9.TabIndex = 27;
             // 
             // timeDelayTxtBx8
             // 
             this.timeDelayTxtBx8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx8.Location = new System.Drawing.Point(316, 195);
+            this.timeDelayTxtBx8.Location = new System.Drawing.Point(314, 195);
             this.timeDelayTxtBx8.Name = "timeDelayTxtBx8";
             this.timeDelayTxtBx8.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx8.TabIndex = 26;
@@ -1068,9 +879,9 @@
             // macrosNametxtBox8
             // 
             this.macrosNametxtBox8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox8.Location = new System.Drawing.Point(182, 195);
+            this.macrosNametxtBox8.Location = new System.Drawing.Point(181, 195);
             this.macrosNametxtBox8.Name = "macrosNametxtBox8";
-            this.macrosNametxtBox8.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox8.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox8.TabIndex = 25;
             // 
             // dataTxtBox8
@@ -1078,13 +889,13 @@
             this.dataTxtBox8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox8.Location = new System.Drawing.Point(3, 195);
             this.dataTxtBox8.Name = "dataTxtBox8";
-            this.dataTxtBox8.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox8.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox8.TabIndex = 24;
             // 
             // timeDelayTxtBx7
             // 
             this.timeDelayTxtBx7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx7.Location = new System.Drawing.Point(316, 171);
+            this.timeDelayTxtBx7.Location = new System.Drawing.Point(314, 171);
             this.timeDelayTxtBx7.Name = "timeDelayTxtBx7";
             this.timeDelayTxtBx7.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx7.TabIndex = 23;
@@ -1092,9 +903,9 @@
             // macrosNametxtBox7
             // 
             this.macrosNametxtBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox7.Location = new System.Drawing.Point(182, 171);
+            this.macrosNametxtBox7.Location = new System.Drawing.Point(181, 171);
             this.macrosNametxtBox7.Name = "macrosNametxtBox7";
-            this.macrosNametxtBox7.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox7.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox7.TabIndex = 22;
             // 
             // dataTxtBox7
@@ -1102,13 +913,13 @@
             this.dataTxtBox7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox7.Location = new System.Drawing.Point(3, 171);
             this.dataTxtBox7.Name = "dataTxtBox7";
-            this.dataTxtBox7.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox7.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox7.TabIndex = 21;
             // 
             // timeDelayTxtBx6
             // 
             this.timeDelayTxtBx6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx6.Location = new System.Drawing.Point(316, 147);
+            this.timeDelayTxtBx6.Location = new System.Drawing.Point(314, 147);
             this.timeDelayTxtBx6.Name = "timeDelayTxtBx6";
             this.timeDelayTxtBx6.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx6.TabIndex = 20;
@@ -1116,9 +927,9 @@
             // macrosNametxtBox6
             // 
             this.macrosNametxtBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox6.Location = new System.Drawing.Point(182, 147);
+            this.macrosNametxtBox6.Location = new System.Drawing.Point(181, 147);
             this.macrosNametxtBox6.Name = "macrosNametxtBox6";
-            this.macrosNametxtBox6.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox6.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox6.TabIndex = 19;
             // 
             // dataTxtBox6
@@ -1126,13 +937,13 @@
             this.dataTxtBox6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox6.Location = new System.Drawing.Point(3, 147);
             this.dataTxtBox6.Name = "dataTxtBox6";
-            this.dataTxtBox6.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox6.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox6.TabIndex = 18;
             // 
             // timeDelayTxtBx5
             // 
             this.timeDelayTxtBx5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx5.Location = new System.Drawing.Point(316, 123);
+            this.timeDelayTxtBx5.Location = new System.Drawing.Point(314, 123);
             this.timeDelayTxtBx5.Name = "timeDelayTxtBx5";
             this.timeDelayTxtBx5.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx5.TabIndex = 17;
@@ -1140,9 +951,9 @@
             // macrosNametxtBox5
             // 
             this.macrosNametxtBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox5.Location = new System.Drawing.Point(182, 123);
+            this.macrosNametxtBox5.Location = new System.Drawing.Point(181, 123);
             this.macrosNametxtBox5.Name = "macrosNametxtBox5";
-            this.macrosNametxtBox5.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox5.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox5.TabIndex = 16;
             // 
             // dataTxtBox5
@@ -1150,13 +961,13 @@
             this.dataTxtBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox5.Location = new System.Drawing.Point(3, 123);
             this.dataTxtBox5.Name = "dataTxtBox5";
-            this.dataTxtBox5.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox5.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox5.TabIndex = 15;
             // 
             // timeDelayTxtBx4
             // 
             this.timeDelayTxtBx4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx4.Location = new System.Drawing.Point(316, 99);
+            this.timeDelayTxtBx4.Location = new System.Drawing.Point(314, 99);
             this.timeDelayTxtBx4.Name = "timeDelayTxtBx4";
             this.timeDelayTxtBx4.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx4.TabIndex = 14;
@@ -1164,9 +975,9 @@
             // macrosNametxtBox4
             // 
             this.macrosNametxtBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox4.Location = new System.Drawing.Point(182, 99);
+            this.macrosNametxtBox4.Location = new System.Drawing.Point(181, 99);
             this.macrosNametxtBox4.Name = "macrosNametxtBox4";
-            this.macrosNametxtBox4.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox4.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox4.TabIndex = 13;
             // 
             // dataTxtBox4
@@ -1174,13 +985,13 @@
             this.dataTxtBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox4.Location = new System.Drawing.Point(3, 99);
             this.dataTxtBox4.Name = "dataTxtBox4";
-            this.dataTxtBox4.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox4.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox4.TabIndex = 12;
             // 
             // timeDelayTxtBx3
             // 
             this.timeDelayTxtBx3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx3.Location = new System.Drawing.Point(316, 75);
+            this.timeDelayTxtBx3.Location = new System.Drawing.Point(314, 75);
             this.timeDelayTxtBx3.Name = "timeDelayTxtBx3";
             this.timeDelayTxtBx3.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx3.TabIndex = 11;
@@ -1188,9 +999,9 @@
             // macrosNametxtBox3
             // 
             this.macrosNametxtBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox3.Location = new System.Drawing.Point(182, 75);
+            this.macrosNametxtBox3.Location = new System.Drawing.Point(181, 75);
             this.macrosNametxtBox3.Name = "macrosNametxtBox3";
-            this.macrosNametxtBox3.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox3.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox3.TabIndex = 10;
             // 
             // dataTxtBox3
@@ -1198,13 +1009,13 @@
             this.dataTxtBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox3.Location = new System.Drawing.Point(3, 75);
             this.dataTxtBox3.Name = "dataTxtBox3";
-            this.dataTxtBox3.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox3.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox3.TabIndex = 9;
             // 
             // timeDelayTxtBx2
             // 
             this.timeDelayTxtBx2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx2.Location = new System.Drawing.Point(316, 51);
+            this.timeDelayTxtBx2.Location = new System.Drawing.Point(314, 51);
             this.timeDelayTxtBx2.Name = "timeDelayTxtBx2";
             this.timeDelayTxtBx2.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx2.TabIndex = 8;
@@ -1212,9 +1023,9 @@
             // macrosNametxtBox2
             // 
             this.macrosNametxtBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox2.Location = new System.Drawing.Point(182, 51);
+            this.macrosNametxtBox2.Location = new System.Drawing.Point(181, 51);
             this.macrosNametxtBox2.Name = "macrosNametxtBox2";
-            this.macrosNametxtBox2.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox2.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox2.TabIndex = 7;
             // 
             // dataTxtBox2
@@ -1222,13 +1033,13 @@
             this.dataTxtBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox2.Location = new System.Drawing.Point(3, 51);
             this.dataTxtBox2.Name = "dataTxtBox2";
-            this.dataTxtBox2.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox2.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox2.TabIndex = 6;
             // 
             // timeDelayTxtBx1
             // 
             this.timeDelayTxtBx1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeDelayTxtBx1.Location = new System.Drawing.Point(316, 27);
+            this.timeDelayTxtBx1.Location = new System.Drawing.Point(314, 27);
             this.timeDelayTxtBx1.Name = "timeDelayTxtBx1";
             this.timeDelayTxtBx1.Size = new System.Drawing.Size(38, 20);
             this.timeDelayTxtBx1.TabIndex = 5;
@@ -1236,9 +1047,9 @@
             // macrosNametxtBox1
             // 
             this.macrosNametxtBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.macrosNametxtBox1.Location = new System.Drawing.Point(182, 27);
+            this.macrosNametxtBox1.Location = new System.Drawing.Point(181, 27);
             this.macrosNametxtBox1.Name = "macrosNametxtBox1";
-            this.macrosNametxtBox1.Size = new System.Drawing.Size(128, 20);
+            this.macrosNametxtBox1.Size = new System.Drawing.Size(127, 20);
             this.macrosNametxtBox1.TabIndex = 4;
             // 
             // dataTxtBox1
@@ -1246,7 +1057,7 @@
             this.dataTxtBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTxtBox1.Location = new System.Drawing.Point(3, 27);
             this.dataTxtBox1.Name = "dataTxtBox1";
-            this.dataTxtBox1.Size = new System.Drawing.Size(173, 20);
+            this.dataTxtBox1.Size = new System.Drawing.Size(172, 20);
             this.dataTxtBox1.TabIndex = 3;
             // 
             // label2
@@ -1259,21 +1070,13 @@
             this.label2.TabIndex = 84;
             this.label2.Text = "Данные для отправки";
             // 
-            // b1
-            // 
-            this.b1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.b1.Image = ((System.Drawing.Image)(resources.GetObject("b1.Image")));
-            this.b1.Location = new System.Drawing.Point(382, 27);
-            this.b1.Name = "b1";
-            this.b1.Size = new System.Drawing.Size(64, 18);
-            this.b1.TabIndex = 87;
-            this.b1.UseVisualStyleBackColor = true;
-            // 
             // firstGroupBtn
             // 
+            this.firstGroupBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.firstGroupBtn.Location = new System.Drawing.Point(3, 3);
             this.firstGroupBtn.Name = "firstGroupBtn";
-            this.firstGroupBtn.Size = new System.Drawing.Size(112, 22);
+            this.firstGroupBtn.Size = new System.Drawing.Size(108, 22);
             this.firstGroupBtn.TabIndex = 7;
             this.firstGroupBtn.Text = "Первая группа";
             this.firstGroupBtn.UseVisualStyleBackColor = true;
@@ -1290,7 +1093,7 @@
             this.groupsBtntabLtPnl.Controls.Add(this.thirdGroupBtn, 0, 2);
             this.groupsBtntabLtPnl.Controls.Add(this.secondGroupBtn, 0, 1);
             this.groupsBtntabLtPnl.Controls.Add(this.firstGroupBtn, 0, 0);
-            this.groupsBtntabLtPnl.Location = new System.Drawing.Point(12, 84);
+            this.groupsBtntabLtPnl.Location = new System.Drawing.Point(3, 3);
             this.groupsBtntabLtPnl.MaximumSize = new System.Drawing.Size(118, 148);
             this.groupsBtntabLtPnl.Name = "groupsBtntabLtPnl";
             this.groupsBtntabLtPnl.RowCount = 5;
@@ -1299,14 +1102,16 @@
             this.groupsBtntabLtPnl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.groupsBtntabLtPnl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.groupsBtntabLtPnl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.groupsBtntabLtPnl.Size = new System.Drawing.Size(118, 148);
+            this.groupsBtntabLtPnl.Size = new System.Drawing.Size(114, 148);
             this.groupsBtntabLtPnl.TabIndex = 8;
             // 
             // fifthGroupBtn
             // 
+            this.fifthGroupBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.fifthGroupBtn.Location = new System.Drawing.Point(3, 119);
             this.fifthGroupBtn.Name = "fifthGroupBtn";
-            this.fifthGroupBtn.Size = new System.Drawing.Size(112, 22);
+            this.fifthGroupBtn.Size = new System.Drawing.Size(108, 22);
             this.fifthGroupBtn.TabIndex = 11;
             this.fifthGroupBtn.Text = "Пятая группа";
             this.fifthGroupBtn.UseVisualStyleBackColor = true;
@@ -1314,9 +1119,11 @@
             // 
             // fourthGroupBtn
             // 
+            this.fourthGroupBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.fourthGroupBtn.Location = new System.Drawing.Point(3, 90);
             this.fourthGroupBtn.Name = "fourthGroupBtn";
-            this.fourthGroupBtn.Size = new System.Drawing.Size(112, 22);
+            this.fourthGroupBtn.Size = new System.Drawing.Size(108, 22);
             this.fourthGroupBtn.TabIndex = 10;
             this.fourthGroupBtn.Text = "Четвертая группа";
             this.fourthGroupBtn.UseVisualStyleBackColor = true;
@@ -1324,9 +1131,11 @@
             // 
             // thirdGroupBtn
             // 
+            this.thirdGroupBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.thirdGroupBtn.Location = new System.Drawing.Point(3, 61);
             this.thirdGroupBtn.Name = "thirdGroupBtn";
-            this.thirdGroupBtn.Size = new System.Drawing.Size(112, 22);
+            this.thirdGroupBtn.Size = new System.Drawing.Size(108, 22);
             this.thirdGroupBtn.TabIndex = 9;
             this.thirdGroupBtn.Text = "Третья группа";
             this.thirdGroupBtn.UseVisualStyleBackColor = true;
@@ -1334,9 +1143,11 @@
             // 
             // secondGroupBtn
             // 
+            this.secondGroupBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.secondGroupBtn.Location = new System.Drawing.Point(3, 32);
             this.secondGroupBtn.Name = "secondGroupBtn";
-            this.secondGroupBtn.Size = new System.Drawing.Size(112, 22);
+            this.secondGroupBtn.Size = new System.Drawing.Size(108, 22);
             this.secondGroupBtn.TabIndex = 8;
             this.secondGroupBtn.Text = "Вторая группа";
             this.secondGroupBtn.UseVisualStyleBackColor = true;
@@ -1349,9 +1160,9 @@
             this.panel1.AutoScroll = true;
             this.panel1.Controls.Add(this.macrosTabLotPnl);
             this.panel1.Controls.Add(this.tableLayoutPanel1);
-            this.panel1.Location = new System.Drawing.Point(142, 60);
+            this.panel1.Location = new System.Drawing.Point(123, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(479, 510);
+            this.panel1.Size = new System.Drawing.Size(476, 510);
             this.panel1.TabIndex = 9;
             // 
             // tableLayoutPanel1
@@ -1611,7 +1422,7 @@
             // 
             this.topMostChBx.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.topMostChBx.AutoSize = true;
-            this.topMostChBx.Location = new System.Drawing.Point(369, 27);
+            this.topMostChBx.Location = new System.Drawing.Point(361, 27);
             this.topMostChBx.Name = "topMostChBx";
             this.topMostChBx.Size = new System.Drawing.Size(116, 17);
             this.topMostChBx.TabIndex = 10;
@@ -1619,24 +1430,232 @@
             this.topMostChBx.UseVisualStyleBackColor = true;
             this.topMostChBx.CheckedChanged += new System.EventHandler(this.topMostChBx_CheckedChanged);
             // 
-            // flowLayoutPanel1
+            // tableLayoutPanel2
             // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(37, 305);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(785, 296);
-            this.flowLayoutPanel1.TabIndex = 11;
+            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanel2.Controls.Add(this.groupsBtntabLtPnl, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel1, 1, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(12, 50);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(602, 520);
+            this.tableLayoutPanel2.TabIndex = 11;
+            // 
+            // b20
+            // 
+            this.b20.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b20.Image = ((System.Drawing.Image)(resources.GetObject("b20.Image")));
+            this.b20.Location = new System.Drawing.Point(380, 483);
+            this.b20.Name = "b20";
+            this.b20.Size = new System.Drawing.Size(63, 20);
+            this.b20.TabIndex = 108;
+            this.b20.UseVisualStyleBackColor = true;
+            // 
+            // b19
+            // 
+            this.b19.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b19.Image = ((System.Drawing.Image)(resources.GetObject("b19.Image")));
+            this.b19.Location = new System.Drawing.Point(380, 459);
+            this.b19.Name = "b19";
+            this.b19.Size = new System.Drawing.Size(63, 18);
+            this.b19.TabIndex = 107;
+            this.b19.UseVisualStyleBackColor = true;
+            // 
+            // b18
+            // 
+            this.b18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b18.Image = ((System.Drawing.Image)(resources.GetObject("b18.Image")));
+            this.b18.Location = new System.Drawing.Point(380, 435);
+            this.b18.Name = "b18";
+            this.b18.Size = new System.Drawing.Size(63, 18);
+            this.b18.TabIndex = 106;
+            this.b18.UseVisualStyleBackColor = true;
+            // 
+            // b17
+            // 
+            this.b17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b17.Image = ((System.Drawing.Image)(resources.GetObject("b17.Image")));
+            this.b17.Location = new System.Drawing.Point(380, 411);
+            this.b17.Name = "b17";
+            this.b17.Size = new System.Drawing.Size(63, 18);
+            this.b17.TabIndex = 105;
+            this.b17.UseVisualStyleBackColor = true;
+            // 
+            // b16
+            // 
+            this.b16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b16.Image = ((System.Drawing.Image)(resources.GetObject("b16.Image")));
+            this.b16.Location = new System.Drawing.Point(380, 387);
+            this.b16.Name = "b16";
+            this.b16.Size = new System.Drawing.Size(63, 18);
+            this.b16.TabIndex = 104;
+            this.b16.UseVisualStyleBackColor = true;
+            // 
+            // b15
+            // 
+            this.b15.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b15.Image = ((System.Drawing.Image)(resources.GetObject("b15.Image")));
+            this.b15.Location = new System.Drawing.Point(380, 363);
+            this.b15.Name = "b15";
+            this.b15.Size = new System.Drawing.Size(63, 18);
+            this.b15.TabIndex = 103;
+            this.b15.UseVisualStyleBackColor = true;
+            // 
+            // b14
+            // 
+            this.b14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b14.Image = ((System.Drawing.Image)(resources.GetObject("b14.Image")));
+            this.b14.Location = new System.Drawing.Point(380, 339);
+            this.b14.Name = "b14";
+            this.b14.Size = new System.Drawing.Size(63, 18);
+            this.b14.TabIndex = 102;
+            this.b14.UseVisualStyleBackColor = true;
+            // 
+            // b13
+            // 
+            this.b13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b13.Image = ((System.Drawing.Image)(resources.GetObject("b13.Image")));
+            this.b13.Location = new System.Drawing.Point(380, 315);
+            this.b13.Name = "b13";
+            this.b13.Size = new System.Drawing.Size(63, 18);
+            this.b13.TabIndex = 101;
+            this.b13.UseVisualStyleBackColor = true;
+            // 
+            // b12
+            // 
+            this.b12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b12.Image = ((System.Drawing.Image)(resources.GetObject("b12.Image")));
+            this.b12.Location = new System.Drawing.Point(380, 291);
+            this.b12.Name = "b12";
+            this.b12.Size = new System.Drawing.Size(63, 18);
+            this.b12.TabIndex = 100;
+            this.b12.UseVisualStyleBackColor = true;
+            // 
+            // b11
+            // 
+            this.b11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b11.Image = ((System.Drawing.Image)(resources.GetObject("b11.Image")));
+            this.b11.Location = new System.Drawing.Point(380, 267);
+            this.b11.Name = "b11";
+            this.b11.Size = new System.Drawing.Size(63, 18);
+            this.b11.TabIndex = 99;
+            this.b11.UseVisualStyleBackColor = true;
+            // 
+            // b10
+            // 
+            this.b10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b10.Image = ((System.Drawing.Image)(resources.GetObject("b10.Image")));
+            this.b10.Location = new System.Drawing.Point(380, 243);
+            this.b10.Name = "b10";
+            this.b10.Size = new System.Drawing.Size(63, 18);
+            this.b10.TabIndex = 98;
+            this.b10.UseVisualStyleBackColor = true;
+            // 
+            // b9
+            // 
+            this.b9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b9.Image = ((System.Drawing.Image)(resources.GetObject("b9.Image")));
+            this.b9.Location = new System.Drawing.Point(380, 219);
+            this.b9.Name = "b9";
+            this.b9.Size = new System.Drawing.Size(63, 18);
+            this.b9.TabIndex = 97;
+            this.b9.UseVisualStyleBackColor = true;
+            // 
+            // b8
+            // 
+            this.b8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b8.Image = ((System.Drawing.Image)(resources.GetObject("b8.Image")));
+            this.b8.Location = new System.Drawing.Point(380, 195);
+            this.b8.Name = "b8";
+            this.b8.Size = new System.Drawing.Size(63, 18);
+            this.b8.TabIndex = 96;
+            this.b8.UseVisualStyleBackColor = true;
+            // 
+            // b7
+            // 
+            this.b7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b7.Image = ((System.Drawing.Image)(resources.GetObject("b7.Image")));
+            this.b7.Location = new System.Drawing.Point(380, 171);
+            this.b7.Name = "b7";
+            this.b7.Size = new System.Drawing.Size(63, 18);
+            this.b7.TabIndex = 95;
+            this.b7.UseVisualStyleBackColor = true;
+            // 
+            // b6
+            // 
+            this.b6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b6.Image = ((System.Drawing.Image)(resources.GetObject("b6.Image")));
+            this.b6.Location = new System.Drawing.Point(380, 147);
+            this.b6.Name = "b6";
+            this.b6.Size = new System.Drawing.Size(63, 18);
+            this.b6.TabIndex = 94;
+            this.b6.UseVisualStyleBackColor = true;
+            // 
+            // b5
+            // 
+            this.b5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b5.Image = ((System.Drawing.Image)(resources.GetObject("b5.Image")));
+            this.b5.Location = new System.Drawing.Point(380, 123);
+            this.b5.Name = "b5";
+            this.b5.Size = new System.Drawing.Size(63, 18);
+            this.b5.TabIndex = 93;
+            this.b5.UseVisualStyleBackColor = true;
+            // 
+            // b4
+            // 
+            this.b4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b4.Image = ((System.Drawing.Image)(resources.GetObject("b4.Image")));
+            this.b4.Location = new System.Drawing.Point(380, 99);
+            this.b4.Name = "b4";
+            this.b4.Size = new System.Drawing.Size(63, 18);
+            this.b4.TabIndex = 92;
+            this.b4.UseVisualStyleBackColor = true;
+            // 
+            // b3
+            // 
+            this.b3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b3.Image = ((System.Drawing.Image)(resources.GetObject("b3.Image")));
+            this.b3.Location = new System.Drawing.Point(380, 75);
+            this.b3.Name = "b3";
+            this.b3.Size = new System.Drawing.Size(63, 18);
+            this.b3.TabIndex = 91;
+            this.b3.UseVisualStyleBackColor = true;
+            // 
+            // b2
+            // 
+            this.b2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b2.Image = ((System.Drawing.Image)(resources.GetObject("b2.Image")));
+            this.b2.Location = new System.Drawing.Point(380, 51);
+            this.b2.Name = "b2";
+            this.b2.Size = new System.Drawing.Size(63, 18);
+            this.b2.TabIndex = 90;
+            this.b2.UseVisualStyleBackColor = true;
+            // 
+            // b1
+            // 
+            this.b1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.b1.Image = ((System.Drawing.Image)(resources.GetObject("b1.Image")));
+            this.b1.Location = new System.Drawing.Point(380, 27);
+            this.b1.Name = "b1";
+            this.b1.Size = new System.Drawing.Size(63, 18);
+            this.b1.TabIndex = 87;
+            this.b1.UseVisualStyleBackColor = true;
             // 
             // MacrosSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(627, 613);
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.ClientSize = new System.Drawing.Size(619, 613);
+            this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.topMostChBx);
             this.Controls.Add(this.saveBtn);
             this.Controls.Add(this.CancelBtn);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.groupsBtntabLtPnl);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nameGroupTxtBx);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1651,6 +1670,7 @@
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1795,6 +1815,6 @@
         private System.Windows.Forms.Button b2;
         private System.Windows.Forms.Button b1;
         private System.Windows.Forms.CheckBox topMostChBx;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
     }
 }

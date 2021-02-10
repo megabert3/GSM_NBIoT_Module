@@ -207,6 +207,12 @@ namespace GSM_NBIoT_Module.view {
                 addEndLine.Checked = false;
             }
 
+            if (Properties.Settings.Default.terminal_showSendDataInCOMChBx) {
+                showSendDataInCOMChBx.Checked = true;
+            } else {
+                showSendDataInCOMChBx.Checked = false;
+            }
+
             //Установка слушателя кнопкам макросов
             foreach (Control tabPage in macrosTabControl.Controls) {
                 foreach (Control btn in tabPage.Controls) {
@@ -251,7 +257,6 @@ namespace GSM_NBIoT_Module.view {
                     if (String.IsNullOrEmpty(customBandRateTxtBx.Text.Trim())) {
                         Flasher.exceptionDialog("Укажите скорость обмена данными по COM порту");
                         return;
-
                     }
 
                     try {
@@ -793,6 +798,7 @@ namespace GSM_NBIoT_Module.view {
 
                 if (connect) {
                     connOrDisCOMBtn.PerformClick();
+                    Close();
                 }
 
             } catch (IOException ex) {
@@ -834,6 +840,7 @@ namespace GSM_NBIoT_Module.view {
                                         terminalLogRichTxtBx.ScrollToCaret();
 
                                     }
+
                                     appendTextToParseLog();
                                     first = true;
                                 }
@@ -868,62 +875,6 @@ namespace GSM_NBIoT_Module.view {
                                 }
                             }
 
-                            //=============================================Старая логика
-                            /*switch (dataByte) {
-
-                                //Эквивалентно /r
-                                case 13: {
-                                        //Если установлен флаг, что /r == /n
-                                        if (clEqualsRf.Checked) {
-                                            if (first) {
-                                                terminalLogRichTxtBx.AppendText(DateTime.Now.ToString("HH:mm:ss.fff") + " >> " + Environment.NewLine);
-                                                terminalLogRichTxtBx.ScrollToCaret();
-
-                                            } else {
-                                                terminalLogRichTxtBx.AppendText(Environment.NewLine);
-                                                terminalLogRichTxtBx.ScrollToCaret();
-
-                                            }
-                                            appendTextToParseLog();
-                                            first = true;
-                                        }
-                                    }
-                                    break;
-
-                                //Эквивалентно /n
-                                case LF_Byte: {
-                                        if (first) {
-                                            terminalLogRichTxtBx.AppendText(DateTime.Now.ToString("HH:mm:ss.fff") + " >> " + Environment.NewLine);
-                                            terminalLogRichTxtBx.ScrollToCaret();
-
-                                        } else {
-                                            terminalLogRichTxtBx.AppendText(Environment.NewLine);
-                                            terminalLogRichTxtBx.ScrollToCaret();
-                                        }
-
-                                        appendTextToParseLog();
-                                        first = true;
-                                    }
-                                    break;
-
-                                default: {
-                                        if (first) {
-                                            localString = DateTime.Now.ToString("HH:mm:ss.fff") + " >> " + Convert.ToChar(dataByte).ToString();
-
-                                            terminalLogRichTxtBx.AppendText(localString);
-                                            parseAnswer.Append(localString);
-                                            first = false;
-                                            terminalLogRichTxtBx.ScrollToCaret();
-
-                                        } else {
-                                            localString = Convert.ToChar(dataByte).ToString();
-                                            terminalLogRichTxtBx.AppendText(localString);
-                                            parseAnswer.Append(localString);
-                                        }
-                                    }
-                                    break;
-                            }*/
-
                             //Если режим вывода информации HEX
                         } else {
                             //Эквивалентно /r
@@ -951,6 +902,7 @@ namespace GSM_NBIoT_Module.view {
                                     }
 
                                 }
+
                             } else if (dataByte == LF_Byte) {
                                 if (first) {
                                     terminalLogRichTxtBx.AppendText(DateTime.Now.ToString("HH:mm:ss.fff") + " >> " + dataByte.ToString("X2") + Environment.NewLine);
@@ -961,6 +913,7 @@ namespace GSM_NBIoT_Module.view {
                                     terminalLogRichTxtBx.ScrollToCaret();
                                 }
                                 first = true;
+
                             } else {
                                 if (first) {
                                     terminalLogRichTxtBx.AppendText(DateTime.Now.ToString("HH:mm:ss.fff") + " >> " + dataByte.ToString("X2") + " ");
@@ -970,64 +923,6 @@ namespace GSM_NBIoT_Module.view {
                                     terminalLogRichTxtBx.AppendText(dataByte.ToString("X2") + " ");
                                 }
                             }
-
-                           /* switch (dataByte) {
-
-                                //Эквивалентно /r
-                                case 13: {
-
-                                        //Если установлен флаг, что /r == /n
-                                        if (clEqualsRf.Checked) {
-                                            if (first) {
-                                                terminalLogRichTxtBx.AppendText(DateTime.Now.ToString("HH:mm:ss.fff") + " >> " + dataByte.ToString("X2") + Environment.NewLine);
-                                                terminalLogRichTxtBx.ScrollToCaret();
-
-                                            } else {
-                                                terminalLogRichTxtBx.AppendText(dataByte.ToString("X2") + Environment.NewLine);
-                                                terminalLogRichTxtBx.ScrollToCaret();
-                                            }
-
-                                            first = true;
-
-                                        } else {
-                                            if (first) {
-                                                terminalLogRichTxtBx.AppendText(DateTime.Now.ToString("HH:mm:ss.fff") + " >> " + dataByte.ToString("X2") + " ");
-
-                                            } else {
-
-                                                terminalLogRichTxtBx.AppendText(dataByte.ToString("X2") + " ");
-                                            }
-
-                                        }
-                                    }
-                                    break;
-
-                                //Эквивалентно /n
-                                case LF_Byte: {
-
-                                        if (first) {
-                                            terminalLogRichTxtBx.AppendText(DateTime.Now.ToString("HH:mm:ss.fff") + " >> " + dataByte.ToString("X2") + Environment.NewLine);
-                                            terminalLogRichTxtBx.ScrollToCaret();
-
-                                        } else {
-                                            terminalLogRichTxtBx.AppendText(dataByte.ToString("X2") + Environment.NewLine);
-                                            terminalLogRichTxtBx.ScrollToCaret();
-                                        }
-                                        first = true;
-                                    }
-                                    break;
-
-                                default: {
-                                        if (first) {
-                                            terminalLogRichTxtBx.AppendText(DateTime.Now.ToString("HH:mm:ss.fff") + " >> " + dataByte.ToString("X2") + " ");
-                                            first = false;
-
-                                        } else {
-                                            terminalLogRichTxtBx.AppendText(dataByte.ToString("X2") + " ");
-                                        }
-                                    }
-                                    break;
-                            }*/
                         }
                     });
                 }
@@ -1058,7 +953,7 @@ namespace GSM_NBIoT_Module.view {
 
             } else if (prefix.Equals("Qc)") || prefix.Equals("Qa)")) {
                 quectelAnswerRhTxtBx.AppendText(localParseLog + Environment.NewLine);
-                MK_AnswerRhTxtBox.ScrollToCaret();
+                quectelAnswerRhTxtBx.ScrollToCaret();
             }
 
             parseAnswer.Clear();
