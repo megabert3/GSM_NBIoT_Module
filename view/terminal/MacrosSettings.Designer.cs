@@ -161,6 +161,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.topMostChBx = new System.Windows.Forms.CheckBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.macrosTabLotPnl.SuspendLayout();
             this.groupsBtntabLtPnl.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -200,6 +202,8 @@
             // 
             // nameGroupTxtBx
             // 
+            this.nameGroupTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.nameGroupTxtBx.Location = new System.Drawing.Point(142, 24);
             this.nameGroupTxtBx.Name = "nameGroupTxtBx";
             this.nameGroupTxtBx.Size = new System.Drawing.Size(216, 20);
@@ -207,7 +211,8 @@
             // 
             // macrosTabLotPnl
             // 
-            this.macrosTabLotPnl.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.macrosTabLotPnl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.macrosTabLotPnl.ColumnCount = 5;
             this.macrosTabLotPnl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.macrosTabLotPnl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
@@ -1276,6 +1281,8 @@
             // 
             // groupsBtntabLtPnl
             // 
+            this.groupsBtntabLtPnl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupsBtntabLtPnl.ColumnCount = 1;
             this.groupsBtntabLtPnl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.groupsBtntabLtPnl.Controls.Add(this.fifthGroupBtn, 0, 4);
@@ -1284,6 +1291,7 @@
             this.groupsBtntabLtPnl.Controls.Add(this.secondGroupBtn, 0, 1);
             this.groupsBtntabLtPnl.Controls.Add(this.firstGroupBtn, 0, 0);
             this.groupsBtntabLtPnl.Location = new System.Drawing.Point(12, 84);
+            this.groupsBtntabLtPnl.MaximumSize = new System.Drawing.Size(118, 148);
             this.groupsBtntabLtPnl.Name = "groupsBtntabLtPnl";
             this.groupsBtntabLtPnl.RowCount = 5;
             this.groupsBtntabLtPnl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -1373,8 +1381,7 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 7);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 21;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
@@ -1383,9 +1390,10 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
@@ -1493,7 +1501,7 @@
             // 
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(3, 263);
+            this.label16.Location = new System.Drawing.Point(3, 264);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(22, 13);
             this.label16.TabIndex = 11;
@@ -1503,7 +1511,7 @@
             // 
             this.label15.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(3, 239);
+            this.label15.Location = new System.Drawing.Point(3, 240);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(22, 13);
             this.label15.TabIndex = 10;
@@ -1593,17 +1601,38 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 25);
+            this.label6.Location = new System.Drawing.Point(9, 24);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(16, 13);
             this.label6.TabIndex = 1;
             this.label6.Text = "1:";
+            // 
+            // topMostChBx
+            // 
+            this.topMostChBx.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.topMostChBx.AutoSize = true;
+            this.topMostChBx.Location = new System.Drawing.Point(369, 27);
+            this.topMostChBx.Name = "topMostChBx";
+            this.topMostChBx.Size = new System.Drawing.Size(116, 17);
+            this.topMostChBx.TabIndex = 10;
+            this.topMostChBx.Text = "Поверх всех окон";
+            this.topMostChBx.UseVisualStyleBackColor = true;
+            this.topMostChBx.CheckedChanged += new System.EventHandler(this.topMostChBx_CheckedChanged);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(37, 305);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(785, 296);
+            this.flowLayoutPanel1.TabIndex = 11;
             // 
             // MacrosSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(627, 613);
+            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.topMostChBx);
             this.Controls.Add(this.saveBtn);
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.panel1);
@@ -1765,5 +1794,7 @@
         private System.Windows.Forms.Button b3;
         private System.Windows.Forms.Button b2;
         private System.Windows.Forms.Button b1;
+        private System.Windows.Forms.CheckBox topMostChBx;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

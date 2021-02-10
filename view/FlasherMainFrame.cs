@@ -707,13 +707,16 @@ namespace GSM_NBIoT_Module {
         private void saveLogBtn_Click(object sender, EventArgs e) {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
-            saveFileDialog.RestoreDirectory = true;
+            saveFileDialog.InitialDirectory = Properties.Settings.Default.mainFlasherLog_SaveLogDir;
+
             saveFileDialog.FileName = "taipitFlasherLog " + DateTime.Now.ToString("yyyy_MM_dd_HH-mm-ss") + ".log";
             saveFileDialog.Filter = "All files (*.*)|*.*";
             saveFileDialog.FilterIndex = 0;
            
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+
+                Properties.Settings.Default.Save();
 
                 // сохраняем текст в файл
                 File.WriteAllText(saveFileDialog.FileName, flashProcessRichTxtBox.Text);

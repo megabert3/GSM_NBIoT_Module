@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="version" Type="System.String" Scope="Application">
-      <Value Profile="(Default)"> V2.2.5</Value>
+      <Value Profile="(Default)"> V2.2.6</Value>
     </Setting>
     <Setting Name="Standard" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -43,6 +43,15 @@
     </Setting>
     <Setting Name="terminal_CLequalsRF" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="terminal_SaveLogDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">"C:\\"</Value>
+    </Setting>
+    <Setting Name="mainFlasherLog_SaveLogDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">"C:\\"</Value>
+    </Setting>
+    <Setting Name="terminal_showSendDataInCOMChBx" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

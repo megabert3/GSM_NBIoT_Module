@@ -349,5 +349,9 @@ namespace GSM_NBIoT_Module.view.terminal {
             TextBox txtBox = macrosTabLotPnl.GetControlFromPosition(0, btnIndex) as TextBox;
             terminalForm.sendCommandInCOMPort(txtBox.Text);
         }
+
+        private void topMostChBx_CheckedChanged(object sender, EventArgs e) {
+            TopMost = topMostChBx.Checked;
+        }
     }
 }

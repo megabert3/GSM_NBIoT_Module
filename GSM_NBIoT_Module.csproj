@@ -106,6 +106,12 @@
     <Compile Include="view\SetPasswordForm.Designer.cs">
       <DependentUpon>SetPasswordForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\terminal\CR_LF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\terminal\CR_LF.Designer.cs">
+      <DependentUpon>CR_LF.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\terminal\MacrosSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +163,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\terminal\CR_LF.resx">
+      <DependentUpon>CR_LF.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\terminal\MacrosSettings.resx">
       <DependentUpon>MacrosSettings.cs</DependentUpon>

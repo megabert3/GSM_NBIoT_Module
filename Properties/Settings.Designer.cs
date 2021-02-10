@@ -25,7 +25,7 @@ namespace GSM_NBIoT_Module.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(" V2.2.5")]
+        [global::System.Configuration.DefaultSettingValueAttribute(" V2.2.6")]
         public string version {
             get {
                 return ((string)(this["version"]));
@@ -182,6 +182,42 @@ namespace GSM_NBIoT_Module.Properties {
             }
             set {
                 this["terminal_CLequalsRF"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"C:\\\\\"")]
+        public string terminal_SaveLogDir {
+            get {
+                return ((string)(this["terminal_SaveLogDir"]));
+            }
+            set {
+                this["terminal_SaveLogDir"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"C:\\\\\"")]
+        public string mainFlasherLog_SaveLogDir {
+            get {
+                return ((string)(this["mainFlasherLog_SaveLogDir"]));
+            }
+            set {
+                this["mainFlasherLog_SaveLogDir"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool terminal_showSendDataInCOMChBx {
+            get {
+                return ((bool)(this["terminal_showSendDataInCOMChBx"]));
+            }
+            set {
+                this["terminal_showSendDataInCOMChBx"] = value;
             }
         }
     }

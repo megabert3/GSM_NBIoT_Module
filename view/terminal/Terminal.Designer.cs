@@ -193,6 +193,7 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.changeAlignment = new System.Windows.Forms.Button();
             this.clEqualsRf = new System.Windows.Forms.CheckBox();
             this.saveLog = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -201,14 +202,15 @@
             this.clearLog = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.terminalLogRichTxtBx = new System.Windows.Forms.RichTextBox();
-            this.showOrHideControlPanel = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.terminalLogRichTxtBx = new System.Windows.Forms.RichTextBox();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.MK_AnswerRhTxtBox = new System.Windows.Forms.RichTextBox();
+            this.quectelAnswerRhTxtBx = new System.Windows.Forms.RichTextBox();
+            this.showOrHideControlPanel = new System.Windows.Forms.Button();
+            this.showSendDataInCOMChBx = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.bandRateGroup.SuspendLayout();
             this.dataBitGroup.SuspendLayout();
@@ -837,7 +839,7 @@
             this.modeGroup.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.modeGroup.Controls.Add(this.modeTextRdBtn);
             this.modeGroup.Controls.Add(this.modeHexRdBtn);
-            this.modeGroup.Location = new System.Drawing.Point(5, 78);
+            this.modeGroup.Location = new System.Drawing.Point(10, 78);
             this.modeGroup.Name = "modeGroup";
             this.modeGroup.Size = new System.Drawing.Size(137, 58);
             this.modeGroup.TabIndex = 20;
@@ -947,12 +949,13 @@
             // 
             // gr1bt1
             // 
+            this.gr1bt1.BackColor = System.Drawing.Color.Transparent;
             this.gr1bt1.Location = new System.Drawing.Point(6, 6);
             this.gr1bt1.Name = "gr1bt1";
             this.gr1bt1.Size = new System.Drawing.Size(100, 23);
             this.gr1bt1.TabIndex = 0;
             this.gr1bt1.Text = "button1";
-            this.gr1bt1.UseVisualStyleBackColor = true;
+            this.gr1bt1.UseVisualStyleBackColor = false;
             // 
             // gr1bt13
             // 
@@ -1992,13 +1995,13 @@
             this.addEndLine.Name = "addEndLine";
             this.addEndLine.Size = new System.Drawing.Size(65, 17);
             this.addEndLine.TabIndex = 29;
-            this.addEndLine.Text = "+ CL RF";
+            this.addEndLine.Text = "+ CR LF";
             this.addEndLine.UseVisualStyleBackColor = true;
             this.addEndLine.CheckedChanged += new System.EventHandler(this.addEndLine_CheckedChanged);
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Silver;
             this.flowLayoutPanel1.Controls.Add(this.groupBox4);
             this.flowLayoutPanel1.Controls.Add(this.groupBox5);
             this.flowLayoutPanel1.Controls.Add(this.groupBox2);
@@ -2025,6 +2028,8 @@
             // groupBox5
             // 
             this.groupBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox5.Controls.Add(this.showSendDataInCOMChBx);
+            this.groupBox5.Controls.Add(this.changeAlignment);
             this.groupBox5.Controls.Add(this.clEqualsRf);
             this.groupBox5.Controls.Add(this.modeGroup);
             this.groupBox5.Controls.Add(this.saveLog);
@@ -2032,10 +2037,21 @@
             this.groupBox5.Controls.Add(this.clearLog);
             this.groupBox5.Location = new System.Drawing.Point(624, 3);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(241, 142);
+            this.groupBox5.Size = new System.Drawing.Size(250, 142);
             this.groupBox5.TabIndex = 33;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Работа с логом";
+            // 
+            // changeAlignment
+            // 
+            this.changeAlignment.Enabled = false;
+            this.changeAlignment.Location = new System.Drawing.Point(149, 66);
+            this.changeAlignment.Name = "changeAlignment";
+            this.changeAlignment.Size = new System.Drawing.Size(95, 23);
+            this.changeAlignment.TabIndex = 37;
+            this.changeAlignment.Text = "Положение";
+            this.changeAlignment.UseVisualStyleBackColor = true;
+            this.changeAlignment.Click += new System.EventHandler(this.changeAlignment_Click);
             // 
             // clEqualsRf
             // 
@@ -2043,20 +2059,20 @@
             this.clEqualsRf.AutoSize = true;
             this.clEqualsRf.Checked = true;
             this.clEqualsRf.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.clEqualsRf.Location = new System.Drawing.Point(151, 83);
+            this.clEqualsRf.Location = new System.Drawing.Point(151, 95);
             this.clEqualsRf.Name = "clEqualsRf";
             this.clEqualsRf.Size = new System.Drawing.Size(65, 17);
             this.clEqualsRf.TabIndex = 34;
-            this.clEqualsRf.Text = "  CL=RF";
+            this.clEqualsRf.Text = "  CR=LF";
             this.clEqualsRf.UseVisualStyleBackColor = true;
             this.clEqualsRf.CheckedChanged += new System.EventHandler(this.clEqualsRf_CheckedChanged);
             // 
             // saveLog
             // 
             this.saveLog.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.saveLog.Location = new System.Drawing.Point(149, 54);
+            this.saveLog.Location = new System.Drawing.Point(149, 41);
             this.saveLog.Name = "saveLog";
-            this.saveLog.Size = new System.Drawing.Size(88, 23);
+            this.saveLog.Size = new System.Drawing.Size(95, 23);
             this.saveLog.TabIndex = 35;
             this.saveLog.Text = "Сохранить лог";
             this.saveLog.UseVisualStyleBackColor = true;
@@ -2067,7 +2083,7 @@
             this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox3.Controls.Add(this.inputModeTextRdBtn);
             this.groupBox3.Controls.Add(this.inputModeHexRdBtn);
-            this.groupBox3.Location = new System.Drawing.Point(5, 17);
+            this.groupBox3.Location = new System.Drawing.Point(10, 17);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(137, 56);
             this.groupBox3.TabIndex = 36;
@@ -2101,9 +2117,9 @@
             // clearLog
             // 
             this.clearLog.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.clearLog.Location = new System.Drawing.Point(149, 22);
+            this.clearLog.Location = new System.Drawing.Point(149, 16);
             this.clearLog.Name = "clearLog";
-            this.clearLog.Size = new System.Drawing.Size(88, 23);
+            this.clearLog.Size = new System.Drawing.Size(95, 23);
             this.clearLog.TabIndex = 34;
             this.clearLog.Text = "Очистить лог";
             this.clearLog.UseVisualStyleBackColor = true;
@@ -2113,7 +2129,7 @@
             // 
             this.groupBox2.Controls.Add(this.groupBox6);
             this.groupBox2.Controls.Add(this.otherGroup);
-            this.groupBox2.Location = new System.Drawing.Point(871, 3);
+            this.groupBox2.Location = new System.Drawing.Point(880, 3);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(511, 142);
             this.groupBox2.TabIndex = 34;
@@ -2143,16 +2159,92 @@
             this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 33;
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage6);
+            this.tabControl1.Controls.Add(this.tabPage7);
+            this.tabControl1.Location = new System.Drawing.Point(0, 7);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1403, 434);
+            this.tabControl1.TabIndex = 25;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.terminalLogRichTxtBx);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(1395, 408);
+            this.tabPage6.TabIndex = 0;
+            this.tabPage6.Text = "Основное окно сообщений";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
             // terminalLogRichTxtBx
             // 
+            this.terminalLogRichTxtBx.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.terminalLogRichTxtBx.Dock = System.Windows.Forms.DockStyle.Fill;
             this.terminalLogRichTxtBx.Location = new System.Drawing.Point(3, 3);
             this.terminalLogRichTxtBx.Name = "terminalLogRichTxtBx";
             this.terminalLogRichTxtBx.ReadOnly = true;
-            this.terminalLogRichTxtBx.Size = new System.Drawing.Size(1389, 408);
+            this.terminalLogRichTxtBx.Size = new System.Drawing.Size(1389, 402);
             this.terminalLogRichTxtBx.TabIndex = 24;
             this.terminalLogRichTxtBx.Text = "";
-            this.terminalLogRichTxtBx.TextChanged += new System.EventHandler(this.terminalLogRichTxtBx_TextChanged);
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.splitContainer2);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(1395, 408);
+            this.tabPage7.TabIndex = 1;
+            this.tabPage7.Text = "Окно отсортированных сообщений";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.MK_AnswerRhTxtBox);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.quectelAnswerRhTxtBx);
+            this.splitContainer2.Size = new System.Drawing.Size(1389, 402);
+            this.splitContainer2.SplitterDistance = 686;
+            this.splitContainer2.TabIndex = 0;
+            // 
+            // MK_AnswerRhTxtBox
+            // 
+            this.MK_AnswerRhTxtBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.MK_AnswerRhTxtBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MK_AnswerRhTxtBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.MK_AnswerRhTxtBox.Location = new System.Drawing.Point(0, 0);
+            this.MK_AnswerRhTxtBox.Name = "MK_AnswerRhTxtBox";
+            this.MK_AnswerRhTxtBox.ReadOnly = true;
+            this.MK_AnswerRhTxtBox.Size = new System.Drawing.Size(686, 402);
+            this.MK_AnswerRhTxtBox.TabIndex = 0;
+            this.MK_AnswerRhTxtBox.Text = "";
+            // 
+            // quectelAnswerRhTxtBx
+            // 
+            this.quectelAnswerRhTxtBx.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.quectelAnswerRhTxtBx.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.quectelAnswerRhTxtBx.Location = new System.Drawing.Point(0, 0);
+            this.quectelAnswerRhTxtBx.Name = "quectelAnswerRhTxtBx";
+            this.quectelAnswerRhTxtBx.ReadOnly = true;
+            this.quectelAnswerRhTxtBx.Size = new System.Drawing.Size(699, 402);
+            this.quectelAnswerRhTxtBx.TabIndex = 1;
+            this.quectelAnswerRhTxtBx.Text = "";
             // 
             // showOrHideControlPanel
             // 
@@ -2166,83 +2258,22 @@
             this.showOrHideControlPanel.UseVisualStyleBackColor = true;
             this.showOrHideControlPanel.Click += new System.EventHandler(this.showOrHideControlPanel_Click);
             // 
-            // tabControl1
+            // showSendDataInCOMChBx
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage6);
-            this.tabControl1.Controls.Add(this.tabPage7);
-            this.tabControl1.Location = new System.Drawing.Point(0, 7);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1403, 440);
-            this.tabControl1.TabIndex = 25;
-            // 
-            // tabPage6
-            // 
-            this.tabPage6.Controls.Add(this.terminalLogRichTxtBx);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(1395, 414);
-            this.tabPage6.TabIndex = 0;
-            this.tabPage6.Text = "Основное окно сообщений";
-            this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // tabPage7
-            // 
-            this.tabPage7.Controls.Add(this.splitContainer2);
-            this.tabPage7.Location = new System.Drawing.Point(4, 22);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(1395, 414);
-            this.tabPage7.TabIndex = 1;
-            this.tabPage7.Text = "Окно отсортированных сообщений";
-            this.tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer2.Name = "splitContainer2";
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.richTextBox1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.richTextBox2);
-            this.splitContainer2.Size = new System.Drawing.Size(1389, 408);
-            this.splitContainer2.SplitterDistance = 699;
-            this.splitContainer2.TabIndex = 0;
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(0, 0);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(699, 408);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
-            // 
-            // richTextBox2
-            // 
-            this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox2.Location = new System.Drawing.Point(0, 0);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.ReadOnly = true;
-            this.richTextBox2.Size = new System.Drawing.Size(686, 408);
-            this.richTextBox2.TabIndex = 1;
-            this.richTextBox2.Text = "";
+            this.showSendDataInCOMChBx.AutoSize = true;
+            this.showSendDataInCOMChBx.Location = new System.Drawing.Point(151, 116);
+            this.showSendDataInCOMChBx.Name = "showSendDataInCOMChBx";
+            this.showSendDataInCOMChBx.Size = new System.Drawing.Size(95, 17);
+            this.showSendDataInCOMChBx.TabIndex = 38;
+            this.showSendDataInCOMChBx.Text = "Отпр. данные";
+            this.showSendDataInCOMChBx.UseVisualStyleBackColor = true;
+            this.showSendDataInCOMChBx.CheckedChanged += new System.EventHandler(this.showSendDataInCOMChBx_CheckedChanged);
             // 
             // Terminal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.ClientSize = new System.Drawing.Size(1426, 761);
             this.Controls.Add(this.editMacros);
             this.Controls.Add(this.splitContainer1);
@@ -2491,7 +2522,9 @@
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.RichTextBox MK_AnswerRhTxtBox;
+        private System.Windows.Forms.RichTextBox quectelAnswerRhTxtBx;
+        private System.Windows.Forms.Button changeAlignment;
+        private System.Windows.Forms.CheckBox showSendDataInCOMChBx;
     }
 }
