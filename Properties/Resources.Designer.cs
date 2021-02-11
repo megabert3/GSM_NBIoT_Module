@@ -63,6 +63,16 @@ namespace GSM_NBIoT_Module.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap add_property_32px {
+            get {
+                object obj = ResourceManager.GetObject("add_property_32px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap arrowLeft {
             get {
                 object obj = ResourceManager.GetObject("arrowLeft", resourceCulture);
@@ -83,9 +93,29 @@ namespace GSM_NBIoT_Module.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap console_32px {
+            get {
+                object obj = ResourceManager.GetObject("console_32px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap double_right_10px {
             get {
                 object obj = ResourceManager.GetObject("double_right_10px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap edit_property_32px {
+            get {
+                object obj = ResourceManager.GetObject("edit_property_32px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -156,6 +186,26 @@ namespace GSM_NBIoT_Module.Properties {
         internal static System.Drawing.Bitmap restart_50px {
             get {
                 object obj = ResourceManager.GetObject("restart_50px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap services_32px {
+            get {
+                object obj = ResourceManager.GetObject("services_32px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap view_details_32px {
+            get {
+                object obj = ResourceManager.GetObject("view_details_32px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -76,10 +76,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="view\AddEditConfigurationForm.cs">
+    <Compile Include="view\configurationFW\AddEditConfigurationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\AddEditConfigurationForm.Designer.cs">
+    <Compile Include="view\configurationFW\AddEditConfigurationForm.Designer.cs">
       <DependentUpon>AddEditConfigurationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="view\FlasherMainFrame.cs">
@@ -88,23 +88,29 @@
     <Compile Include="view\FlasherMainFrame.Designer.cs">
       <DependentUpon>FlasherMainFrame.cs</DependentUpon>
     </Compile>
-    <Compile Include="view\ConfigurationFrame.cs">
+    <Compile Include="view\configurationFW\ConfigurationFrame.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\ConfigurationFrame.Designer.cs">
+    <Compile Include="view\configurationFW\ConfigurationFrame.Designer.cs">
       <DependentUpon>ConfigurationFrame.cs</DependentUpon>
     </Compile>
-    <Compile Include="view\CopyConfigurationForm.cs">
+    <Compile Include="view\configurationFW\CopyConfigurationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\CopyConfigurationForm.Designer.cs">
+    <Compile Include="view\configurationFW\CopyConfigurationForm.Designer.cs">
       <DependentUpon>CopyConfigurationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="view\SetPasswordForm.cs">
+    <Compile Include="view\configurationFW\SetPasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\SetPasswordForm.Designer.cs">
+    <Compile Include="view\configurationFW\SetPasswordForm.Designer.cs">
       <DependentUpon>SetPasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\ModemConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\ModemConfig.Designer.cs">
+      <DependentUpon>ModemConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="view\terminal\CR_LF.cs">
       <SubType>Form</SubType>
@@ -130,33 +136,36 @@
     <Compile Include="view\PortsFrame.Designer.cs">
       <DependentUpon>PortsFrame.cs</DependentUpon>
     </Compile>
-    <Compile Include="view\Password.cs">
+    <Compile Include="view\configurationFW\Password.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\Password.Designer.cs">
+    <Compile Include="view\configurationFW\Password.Designer.cs">
       <DependentUpon>Password.cs</DependentUpon>
     </Compile>
     <Compile Include="GSM_NBIoT_Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="view\ConfigurationFrame.resx">
+    <EmbeddedResource Include="view\configurationFW\ConfigurationFrame.resx">
       <DependentUpon>ConfigurationFrame.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="view\AddEditConfigurationForm.resx">
+    <EmbeddedResource Include="view\configurationFW\AddEditConfigurationForm.resx">
       <DependentUpon>AddEditConfigurationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\FlasherMainFrame.resx">
       <DependentUpon>FlasherMainFrame.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="view\CopyConfigurationForm.resx">
+    <EmbeddedResource Include="view\configurationFW\CopyConfigurationForm.resx">
       <DependentUpon>CopyConfigurationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="view\SetPasswordForm.resx">
+    <EmbeddedResource Include="view\configurationFW\SetPasswordForm.resx">
       <DependentUpon>SetPasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\ModemConfig.resx">
+      <DependentUpon>ModemConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\PortsFrame.resx">
       <DependentUpon>PortsFrame.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="view\Password.resx">
+    <EmbeddedResource Include="view\configurationFW\Password.resx">
       <DependentUpon>Password.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -219,6 +228,11 @@
   <ItemGroup>
     <None Include="Resources\arrowLeft.png" />
     <None Include="Resources\double_right_10px.png" />
+    <None Include="Resources\services_32px.png" />
+    <None Include="Resources\console_32px.png" />
+    <None Include="Resources\edit_property_32px.png" />
+    <None Include="Resources\add_property_32px.png" />
+    <None Include="Resources\view_details_32px.png" />
     <Content Include="unnamed.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -41,11 +41,16 @@
             this.flashProcessRichTxtBox = new System.Windows.Forms.RichTextBox();
             this.configurationCmBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.editConfiguration = new System.Windows.Forms.Button();
             this.configurationTextBox = new System.Windows.Forms.TextBox();
-            this.terminalBtn = new System.Windows.Forms.Button();
+            this.taipitFlasherToolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.configFWtlStpBtn = new System.Windows.Forms.ToolStripButton();
+            this.terminalTlStpBtn = new System.Windows.Forms.ToolStripButton();
+            this.configModemtlStpBtn = new System.Windows.Forms.ToolStripButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.saveLogBtn = new System.Windows.Forms.Button();
+            this.taipitFlasherToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,7 +58,7 @@
             // 
             this.progressBarFlashing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarFlashing.Location = new System.Drawing.Point(12, 592);
+            this.progressBarFlashing.Location = new System.Drawing.Point(12, 605);
             this.progressBarFlashing.Maximum = 1000;
             this.progressBarFlashing.Name = "progressBarFlashing";
             this.progressBarFlashing.Size = new System.Drawing.Size(963, 39);
@@ -63,7 +68,7 @@
             // startFlashBtn
             // 
             this.startFlashBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.startFlashBtn.Location = new System.Drawing.Point(981, 592);
+            this.startFlashBtn.Location = new System.Drawing.Point(981, 605);
             this.startFlashBtn.Name = "startFlashBtn";
             this.startFlashBtn.Size = new System.Drawing.Size(116, 39);
             this.startFlashBtn.TabIndex = 1;
@@ -140,17 +145,17 @@
             // modemTypeCmBox
             // 
             this.modemTypeCmBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.modemTypeCmBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.modemTypeCmBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.modemTypeCmBox.FormattingEnabled = true;
-            this.modemTypeCmBox.Location = new System.Drawing.Point(12, 68);
+            this.modemTypeCmBox.Location = new System.Drawing.Point(12, 96);
             this.modemTypeCmBox.Name = "modemTypeCmBox";
-            this.modemTypeCmBox.Size = new System.Drawing.Size(309, 24);
+            this.modemTypeCmBox.Size = new System.Drawing.Size(309, 23);
             this.modemTypeCmBox.TabIndex = 8;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 52);
+            this.label3.Location = new System.Drawing.Point(12, 80);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 13);
             this.label3.TabIndex = 9;
@@ -162,71 +167,103 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flashProcessRichTxtBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.flashProcessRichTxtBox.Location = new System.Drawing.Point(339, 113);
+            this.flashProcessRichTxtBox.Location = new System.Drawing.Point(339, 143);
             this.flashProcessRichTxtBox.Name = "flashProcessRichTxtBox";
             this.flashProcessRichTxtBox.ReadOnly = true;
             this.flashProcessRichTxtBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.flashProcessRichTxtBox.Size = new System.Drawing.Size(758, 459);
+            this.flashProcessRichTxtBox.Size = new System.Drawing.Size(758, 448);
             this.flashProcessRichTxtBox.TabIndex = 11;
             this.flashProcessRichTxtBox.Text = "";
             // 
             // configurationCmBox
             // 
             this.configurationCmBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.configurationCmBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.configurationCmBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.configurationCmBox.FormattingEnabled = true;
-            this.configurationCmBox.Location = new System.Drawing.Point(12, 23);
+            this.configurationCmBox.Location = new System.Drawing.Point(12, 51);
             this.configurationCmBox.Name = "configurationCmBox";
-            this.configurationCmBox.Size = new System.Drawing.Size(309, 24);
+            this.configurationCmBox.Size = new System.Drawing.Size(309, 23);
             this.configurationCmBox.TabIndex = 12;
             this.configurationCmBox.SelectedValueChanged += new System.EventHandler(this.configurationCmBox_SelectedValueChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 8);
+            this.label4.Location = new System.Drawing.Point(12, 35);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(80, 13);
             this.label4.TabIndex = 13;
             this.label4.Text = "Конфигурация";
-            // 
-            // editConfiguration
-            // 
-            this.editConfiguration.Location = new System.Drawing.Point(339, 23);
-            this.editConfiguration.Name = "editConfiguration";
-            this.editConfiguration.Size = new System.Drawing.Size(170, 24);
-            this.editConfiguration.TabIndex = 14;
-            this.editConfiguration.Text = "Настройки конфигурации";
-            this.editConfiguration.UseVisualStyleBackColor = true;
-            this.editConfiguration.Click += new System.EventHandler(this.editConfiguration_Click);
             // 
             // configurationTextBox
             // 
             this.configurationTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.configurationTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.configurationTextBox.Location = new System.Drawing.Point(12, 113);
+            this.configurationTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.configurationTextBox.Location = new System.Drawing.Point(12, 143);
             this.configurationTextBox.Multiline = true;
             this.configurationTextBox.Name = "configurationTextBox";
             this.configurationTextBox.ReadOnly = true;
-            this.configurationTextBox.Size = new System.Drawing.Size(309, 459);
+            this.configurationTextBox.Size = new System.Drawing.Size(309, 448);
             this.configurationTextBox.TabIndex = 15;
             // 
-            // terminalBtn
+            // taipitFlasherToolStrip
             // 
-            this.terminalBtn.Location = new System.Drawing.Point(525, 23);
-            this.terminalBtn.Name = "terminalBtn";
-            this.terminalBtn.Size = new System.Drawing.Size(87, 24);
-            this.terminalBtn.TabIndex = 18;
-            this.terminalBtn.Text = "Терминал";
-            this.terminalBtn.UseVisualStyleBackColor = true;
-            this.terminalBtn.Click += new System.EventHandler(this.terminalBtn_Click);
+            this.taipitFlasherToolStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.taipitFlasherToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.configFWtlStpBtn,
+            this.toolStripSeparator1,
+            this.terminalTlStpBtn,
+            this.toolStripSeparator2,
+            this.configModemtlStpBtn});
+            this.taipitFlasherToolStrip.Location = new System.Drawing.Point(0, 0);
+            this.taipitFlasherToolStrip.Name = "taipitFlasherToolStrip";
+            this.taipitFlasherToolStrip.Size = new System.Drawing.Size(1150, 25);
+            this.taipitFlasherToolStrip.TabIndex = 19;
+            this.taipitFlasherToolStrip.Text = "toolStrip1";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // configFWtlStpBtn
+            // 
+            this.configFWtlStpBtn.Image = global::GSM_NBIoT_Module.Properties.Resources.services_32px;
+            this.configFWtlStpBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.configFWtlStpBtn.Name = "configFWtlStpBtn";
+            this.configFWtlStpBtn.Size = new System.Drawing.Size(169, 22);
+            this.configFWtlStpBtn.Text = "Конфигурация прошивки";
+            this.configFWtlStpBtn.Click += new System.EventHandler(this.configFWtlStpBtn_Click);
+            // 
+            // terminalTlStpBtn
+            // 
+            this.terminalTlStpBtn.Image = global::GSM_NBIoT_Module.Properties.Resources.console_32px;
+            this.terminalTlStpBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.terminalTlStpBtn.Name = "terminalTlStpBtn";
+            this.terminalTlStpBtn.Size = new System.Drawing.Size(82, 22);
+            this.terminalTlStpBtn.Text = "Терминал";
+            this.terminalTlStpBtn.Click += new System.EventHandler(this.terminalTlStpBtn_Click);
+            // 
+            // configModemtlStpBtn
+            // 
+            this.configModemtlStpBtn.Image = global::GSM_NBIoT_Module.Properties.Resources.edit_property_32px;
+            this.configModemtlStpBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.configModemtlStpBtn.Name = "configModemtlStpBtn";
+            this.configModemtlStpBtn.Size = new System.Drawing.Size(154, 22);
+            this.configModemtlStpBtn.Text = "Конфигурация модема";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(879, 17);
+            this.pictureBox1.Location = new System.Drawing.Point(879, 47);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(232, 84);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -237,7 +274,7 @@
             // 
             this.saveLogBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.saveLogBtn.Image = global::GSM_NBIoT_Module.Properties.Resources.log_30px;
-            this.saveLogBtn.Location = new System.Drawing.Point(1103, 533);
+            this.saveLogBtn.Location = new System.Drawing.Point(1103, 552);
             this.saveLogBtn.Name = "saveLogBtn";
             this.saveLogBtn.Size = new System.Drawing.Size(41, 39);
             this.saveLogBtn.TabIndex = 16;
@@ -250,11 +287,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1150, 669);
-            this.Controls.Add(this.terminalBtn);
+            this.Controls.Add(this.taipitFlasherToolStrip);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.saveLogBtn);
             this.Controls.Add(this.configurationTextBox);
-            this.Controls.Add(this.editConfiguration);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.configurationCmBox);
             this.Controls.Add(this.flashProcessRichTxtBox);
@@ -275,6 +311,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Flasher_FormClosing);
             this.Load += new System.EventHandler(this.Flasher_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Flasher_KeyDown);
+            this.taipitFlasherToolStrip.ResumeLayout(false);
+            this.taipitFlasherToolStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -296,11 +334,15 @@
         private System.Windows.Forms.RichTextBox flashProcessRichTxtBox;
         private System.Windows.Forms.ComboBox configurationCmBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button editConfiguration;
         private System.Windows.Forms.TextBox configurationTextBox;
         private System.Windows.Forms.Button saveLogBtn;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button terminalBtn;
+        private System.Windows.Forms.ToolStrip taipitFlasherToolStrip;
+        private System.Windows.Forms.ToolStripButton configFWtlStpBtn;
+        private System.Windows.Forms.ToolStripButton terminalTlStpBtn;
+        private System.Windows.Forms.ToolStripButton configModemtlStpBtn;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

@@ -1019,7 +1019,7 @@ namespace GSM_NBIoT_Module.view {
         }
 
         private object locker = new object();
-        private List<byte> sendByteList;
+        private List<byte> sendByteList = new List<byte>();
         private char[] charArr;
         private StringBuilder dataBytesBuilder = new StringBuilder();
         /// <summary>
@@ -1037,7 +1037,7 @@ namespace GSM_NBIoT_Module.view {
 
                     if (modeTextRdBtn.Checked) {
 
-                        sendByteList = new List<byte>();
+                        sendByteList.Clear();
 
                         charArr = mess.ToCharArray();
 
@@ -1059,7 +1059,7 @@ namespace GSM_NBIoT_Module.view {
                                 }
 
                             } else {
-                                sendByteList.Add(Encoding.ASCII.GetBytes(charArr[i].ToString())[0]);
+                                sendByteList.Add(Encoding.Unicode.GetBytes(charArr[i].ToString())[0]);
                             }
                         }
 
@@ -1088,7 +1088,8 @@ namespace GSM_NBIoT_Module.view {
 
                     //Если необходимо показывать отправленные данные
                     if (showSendDataInCOMChBx.Checked) {
-                        if (modeTextRdBtn.Checked) {
+
+                        if (inputModeTextRdBtn.Checked) {
 
                             if (clEqualsRf.Checked) {
                                 addMessInComLog(mess);
@@ -1098,6 +1099,7 @@ namespace GSM_NBIoT_Module.view {
                             }
 
                         } else {
+
                             dataBytesBuilder.Clear();
 
                             foreach (byte dataByte in sendByteList) {
@@ -1110,6 +1112,7 @@ namespace GSM_NBIoT_Module.view {
                             } else {
                                 addMessInComLog(dataBytesBuilder.ToString());
                             }
+
                         }
                     }
                     

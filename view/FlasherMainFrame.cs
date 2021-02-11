@@ -373,8 +373,7 @@ namespace GSM_NBIoT_Module {
         /// <param name="stateButton"></param>
         private void enableEditConfAndTerminalBtn(bool stateButton) {
             startFlashBtn.Invoke((MethodInvoker)delegate {
-                editConfiguration.Enabled = stateButton;
-                terminalBtn.Enabled = stateButton;
+                taipitFlasherToolStrip.Enabled = stateButton;
             });
         }
         
@@ -569,44 +568,6 @@ namespace GSM_NBIoT_Module {
             });
         }
 
-        private void editConfiguration_Click(object sender, EventArgs e) {
-
-            if (configurationForm != null) {
-                configurationForm.Activate();
-                configurationForm.BringToFront();
-                configurationForm.WindowState = FormWindowState.Normal;
-
-            } else {
-
-                ConfigurationFileStorage configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
-
-                if (!String.IsNullOrEmpty(configurationFileStorage.getPass())) {
-
-                    if (passForm != null) {
-                        passForm.Activate();
-                        passForm.BringToFront();
-                        passForm.WindowState = FormWindowState.Normal;
-                        return;
-
-                    } else {
-
-                        passForm = new Password(this);
-
-                        passForm.ShowDialog();
-                    }
-
-                } else {
-                    configurationForm = new ConfigurationFrame(this);
-                    configurationForm.Show();
-                }
-
-                if (configurationForm != null) {
-                    configurationForm.Activate();
-                    configurationForm.BringToFront();
-                }
-            }
-        }
-
         /// <summary>
         /// Действие при изменении значения комбобокса с названиями конфигурации
         /// </summary>
@@ -725,10 +686,6 @@ namespace GSM_NBIoT_Module {
             }
         }
 
-        private void terminalBtn_Click(object sender, EventArgs e) {
-            new Terminal().ShowDialog();
-        }
-
         private void Flasher_FormClosing(object sender, FormClosingEventArgs e) {
             if (flashThread != null) {
                 if (flashThread.IsAlive) {
@@ -743,6 +700,48 @@ namespace GSM_NBIoT_Module {
             if (e.KeyCode == Keys.S && e.Modifiers == Keys.Control) {
                 saveLogBtn.PerformClick();
             }
+        }
+
+        private void configFWtlStpBtn_Click(object sender, EventArgs e) {
+
+            if (configurationForm != null) {
+                configurationForm.Activate();
+                configurationForm.BringToFront();
+                configurationForm.WindowState = FormWindowState.Normal;
+
+            } else {
+
+                ConfigurationFileStorage configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
+
+                if (!String.IsNullOrEmpty(configurationFileStorage.getPass())) {
+
+                    if (passForm != null) {
+                        passForm.Activate();
+                        passForm.BringToFront();
+                        passForm.WindowState = FormWindowState.Normal;
+                        return;
+
+                    } else {
+
+                        passForm = new Password(this);
+
+                        passForm.ShowDialog();
+                    }
+
+                } else {
+                    configurationForm = new ConfigurationFrame(this);
+                    configurationForm.Show();
+                }
+
+                if (configurationForm != null) {
+                    configurationForm.Activate();
+                    configurationForm.BringToFront();
+                }
+            }
+        }
+
+        private void terminalTlStpBtn_Click(object sender, EventArgs e) {
+            new Terminal().ShowDialog();
         }
     }
 }
