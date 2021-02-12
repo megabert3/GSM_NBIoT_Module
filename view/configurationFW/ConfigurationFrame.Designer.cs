@@ -110,7 +110,7 @@
             this.configCommandsQuectel,
             this.frimwareForMK,
             this.frimwareForQuectel});
-            this.configurationDataGridView.Location = new System.Drawing.Point(12, 30);
+            this.configurationDataGridView.Location = new System.Drawing.Point(0, 36);
             this.configurationDataGridView.MultiSelect = false;
             this.configurationDataGridView.Name = "configurationDataGridView";
             this.configurationDataGridView.RowHeadersVisible = false;

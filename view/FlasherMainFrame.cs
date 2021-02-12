@@ -743,5 +743,9 @@ namespace GSM_NBIoT_Module {
         private void terminalTlStpBtn_Click(object sender, EventArgs e) {
             new Terminal().ShowDialog();
         }
+
+        private void configModemtlStpBtn_Click(object sender, EventArgs e) {
+            new ModemConfig().ShowDialog();
+        }
     }
 }

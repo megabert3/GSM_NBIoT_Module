@@ -43,10 +43,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.configurationTextBox = new System.Windows.Forms.TextBox();
             this.taipitFlasherToolStrip = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.configFWtlStpBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.terminalTlStpBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.configModemtlStpBtn = new System.Windows.Forms.ToolStripButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.saveLogBtn = new System.Windows.Forms.Button();
@@ -223,16 +223,6 @@
             this.taipitFlasherToolStrip.TabIndex = 19;
             this.taipitFlasherToolStrip.Text = "toolStrip1";
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
             // configFWtlStpBtn
             // 
             this.configFWtlStpBtn.Image = global::GSM_NBIoT_Module.Properties.Resources.services_32px;
@@ -241,6 +231,11 @@
             this.configFWtlStpBtn.Size = new System.Drawing.Size(169, 22);
             this.configFWtlStpBtn.Text = "Конфигурация прошивки";
             this.configFWtlStpBtn.Click += new System.EventHandler(this.configFWtlStpBtn_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // terminalTlStpBtn
             // 
@@ -251,6 +246,11 @@
             this.terminalTlStpBtn.Text = "Терминал";
             this.terminalTlStpBtn.Click += new System.EventHandler(this.terminalTlStpBtn_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
             // configModemtlStpBtn
             // 
             this.configModemtlStpBtn.Image = global::GSM_NBIoT_Module.Properties.Resources.edit_property_32px;
@@ -258,6 +258,7 @@
             this.configModemtlStpBtn.Name = "configModemtlStpBtn";
             this.configModemtlStpBtn.Size = new System.Drawing.Size(154, 22);
             this.configModemtlStpBtn.Text = "Конфигурация модема";
+            this.configModemtlStpBtn.Click += new System.EventHandler(this.configModemtlStpBtn_Click);
             // 
             // pictureBox1
             // 
