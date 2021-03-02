@@ -64,8 +64,17 @@ namespace GSM_NBIoT_Module.view {
             }
         }
 
+        /// <summary>
+        /// Обновляет и считывает информацию из модема
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void refreshInfo_Click(object sender, EventArgs e) {
+
             try {
+
+                Cursor = Cursors.WaitCursor;
+
                 getNbModemPort();
                 checkGPIO_CP2105();
 
@@ -77,6 +86,8 @@ namespace GSM_NBIoT_Module.view {
                 string iPorDomen = "";
                 string port = "";
 
+                //Заполняю информацией поля
+                //Подменное имя и порт сервера 1
                 getIPv4AndPortUserHost(0, ref iPorDomen, ref port);
                 ipDomenNameTxtBx_1.Text = iPorDomen;
                 portTxtBx_1.Text = port;
@@ -87,6 +98,7 @@ namespace GSM_NBIoT_Module.view {
                     IPv4RdBtn_1.Checked = true;
                 }
 
+                //Подменное имя и порт сервера 2
                 getIPv4AndPortUserHost(1, ref iPorDomen, ref port);
                 ipDomenNameTxtBx_2.Text = iPorDomen;
                 portTxtBx_2.Text = port;
@@ -97,6 +109,7 @@ namespace GSM_NBIoT_Module.view {
                     IPv4RdBtn_2.Checked = true;
                 }
 
+                //Подменное имя и порт сервера 3
                 getIPv4AndPortUserHost(2, ref iPorDomen, ref port);
                 ipDomenNameTxtBx_3.Text = iPorDomen;
                 portTxtBx_3.Text = port;
@@ -107,12 +120,17 @@ namespace GSM_NBIoT_Module.view {
                     IPv4RdBtn_3.Checked = true;
                 }
 
+                getCONNECTINGparametersAndSetInConnectingPanel();
+
                 if (serialPort.IsOpen) {
                     serialPort.Close();
                 }
-                
+
+                Cursor = Cursors.Default;
+
             } catch(Exception ex) {
                 Flasher.exceptionDialog(ex.Message);
+                Cursor = Cursors.Default;
                 serialPort.Close();
             }
         }
@@ -152,6 +170,11 @@ namespace GSM_NBIoT_Module.view {
             return sendCommandMKForVerFWAndVerZPort("device FW");
         }
 
+        /// <summary>
+        /// Получает персию ZPORT'a и версию прошивки
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         private string sendCommandMKForVerFWAndVerZPort(string command) {
 
             serialPort.WriteLine(command);
@@ -180,6 +203,12 @@ namespace GSM_NBIoT_Module.view {
             throw new TimeoutException("Превышено время ожидания ответа от микроконтроллера");
         }
 
+        /// <summary>
+        /// Считывает параметры сервера (Доменное имя/IPv4 и порт) с помощью протокал ZPORT'a
+        /// </summary>
+        /// <param name="i">Номер сервера</param>
+        /// <param name="domenNameOrIP">Записанное доменное имя</param>
+        /// <param name="port">Записанный порт</param>
         private void getIPv4AndPortUserHost(int i, ref string domenNameOrIP, ref string port) {
             domenNameOrIP = "";
             port = "";
@@ -229,6 +258,96 @@ namespace GSM_NBIoT_Module.view {
             }
 
             throw new TimeoutException("Превышено время ожидания ответа от микроконтроллера");
+        }
+
+        /// <summary>
+        /// Получает значения из модема команды Connecting
+        /// </summary>
+        private void getCONNECTINGparametersAndSetInConnectingPanel() {
+
+            serialPort.WriteLine("CONNECTING");
+
+            long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+            string line = "";
+
+            //Пока не вышло время по таймауту
+            while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
+
+                //Если данные пришли в порт
+                while (serialPort.BytesToRead != 0) {
+
+                    //Обновляю таймаут
+                    endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+
+                    line = serialPort.ReadLine();
+
+                    if (line.EndsWith("OK")) {
+                        StringBuilder strBuild = new StringBuilder("");
+                        int lastIndex = 0;
+
+                        //Za) CONNECTING (PERIOD:6:00:00) (SERVICE:20::) (LETWAIT: :1:00) (TRYLIMIT:3) (SESSLIMIT: :20:) (HOLDTIME: :4:16) "Note h:m:s" OK
+                        string[] answer = line.Split('(');
+
+                        //Добавляю PERIOD
+                        string period = answer[1].Substring(7, answer[1].Length - 2 - 7);
+                        periodMsdTxtBx.Text = parseTimeForMskTxtBox(period, false);
+
+                        //Добавляю SERVICE
+                        string service = answer[2].Substring(8, answer[2].Length - 2 - 8);
+                        serviceMsdTxtBx.Text = service;
+
+                        //Добавляю LETWAIT
+                        string letwait = answer[3].Substring(9, answer[3].Length - 2 - 8);
+                        letwaitMsdTxtBx.Text = parseTimeForMskTxtBox(letwait, true);
+
+                        //Добавляю TRYLIMIT
+                        string trylimit = answer[4].Substring(9, 1);
+                        trylimitMsdTxtBx.Text = trylimit;
+
+                        //Добавляю SESSLIMIT
+                        string sesslimit = answer[5].Substring(10, answer[5].Length - 2 - 10);
+                        sesslimitMsdTxtBx.Text = parseTimeForMskTxtBox(sesslimit, false);
+
+                        //Добавляю HOLDTIME
+                        string holdtime = answer[6].Substring(10, answer[6].Length - 17 - 9);
+                        holdTimeMsdTxtBx.Text = parseTimeForMskTxtBox(holdtime, true);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Возвращает строку в формате hh:mm:ss
+        /// </summary>
+        /// <param name="modemAnswer">Строка времени, которая пришла из модема</param>
+        /// <returns></returns>
+        private string parseTimeForMskTxtBox(string modemAnswer, bool onlyMMandSS) {
+
+            StringBuilder parseTime = new StringBuilder("");
+            int countColon = 0;
+
+            foreach (string answerValue in modemAnswer.Split(':')) {
+
+                if (String.IsNullOrEmpty(answerValue)) {
+                    if (onlyMMandSS) {
+                        continue;
+                    } else
+                        parseTime.Append("00");
+
+                } else if (answerValue.Length < 2) {
+                    parseTime.Append("0" + answerValue);
+
+                } else {
+                    parseTime.Append(answerValue);
+                }
+
+                if (countColon < 2) {
+                    parseTime.Append(":");
+                    countColon++;
+                }
+            }
+
+            return parseTime.ToString();
         }
     }
 }
