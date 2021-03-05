@@ -84,7 +84,9 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
         /// </summary>
         /// <param name="configuration"></param>
         public void removeConfigurateFileInStorage(ConfigurationFW configuration) {
-            configurationFiles.Remove(configuration);
+            if (configuration != null) {
+                configurationFiles.Remove(configuration);
+            }
         }
 
         /// <summary>

@@ -85,6 +85,10 @@ namespace GSM_NBIoT_Module
                 foreach (string commandsQuectel in configuration.getQuectelCommandList()) {
                     quectelCommnadsdtGrdView.Rows.Add(commandsQuectel);
                 }
+
+                portListenTxtBx.Text = configuration.getListenPort().ToString();
+                APN_domenName.Text = configuration.getAPN_Name();
+
             }
 
             addEditConfToolTip.InitialDelay = 500;
@@ -166,6 +170,9 @@ namespace GSM_NBIoT_Module
             string domenName;
             byte[] domenNameByteArr;
 
+            int listenPort = 1;
+            string APN_DomenName = "";
+            byte[] APN_DomenNameByteArr = new byte[0];
 
 
             if (String.IsNullOrEmpty(ConfigNameTxtBx.Text.Trim())) {
@@ -339,6 +346,60 @@ namespace GSM_NBIoT_Module
                 }
             }
 
+            //Проверка параметров настройки локальной сети
+            //Проверка порта
+            if (!String.IsNullOrEmpty(portListenTxtBx.Text.Trim())) {
+
+                if (Int32.TryParse(portListenTxtBx.Text.Trim(), out listenPort)) {
+
+                    if (listenPort < 1 || listenPort > 65535) {
+                        portListenTxtBx.Focus();
+                        portListenTxtBx.SelectAll();
+                        Flasher.exceptionDialog("значение порта локальной сети должно быть в диапазоне 1..65535");
+                        return;
+                    }
+
+                } else {
+                    portListenTxtBx.Focus();
+                    portListenTxtBx.SelectAll();
+                    Flasher.exceptionDialog("Значение порта локальной сети должно быть целочисленным числом");
+                    return;
+                }
+            }
+
+            //Если поле доменного имени не пустое
+            if (!String.IsNullOrEmpty(APN_domenName.Text.Trim())) {
+
+                APN_DomenName = APN_domenName.Text.Trim();
+
+                char[] APN_DomenNameCharArr = APN_DomenName.ToCharArray();
+
+                //Проверка, что доменное имя в кавычках
+                if (APN_DomenNameCharArr[0] != '"' || APN_DomenNameCharArr[APN_DomenNameCharArr.Length - 1] != '"') {
+                    APN_domenName.Focus();
+                    APN_domenName.SelectAll();
+                    Flasher.exceptionDialog("Неверный формат доменного имени. Доменное имя должно иметь знак \" в начале и в конце имени");
+                    return;
+                }
+
+                //С учётом кавычек
+                if (APN_DomenName.Length - 2 > 28) {
+                    Flasher.exceptionDialog("Доменное имя не должно быть больше 28 символов");
+                    return;
+                }
+
+                for (int i = 1; i < APN_DomenName.Length - 1; i++) {
+
+                    if (APN_DomenNameCharArr[i] < 0x20 || APN_DomenNameCharArr[i] > 0x7F) {
+                        Flasher.exceptionDialog("Доменное имя должно содержать только ASCII символы");
+                        return;
+                    }
+                }
+
+                //Сохраняю доменное имя, но уже без кавычек
+                APN_DomenNameByteArr = Encoding.ASCII.GetBytes(APN_DomenName.Substring(1, APN_DomenName.Length - 2));
+            }
+
             //Если имя конфигурации не равно старому
             if (!configuration.getName().Equals(name) && !String.IsNullOrWhiteSpace(configuration.getName())) {
 
@@ -351,7 +412,14 @@ namespace GSM_NBIoT_Module
                     bool result = Flasher.YesOrNoDialog(dialogMess, "Замена конфигурации");
 
                     if (result) {
-                        configuration = configurationFileStorage.getConfigurationFile(name);
+
+                        //Удаляю старую конфигурацию
+                        configurationFileStorage.removeConfigurateFileInStorage(configurationFileStorage.getConfigurationFile(name));
+
+                        //И добавляю новую после чего заполню её поля текущими данными
+                        configuration = new ConfigurationFW();
+                        configurationFileStorage.addConfigurateFileInStorage(configuration);
+
                     } else {
                         return;
                     }
@@ -364,8 +432,14 @@ namespace GSM_NBIoT_Module
 
                     if (answer == DialogResult.Yes) {
 
-                        configurationFileStorage.addConfigurateFileInStorage(new ConfigurationFW(name, (byte)target_ID, (byte)index, (byte)protocol_ID, eGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit,
-                            (ushort)port, selector, domenName, domenNameByteArr, pathToFW_MKtxtBx.Text, pathToFW_QuectelTxtBx.Text, quectelCommands));
+                        ConfigurationFW configurationFW = new ConfigurationFW(name, (byte)target_ID, (byte)index, (byte)protocol_ID, eGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit,
+                            (ushort)port, selector, domenName, domenNameByteArr, pathToFW_MKtxtBx.Text, pathToFW_QuectelTxtBx.Text, quectelCommands);
+
+                        configuration.setListenPort((ushort)listenPort);
+                        configuration.setAPN_Name(APN_DomenName);
+                        configuration.setAPN_NameByteArr(APN_DomenNameByteArr);
+
+                        configurationFileStorage.addConfigurateFileInStorage(configurationFW);
 
                         //Сериализую изменения
                         ConfigurationFileStorage.serializeConfigurationFileStorage();
@@ -399,6 +473,10 @@ namespace GSM_NBIoT_Module
             configuration.setfwForQuectelName(pathToFW_QuectelTxtBx.Text);
 
             configuration.setQuectelCommandList(quectelCommands);
+
+            configuration.setListenPort((ushort)listenPort);
+            configuration.setAPN_Name(APN_DomenName);
+            configuration.setAPN_NameByteArr(APN_DomenNameByteArr);
 
             //Если создаётся новая конфигурация
             if (newConfiguration) configurationFileStorage.addConfigurateFileInStorage(configuration);

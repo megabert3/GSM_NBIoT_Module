@@ -95,9 +95,15 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
 
             switch (numbConfigScript) {
                 case 3: {
-                        if (freeSpace < 96) throw new MKCommandException("Недостаточно места для записи сценария №3, необходимо 64 байт");
 
-                        //Имя и номер конфигурации уже записаны в буфер
+                        if (freeSpace < 64) throw new MKCommandException("Недостаточно места для записи сценария №3, необходимо 64 байт");
+
+                        configList = new List<byte>(64 - verIDAndFW_Name.Length);
+
+                        configList.AddRange(firstPage(verIDAndFW_Name.Length));
+                        configList.AddRange(secondPage());
+
+                        /*//Имя и номер конфигурации уже записаны в буфер
                         configList = new List<byte>(64 - verIDAndFW_Name.Length);
 
                         //Формирую дженерал ID
@@ -171,7 +177,7 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
                         for (int i = configList.Count; i < 64 - verIDAndFW_Name.Length; i++) {
 
                             configList.Add(0x00);
-                        }
+                        }*/
 
                         return configList.ToArray();
                     } break;
