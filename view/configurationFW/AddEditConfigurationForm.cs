@@ -166,6 +166,8 @@ namespace GSM_NBIoT_Module
             string domenName;
             byte[] domenNameByteArr;
 
+
+
             if (String.IsNullOrEmpty(ConfigNameTxtBx.Text.Trim())) {
                 Flasher.exceptionDialog("Поле: \"Название конфигурации\" не должно быть пустым");
                 return;
