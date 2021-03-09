@@ -74,6 +74,8 @@ namespace GSM_NBIoT_Module {
             configurationDataGridView.Columns["domenNameOrIP"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             configurationDataGridView.Columns["frimwareForMK"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             configurationDataGridView.Columns["frimwareForQuectel"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["ListenPort"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["APNName"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             configurationDataGridView.Columns["terget_id"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             configurationDataGridView.Columns["protocol_id"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -83,6 +85,8 @@ namespace GSM_NBIoT_Module {
             configurationDataGridView.Columns["domenNameOrIP"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             configurationDataGridView.Columns["frimwareForMK"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             configurationDataGridView.Columns["frimwareForQuectel"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["ListenPort"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            configurationDataGridView.Columns["APNName"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
         /// <summary>
@@ -161,6 +165,15 @@ namespace GSM_NBIoT_Module {
 
                 //Название прошивки для модуля Quectel
                 row.Cells[9].Value = configurationFileStorage.getAllConfigurationFiles()[i].getfwForQuectelName();
+
+                //Доменное имя APN
+                if (configurationFileStorage.getAllConfigurationFiles()[i].getAPN_Name() != null) {
+                    row.Cells[10].Value = configurationFileStorage.getAllConfigurationFiles()[i].getAPN_Name();
+                }
+
+                //Слушающий порт
+                row.Cells[11].Value = configurationFileStorage.getAllConfigurationFiles()[i].getListenPort();
+                
             }
         }
 

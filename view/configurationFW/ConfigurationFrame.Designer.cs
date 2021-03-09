@@ -31,6 +31,9 @@
             this.editConfigurationBtn = new System.Windows.Forms.Button();
             this.deleteConfigurationBtn = new System.Windows.Forms.Button();
             this.configurationDataGridView = new System.Windows.Forms.DataGridView();
+            this.label11 = new System.Windows.Forms.Label();
+            this.setPasswordBtn = new System.Windows.Forms.Button();
+            this.copyBtn = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.terget_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.protocol_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,16 +44,15 @@
             this.configCommandsQuectel = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.frimwareForMK = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.frimwareForQuectel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label11 = new System.Windows.Forms.Label();
-            this.setPasswordBtn = new System.Windows.Forms.Button();
-            this.copyBtn = new System.Windows.Forms.Button();
+            this.APNName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ListenPort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.configurationDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // addConfigurationBtn
             // 
             this.addConfigurationBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.addConfigurationBtn.Location = new System.Drawing.Point(775, 473);
+            this.addConfigurationBtn.Location = new System.Drawing.Point(847, 473);
             this.addConfigurationBtn.Name = "addConfigurationBtn";
             this.addConfigurationBtn.Size = new System.Drawing.Size(115, 25);
             this.addConfigurationBtn.TabIndex = 11;
@@ -71,7 +73,7 @@
             // editConfigurationBtn
             // 
             this.editConfigurationBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.editConfigurationBtn.Location = new System.Drawing.Point(921, 473);
+            this.editConfigurationBtn.Location = new System.Drawing.Point(993, 473);
             this.editConfigurationBtn.Name = "editConfigurationBtn";
             this.editConfigurationBtn.Size = new System.Drawing.Size(115, 25);
             this.editConfigurationBtn.TabIndex = 27;
@@ -82,7 +84,7 @@
             // deleteConfigurationBtn
             // 
             this.deleteConfigurationBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.deleteConfigurationBtn.Location = new System.Drawing.Point(1042, 473);
+            this.deleteConfigurationBtn.Location = new System.Drawing.Point(1114, 473);
             this.deleteConfigurationBtn.Name = "deleteConfigurationBtn";
             this.deleteConfigurationBtn.Size = new System.Drawing.Size(115, 25);
             this.deleteConfigurationBtn.TabIndex = 26;
@@ -109,8 +111,10 @@
             this.domenNameOrIP,
             this.configCommandsQuectel,
             this.frimwareForMK,
-            this.frimwareForQuectel});
-            this.configurationDataGridView.Location = new System.Drawing.Point(0, 36);
+            this.frimwareForQuectel,
+            this.APNName,
+            this.ListenPort});
+            this.configurationDataGridView.Location = new System.Drawing.Point(12, 36);
             this.configurationDataGridView.MultiSelect = false;
             this.configurationDataGridView.Name = "configurationDataGridView";
             this.configurationDataGridView.RowHeadersVisible = false;
@@ -119,89 +123,12 @@
             this.configurationDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.configurationDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.configurationDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.configurationDataGridView.Size = new System.Drawing.Size(1145, 431);
+            this.configurationDataGridView.Size = new System.Drawing.Size(1216, 431);
             this.configurationDataGridView.TabIndex = 31;
             this.configurationDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.configurationDataGridView_CellClick);
             this.configurationDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.configurationDataGridView_CellMouseDoubleClick);
             this.configurationDataGridView.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.configurationDataGridView_RowsAdded);
             this.configurationDataGridView.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.configurationDataGridView_RowsRemoved);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Имя конфигурации";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 200;
-            // 
-            // terget_id
-            // 
-            this.terget_id.HeaderText = "Target_ID";
-            this.terget_id.Name = "terget_id";
-            this.terget_id.ReadOnly = true;
-            this.terget_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.terget_id.Width = 60;
-            // 
-            // protocol_id
-            // 
-            this.protocol_id.HeaderText = "Protocol_ID";
-            this.protocol_id.Name = "protocol_id";
-            this.protocol_id.ReadOnly = true;
-            this.protocol_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.protocol_id.Width = 75;
-            // 
-            // index
-            // 
-            this.index.HeaderText = "Index";
-            this.index.Name = "index";
-            this.index.ReadOnly = true;
-            this.index.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.index.Width = 60;
-            // 
-            // MCL_mode
-            // 
-            this.MCL_mode.HeaderText = "MCL Mode";
-            this.MCL_mode.Name = "MCL_mode";
-            this.MCL_mode.ReadOnly = true;
-            this.MCL_mode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.MCL_mode.Width = 60;
-            // 
-            // port
-            // 
-            this.port.HeaderText = "Порт";
-            this.port.Name = "port";
-            this.port.ReadOnly = true;
-            this.port.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.port.Width = 75;
-            // 
-            // domenNameOrIP
-            // 
-            this.domenNameOrIP.HeaderText = "Доменное имя или IP адрес";
-            this.domenNameOrIP.Name = "domenNameOrIP";
-            this.domenNameOrIP.ReadOnly = true;
-            this.domenNameOrIP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.domenNameOrIP.Width = 200;
-            // 
-            // configCommandsQuectel
-            // 
-            this.configCommandsQuectel.HeaderText = "Команды модулю Quectel";
-            this.configCommandsQuectel.Name = "configCommandsQuectel";
-            this.configCommandsQuectel.Width = 150;
-            // 
-            // frimwareForMK
-            // 
-            this.frimwareForMK.HeaderText = "Прошивка для МК";
-            this.frimwareForMK.Name = "frimwareForMK";
-            this.frimwareForMK.ReadOnly = true;
-            this.frimwareForMK.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.frimwareForMK.Width = 120;
-            // 
-            // frimwareForQuectel
-            // 
-            this.frimwareForQuectel.HeaderText = "Прошивка для Quectel";
-            this.frimwareForQuectel.Name = "frimwareForQuectel";
-            this.frimwareForQuectel.ReadOnly = true;
-            this.frimwareForQuectel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.frimwareForQuectel.Width = 150;
             // 
             // label11
             // 
@@ -226,7 +153,7 @@
             // copyBtn
             // 
             this.copyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.copyBtn.Location = new System.Drawing.Point(639, 473);
+            this.copyBtn.Location = new System.Drawing.Point(711, 473);
             this.copyBtn.Name = "copyBtn";
             this.copyBtn.Size = new System.Drawing.Size(115, 25);
             this.copyBtn.TabIndex = 34;
@@ -235,11 +162,102 @@
             this.copyBtn.Visible = false;
             this.copyBtn.Click += new System.EventHandler(this.copyBtn_Click);
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Имя конфигурации";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 175;
+            // 
+            // terget_id
+            // 
+            this.terget_id.HeaderText = "Target_ID";
+            this.terget_id.Name = "terget_id";
+            this.terget_id.ReadOnly = true;
+            this.terget_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.terget_id.Width = 57;
+            // 
+            // protocol_id
+            // 
+            this.protocol_id.HeaderText = "Protocol_ID";
+            this.protocol_id.Name = "protocol_id";
+            this.protocol_id.ReadOnly = true;
+            this.protocol_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.protocol_id.Width = 65;
+            // 
+            // index
+            // 
+            this.index.HeaderText = "Index";
+            this.index.Name = "index";
+            this.index.ReadOnly = true;
+            this.index.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.index.Width = 40;
+            // 
+            // MCL_mode
+            // 
+            this.MCL_mode.HeaderText = "MCL Mode";
+            this.MCL_mode.Name = "MCL_mode";
+            this.MCL_mode.ReadOnly = true;
+            this.MCL_mode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.MCL_mode.Width = 40;
+            // 
+            // port
+            // 
+            this.port.HeaderText = "Порт";
+            this.port.Name = "port";
+            this.port.ReadOnly = true;
+            this.port.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.port.Width = 70;
+            // 
+            // domenNameOrIP
+            // 
+            this.domenNameOrIP.HeaderText = "Доменное имя или IP адрес";
+            this.domenNameOrIP.Name = "domenNameOrIP";
+            this.domenNameOrIP.ReadOnly = true;
+            this.domenNameOrIP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.domenNameOrIP.Width = 175;
+            // 
+            // configCommandsQuectel
+            // 
+            this.configCommandsQuectel.HeaderText = "Команды модулю Quectel";
+            this.configCommandsQuectel.Name = "configCommandsQuectel";
+            // 
+            // frimwareForMK
+            // 
+            this.frimwareForMK.HeaderText = "Прошивка для МК";
+            this.frimwareForMK.Name = "frimwareForMK";
+            this.frimwareForMK.ReadOnly = true;
+            this.frimwareForMK.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.frimwareForMK.Width = 120;
+            // 
+            // frimwareForQuectel
+            // 
+            this.frimwareForQuectel.HeaderText = "Прошивка для Quectel";
+            this.frimwareForQuectel.Name = "frimwareForQuectel";
+            this.frimwareForQuectel.ReadOnly = true;
+            this.frimwareForQuectel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.frimwareForQuectel.Width = 150;
+            // 
+            // APNName
+            // 
+            this.APNName.HeaderText = "Доменное имя APN";
+            this.APNName.Name = "APNName";
+            this.APNName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.APNName.Width = 150;
+            // 
+            // ListenPort
+            // 
+            this.ListenPort.HeaderText = "Порт APN";
+            this.ListenPort.Name = "ListenPort";
+            this.ListenPort.ReadOnly = true;
+            this.ListenPort.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ListenPort.Width = 75;
+            // 
             // ConfigurationFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1172, 507);
+            this.ClientSize = new System.Drawing.Size(1240, 507);
             this.Controls.Add(this.copyBtn);
             this.Controls.Add(this.setPasswordBtn);
             this.Controls.Add(this.label11);
@@ -279,5 +297,7 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn configCommandsQuectel;
         private System.Windows.Forms.DataGridViewTextBoxColumn frimwareForMK;
         private System.Windows.Forms.DataGridViewTextBoxColumn frimwareForQuectel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn APNName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ListenPort;
     }
 }
