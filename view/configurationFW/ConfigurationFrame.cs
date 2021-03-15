@@ -76,7 +76,7 @@ namespace GSM_NBIoT_Module {
             configurationDataGridView.Columns["frimwareForQuectel"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             configurationDataGridView.Columns["ListenPort"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             configurationDataGridView.Columns["APNName"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
+            
             configurationDataGridView.Columns["terget_id"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             configurationDataGridView.Columns["protocol_id"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             configurationDataGridView.Columns["index"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -173,7 +173,6 @@ namespace GSM_NBIoT_Module {
 
                 //Слушающий порт
                 row.Cells[11].Value = configurationFileStorage.getAllConfigurationFiles()[i].getListenPort();
-                
             }
         }
 

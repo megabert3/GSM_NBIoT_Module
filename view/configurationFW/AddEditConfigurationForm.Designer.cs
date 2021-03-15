@@ -42,6 +42,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.APN_domenName = new System.Windows.Forms.TextBox();
             this.portListenTxtBx = new System.Windows.Forms.TextBox();
@@ -53,7 +54,8 @@
             this.indexTxtBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.domenNameTxtBox = new System.Windows.Forms.TextBox();
+            this.IPv6rdBtn = new System.Windows.Forms.RadioButton();
+            this.domenNameMskTxtBox = new System.Windows.Forms.MaskedTextBox();
             this.IPv4rdBtn = new System.Windows.Forms.RadioButton();
             this.domenNameRdBtn = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
@@ -70,7 +72,6 @@
             this.quectelCommandTxtBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.ConfigNameTxtBx = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.groupBox5.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -230,6 +231,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Настройки локальной сети";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(15, 21);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(32, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Порт";
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -314,7 +324,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.domenNameTxtBox);
+            this.groupBox2.Controls.Add(this.IPv6rdBtn);
+            this.groupBox2.Controls.Add(this.domenNameMskTxtBox);
             this.groupBox2.Controls.Add(this.IPv4rdBtn);
             this.groupBox2.Controls.Add(this.domenNameRdBtn);
             this.groupBox2.Location = new System.Drawing.Point(153, 72);
@@ -323,29 +334,41 @@
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             // 
-            // domenNameTxtBox
+            // IPv6rdBtn
             // 
-            this.domenNameTxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.domenNameTxtBox.Location = new System.Drawing.Point(17, 45);
-            this.domenNameTxtBox.Name = "domenNameTxtBox";
-            this.domenNameTxtBox.Size = new System.Drawing.Size(288, 20);
-            this.domenNameTxtBox.TabIndex = 10;
+            this.IPv6rdBtn.AutoSize = true;
+            this.IPv6rdBtn.Location = new System.Drawing.Point(225, 22);
+            this.IPv6rdBtn.Name = "IPv6rdBtn";
+            this.IPv6rdBtn.Size = new System.Drawing.Size(80, 17);
+            this.IPv6rdBtn.TabIndex = 12;
+            this.IPv6rdBtn.TabStop = true;
+            this.IPv6rdBtn.Text = "IPv6 адрес";
+            this.IPv6rdBtn.UseVisualStyleBackColor = true;
+            // 
+            // domenNameMskTxtBox
+            // 
+            this.domenNameMskTxtBox.Location = new System.Drawing.Point(17, 45);
+            this.domenNameMskTxtBox.Name = "domenNameMskTxtBox";
+            this.domenNameMskTxtBox.Size = new System.Drawing.Size(288, 20);
+            this.domenNameMskTxtBox.TabIndex = 11;
+            this.domenNameMskTxtBox.Enter += new System.EventHandler(this.domenNameMskTxtBox_Enter);
             // 
             // IPv4rdBtn
             // 
             this.IPv4rdBtn.AutoSize = true;
-            this.IPv4rdBtn.Location = new System.Drawing.Point(219, 15);
+            this.IPv4rdBtn.Location = new System.Drawing.Point(131, 22);
             this.IPv4rdBtn.Name = "IPv4rdBtn";
             this.IPv4rdBtn.Size = new System.Drawing.Size(80, 17);
             this.IPv4rdBtn.TabIndex = 1;
             this.IPv4rdBtn.Text = "IPv4 адрес";
             this.IPv4rdBtn.UseVisualStyleBackColor = true;
+            this.IPv4rdBtn.CheckedChanged += new System.EventHandler(this.IPv4rdBtn_CheckedChanged);
             // 
             // domenNameRdBtn
             // 
             this.domenNameRdBtn.AutoSize = true;
             this.domenNameRdBtn.Checked = true;
-            this.domenNameRdBtn.Location = new System.Drawing.Point(17, 15);
+            this.domenNameRdBtn.Location = new System.Drawing.Point(17, 22);
             this.domenNameRdBtn.Name = "domenNameRdBtn";
             this.domenNameRdBtn.Size = new System.Drawing.Size(101, 17);
             this.domenNameRdBtn.TabIndex = 0;
@@ -503,15 +526,6 @@
             this.ConfigNameTxtBx.Size = new System.Drawing.Size(525, 20);
             this.ConfigNameTxtBx.TabIndex = 44;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 21);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 13);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Порт";
-            // 
             // AddEditConfigurationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -571,7 +585,6 @@
         private System.Windows.Forms.TextBox indexTxtBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox domenNameTxtBox;
         private System.Windows.Forms.RadioButton IPv4rdBtn;
         private System.Windows.Forms.RadioButton domenNameRdBtn;
         private System.Windows.Forms.Label label4;
@@ -593,5 +606,7 @@
         private System.Windows.Forms.TextBox APN_domenName;
         private System.Windows.Forms.TextBox portListenTxtBx;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.MaskedTextBox domenNameMskTxtBox;
+        private System.Windows.Forms.RadioButton IPv6rdBtn;
     }
 }

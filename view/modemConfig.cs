@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO.Ports;
@@ -55,6 +56,23 @@ namespace GSM_NBIoT_Module.view {
             ipDomenNameTxtBx_2.InsertKeyMode = InsertKeyMode.Overwrite;
             ipDomenNameTxtBx_3.InsertKeyMode = InsertKeyMode.Overwrite;
 
+            //Установка слушателя по переносу курсора в текс боксе при нажатии на него
+            ipDomenNameTxtBx_1.Enter += ipDomenNameTxtBx_Enter;
+            ipDomenNameTxtBx_2.Enter += ipDomenNameTxtBx_Enter;
+            ipDomenNameTxtBx_3.Enter += ipDomenNameTxtBx_Enter;
+
+            portTxtBx_1.Enter += ipDomenNameTxtBx_Enter;
+            portTxtBx_2.Enter += ipDomenNameTxtBx_Enter;
+            portTxtBx_3.Enter += ipDomenNameTxtBx_Enter;
+
+            periodMsdTxtBx.Enter += ipDomenNameTxtBx_Enter;
+            serviceMsdTxtBx.Enter += ipDomenNameTxtBx_Enter;
+            letwaitMsdTxtBx.Enter += ipDomenNameTxtBx_Enter;
+            trylimitMsdTxtBx.Enter += ipDomenNameTxtBx_Enter;
+            sesslimitMsdTxtBx.Enter += ipDomenNameTxtBx_Enter;
+            holdTimeMsdTxtBx.Enter += ipDomenNameTxtBx_Enter;
+
+            refreshInfo.PerformClick();
         }
 
         /// <summary>
@@ -76,7 +94,6 @@ namespace GSM_NBIoT_Module.view {
                     break;
                 case 1: {
                         connectingTableLayoutPanel.BringToFront();
-                        
                     }
                     break;
             }
@@ -89,11 +106,12 @@ namespace GSM_NBIoT_Module.view {
         /// <param name="e"></param>
         private void refreshInfo_Click(object sender, EventArgs e) {
             try {
+                
                 Cursor = Cursors.WaitCursor;
 
                 getNbModemPort();
                 checkGPIO_CP2105();
-
+                
                 serialPort.Open();
 
                 verFWTxtBx.Text = getVerFW();
@@ -110,6 +128,7 @@ namespace GSM_NBIoT_Module.view {
                 Cursor = Cursors.Default;
 
             } catch(Exception ex) {
+
                 Flasher.exceptionDialog(ex.Message);
                 Cursor = Cursors.Default;
                 serialPort.Close();
@@ -124,38 +143,81 @@ namespace GSM_NBIoT_Module.view {
             string port = "";
 
             //Заполняю информацией поля
-            //Подменное имя и порт сервера 1
+            //Доменное имя и порт сервера 1
             getIPv4AndPortUserHost(0, ref iPorDomen, ref port);
-            ipDomenNameTxtBx_1.Text = iPorDomen;
             portTxtBx_1.Text = port;
 
             if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
                 domenNameRdBtn_1.Checked = true;
+                //Убираю кавычки
+                ipDomenNameTxtBx_1.Text = iPorDomen.Substring(1, iPorDomen.Length - 2);
+
             } else {
                 IPv4RdBtn_1.Checked = true;
+                ipDomenNameTxtBx_1.Text = parseIP(iPorDomen);
             }
 
-            //Подменное имя и порт сервера 2
+            //Доменное имя и порт сервера 2
             getIPv4AndPortUserHost(1, ref iPorDomen, ref port);
-            ipDomenNameTxtBx_2.Text = iPorDomen;
             portTxtBx_2.Text = port;
 
             if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
                 domenNameRdBtn_2.Checked = true;
+                ipDomenNameTxtBx_2.Text = iPorDomen.Substring(1, iPorDomen.Length - 2);
+
             } else {
                 IPv4RdBtn_2.Checked = true;
+                ipDomenNameTxtBx_2.Text = parseIP(iPorDomen);
             }
 
-            //Подменное имя и порт сервера 3
+            //Доменное имя и порт сервера 3
             getIPv4AndPortUserHost(2, ref iPorDomen, ref port);
-            ipDomenNameTxtBx_3.Text = iPorDomen;
             portTxtBx_3.Text = port;
 
             if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
                 domenNameRdBtn_3.Checked = true;
+                ipDomenNameTxtBx_3.Text = iPorDomen.Substring(1, iPorDomen.Length - 2);
+
             } else {
                 IPv4RdBtn_3.Checked = true;
+                ipDomenNameTxtBx_3.Text = parseIP(iPorDomen);
             }
+        }
+
+        /// <summary>
+        /// Дополняет пустые значения в IP адресе нулями
+        /// </summary>
+        /// <returns></returns>
+        private string parseIP(string ip) {
+
+            if (String.IsNullOrEmpty(ip)) {
+                return "";
+            }
+
+            string[] ipArr = ip.Split('.');
+            StringBuilder parseIpBuild = new StringBuilder("");
+
+            foreach (string ipValue in ipArr) {
+
+                switch(ipValue.Trim().Length) {
+
+                    case 0:
+                        parseIpBuild.Append("000");
+                        break;
+                    case 1:
+                        parseIpBuild.Append("00");
+                        parseIpBuild.Append(ipValue);
+                        break;
+                    case 2:
+                        parseIpBuild.Append("0");
+                        parseIpBuild.Append(ipValue);
+                        break;
+                    case 3:
+                        parseIpBuild.Append(ipValue);
+                        break;
+                }
+            }
+            return parseIpBuild.ToString();
         }
 
         /// <summary>
@@ -163,6 +225,8 @@ namespace GSM_NBIoT_Module.view {
         /// </summary>
         private void writeCustomServersProperties() {
             try {
+                Cursor = Cursors.WaitCursor;
+
                 getNbModemPort();
                 checkGPIO_CP2105();
 
@@ -174,7 +238,11 @@ namespace GSM_NBIoT_Module.view {
 
                 serialPort.Close();
 
+                Cursor = Cursors.Default;
+                Flasher.successfullyDialog("Настройка пользовательских серверов успешно записаны", "Запись параметров");
+
             } catch (Exception ex) {
+                Cursor = Cursors.Default;
                 serialPort.Close();
                 Flasher.exceptionDialog(ex.Message);
             }
@@ -193,16 +261,14 @@ namespace GSM_NBIoT_Module.view {
                 if (domenNameArr.Length > 28) {
                     domenOrIPv4Data.Focus();
                     domenOrIPv4Data.SelectAll();
-                    Flasher.exceptionDialog("Доменное имя не должно быть больше 28 символов");
-                    return;
+                    throw new FormatException("Доменное имя не должно быть больше 28 символов");
                 }
 
                 for (int i = 0; i < domenNameArr.Length; i++) {
                     if (domenNameArr[i] < 0x20 || domenNameArr[i] > 0x7F) {
                         domenOrIPv4Data.Focus();
                         domenOrIPv4Data.SelectAll();
-                        Flasher.exceptionDialog("Доменное имя должно содержать только ASCII символы");
-                        return;
+                        throw new FormatException("Доменное имя должно содержать только ASCII символы");
                     }
                 }
 
@@ -235,8 +301,7 @@ namespace GSM_NBIoT_Module.view {
 
                         domenOrIPv4Data.Focus();
                         domenOrIPv4Data.SelectAll();
-                        Flasher.exceptionDialog("Неверный формат записи IPv4 адреса. Значения между точек должны быть в диапазоне 0..255");
-                        return;
+                        throw new FormatException("Неверный формат записи IPv4 адреса. Значения между точек должны быть в диапазоне 0..255");
                     }
 
                     IPv4Data = ipv4Arr[0].Trim() + "." + ipv4Arr[1].Trim()+ "." + ipv4Arr[2].Trim()+ "." + ipv4Arr[3].Trim();
@@ -248,8 +313,7 @@ namespace GSM_NBIoT_Module.view {
                 if (Convert.ToInt32(portData.Text) > 65535 || Convert.ToInt32(portData.Text) < 0) {
                     portData.Focus();
                     portData.SelectAll();
-                    Flasher.exceptionDialog("Значение порта должно быть в диапазоне 0..65535");
-                    return;
+                    throw new FormatException("Значение порта должно быть в диапазоне 0..65535");
                 }
             }
 
@@ -444,6 +508,7 @@ namespace GSM_NBIoT_Module.view {
                     line = serialPort.ReadLine();
 
                     if (line.EndsWith("OK")) {
+
                         StringBuilder strBuild = new StringBuilder("");
                         int lastIndex = 0;
 
@@ -471,8 +536,23 @@ namespace GSM_NBIoT_Module.view {
                         sesslimitMsdTxtBx.Text = parseTimeForMskTxtBox(sesslimit, false);
 
                         //Добавляю HOLDTIME
-                        string holdtime = answer[6].Substring(10, answer[6].Length - 17 - 9);
-                        holdTimeMsdTxtBx.Text = parseTimeForMskTxtBox(holdtime, true);
+                        if (Convert.ToInt32(verProtTxtBx.Text.Substring(2)) < 9) {
+                            string holdtime = answer[6].Substring(10, answer[6].Length - 17 - 9);
+                            holdTimeMsdTxtBx.Text = parseTimeForMskTxtBox(holdtime, true);
+
+                            //Отключаю возможность редактирования последней команды, которую не поддерживает данная версия протокола
+                            groupBox11.Enabled = false;
+                        } else {
+
+                            string holdtime = answer[6].Substring(9, answer[6].Length - 2 - 8);
+                            holdTimeMsdTxtBx.Text = parseTimeForMskTxtBox(holdtime, true);
+                            
+                            holdtime = answer[7].Substring(15, answer[7].Length - 2 - 15 - 15);
+                            incomholdtimeMskTxtBx.Text = parseTimeForMskTxtBox(holdtime, true);
+                            groupBox11.Enabled = true;
+                        }
+
+                        return;
                     }
                 }
             }
@@ -488,9 +568,9 @@ namespace GSM_NBIoT_Module.view {
             StringBuilder parseTime = new StringBuilder("");
             int countColon = 0;
 
-            foreach (string answerValue in modemAnswer.Split(':')) {
+            foreach (string answerValue in modemAnswer.Trim().Split(':')) {
 
-                if (String.IsNullOrEmpty(answerValue)) {
+                if (String.IsNullOrEmpty(answerValue.Trim())) {
                     if (onlyMMandSS) {
                         onlyMMandSS = false;
                         continue;
@@ -521,6 +601,10 @@ namespace GSM_NBIoT_Module.view {
             string[] periodArr;
 
             try {
+                if (String.IsNullOrEmpty(verProtTxtBx.Text)) {
+                    refreshInfo.PerformClick();
+                }
+
                 //Проверка на валидность параметров-----------------------------
                 //Период инициализации севнсов связи
                 periodArr = periodMsdTxtBx.Text.Split(':');
@@ -601,25 +685,46 @@ namespace GSM_NBIoT_Module.view {
 
                 timeInSeconds = getSeconds(0, minutes, seconds);
 
-                if (timeInSeconds > 1005 || timeInSeconds < getSeconds(0, 0, 15)) {
+                if (timeInSeconds > 1005 || timeInSeconds < 15) {
                     holdTimeMsdTxtBx.Focus();
                     holdTimeMsdTxtBx.SelectAll();
                     Flasher.exceptionDialog("Время удержания сеанса связи не может быть больше 16:45 и меньше 00:15");
                     return;
                 }
 
+                //Формирую сообщение на отправку данных
+                string comandInCOM = "CONNECTING PERIOD=" + periodMsdTxtBx.Text +
+                    "; SERVICE=" + serviceMsdTxtBx.Text + ":" + ":" +
+                    "; LETWAIT=" + ":" + letwaitMsdTxtBx.Text +
+                    "; TRYLIMIT=" + trylimitMsdTxtBx.Text +
+                    "; SESSLIMIT=" + sesslimitMsdTxtBx.Text + ":" +
+                    "; HOLDTIME=" + ":" + holdTimeMsdTxtBx.Text;
+
+                //Если версия ZPorta больше 8-ой, то добавляется эта команда
+                if (Convert.ToInt32(verProtTxtBx.Text.Substring(2)) > 8) {
+
+                    periodArr = incomholdtimeMskTxtBx.Text.Split(':');
+                    minutes = Convert.ToInt32(periodArr[0]);
+                    seconds = Convert.ToInt32(periodArr[1]);
+
+                    checkTimeFormat(0, minutes, seconds, incomholdtimeMskTxtBx);
+
+                    timeInSeconds = getSeconds(0, minutes, seconds);
+
+                    if (timeInSeconds > 900 || timeInSeconds < 30) {
+                        Flasher.exceptionDialog("Время удержания входящего соединения при отсутствии поступления данных от счетчика не может быть больше 15:00 и меньше 00:30");
+                        return;
+                    }
+
+                    //Добавляю команду к сообщению
+                    comandInCOM += "; INCOMHOLDTIME=" + ":" + incomholdtimeMskTxtBx.Text;
+                }
+
                 getNbModemPort();
 
                 serialPort.Open();
 
-                serialPort.WriteLine(
-                    "CONNECTING PERIOD=" + periodMsdTxtBx.Text +
-                    "; SERVICE=" + serviceMsdTxtBx.Text+":"+":" +
-                    "; LETWAIT=" + ":"+letwaitMsdTxtBx.Text +
-                    "; TRYLIMIT=" + trylimitMsdTxtBx.Text +
-                    "; SESSLIMIT=" + sesslimitMsdTxtBx.Text +":" +
-                    "; HOLDTIME=" + ":"+holdTimeMsdTxtBx.Text
-                    );
+                serialPort.WriteLine(comandInCOM);
 
                 long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
                 string line = "";
@@ -721,12 +826,39 @@ namespace GSM_NBIoT_Module.view {
             }
         }
 
-        private void maskedTxtBx_Enter(object sender, EventArgs e) {
-            //((MaskedTextBox)sender).Selection
-        }
-
+        /// <summary>
+        /// Действие при нажатии на кнопку запись параметров в вкладке: Настройка пользовательских серверов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void setServersSettingsBtn_Click(object sender, EventArgs e) {
             writeCustomServersProperties();
+        }
+
+        private void ipDomenNameTxtBx_Enter(object sender, EventArgs e) {
+
+            MaskedTextBox maskedTextBox = sender as MaskedTextBox;
+
+            //Если поле пустое, то перевожу в начало
+            if (!String.IsNullOrEmpty(maskedTextBox.Text)) {
+                BeginInvoke((MethodInvoker)delegate () {
+                    ((MaskedTextBox)sender).SelectionStart = 0;
+                    return;
+                });
+            }
+
+            int caretIndex = ((MaskedTextBox)sender).Text.IndexOf(' ');
+            
+            if (caretIndex != -1) {
+                BeginInvoke((MethodInvoker)delegate () {
+                maskedTextBox.SelectionStart = caretIndex;
+                });
+
+            } else {
+                BeginInvoke((MethodInvoker)delegate () {
+                    maskedTextBox.SelectionStart = maskedTextBox.Text.Length;
+                });
+            }
         }
     }
 }

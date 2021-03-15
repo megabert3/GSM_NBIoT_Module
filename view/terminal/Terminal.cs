@@ -1214,7 +1214,6 @@ namespace GSM_NBIoT_Module.view {
 
         private void sendBtn_Click(object sender, EventArgs e) {
             sendCommandInCOMPort(messInCOMTxtBx.Text);
-            //messInCOMTxtBx.Text = ""; Нужно ли удалять данные после отправки
         }
 
         /// <summary>
@@ -1311,6 +1310,7 @@ namespace GSM_NBIoT_Module.view {
             } else if (e.KeyCode == Keys.S && e.Modifiers == Keys.Control) {
                 saveLog.PerformClick();
                 e.SuppressKeyPress = true;
+                return;
 
             } else if (e.KeyCode == Keys.B && e.Modifiers == Keys.Control) {
                 new CR_LF(this).ShowDialog();
