@@ -146,8 +146,8 @@ namespace GSM_NBIoT_Module.view {
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.connectingTableLayoutPanel);
             this.splitContainer1.Panel2.Controls.Add(this.userHostTableLayoutPanel);
+            this.splitContainer1.Panel2.Controls.Add(this.connectingTableLayoutPanel);
             this.splitContainer1.Size = new System.Drawing.Size(779, 485);
             this.splitContainer1.SplitterDistance = 237;
             this.splitContainer1.TabIndex = 0;
@@ -581,7 +581,7 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(524, 470);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(524, 468);
             this.tableLayoutPanel4.TabIndex = 3;
             // 
             // groupBox3
@@ -589,7 +589,7 @@ namespace GSM_NBIoT_Module.view {
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.tableLayoutPanel6);
-            this.groupBox3.Location = new System.Drawing.Point(3, 182);
+            this.groupBox3.Location = new System.Drawing.Point(3, 181);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(518, 76);
             this.groupBox3.TabIndex = 26;
@@ -920,7 +920,7 @@ namespace GSM_NBIoT_Module.view {
             // setServersSettingsBtn
             // 
             this.setServersSettingsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.setServersSettingsBtn.Location = new System.Drawing.Point(424, 444);
+            this.setServersSettingsBtn.Location = new System.Drawing.Point(424, 442);
             this.setServersSettingsBtn.Name = "setServersSettingsBtn";
             this.setServersSettingsBtn.Size = new System.Drawing.Size(97, 23);
             this.setServersSettingsBtn.TabIndex = 27;
