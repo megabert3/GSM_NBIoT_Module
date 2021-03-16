@@ -581,8 +581,11 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-
+<<<<<<< HEAD
             this.tableLayoutPanel4.Size = new System.Drawing.Size(524, 468);
+=======
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(524, 470);
+>>>>>>> aca608b50f89cca307b6dae9c51aff1b1ecb3776
             this.tableLayoutPanel4.TabIndex = 3;
             // 
             // groupBox3
@@ -590,8 +593,11 @@ namespace GSM_NBIoT_Module.view {
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.tableLayoutPanel6);
+<<<<<<< HEAD
             this.groupBox3.Location = new System.Drawing.Point(3, 181);
-
+=======
+            this.groupBox3.Location = new System.Drawing.Point(3, 182);
+>>>>>>> aca608b50f89cca307b6dae9c51aff1b1ecb3776
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(518, 76);
             this.groupBox3.TabIndex = 26;
@@ -922,7 +928,11 @@ namespace GSM_NBIoT_Module.view {
             // setServersSettingsBtn
             // 
             this.setServersSettingsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+<<<<<<< HEAD
             this.setServersSettingsBtn.Location = new System.Drawing.Point(424, 442);
+=======
+            this.setServersSettingsBtn.Location = new System.Drawing.Point(424, 444);
+>>>>>>> aca608b50f89cca307b6dae9c51aff1b1ecb3776
             this.setServersSettingsBtn.Name = "setServersSettingsBtn";
             this.setServersSettingsBtn.Size = new System.Drawing.Size(97, 23);
             this.setServersSettingsBtn.TabIndex = 27;
