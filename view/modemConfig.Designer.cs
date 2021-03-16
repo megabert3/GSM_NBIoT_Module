@@ -146,8 +146,8 @@ namespace GSM_NBIoT_Module.view {
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.userHostTableLayoutPanel);
             this.splitContainer1.Panel2.Controls.Add(this.connectingTableLayoutPanel);
+            this.splitContainer1.Panel2.Controls.Add(this.userHostTableLayoutPanel);
             this.splitContainer1.Size = new System.Drawing.Size(779, 485);
             this.splitContainer1.SplitterDistance = 237;
             this.splitContainer1.TabIndex = 0;
@@ -581,6 +581,7 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+
             this.tableLayoutPanel4.Size = new System.Drawing.Size(524, 468);
             this.tableLayoutPanel4.TabIndex = 3;
             // 
@@ -590,6 +591,7 @@ namespace GSM_NBIoT_Module.view {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.tableLayoutPanel6);
             this.groupBox3.Location = new System.Drawing.Point(3, 181);
+
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(518, 76);
             this.groupBox3.TabIndex = 26;
