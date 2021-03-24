@@ -10,13 +10,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GSM_NBIoT_Module.classes.controllerOnBoard.Configuration;
 
-namespace GSM_NBIoT_Module
-{
+namespace GSM_NBIoT_Module {
+
     /// <summary>
     /// Окно создания и редактирования конфигурации
     /// </summary>
-    public partial class AddEditConfigurationForm : Form
-    {
+    public partial class AddEditConfigurationForm : Form {
         private ConfigurationFrame configurationFrame;
         private ConfigurationFW configuration;
 
@@ -36,13 +35,12 @@ namespace GSM_NBIoT_Module
             Text = header;
             this.newConfiguration = newConfiguration;
 
-            this.configurationFrame = (ConfigurationFrame) configurationFrame;
+            this.configurationFrame = (ConfigurationFrame)configurationFrame;
             this.configuration = configuration;
 
-            //Добавление слушателя на изменение маски при выборе типа доменного имени
-            domenNameRdBtn.CheckedChanged += domenNameBtn_CheckedChanged;
-            IPv4rdBtn.CheckedChanged += domenNameBtn_CheckedChanged;
-            IPv6rdBtn.CheckedChanged += domenNameBtn_CheckedChanged;
+            domenNameRdBtn.CheckedChanged += IPrdBtn_CheckedChanged;
+            IPv4rdBtn.CheckedChanged += IPrdBtn_CheckedChanged;
+            IPv6rdBtn.CheckedChanged += IPrdBtn_CheckedChanged;
 
             if (configuration.getQuectelCommandList().Count > 0) {
 
@@ -85,7 +83,7 @@ namespace GSM_NBIoT_Module
                         break;
                 }
 
-                domenNameMskTxtBox.Text = configuration.getDomenName();
+                domenNameTxtBox.Text = configuration.getDomenName();
 
                 pathToFW_MKtxtBx.Text = configuration.getFwForMKName();
                 pathToFW_QuectelTxtBx.Text = configuration.getfwForQuectelName();
@@ -112,6 +110,7 @@ namespace GSM_NBIoT_Module
             addEditConfToolTip.SetToolTip(domenNameRdBtn, "Доменное имя должно именть знак \" в начале и в конце.\nДоменное имя должно быть не более 28 символов.\nПример: \"devices.226.taipit.ru\"");
 
             addEditConfToolTip.SetToolTip(IPv4rdBtn, "Формат \"XXX.XXX.XXX.XXX\", где ХХХ это цифры");
+            addEditConfToolTip.SetToolTip(IPv6rdBtn, "Формат \"XXXX:XXXX:XXXX:XXXX:XXXX:XXXX:XXXX:XXXX\", где Х в диапазоне от 0..F (HEX)");
 
             addEditConfToolTip.SetToolTip(target_IDtxtBox, "Значение должно быть в диапазоне: 0..255");
             addEditConfToolTip.SetToolTip(protocol_idTxtBox, "Значение должно быть в диапазоне: 0..255");
@@ -120,8 +119,7 @@ namespace GSM_NBIoT_Module
             addEditConfToolTip.SetToolTip(portTxtBox, "Значение должно быть в диапазоне: 0..65535");
         }
 
-        private void pathToFW_MKBtn_Click(object sender, EventArgs e)
-        {
+        private void pathToFW_MKBtn_Click(object sender, EventArgs e) {
             //Директория где хранятся прошивки для микроконтроллера
             string dirStorageForMKFW = Directory.GetCurrentDirectory() + "\\StorageMKFW";
 
@@ -130,8 +128,7 @@ namespace GSM_NBIoT_Module
                 Directory.CreateDirectory(dirStorageForMKFW);
             }
 
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog()) {
                 openFileDialog.InitialDirectory = dirStorageForMKFW;
                 openFileDialog.Filter = "hex files (*.hex)|*.hex|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 1;
@@ -143,8 +140,7 @@ namespace GSM_NBIoT_Module
             }
         }
 
-        private void pathToFW_QuectelBtn_Click(object sender, EventArgs e)
-        {
+        private void pathToFW_QuectelBtn_Click(object sender, EventArgs e) {
             //Директория где хранятся прошивки для микроконтроллера
             string dirStorageForQuectelFW = Directory.GetCurrentDirectory() + "\\StorageQuectelFW";
 
@@ -193,7 +189,7 @@ namespace GSM_NBIoT_Module
                 String.IsNullOrEmpty(protocol_idTxtBox.Text.Trim()) ||
                 String.IsNullOrEmpty(indexTxtBox.Text.Trim()) ||
                 String.IsNullOrEmpty(portTxtBox.Text.Trim()) ||
-                String.IsNullOrEmpty(domenNameMskTxtBox.Text) ||
+                String.IsNullOrEmpty(domenNameTxtBox.Text) ||
                 String.IsNullOrEmpty(ConfigNameTxtBx.Text.Trim())) {
 
                 Flasher.exceptionDialog("Поля: Target_ID, Protocol_ID, Index, Порт, Доменное имя / IPv4, не должны быть пустыми");
@@ -204,7 +200,7 @@ namespace GSM_NBIoT_Module
             name = ConfigNameTxtBx.Text.Trim();
 
             ConfigurationFileStorage configurationFileStorage = ConfigurationFileStorage.GetConfigurationFileStorageInstanse();
-            
+
             //Проверка, что поля заполненны цифрами
             try {
                 target_ID = Convert.ToInt32(target_IDtxtBox.Text);
@@ -236,77 +232,112 @@ namespace GSM_NBIoT_Module
             }
 
             //Получаю текстовое представление адреса
-            domenName = domenNameMskTxtBox.Text;
+            domenName = domenNameTxtBox.Text;
 
             //Если пользователь выбрал адрес в формате IP
             if (IPv4rdBtn.Checked) {
 
-                string ipv4 = domenNameMskTxtBox.Text;
+                try {
+                    string ipv4 = domenNameTxtBox.Text.Trim();
 
-                List<byte> listByteIPv4 = new List<byte>();
+                    string[] ipv4Arr = ipv4.Split('.');
 
-                foreach (string ipV4Cell in ipv4.Split('.')) {
+                    List<byte> byteList = new List<byte>();
 
-                    if (String.IsNullOrEmpty(ipV4Cell.Trim())) {
-                        Flasher.exceptionDialog("Неверный формат записи в поле IPv4 формат, должен иметь вид XXX.XXX.XXX.XXX, где XXX могут иметь значения от 0..255");
-                        domenNameMskTxtBox.Focus();
-                        domenNameMskTxtBox.SelectAll();
-                        return;
+                    if (ipv4Arr.Length != 4) throw new FormatException();
+
+                    foreach (string ipNode in ipv4Arr) {
+                        if (String.IsNullOrEmpty(ipNode.Trim())) {
+                            byteList.Add(0);
+                            continue;
+                        }
+
+                        int localByte = Convert.ToInt32(ipNode.Trim());
+
+                        if (localByte < 0 || localByte > 255) throw new FormatException();
+
+                        byteList.Add((byte)localByte);
                     }
 
-                    int localByteBlock = Convert.ToInt32(ipV4Cell);
+                    domenNameByteArr = byteList.ToArray();
 
-                    if (localByteBlock < 0 || localByteBlock > 255) {
-                        Flasher.exceptionDialog("Неверный формат записи в поле IPv4 формат, должен иметь вид XXX.XXX.XXX.XXX, где XXX могут иметь значения от 0..255");
-                        domenNameMskTxtBox.Focus();
-                        domenNameMskTxtBox.SelectAll();
-                        return;
-                    }
+                    domenName = byteList[0] + "." +
+                        byteList[1] + "." +
+                        byteList[2] + "." +
+                        byteList[3];
 
-                    listByteIPv4.Add((byte)localByteBlock);
+                } catch (Exception) {
+                    domenNameTxtBox.Focus();
+                    domenNameTxtBox.SelectAll();
+                    Flasher.exceptionDialog("Неверный формат записи IPv4, формат должен иметь вид xxx.xxx.xxx.xxx, где xxx могут иметь значения от 0..255");
+                    return;
                 }
-
-                domenNameByteArr = listByteIPv4.ToArray();
-                domenName = domenNameMskTxtBox.Text;
 
                 //Селектор для IPv4
                 selector = 0x01;
-                
+
+                //Если выбран формат IPv6
             } else if (IPv6rdBtn.Checked) {
 
-                string ipv6 = domenNameMskTxtBox.Text;
+                try {
+                    string ipv6 = domenNameTxtBox.Text.Trim();
 
-                string[] ipv6Arr = ipv6.Split(':');
+                    string localDomenName = "";
 
-                List<byte> listByteIPv6 = new List<byte>();
+                    string[] ipv6Arr = ipv6.Split(':');
 
-                foreach (string cell in ipv6Arr) {
+                    List<byte> listByteIPv6 = new List<byte>();
 
-                    string cell_2_Byte = cell.Trim();
+                    if (ipv6Arr.Length != 8) throw new FormatException();
 
-                    if (cell_2_Byte.Length < 4) {
-                        Flasher.exceptionDialog("Неверный формат записи IPv6, формат должен иметь вид XXXX:XXXX:XXXX:XXXX:XXXX:XXXX, где XXXX могут иметь значения от 0..F (hex)");
-                        domenNameMskTxtBox.Focus();
-                        domenNameMskTxtBox.SelectAll();
-                        return;
+                    foreach (string cell in ipv6Arr) {
+
+                        string cell_2_Byte = cell.Trim();
+
+                        if (cell_2_Byte.Length > 4) throw new FormatException();
+
+                        if (String.IsNullOrEmpty(cell_2_Byte)) {
+                            listByteIPv6.AddRange(new byte[] { 0, 0 });
+                            localDomenName += "0:";
+                            continue;
+                        }
+
+                        //В зависимости от длины формата ячейки с адресом заполняю массив байтами
+                        if (cell_2_Byte.Length <= 2) {
+                            listByteIPv6.Add(0);
+                            listByteIPv6.Add(Convert.ToByte(cell_2_Byte, 16));
+
+                        } else {
+                            if (cell_2_Byte.Length == 3) {
+                                listByteIPv6.Add(Convert.ToByte(cell_2_Byte.Substring(0, 1), 16));
+                                listByteIPv6.Add(Convert.ToByte(cell_2_Byte.Substring(1), 16));
+
+                            } else {
+                                string messArr = cell_2_Byte.Substring(0, 2);
+                                string arr = cell_2_Byte.Substring(2);
+                                listByteIPv6.Add(Convert.ToByte(cell_2_Byte.Substring(0, 2), 16));
+                                listByteIPv6.Add(Convert.ToByte(cell_2_Byte.Substring(2), 16));
+                            }
+                        }
+
+                        localDomenName += cell_2_Byte + ":";
                     }
 
-                    try {
-                        listByteIPv6.Add(Convert.ToByte(cell_2_Byte.Substring(0, 2), 16));
-                        listByteIPv6.Add(Convert.ToByte(cell_2_Byte.Substring(2, 2), 16));
+                    //2001:DB0:0:123A:0:0:0:30
+                    domenNameByteArr = listByteIPv6.ToArray();
+                    domenName = localDomenName.Substring(0, localDomenName.Length - 1);
 
-                    }catch (Exception) {
-                        Flasher.exceptionDialog("Неверный формат записи IPv6, формат должен иметь вид XXXX:XXXX:XXXX:XXXX:XXXX:XXXX, где XXXX могут иметь значения от 0..F (hex)");
-                        domenNameMskTxtBox.Focus();
-                        domenNameMskTxtBox.SelectAll();
-                        return;
-                    }
+                    //Селектор для IPv6
+                    selector = 0x02;
+
+                } catch (Exception ex) {
+
+                    domenNameTxtBox.Focus();
+                    domenNameTxtBox.SelectAll();
+                    Flasher.exceptionDialog("Неверный формат записи IPv6, диапазон каждого значения в одном хекстете может быть от 0..F (HEX)" +
+                        "\nПример записи: 2001:DB0:0:123A::::30");
+                    return;
                 }
-
-                domenNameByteArr = listByteIPv6.ToArray();
-                domenName = domenNameMskTxtBox.Text;
-                //Селектор для IPv4
-                selector = 0x02;
 
                 //Если пользователь выбрал адрес в формате доменного имени
             } else {
@@ -357,57 +388,68 @@ namespace GSM_NBIoT_Module
 
             //Проверка параметров настройки локальной сети
             //Проверка порта
-            if (!String.IsNullOrEmpty(portListenTxtBx.Text.Trim())) {
+            if (String.IsNullOrEmpty(portListenTxtBx.Text.Trim())) {
+                portListenTxtBx.Focus();
+                portListenTxtBx.SelectAll();
+                Flasher.exceptionDialog("Значение порта локальной сети должно быть целочисленным числом в диапозоне 1..65535");
+                return;
+            }
 
-                if (Int32.TryParse(portListenTxtBx.Text.Trim(), out listenPort)) {
+            if (int.TryParse(portListenTxtBx.Text.Trim(), out listenPort)) {
 
-                    if (listenPort < 1 || listenPort > 65535) {
-                        portListenTxtBx.Focus();
-                        portListenTxtBx.SelectAll();
-                        Flasher.exceptionDialog("значение порта локальной сети должно быть в диапазоне 1..65535");
-                        return;
-                    }
-
-                } else {
+                if (listenPort < 1 || listenPort > 65535) {
                     portListenTxtBx.Focus();
                     portListenTxtBx.SelectAll();
-                    Flasher.exceptionDialog("Значение порта локальной сети должно быть целочисленным числом");
+                    Flasher.exceptionDialog("значение порта входящего соединения должно быть в диапазоне 1..65535");
+                    return;
+                }
+
+            } else {
+                portListenTxtBx.Focus();
+                portListenTxtBx.SelectAll();
+                Flasher.exceptionDialog("Значение порта входящего соединения должно быть целочисленным числом");
+                return;
+            }
+
+            //Если поле доменного имени пустое
+            if (String.IsNullOrEmpty(APN_domenName.Text.Trim())) {
+                APN_domenName.Focus();
+                APN_domenName.SelectAll();
+                Flasher.exceptionDialog("Неверный формат APN. APN должно иметь знак \" в начале и в конце имени");
+                return;
+            }
+
+            APN_DomenName = APN_domenName.Text.Trim();
+
+            char[] APN_DomenNameCharArr = APN_DomenName.ToCharArray();
+
+            //Проверка, что доменное имя в кавычках
+            if (APN_DomenNameCharArr[0] != '"' || APN_DomenNameCharArr[APN_DomenNameCharArr.Length - 1] != '"') {
+                APN_domenName.Focus();
+                APN_domenName.SelectAll();
+                Flasher.exceptionDialog("Неверный формат APN. APN должно иметь знак \" в начале и в конце имени");
+                return;
+            }
+
+            //С учётом кавычек
+            if (APN_DomenName.Length - 2 > 28) {
+                Flasher.exceptionDialog("Неверный формат APN. APN не должно быть больше 28 символов");
+                APN_domenName.Focus();
+                APN_domenName.SelectAll();
+                return;
+            }
+
+            for (int i = 1; i < APN_DomenName.Length - 1; i++) {
+
+                if (APN_DomenNameCharArr[i] < 0x20 || APN_DomenNameCharArr[i] > 0x7F) {
+                    Flasher.exceptionDialog("Доменное имя должно содержать только ASCII символы");
                     return;
                 }
             }
 
-            //Если поле доменного имени не пустое
-            if (!String.IsNullOrEmpty(APN_domenName.Text.Trim())) {
+            //Сохраняю доменное имя, но уже без кавычек
+            APN_DomenNameByteArr = Encoding.ASCII.GetBytes(APN_DomenName.Substring(1, APN_DomenName.Length - 2));
 
-                APN_DomenName = APN_domenName.Text.Trim();
-
-                char[] APN_DomenNameCharArr = APN_DomenName.ToCharArray();
-
-                //Проверка, что доменное имя в кавычках
-                if (APN_DomenNameCharArr[0] != '"' || APN_DomenNameCharArr[APN_DomenNameCharArr.Length - 1] != '"') {
-                    APN_domenName.Focus();
-                    APN_domenName.SelectAll();
-                    Flasher.exceptionDialog("Неверный формат доменного имени. Доменное имя должно иметь знак \" в начале и в конце имени");
-                    return;
-                }
-
-                //С учётом кавычек
-                if (APN_DomenName.Length - 2 > 28) {
-                    Flasher.exceptionDialog("Доменное имя не должно быть больше 28 символов");
-                    return;
-                }
-
-                for (int i = 1; i < APN_DomenName.Length - 1; i++) {
-
-                    if (APN_DomenNameCharArr[i] < 0x20 || APN_DomenNameCharArr[i] > 0x7F) {
-                        Flasher.exceptionDialog("Доменное имя должно содержать только ASCII символы");
-                        return;
-                    }
-                }
-
-                //Сохраняю доменное имя, но уже без кавычек
-                APN_DomenNameByteArr = Encoding.ASCII.GetBytes(APN_DomenName.Substring(1, APN_DomenName.Length - 2));
-            }
 
             //Если имя конфигурации не равно старому
             if (!configuration.getName().Equals(name) && !String.IsNullOrWhiteSpace(configuration.getName())) {
@@ -723,28 +765,8 @@ namespace GSM_NBIoT_Module
             quectelCommnadsdtGrdView.BeginEdit(true);
         }
 
-        private void IPv4rdBtn_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
-        //Действие при изменении формата записи доменного имени (Доменное имя/ IPv4/ IPv6)
-        private void domenNameBtn_CheckedChanged(object sender, EventArgs e) {
-
-            if (domenNameRdBtn.Checked) {
-                domenNameMskTxtBox.Mask = "";
-
-            } else if (IPv4rdBtn.Checked) {
-                domenNameMskTxtBox.Mask = "000.000.000.000";
-
-            } else {
-                domenNameMskTxtBox.Mask = "AAAA:AAAA:AAAA:AAAA:AAAA:AAAA:AAAA:AAAA";
-            }
-        }
-
         private void domenNameMskTxtBox_Enter(object sender, EventArgs e) {
             MaskedTextBox maskedTextBox = sender as MaskedTextBox;
-
-            domenNameMskTxtBox.Text = "";
 
             //Если поле пустое, то перевожу в начало
             if (!String.IsNullOrEmpty(maskedTextBox.Text)) {
@@ -765,6 +787,62 @@ namespace GSM_NBIoT_Module
                 BeginInvoke((MethodInvoker)delegate () {
                     maskedTextBox.SelectionStart = maskedTextBox.Text.Length;
                 });
+            }
+        }
+
+        /// <summary>
+        /// Проверяет правильность введённого формата IPv4 адреса
+        /// </summary>
+        private void checkAndAddIPv4() {
+            string ipv4 = domenNameTxtBox.Text.Trim();
+
+            string[] ipv4Arr = ipv4.Split('.');
+
+            List<byte> byteList = new List<byte>();
+
+            if (ipv4Arr.Length != 4) throw new FormatException();
+
+            foreach (string ipNode in ipv4Arr) {
+                if (String.IsNullOrEmpty(ipNode.Trim())) {
+                    byteList.Add(0);
+                    continue;
+                }
+
+                int localByte = Convert.ToInt32(ipNode.Trim());
+
+                if (localByte < 0 || localByte > 255) throw new FormatException();
+
+                byteList.Add((byte)localByte);
+            }
+        }
+
+        private string domenName = "";
+        private string ipv4 = "";
+        private string ipv6 = "";
+        /// <summary>
+        /// Сохраняет предыдущие данные введённые пользователем
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void domenNameTxtBox_TextChanged(object sender, EventArgs e) {
+            if (domenNameRdBtn.Checked) {
+                domenName = domenNameTxtBox.Text;
+
+            } else if (IPv4rdBtn.Checked) {
+                ipv4 = domenNameTxtBox.Text;
+
+            } else {
+                ipv6 = domenNameTxtBox.Text;
+            }
+        }
+
+        private void IPrdBtn_CheckedChanged(object sender, EventArgs e) {
+            if (sender == domenNameRdBtn) {
+                domenNameTxtBox.Text = domenName;
+            } else if (sender == IPv4rdBtn) {
+                domenNameTxtBox.Text = ipv4;
+            } else {
+                domenNameTxtBox.Text = ipv6;
             }
         }
     }

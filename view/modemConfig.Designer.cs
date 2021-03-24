@@ -146,8 +146,8 @@ namespace GSM_NBIoT_Module.view {
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.connectingTableLayoutPanel);
             this.splitContainer1.Panel2.Controls.Add(this.userHostTableLayoutPanel);
+            this.splitContainer1.Panel2.Controls.Add(this.connectingTableLayoutPanel);
             this.splitContainer1.Size = new System.Drawing.Size(779, 485);
             this.splitContainer1.SplitterDistance = 237;
             this.splitContainer1.TabIndex = 0;

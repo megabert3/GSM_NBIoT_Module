@@ -42,8 +42,8 @@ namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
         private byte selectorIPv6 = 0x02; //IPv6
 
         //Новыве параметры (03.03.2021)
-        private ushort listenPort = 1;
-        private string APN_Name = "";
+        private ushort listenPort = 4059;
+        private string APN_Name = "\"\"";
         private byte[] APN_NameByteArr;
 
         //Лист с командами конфигурации модуля Quectel

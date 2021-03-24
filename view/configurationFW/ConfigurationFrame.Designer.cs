@@ -52,7 +52,7 @@
             // addConfigurationBtn
             // 
             this.addConfigurationBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.addConfigurationBtn.Location = new System.Drawing.Point(847, 473);
+            this.addConfigurationBtn.Location = new System.Drawing.Point(851, 473);
             this.addConfigurationBtn.Name = "addConfigurationBtn";
             this.addConfigurationBtn.Size = new System.Drawing.Size(115, 25);
             this.addConfigurationBtn.TabIndex = 11;
@@ -73,7 +73,7 @@
             // editConfigurationBtn
             // 
             this.editConfigurationBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.editConfigurationBtn.Location = new System.Drawing.Point(993, 473);
+            this.editConfigurationBtn.Location = new System.Drawing.Point(997, 473);
             this.editConfigurationBtn.Name = "editConfigurationBtn";
             this.editConfigurationBtn.Size = new System.Drawing.Size(115, 25);
             this.editConfigurationBtn.TabIndex = 27;
@@ -84,7 +84,7 @@
             // deleteConfigurationBtn
             // 
             this.deleteConfigurationBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.deleteConfigurationBtn.Location = new System.Drawing.Point(1114, 473);
+            this.deleteConfigurationBtn.Location = new System.Drawing.Point(1118, 473);
             this.deleteConfigurationBtn.Name = "deleteConfigurationBtn";
             this.deleteConfigurationBtn.Size = new System.Drawing.Size(115, 25);
             this.deleteConfigurationBtn.TabIndex = 26;
@@ -96,9 +96,6 @@
             // 
             this.configurationDataGridView.AllowUserToDeleteRows = false;
             this.configurationDataGridView.AllowUserToResizeRows = false;
-            this.configurationDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.configurationDataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.configurationDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.configurationDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -123,7 +120,7 @@
             this.configurationDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.configurationDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.configurationDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.configurationDataGridView.Size = new System.Drawing.Size(1216, 431);
+            this.configurationDataGridView.Size = new System.Drawing.Size(1220, 431);
             this.configurationDataGridView.TabIndex = 31;
             this.configurationDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.configurationDataGridView_CellClick);
             this.configurationDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.configurationDataGridView_CellMouseDoubleClick);
@@ -153,7 +150,7 @@
             // copyBtn
             // 
             this.copyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.copyBtn.Location = new System.Drawing.Point(711, 473);
+            this.copyBtn.Location = new System.Drawing.Point(715, 473);
             this.copyBtn.Name = "copyBtn";
             this.copyBtn.Size = new System.Drawing.Size(115, 25);
             this.copyBtn.TabIndex = 34;
@@ -240,14 +237,14 @@
             // 
             // APNName
             // 
-            this.APNName.HeaderText = "Доменное имя APN";
+            this.APNName.HeaderText = "APN";
             this.APNName.Name = "APNName";
             this.APNName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.APNName.Width = 150;
             // 
             // ListenPort
             // 
-            this.ListenPort.HeaderText = "Порт APN";
+            this.ListenPort.HeaderText = "Порт входящего соединения";
             this.ListenPort.Name = "ListenPort";
             this.ListenPort.ReadOnly = true;
             this.ListenPort.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -257,7 +254,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1240, 507);
+            this.ClientSize = new System.Drawing.Size(1244, 507);
             this.Controls.Add(this.copyBtn);
             this.Controls.Add(this.setPasswordBtn);
             this.Controls.Add(this.label11);

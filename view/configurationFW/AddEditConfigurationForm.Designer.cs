@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEditConfigurationForm));
             this.saveEditsBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
@@ -41,12 +42,11 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.portTxtBox = new System.Windows.Forms.TextBox();
             this.APN_domenName = new System.Windows.Forms.TextBox();
             this.portListenTxtBx = new System.Windows.Forms.TextBox();
-            this.portTxtBox = new System.Windows.Forms.TextBox();
             this.protocol_idTxtBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,8 +54,8 @@
             this.indexTxtBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.domenNameTxtBox = new System.Windows.Forms.TextBox();
             this.IPv6rdBtn = new System.Windows.Forms.RadioButton();
-            this.domenNameMskTxtBox = new System.Windows.Forms.MaskedTextBox();
             this.IPv4rdBtn = new System.Windows.Forms.RadioButton();
             this.domenNameRdBtn = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
@@ -72,11 +72,11 @@
             this.quectelCommandTxtBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.ConfigNameTxtBx = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.groupBox5.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.quectelCommnadsdtGrdView)).BeginInit();
@@ -85,7 +85,7 @@
             // saveEditsBtn
             // 
             this.saveEditsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveEditsBtn.Location = new System.Drawing.Point(706, 304);
+            this.saveEditsBtn.Location = new System.Drawing.Point(706, 278);
             this.saveEditsBtn.Name = "saveEditsBtn";
             this.saveEditsBtn.Size = new System.Drawing.Size(115, 25);
             this.saveEditsBtn.TabIndex = 41;
@@ -96,7 +96,7 @@
             // cancelBtn
             // 
             this.cancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelBtn.Location = new System.Drawing.Point(558, 304);
+            this.cancelBtn.Location = new System.Drawing.Point(558, 278);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(115, 25);
             this.cancelBtn.TabIndex = 42;
@@ -177,14 +177,12 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(34, 57);
+            this.tabControl1.Location = new System.Drawing.Point(17, 57);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(512, 276);
+            this.tabControl1.Size = new System.Drawing.Size(529, 250);
             this.tabControl1.TabIndex = 46;
             // 
             // tabPage1
@@ -193,15 +191,18 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(504, 250);
+            this.tabPage1.Size = new System.Drawing.Size(521, 224);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Конфигурация микроконтроллера";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.groupBox1);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.portTxtBox);
+            this.groupBox4.Controls.Add(this.APN_domenName);
+            this.groupBox4.Controls.Add(this.portListenTxtBx);
             this.groupBox4.Controls.Add(this.protocol_idTxtBox);
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this.label1);
@@ -213,55 +214,28 @@
             this.groupBox4.Controls.Add(this.MCL_chkBox);
             this.groupBox4.Location = new System.Drawing.Point(6, 12);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(509, 232);
+            this.groupBox4.Size = new System.Drawing.Size(509, 206);
             this.groupBox4.TabIndex = 24;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Конфигурация микроконтроллера";
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.APN_domenName);
-            this.groupBox1.Controls.Add(this.portListenTxtBx);
-            this.groupBox1.Location = new System.Drawing.Point(6, 149);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(475, 65);
-            this.groupBox1.TabIndex = 11;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Настройки локальной сети";
-            // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 21);
+            this.label6.Location = new System.Drawing.Point(9, 150);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 13);
+            this.label6.Size = new System.Drawing.Size(110, 28);
             this.label6.TabIndex = 12;
-            this.label6.Text = "Порт";
+            this.label6.Text = "Порт входящего соединения";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(161, 21);
+            this.label5.Location = new System.Drawing.Point(167, 164);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(134, 13);
+            this.label5.Size = new System.Drawing.Size(29, 13);
             this.label5.TabIndex = 2;
-            this.label5.Text = "Доменное имя APN сети";
-            // 
-            // APN_domenName
-            // 
-            this.APN_domenName.Location = new System.Drawing.Point(164, 37);
-            this.APN_domenName.Name = "APN_domenName";
-            this.APN_domenName.Size = new System.Drawing.Size(288, 20);
-            this.APN_domenName.TabIndex = 1;
-            // 
-            // portListenTxtBx
-            // 
-            this.portListenTxtBx.Location = new System.Drawing.Point(17, 37);
-            this.portListenTxtBx.Name = "portListenTxtBx";
-            this.portListenTxtBx.Size = new System.Drawing.Size(115, 20);
-            this.portListenTxtBx.TabIndex = 0;
+            this.label5.Text = "APN";
             // 
             // portTxtBox
             // 
@@ -271,10 +245,26 @@
             this.portTxtBox.Size = new System.Drawing.Size(115, 20);
             this.portTxtBox.TabIndex = 8;
             // 
+            // APN_domenName
+            // 
+            this.APN_domenName.Location = new System.Drawing.Point(170, 180);
+            this.APN_domenName.Name = "APN_domenName";
+            this.APN_domenName.Size = new System.Drawing.Size(288, 20);
+            this.APN_domenName.TabIndex = 1;
+            this.APN_domenName.Text = "\"\"";
+            // 
+            // portListenTxtBx
+            // 
+            this.portListenTxtBx.Location = new System.Drawing.Point(11, 180);
+            this.portListenTxtBx.Name = "portListenTxtBx";
+            this.portListenTxtBx.Size = new System.Drawing.Size(115, 20);
+            this.portListenTxtBx.TabIndex = 0;
+            this.portListenTxtBx.Text = "4059";
+            // 
             // protocol_idTxtBox
             // 
             this.protocol_idTxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.protocol_idTxtBox.Location = new System.Drawing.Point(23, 82);
+            this.protocol_idTxtBox.Location = new System.Drawing.Point(11, 82);
             this.protocol_idTxtBox.Name = "protocol_idTxtBox";
             this.protocol_idTxtBox.Size = new System.Drawing.Size(115, 20);
             this.protocol_idTxtBox.TabIndex = 3;
@@ -282,7 +272,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 66);
+            this.label2.Location = new System.Drawing.Point(8, 66);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 13);
             this.label2.TabIndex = 4;
@@ -291,7 +281,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 27);
+            this.label1.Location = new System.Drawing.Point(8, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 2;
@@ -300,7 +290,7 @@
             // target_IDtxtBox
             // 
             this.target_IDtxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.target_IDtxtBox.Location = new System.Drawing.Point(23, 43);
+            this.target_IDtxtBox.Location = new System.Drawing.Point(11, 43);
             this.target_IDtxtBox.Name = "target_IDtxtBox";
             this.target_IDtxtBox.Size = new System.Drawing.Size(115, 20);
             this.target_IDtxtBox.TabIndex = 1;
@@ -308,7 +298,7 @@
             // indexTxtBox
             // 
             this.indexTxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.indexTxtBox.Location = new System.Drawing.Point(23, 121);
+            this.indexTxtBox.Location = new System.Drawing.Point(11, 121);
             this.indexTxtBox.Name = "indexTxtBox";
             this.indexTxtBox.Size = new System.Drawing.Size(115, 20);
             this.indexTxtBox.TabIndex = 5;
@@ -316,7 +306,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 106);
+            this.label3.Location = new System.Drawing.Point(8, 106);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(33, 13);
             this.label3.TabIndex = 6;
@@ -324,15 +314,23 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.domenNameTxtBox);
             this.groupBox2.Controls.Add(this.IPv6rdBtn);
-            this.groupBox2.Controls.Add(this.domenNameMskTxtBox);
             this.groupBox2.Controls.Add(this.IPv4rdBtn);
             this.groupBox2.Controls.Add(this.domenNameRdBtn);
             this.groupBox2.Location = new System.Drawing.Point(153, 72);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(328, 71);
+            this.groupBox2.Size = new System.Drawing.Size(328, 78);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
+            // 
+            // domenNameTxtBox
+            // 
+            this.domenNameTxtBox.Location = new System.Drawing.Point(17, 45);
+            this.domenNameTxtBox.Name = "domenNameTxtBox";
+            this.domenNameTxtBox.Size = new System.Drawing.Size(288, 20);
+            this.domenNameTxtBox.TabIndex = 13;
+            this.domenNameTxtBox.TextChanged += new System.EventHandler(this.domenNameTxtBox_TextChanged);
             // 
             // IPv6rdBtn
             // 
@@ -345,14 +343,6 @@
             this.IPv6rdBtn.Text = "IPv6 адрес";
             this.IPv6rdBtn.UseVisualStyleBackColor = true;
             // 
-            // domenNameMskTxtBox
-            // 
-            this.domenNameMskTxtBox.Location = new System.Drawing.Point(17, 45);
-            this.domenNameMskTxtBox.Name = "domenNameMskTxtBox";
-            this.domenNameMskTxtBox.Size = new System.Drawing.Size(288, 20);
-            this.domenNameMskTxtBox.TabIndex = 11;
-            this.domenNameMskTxtBox.Enter += new System.EventHandler(this.domenNameMskTxtBox_Enter);
-            // 
             // IPv4rdBtn
             // 
             this.IPv4rdBtn.AutoSize = true;
@@ -362,7 +352,6 @@
             this.IPv4rdBtn.TabIndex = 1;
             this.IPv4rdBtn.Text = "IPv4 адрес";
             this.IPv4rdBtn.UseVisualStyleBackColor = true;
-            this.IPv4rdBtn.CheckedChanged += new System.EventHandler(this.IPv4rdBtn_CheckedChanged);
             // 
             // domenNameRdBtn
             // 
@@ -408,7 +397,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(504, 250);
+            this.tabPage2.Size = new System.Drawing.Size(521, 224);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Конфигурация модуля Quectel";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -526,11 +515,16 @@
             this.ConfigNameTxtBx.Size = new System.Drawing.Size(525, 20);
             this.ConfigNameTxtBx.TabIndex = 44;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // AddEditConfigurationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(845, 345);
+            this.ClientSize = new System.Drawing.Size(845, 318);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label8);
@@ -552,8 +546,6 @@
             this.tabPage1.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabPage2.ResumeLayout(false);
@@ -601,12 +593,12 @@
         private System.Windows.Forms.TextBox ConfigNameTxtBx;
         private System.Windows.Forms.Button upCommandBtn;
         private System.Windows.Forms.Button downCommandBtn;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox APN_domenName;
         private System.Windows.Forms.TextBox portListenTxtBx;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.MaskedTextBox domenNameMskTxtBox;
         private System.Windows.Forms.RadioButton IPv6rdBtn;
+        private System.Windows.Forms.TextBox domenNameTxtBox;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }

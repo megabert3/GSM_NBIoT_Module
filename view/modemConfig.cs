@@ -149,8 +149,7 @@ namespace GSM_NBIoT_Module.view {
 
             if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
                 domenNameRdBtn_1.Checked = true;
-                //Убираю кавычки
-                ipDomenNameTxtBx_1.Text = iPorDomen.Substring(1, iPorDomen.Length - 2);
+                ipDomenNameTxtBx_1.Text = iPorDomen;
 
             } else {
                 IPv4RdBtn_1.Checked = true;
@@ -163,7 +162,7 @@ namespace GSM_NBIoT_Module.view {
 
             if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
                 domenNameRdBtn_2.Checked = true;
-                ipDomenNameTxtBx_2.Text = iPorDomen.Substring(1, iPorDomen.Length - 2);
+                ipDomenNameTxtBx_2.Text = iPorDomen;
 
             } else {
                 IPv4RdBtn_2.Checked = true;
@@ -176,7 +175,7 @@ namespace GSM_NBIoT_Module.view {
 
             if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
                 domenNameRdBtn_3.Checked = true;
-                ipDomenNameTxtBx_3.Text = iPorDomen.Substring(1, iPorDomen.Length - 2);
+                ipDomenNameTxtBx_3.Text = iPorDomen;
 
             } else {
                 IPv4RdBtn_3.Checked = true;
@@ -257,14 +256,21 @@ namespace GSM_NBIoT_Module.view {
             if (domenOrIPv4Check.Checked) {
 
                 char[] domenNameArr = domenOrIPv4Data.Text.ToCharArray();
-                //С учётом кавычек
-                if (domenNameArr.Length > 28) {
+
+                if (domenNameArr[0] != '\"' || domenNameArr[domenNameArr.Length - 1] != '\"') {
+                    domenOrIPv4Data.Focus();
+                    domenOrIPv4Data.SelectAll();
+                    throw new FormatException("Доменное имя должно содержать знак \" в начале и конце");
+                }
+
+                //C учётом кавычек
+                if (domenNameArr.Length - 2 > 28) {
                     domenOrIPv4Data.Focus();
                     domenOrIPv4Data.SelectAll();
                     throw new FormatException("Доменное имя не должно быть больше 28 символов");
                 }
 
-                for (int i = 0; i < domenNameArr.Length; i++) {
+                for (int i = 1; i < domenNameArr.Length - 1; i++) {
                     if (domenNameArr[i] < 0x20 || domenNameArr[i] > 0x7F) {
                         domenOrIPv4Data.Focus();
                         domenOrIPv4Data.SelectAll();
@@ -301,7 +307,7 @@ namespace GSM_NBIoT_Module.view {
 
                         domenOrIPv4Data.Focus();
                         domenOrIPv4Data.SelectAll();
-                        throw new FormatException("Неверный формат записи IPv4 адреса. Значения между точек должны быть в диапазоне 0..255");
+                        throw new FormatException("Неверный формат записи IPv4 адреса. Значения должны быть в диапазоне 0..255");
                     }
 
                     IPv4Data = ipv4Arr[0].Trim() + "." + ipv4Arr[1].Trim()+ "." + ipv4Arr[2].Trim()+ "." + ipv4Arr[3].Trim();
@@ -323,7 +329,7 @@ namespace GSM_NBIoT_Module.view {
             //Если доменное имя, то добавляются кавычки
             if (domenOrIPv4Check.Checked) {
                 dataToPort = "USERHOST N=" + numbServerProperties +
-                    " IP=\"" + domenOrIPv4Data.Text + "\"; PORT=" + portData.Text;
+                    " IP=" + domenOrIPv4Data.Text + "; PORT=" + portData.Text;
 
                 //Если IP адрес, то просто передаётся он
             } else {
@@ -353,7 +359,7 @@ namespace GSM_NBIoT_Module.view {
                     } else if (line.Contains("ERROR")) {
                         domenOrIPv4Data.Focus();
                         domenOrIPv4Data.SelectAll();
-                        throw new MKCommandException("Не удалось записать данные");
+                        throw new MKCommandException("Не удалось записать параметры сервера №" + (numbServerProperties + 1));
                     }
                 }
             }
@@ -795,7 +801,13 @@ namespace GSM_NBIoT_Module.view {
         private void connectingAcceptBtn_Click(object sender, EventArgs e) {
             writeConnectingParameters();
         }
-        
+
+        private string oldValueDomenName_1 = "";
+        private string oldValueIPv4_1 = "";
+        private string oldValueDomenName_2 = "";
+        private string oldValueIPv4_2 = "";
+        private string oldValueDomenName_3 = "";
+        private string oldValueIPv4_3 = "";
         /// <summary>
         /// Устанавливаю необходимую маску в зависимости от maskTxtBx
         /// </summary>
@@ -805,23 +817,38 @@ namespace GSM_NBIoT_Module.view {
 
             if (sender == domenNameRdBtn_1) {
                 if (domenNameRdBtn_1.Checked) {
+                    oldValueIPv4_1 = ipDomenNameTxtBx_1.Text;
                     ipDomenNameTxtBx_1.Mask = "";
+                    ipDomenNameTxtBx_1.Text = oldValueDomenName_1;
+
                 } else {
+                    oldValueDomenName_1 = ipDomenNameTxtBx_1.Text;
                     ipDomenNameTxtBx_1.Mask = "000.000.000.000";
+                    ipDomenNameTxtBx_1.Text = oldValueIPv4_1;
                 }
 
             } else if (sender == domenNameRdBtn_2) {
                 if (domenNameRdBtn_2.Checked) {
+                    oldValueIPv4_2 = ipDomenNameTxtBx_2.Text;
                     ipDomenNameTxtBx_2.Mask = "";
+                    ipDomenNameTxtBx_2.Text = oldValueDomenName_2;
+
                 } else {
+                    oldValueDomenName_2 = ipDomenNameTxtBx_2.Text;
                     ipDomenNameTxtBx_2.Mask = "000.000.000.000";
+                    ipDomenNameTxtBx_2.Text = oldValueIPv4_2;
                 }
 
             } else if (sender == domenNameRdBtn_3) {
                 if (domenNameRdBtn_3.Checked) {
+                    oldValueIPv4_3 = ipDomenNameTxtBx_3.Text;
                     ipDomenNameTxtBx_3.Mask = "";
+                    ipDomenNameTxtBx_3.Text = oldValueDomenName_3;
+
                 } else {
+                    oldValueDomenName_3 = ipDomenNameTxtBx_3.Text;
                     ipDomenNameTxtBx_3.Mask = "000.000.000.000";
+                    ipDomenNameTxtBx_3.Text = oldValueIPv4_3;
                 }
             }
         }
