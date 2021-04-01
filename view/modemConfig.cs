@@ -15,15 +15,19 @@ using System.Windows.Forms;
 
 namespace GSM_NBIoT_Module.view {
     public partial class ModemConfig : Form {
-        public ModemConfig() {
+        public ModemConfig(Form form) {
             InitializeComponent();
+
+            flasMainForm = form as Flasher;
         }
 
+        private Flasher flasMainForm;
+
         private SerialPort serialPort = new SerialPort();
-        private int timeOut = 3000;
+        private int timeOut = 1000;
 
         private void ModemConfig_Load(object sender, EventArgs e) {
-            
+
             //Добавление настраиваемых параметров
             DataGridViewRow row = new DataGridViewRow();
             ZPORTcommandsDataGridView.Rows.Add(row);
@@ -42,35 +46,32 @@ namespace GSM_NBIoT_Module.view {
             serialPort.DataBits = 8;
             serialPort.NewLine = "\r\n";
 
-            //Установка слушателя маскам
-            domenNameRdBtn_1.CheckedChanged += domenNameRdBtns_CheckedChanged;
-            domenNameRdBtn_2.CheckedChanged += domenNameRdBtns_CheckedChanged;
-            domenNameRdBtn_3.CheckedChanged += domenNameRdBtns_CheckedChanged;
+            //Добавляю слушателей
+            domenNameRdBtn_1.CheckedChanged += domenNameRdBtnGroup_1_CheckedChanged;
+            IPv4RdBtn_1.CheckedChanged += domenNameRdBtnGroup_1_CheckedChanged;
+            IPv6RdBtn_1.CheckedChanged += domenNameRdBtnGroup_1_CheckedChanged;
 
-            CultureInfo cultureInfo = new CultureInfo("en", false);
-            ipDomenNameTxtBx_1.Culture = cultureInfo;
-            ipDomenNameTxtBx_2.Culture = cultureInfo;
-            ipDomenNameTxtBx_3.Culture = cultureInfo;
+            domenNameRdBtn_2.CheckedChanged += domenNameRdBtnGroup_2_CheckedChanged;
+            IPv4RdBtn_2.CheckedChanged += domenNameRdBtnGroup_2_CheckedChanged;
+            IPv6RdBtn_2.CheckedChanged += domenNameRdBtnGroup_2_CheckedChanged;
 
-            ipDomenNameTxtBx_1.InsertKeyMode = InsertKeyMode.Overwrite;
-            ipDomenNameTxtBx_2.InsertKeyMode = InsertKeyMode.Overwrite;
-            ipDomenNameTxtBx_3.InsertKeyMode = InsertKeyMode.Overwrite;
+            domenNameRdBtn_3.CheckedChanged += domenNameRdBtnGroup_3_CheckedChanged;
+            IPv4RdBtn_3.CheckedChanged += domenNameRdBtnGroup_3_CheckedChanged;
+            IPv6RdBtn_3.CheckedChanged += domenNameRdBtnGroup_3_CheckedChanged;
 
-            //Установка слушателя по переносу курсора в текс боксе при нажатии на него
-            ipDomenNameTxtBx_1.Enter += ipDomenNameTxtBx_Enter;
-            ipDomenNameTxtBx_2.Enter += ipDomenNameTxtBx_Enter;
-            ipDomenNameTxtBx_3.Enter += ipDomenNameTxtBx_Enter;
+            //Установка подсказок полям
+            ToolTip toolTip = new ToolTip();
+            toolTip.AutoPopDelay = 7000;
+            toolTip.InitialDelay = 250;
+            toolTip.ReshowDelay = 0;
 
-            portTxtBx_1.Enter += ipDomenNameTxtBx_Enter;
-            portTxtBx_2.Enter += ipDomenNameTxtBx_Enter;
-            portTxtBx_3.Enter += ipDomenNameTxtBx_Enter;
-
-            periodMsdTxtBx.Enter += ipDomenNameTxtBx_Enter;
-            serviceMsdTxtBx.Enter += ipDomenNameTxtBx_Enter;
-            letwaitMsdTxtBx.Enter += ipDomenNameTxtBx_Enter;
-            trylimitMsdTxtBx.Enter += ipDomenNameTxtBx_Enter;
-            sesslimitMsdTxtBx.Enter += ipDomenNameTxtBx_Enter;
-            holdTimeMsdTxtBx.Enter += ipDomenNameTxtBx_Enter;
+            toolTip.SetToolTip(periodMsdTxtBx, "Формат hh:mm:ss\nЗначение по умолчанию 06:00:00");
+            toolTip.SetToolTip(serviceMsdTxtBx, "Формат hh\nЗначение по умолчанию 20");
+            toolTip.SetToolTip(letwaitMsdTxtBx, "Формат mm:ss\nЗначение по умолчанию 01:00");
+            toolTip.SetToolTip(trylimitMsdTxtBx, "Формат (количество)\nЗначение по умолчанию 3");
+            toolTip.SetToolTip(sesslimitMsdTxtBx, "Формат hh:mm\nЗначение по умолчанию 00:20");
+            toolTip.SetToolTip(holdTimeMsdTxtBx, "Формат mm:ss\nЗначение по умолчанию 04:16");
+            toolTip.SetToolTip(incomholdtimeMskTxtBx, "Формат mm:ss\nЗначение по умолчанию 03:00");
 
             refreshInfo.PerformClick();
         }
@@ -87,7 +88,7 @@ namespace GSM_NBIoT_Module.view {
         private void ZPORTcommandsDataGridView_SelectionChanged(object sender, EventArgs e) {
             int i = ZPORTcommandsDataGridView.SelectedCells[0].RowIndex;
 
-            switch(i) {
+            switch (i) {
                 case 0: {
                         userHostTableLayoutPanel.BringToFront();
                     }
@@ -106,12 +107,12 @@ namespace GSM_NBIoT_Module.view {
         /// <param name="e"></param>
         private void refreshInfo_Click(object sender, EventArgs e) {
             try {
-                
+
                 Cursor = Cursors.WaitCursor;
 
                 getNbModemPort();
                 checkGPIO_CP2105();
-                
+
                 serialPort.Open();
 
                 verFWTxtBx.Text = getVerFW();
@@ -127,7 +128,7 @@ namespace GSM_NBIoT_Module.view {
 
                 Cursor = Cursors.Default;
 
-            } catch(Exception ex) {
+            } catch (Exception ex) {
 
                 Flasher.exceptionDialog(ex.Message);
                 Cursor = Cursors.Default;
@@ -149,12 +150,15 @@ namespace GSM_NBIoT_Module.view {
 
             if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
                 domenNameRdBtn_1.Checked = true;
-                ipDomenNameTxtBx_1.Text = iPorDomen;
+
+            } else if (iPorDomen.Contains('.')) {
+                IPv4RdBtn_1.Checked = true;
 
             } else {
-                IPv4RdBtn_1.Checked = true;
-                ipDomenNameTxtBx_1.Text = parseIP(iPorDomen);
+                IPv6RdBtn_1.Checked = true;
             }
+
+            ipDomenNameTxtBx_1.Text = iPorDomen;
 
             //Доменное имя и порт сервера 2
             getIPv4AndPortUserHost(1, ref iPorDomen, ref port);
@@ -162,12 +166,15 @@ namespace GSM_NBIoT_Module.view {
 
             if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
                 domenNameRdBtn_2.Checked = true;
-                ipDomenNameTxtBx_2.Text = iPorDomen;
+
+            } else if (iPorDomen.Contains('.')) {
+                IPv4RdBtn_2.Checked = true;
 
             } else {
-                IPv4RdBtn_2.Checked = true;
-                ipDomenNameTxtBx_2.Text = parseIP(iPorDomen);
+                IPv6RdBtn_2.Checked = true;
             }
+
+            ipDomenNameTxtBx_2.Text = iPorDomen;
 
             //Доменное имя и порт сервера 3
             getIPv4AndPortUserHost(2, ref iPorDomen, ref port);
@@ -175,48 +182,15 @@ namespace GSM_NBIoT_Module.view {
 
             if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
                 domenNameRdBtn_3.Checked = true;
-                ipDomenNameTxtBx_3.Text = iPorDomen;
+
+            } else if (iPorDomen.Contains('.')) {
+                IPv4RdBtn_3.Checked = true;
 
             } else {
-                IPv4RdBtn_3.Checked = true;
-                ipDomenNameTxtBx_3.Text = parseIP(iPorDomen);
-            }
-        }
-
-        /// <summary>
-        /// Дополняет пустые значения в IP адресе нулями
-        /// </summary>
-        /// <returns></returns>
-        private string parseIP(string ip) {
-
-            if (String.IsNullOrEmpty(ip)) {
-                return "";
+                IPv6RdBtn_3.Checked = true;
             }
 
-            string[] ipArr = ip.Split('.');
-            StringBuilder parseIpBuild = new StringBuilder("");
-
-            foreach (string ipValue in ipArr) {
-
-                switch(ipValue.Trim().Length) {
-
-                    case 0:
-                        parseIpBuild.Append("000");
-                        break;
-                    case 1:
-                        parseIpBuild.Append("00");
-                        parseIpBuild.Append(ipValue);
-                        break;
-                    case 2:
-                        parseIpBuild.Append("0");
-                        parseIpBuild.Append(ipValue);
-                        break;
-                    case 3:
-                        parseIpBuild.Append(ipValue);
-                        break;
-                }
-            }
-            return parseIpBuild.ToString();
+            ipDomenNameTxtBx_3.Text = iPorDomen;
         }
 
         /// <summary>
@@ -230,12 +204,14 @@ namespace GSM_NBIoT_Module.view {
                 checkGPIO_CP2105();
 
                 serialPort.Open();
-
-                checkCustomServerProperties(0, domenNameRdBtn_1, ipDomenNameTxtBx_1, portTxtBx_1);
-                checkCustomServerProperties(1, domenNameRdBtn_2, ipDomenNameTxtBx_2, portTxtBx_2);
-                checkCustomServerProperties(2, domenNameRdBtn_3, ipDomenNameTxtBx_3, portTxtBx_3);
+             
+                checkCustomServerProperties(0, formatAddresRecord(1), ipDomenNameTxtBx_1, portTxtBx_1);
+                checkCustomServerProperties(1, formatAddresRecord(2), ipDomenNameTxtBx_2, portTxtBx_2);
+                checkCustomServerProperties(2, formatAddresRecord(3), ipDomenNameTxtBx_3, portTxtBx_3);
 
                 serialPort.Close();
+
+                refreshInfo.PerformClick();
 
                 Cursor = Cursors.Default;
                 Flasher.successfullyDialog("Настройка пользовательских серверов успешно записаны", "Запись параметров");
@@ -247,94 +223,202 @@ namespace GSM_NBIoT_Module.view {
             }
         }
 
-        private void checkCustomServerProperties(int numbServerProperties, RadioButton domenOrIPv4Check, MaskedTextBox domenOrIPv4Data, MaskedTextBox portData) {
+        /// <summary>
+        /// Возвращает какой радиобтн сейчас зажат в выборе формата записи адреса
+        /// </summary>
+        /// <param name="i">Для какой группы радиобаттонов</param>
+        /// <returns></returns>
+        private int formatAddresRecord(int i) {
+            switch(i) {
+                case 1: {
+                        if (domenNameRdBtn_1.Checked) return 0;
+                        else if (IPv4RdBtn_1.Checked) return 1;
+                        else return 2;
 
-            //Распарсенные данные IP адреса для отправлки в COM порт
-            string IPv4Data = "";
+                    } break;
 
-            //Если должно поступить на вход доменное имя
-            if (domenOrIPv4Check.Checked) {
+                case 2: {
+                        if (domenNameRdBtn_2.Checked) return 0;
+                        else if (IPv4RdBtn_2.Checked) return 1;
+                        else return 2;
 
-                char[] domenNameArr = domenOrIPv4Data.Text.ToCharArray();
+                    } break;
 
-                if (domenNameArr[0] != '\"' || domenNameArr[domenNameArr.Length - 1] != '\"') {
-                    domenOrIPv4Data.Focus();
-                    domenOrIPv4Data.SelectAll();
-                    throw new FormatException("Доменное имя должно содержать знак \" в начале и конце");
-                }
+                case 3: {
+                        if (domenNameRdBtn_3.Checked) return 0;
+                        else if (IPv4RdBtn_3.Checked) return 1;
+                        else return 2;
 
-                //C учётом кавычек
-                if (domenNameArr.Length - 2 > 28) {
-                    domenOrIPv4Data.Focus();
-                    domenOrIPv4Data.SelectAll();
-                    throw new FormatException("Доменное имя не должно быть больше 28 символов");
-                }
-
-                for (int i = 1; i < domenNameArr.Length - 1; i++) {
-                    if (domenNameArr[i] < 0x20 || domenNameArr[i] > 0x7F) {
-                        domenOrIPv4Data.Focus();
-                        domenOrIPv4Data.SelectAll();
-                        throw new FormatException("Доменное имя должно содержать только ASCII символы");
-                    }
-                }
-
-                //Если должен поступить на вход IP адрес
-            } else {
-
-                //Проверка значений
-                string[] ipv4Arr = domenOrIPv4Data.Text.Split('.');
-                int emptyDataCounter = 0;
-
-                //заменяю незаполненные поля нулями
-                for (int i = 0; i < ipv4Arr.Length; i++) {
-                    if (String.IsNullOrEmpty(ipv4Arr[i].Trim())) {
-                        ipv4Arr[i] = "0";
-                        emptyDataCounter++;
-                    }
-                }
-
-                //Если все значения ip адреса будут пустыми, это значит, что необходимо переписать данное поле пустым значением
-                if (emptyDataCounter == 4) {
-
-                    domenOrIPv4Data.Text = "";
-
-                } else {
-
-                    if (Convert.ToInt32(ipv4Arr[0]) > 255 ||
-                        Convert.ToInt32(ipv4Arr[1]) > 255 ||
-                        Convert.ToInt32(ipv4Arr[2]) > 255 ||
-                        Convert.ToInt32(ipv4Arr[3]) > 255) {
-
-                        domenOrIPv4Data.Focus();
-                        domenOrIPv4Data.SelectAll();
-                        throw new FormatException("Неверный формат записи IPv4 адреса. Значения должны быть в диапазоне 0..255");
-                    }
-
-                    IPv4Data = ipv4Arr[0].Trim() + "." + ipv4Arr[1].Trim()+ "." + ipv4Arr[2].Trim()+ "." + ipv4Arr[3].Trim();
-                }
+                    }break;
             }
 
-            if (!String.IsNullOrEmpty(portData.Text)) {
-                //Проверка коректности ввода порта
-                if (Convert.ToInt32(portData.Text) > 65535 || Convert.ToInt32(portData.Text) < 0) {
-                    portData.Focus();
-                    portData.SelectAll();
-                    throw new FormatException("Значение порта должно быть в диапазоне 0..65535");
-                }
-            }
+            throw new ArgumentException("Сценария с аргументом i не предусмотрено");
+        }
+
+        /// <summary>
+        /// Проверяет параметры доменного имени или IP адреса введённые пользователем
+        /// </summary>
+        /// <param name="numbServerProperties"></param>
+        /// <param name="domenOrIPv4Check">
+        /// 0 - формат в значении доменного имени
+        /// 1 - в формате IPv4
+        /// 2 - в формате IPv6
+        /// </param>
+        /// <param name="domenOrIPData"></param>
+        /// <param name="portData"></param>
+        private void checkCustomServerProperties(int numbServerProperties, int domenOrIPv4Check, TextBox domenOrIPData, MaskedTextBox portData) {
 
             //Отправка данных в порт
             string dataToPort;
 
-            //Если доменное имя, то добавляются кавычки
-            if (domenOrIPv4Check.Checked) {
-                dataToPort = "USERHOST N=" + numbServerProperties +
-                    " IP=" + domenOrIPv4Data.Text + "; PORT=" + portData.Text;
+            //Если поле IP адреса или доменного имени пустое, то удаляю значения из микроконтроллера
+            if (String.IsNullOrEmpty(domenOrIPData.Text) ||
+                (domenOrIPData.Text.Length == 2 && (domenOrIPData.Text.ElementAt(0) == '\"' && domenOrIPData.Text.ElementAt(1) == '\"'))) {
 
-                //Если IP адрес, то просто передаётся он
+                dataToPort = "USERHOST N=" + numbServerProperties + " ALL=X";
+
+                //Иначе записываю все данные
             } else {
-                dataToPort = "USERHOST N=" + numbServerProperties +
-                    " IP=" + IPv4Data + "; PORT=" + portData.Text;
+
+                //Если должно поступить на вход доменное имя
+                switch (domenOrIPv4Check) {
+                    case 0: {
+                            char[] domenNameArr = domenOrIPData.Text.ToCharArray();
+
+                            if (domenNameArr[0] != '\"' || domenNameArr[domenNameArr.Length - 1] != '\"') {
+                                domenOrIPData.Focus();
+                                domenOrIPData.SelectAll();
+                                throw new FormatException("Доменное имя должно содержать знак \" в начале и конце");
+                            }
+
+                            //C учётом кавычек
+                            if (domenNameArr.Length - 2 > 28) {
+                                domenOrIPData.Focus();
+                                domenOrIPData.SelectAll();
+                                throw new FormatException("Доменное имя не должно быть больше 28 символов");
+                            }
+
+                            for (int i = 1; i < domenNameArr.Length - 1; i++) {
+                                if (domenNameArr[i] < 0x20 || domenNameArr[i] > 0x7F) {
+                                    domenOrIPData.Focus();
+                                    domenOrIPData.SelectAll();
+                                    throw new FormatException("Доменное имя должно содержать только ASCII символы");
+                                }
+                            }
+                        } break;
+
+                    //Если должен поступить на вход IPv4 адрес
+                    case 1: {
+                            //Проверка значений
+                            try {
+                                string ipv4 = domenOrIPData.Text.Trim();
+
+                                string[] ipv4Arr = ipv4.Split('.');
+
+                                List<byte> byteList = new List<byte>();
+
+                                if (ipv4Arr.Length != 4) throw new FormatException();
+
+                                foreach (string ipNode in ipv4Arr) {
+                                    if (String.IsNullOrEmpty(ipNode.Trim())) {
+                                        byteList.Add(0);
+                                        continue;
+                                    }
+
+                                    int localByte = Convert.ToInt32(ipNode.Trim());
+
+                                    if (localByte < 0 || localByte > 255) throw new FormatException();
+
+                                    byteList.Add((byte)localByte);
+                                }
+
+                                domenOrIPData.Text = byteList[0] + "." +
+                                    byteList[1] + "." +
+                                    byteList[2] + "." +
+                                    byteList[3];
+
+                            } catch (Exception) {
+                                domenOrIPData.Focus();
+                                domenOrIPData.SelectAll();
+                                throw new FormatException("Неверный формат записи IPv4, формат должен иметь вид xxx.xxx.xxx.xxx, где xxx могут иметь значения от 0..255");
+                            }
+
+                        } break;
+
+                    //Если должен поступить на вход IPv6 адрес
+                    case 2: {
+
+                            //Эта функция появилась только с версии протокола ZP009
+                            //Проверяю, что у модема версия ZP009 и выше
+                            if (Convert.ToInt32(verProtTxtBx.Text.Substring(2, 3)) < 9) {
+                                domenOrIPData.Focus();
+                                domenOrIPData.SelectAll();
+                                throw new FormatException("Запись адреса в формате IPv6 возможно только с версии протокола ZP009 и выше, " +
+                                    "используйте запись в формате доменного имени или IPv4");
+                            }
+
+                            try {
+                                string ipv6 = domenOrIPData.Text.Trim();
+
+                                string localDomenName = "";
+
+                                string[] ipv6Arr = ipv6.Split(':');
+
+                                if (ipv6Arr.Length != 8) throw new FormatException();
+
+                                foreach (string cell in ipv6Arr) {
+
+                                    string cell_2_Byte = cell.Trim();
+
+                                    if (cell_2_Byte.Length > 4) throw new FormatException();
+
+                                    if (String.IsNullOrEmpty(cell_2_Byte)) {
+                                        localDomenName += "0:";
+                                        continue;
+                                    }
+
+                                    foreach (char ch in cell_2_Byte.ToUpper().ToArray()) {
+                                        //Проверка на диапазон значений от 0..f
+                                        if (!((ch >= 48 && ch <= 57) || (ch >= 65 && ch <= 70))) throw new FormatException();
+                                    }
+
+                                    localDomenName += cell_2_Byte + ":";
+                                }
+
+                                //Пример 2001:DB0:0:123A:0:0:0:30
+                                domenOrIPData.Text = localDomenName.Substring(0, localDomenName.Length - 1);
+
+                            } catch(Exception) {
+
+                                domenOrIPData.Focus();
+                                domenOrIPData.SelectAll();
+                                throw new FormatException("Неверный формат записи IPv6, диапазон каждого значения в одном хекстете может быть от 0..F (HEX)" + 
+                                    "\nПример записи: 2001:DB0:0:123A::::30");
+                            }
+
+                        } break;
+                }
+
+                if (String.IsNullOrEmpty(portData.Text) ||
+                    (Convert.ToInt32(portData.Text) > 65535 || Convert.ToInt32(portData.Text) < 0)) {
+
+                    //Проверка коректности ввода порта
+                    portData.Focus();
+                    portData.SelectAll();
+                    throw new FormatException("Значение порта должно быть в диапазоне 0..65535");
+
+                }
+
+                //Если доменное имя, то добавляются кавычки
+                if (domenOrIPv4Check == 1) {
+                    dataToPort = "USERHOST N=" + numbServerProperties +
+                        " IP=" + domenOrIPData.Text + "; PORT=" + portData.Text;
+
+                    //Если IP адрес, то просто передаётся он
+                } else {
+                    dataToPort = "USERHOST N=" + numbServerProperties +
+                        " IP=" + domenOrIPData.Text + "; PORT=" + portData.Text;
+                }
             }
 
             serialPort.WriteLine(dataToPort);
@@ -357,8 +441,8 @@ namespace GSM_NBIoT_Module.view {
                         return;
 
                     } else if (line.Contains("ERROR")) {
-                        domenOrIPv4Data.Focus();
-                        domenOrIPv4Data.SelectAll();
+                        domenOrIPData.Focus();
+                        domenOrIPData.SelectAll();
                         throw new MKCommandException("Не удалось записать параметры сервера №" + (numbServerProperties + 1));
                     }
                 }
@@ -462,12 +546,15 @@ namespace GSM_NBIoT_Module.view {
                     line = serialPort.ReadLine();
 
                     if (line.EndsWith("OK")) {
-                        string[] arrLine = line.Split(':');
 
-                        char[] iPCharArr = arrLine[2].ToCharArray();
+                        string[] arrLine = line.Split('(');
+
 
                         //Получаю IP или доменное имя
-                        for (int j = 0; j < iPCharArr.Length; j++) {
+                        //IP:0:0:0:0:0:0:0:0)
+                        char[] iPCharArr = arrLine[2].ToCharArray();
+
+                        for (int j = 3; j < iPCharArr.Length; j++) {
                             if (iPCharArr[j] != ')') {
                                 domenNameOrIP += iPCharArr[j];
                             } else {
@@ -475,8 +562,10 @@ namespace GSM_NBIoT_Module.view {
                             }
                         }
 
+                        //Получаю порт
+                        //PORT:8103) OK
                         char[] arrCharPort = arrLine[3].ToCharArray();
-                        for (int k = 0; k < arrCharPort.Length; k++) {
+                        for (int k = 5; k < arrCharPort.Length; k++) {
                             if (arrCharPort[k] != ')') {
                                 port += arrCharPort[k];
                             } else {
@@ -552,7 +641,7 @@ namespace GSM_NBIoT_Module.view {
 
                             string holdtime = answer[6].Substring(9, answer[6].Length - 2 - 8);
                             holdTimeMsdTxtBx.Text = parseTimeForMskTxtBox(holdtime, true);
-                            
+
                             holdtime = answer[7].Substring(15, answer[7].Length - 2 - 15 - 15);
                             incomholdtimeMskTxtBx.Text = parseTimeForMskTxtBox(holdtime, true);
                             groupBox11.Enabled = true;
@@ -615,6 +704,8 @@ namespace GSM_NBIoT_Module.view {
                 //Период инициализации севнсов связи
                 periodArr = periodMsdTxtBx.Text.Split(':');
 
+                checkFieldTimeFormat(periodArr, periodMsdTxtBx, "Формат времени поля \"Период инициализации севнсов связи\" должен иметь формат hh:mm:ss");
+
                 hours = Convert.ToInt32(periodArr[0]);
                 minutes = Convert.ToInt32(periodArr[1]);
                 seconds = Convert.ToInt32(periodArr[2]);
@@ -632,6 +723,8 @@ namespace GSM_NBIoT_Module.view {
                 }
 
                 //Период инициализации севнсов связи с базовым сервером
+                checkFieldTimeFormat(serviceMsdTxtBx.Text.Split(':'), serviceMsdTxtBx, "Формат времени поля \"Периодичность инициации сеансов связи с базовым сервером\" должен иметь формат hh");
+
                 hours = Convert.ToInt32(serviceMsdTxtBx.Text);
 
                 if (hours > 24 || hours < 12) {
@@ -641,8 +734,11 @@ namespace GSM_NBIoT_Module.view {
                     return;
                 }
 
-                //Время ожидания ответа сервера 
+                //Время ожидания ответа сервера
                 periodArr = letwaitMsdTxtBx.Text.Split(':');
+
+                checkFieldTimeFormat(periodArr, letwaitMsdTxtBx, "Формат времени поля \"Время ожидания ответа сервера\" должен иметь формат mm:ss");
+
                 minutes = Convert.ToInt32(periodArr[0]);
                 seconds = Convert.ToInt32(periodArr[1]);
 
@@ -668,6 +764,9 @@ namespace GSM_NBIoT_Module.view {
 
                 //Предельное время сеанса связи
                 periodArr = sesslimitMsdTxtBx.Text.Split(':');
+
+                checkFieldTimeFormat(periodArr, sesslimitMsdTxtBx, "Формат времени поля \"Предельное время сеанса связи\" должен иметь формат hh:mm");
+
                 hours = Convert.ToInt32(periodArr[0]);
                 minutes = Convert.ToInt32(periodArr[1]);
 
@@ -682,8 +781,11 @@ namespace GSM_NBIoT_Module.view {
                     return;
                 }
 
-                //Время удержания сеанса связи при отсутствии обмена данными
+                //Время удержания сеанса связи при отсутствии обмена данными                
                 periodArr = holdTimeMsdTxtBx.Text.Split(':');
+
+                checkFieldTimeFormat(periodArr, holdTimeMsdTxtBx, "Формат времени поля \"Время удержания сеанса связи при отсутствии обмена данными\" должен иметь формат mm:ss");
+
                 minutes = Convert.ToInt32(periodArr[0]);
                 seconds = Convert.ToInt32(periodArr[1]);
 
@@ -710,6 +812,9 @@ namespace GSM_NBIoT_Module.view {
                 if (Convert.ToInt32(verProtTxtBx.Text.Substring(2)) > 8) {
 
                     periodArr = incomholdtimeMskTxtBx.Text.Split(':');
+
+                    checkFieldTimeFormat(periodArr, incomholdtimeMskTxtBx, "Формат времени поля \"Время удержания входящего соединения при отсутствии поступления данных от счетчика\" должен иметь формат mm:ss");
+
                     minutes = Convert.ToInt32(periodArr[0]);
                     seconds = Convert.ToInt32(periodArr[1]);
 
@@ -746,11 +851,11 @@ namespace GSM_NBIoT_Module.view {
                         endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
 
                         line = serialPort.ReadLine();
+                    }
 
-                        if (line.EndsWith("OK")) {
-                            successfully = true;
-                            break;
-                        }
+                    if (line.EndsWith("OK")) {
+                        successfully = true;
+                        break;
                     }
                 }
 
@@ -762,12 +867,15 @@ namespace GSM_NBIoT_Module.view {
 
                 serialPort.Close();
 
+                refreshInfo.PerformClick();
+
             } catch (Exception ex) {
-                Flasher.exceptionDialog(ex.Message);
 
                 if (serialPort.IsOpen) {
                     serialPort.Close();
                 }
+
+                Flasher.exceptionDialog(ex.Message);
             }
         }
 
@@ -798,59 +906,22 @@ namespace GSM_NBIoT_Module.view {
             }
         }
 
-        private void connectingAcceptBtn_Click(object sender, EventArgs e) {
-            writeConnectingParameters();
-        }
-
-        private string oldValueDomenName_1 = "";
-        private string oldValueIPv4_1 = "";
-        private string oldValueDomenName_2 = "";
-        private string oldValueIPv4_2 = "";
-        private string oldValueDomenName_3 = "";
-        private string oldValueIPv4_3 = "";
         /// <summary>
-        /// Устанавливаю необходимую маску в зависимости от maskTxtBx
+        /// Проверяет на то, что маска текстбокса заполнена верно
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void domenNameRdBtns_CheckedChanged(object sender, EventArgs e) {
-
-            if (sender == domenNameRdBtn_1) {
-                if (domenNameRdBtn_1.Checked) {
-                    oldValueIPv4_1 = ipDomenNameTxtBx_1.Text;
-                    ipDomenNameTxtBx_1.Mask = "";
-                    ipDomenNameTxtBx_1.Text = oldValueDomenName_1;
-
-                } else {
-                    oldValueDomenName_1 = ipDomenNameTxtBx_1.Text;
-                    ipDomenNameTxtBx_1.Mask = "000.000.000.000";
-                    ipDomenNameTxtBx_1.Text = oldValueIPv4_1;
-                }
-
-            } else if (sender == domenNameRdBtn_2) {
-                if (domenNameRdBtn_2.Checked) {
-                    oldValueIPv4_2 = ipDomenNameTxtBx_2.Text;
-                    ipDomenNameTxtBx_2.Mask = "";
-                    ipDomenNameTxtBx_2.Text = oldValueDomenName_2;
-
-                } else {
-                    oldValueDomenName_2 = ipDomenNameTxtBx_2.Text;
-                    ipDomenNameTxtBx_2.Mask = "000.000.000.000";
-                    ipDomenNameTxtBx_2.Text = oldValueIPv4_2;
-                }
-
-            } else if (sender == domenNameRdBtn_3) {
-                if (domenNameRdBtn_3.Checked) {
-                    oldValueIPv4_3 = ipDomenNameTxtBx_3.Text;
-                    ipDomenNameTxtBx_3.Mask = "";
-                    ipDomenNameTxtBx_3.Text = oldValueDomenName_3;
-
-                } else {
-                    oldValueDomenName_3 = ipDomenNameTxtBx_3.Text;
-                    ipDomenNameTxtBx_3.Mask = "000.000.000.000";
-                    ipDomenNameTxtBx_3.Text = oldValueIPv4_3;
+        /// <param name="timeField"></param>
+        private void checkFieldTimeFormat(string[] timeField, MaskedTextBox maskedLield, string errorMess) {
+            foreach (string time in timeField) {
+                if (time.Trim().Length != 2) {
+                    maskedLield.Focus();
+                    maskedLield.SelectAll();
+                    throw new FormatException(errorMess);
                 }
             }
+        }
+
+        private void connectingAcceptBtn_Click(object sender, EventArgs e) {
+            writeConnectingParameters();
         }
 
         /// <summary>
@@ -862,29 +933,88 @@ namespace GSM_NBIoT_Module.view {
             writeCustomServersProperties();
         }
 
-        private void ipDomenNameTxtBx_Enter(object sender, EventArgs e) {
+        private void ModemConfig_FormClosed(object sender, FormClosedEventArgs e) {
+            flasMainForm.removeModemConfigForm();
+        }
 
-            MaskedTextBox maskedTextBox = sender as MaskedTextBox;
+        private string oldValueDomenName_1 = "";
+        private string oldValueIPv4_1 = "";
+        private string oldValueIPv6_1 = "";
+        private void ipDomenNameTxtBx_1_TextChanged(object sender, EventArgs e) {
+            if (domenNameRdBtn_1.Checked) {
+                oldValueDomenName_1 = ipDomenNameTxtBx_1.Text;
 
-            //Если поле пустое, то перевожу в начало
-            if (!String.IsNullOrEmpty(maskedTextBox.Text)) {
-                BeginInvoke((MethodInvoker)delegate () {
-                    ((MaskedTextBox)sender).SelectionStart = 0;
-                    return;
-                });
-            }
-
-            int caretIndex = ((MaskedTextBox)sender).Text.IndexOf(' ');
-            
-            if (caretIndex != -1) {
-                BeginInvoke((MethodInvoker)delegate () {
-                maskedTextBox.SelectionStart = caretIndex;
-                });
+            } else if (IPv4RdBtn_1.Checked) {
+                oldValueIPv4_1 = ipDomenNameTxtBx_1.Text;
 
             } else {
-                BeginInvoke((MethodInvoker)delegate () {
-                    maskedTextBox.SelectionStart = maskedTextBox.Text.Length;
-                });
+                oldValueIPv6_1 = ipDomenNameTxtBx_1.Text;
+            }
+        }
+
+        private string oldValueDomenName_2 = "";
+        private string oldValueIPv4_2 = "";
+        private string oldValueIPv6_2 = "";
+        private void ipDomenNameTxtBx_2_TextChanged(object sender, EventArgs e) {
+            if (domenNameRdBtn_2.Checked) {
+                oldValueDomenName_2 = ipDomenNameTxtBx_2.Text;
+
+            } else if (IPv4RdBtn_2.Checked) {
+                oldValueIPv4_2 = ipDomenNameTxtBx_2.Text;
+
+            } else {
+                oldValueIPv6_2 = ipDomenNameTxtBx_2.Text;
+            }
+        }
+
+        private string oldValueDomenName_3 = "";
+        private string oldValueIPv4_3 = "";
+        private string oldValueIPv6_3 = "";
+        private void ipDomenNameTxtBx_3_TextChanged(object sender, EventArgs e) {
+            if (domenNameRdBtn_3.Checked) {
+                oldValueDomenName_3 = ipDomenNameTxtBx_3.Text;
+
+            } else if (IPv4RdBtn_3.Checked) {
+                oldValueIPv4_3 = ipDomenNameTxtBx_3.Text;
+
+            } else {
+                oldValueIPv6_3 = ipDomenNameTxtBx_3.Text;
+            }
+        }
+
+        private void domenNameRdBtnGroup_1_CheckedChanged(object sender, EventArgs e) {
+            if (domenNameRdBtn_1.Checked) {
+                ipDomenNameTxtBx_1.Text = oldValueDomenName_1;
+
+            } else if (IPv4RdBtn_1.Checked) {
+                ipDomenNameTxtBx_1.Text = oldValueIPv4_1;
+
+            } else {
+                ipDomenNameTxtBx_1.Text = oldValueIPv6_1;
+            }
+        }
+
+        private void domenNameRdBtnGroup_2_CheckedChanged(object sender, EventArgs e) {
+            if (domenNameRdBtn_2.Checked) {
+                ipDomenNameTxtBx_2.Text = oldValueDomenName_2;
+
+            } else if (IPv4RdBtn_2.Checked) {
+                ipDomenNameTxtBx_2.Text = oldValueIPv4_2;
+
+            } else {
+                ipDomenNameTxtBx_2.Text = oldValueIPv6_2;
+            }
+        }
+
+        private void domenNameRdBtnGroup_3_CheckedChanged(object sender, EventArgs e) {
+            if (domenNameRdBtn_3.Checked) {
+                ipDomenNameTxtBx_3.Text = oldValueDomenName_3;
+
+            } else if (IPv4RdBtn_3.Checked) {
+                ipDomenNameTxtBx_3.Text = oldValueIPv4_3;
+
+            } else {
+                ipDomenNameTxtBx_3.Text = oldValueIPv6_3;
             }
         }
     }

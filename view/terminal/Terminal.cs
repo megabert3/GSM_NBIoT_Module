@@ -671,15 +671,24 @@ namespace GSM_NBIoT_Module.view {
             if (sta != 0 && enh != 0) {
 
                 try {
-                    cP2105.WriteGPIOStageAndSetFlags(enh, true, true, 100, false);
-
                     StateGPIO_OnEnhabcedPort stageEnh = cP2105.GetStageGPIOEnhabcedPort();
+
+                    if (!stageEnh.stageGPIO_0 || !stageEnh.stageGPIO_1) {
+                        cP2105.WriteGPIOStageAndSetFlags(enh, true, true, 100, false);
+
+                        stageEnh = cP2105.GetStageGPIOEnhabcedPort();
+                    }
+
                     enhanGPIO_0chBx.Checked = stageEnh.stageGPIO_0;
                     enhanGPIO_1chBx.Checked = stageEnh.stageGPIO_1;
 
-                    cP2105.WriteGPIOStageAndSetFlags(sta, true, true, true, 100, false);
-
                     StateGPIO_OnStandardPort stageSta = cP2105.GetStageGPIOStandardPort();
+
+                    if (!stageSta.stageGPIO_0 || !stageSta.stageGPIO_1 || !stageSta.stageGPIO_2) {
+                        cP2105.WriteGPIOStageAndSetFlags(sta, true, true, true, 100, false);
+                        stageSta = cP2105.GetStageGPIOStandardPort();
+                    }
+                    
                     standGPIO_0chBx.Checked = stageSta.stageGPIO_0;
                     standGPIO_1chBx.Checked = stageSta.stageGPIO_1;
                     standGPIO_2chBx.Checked = stageSta.stageGPIO_2;

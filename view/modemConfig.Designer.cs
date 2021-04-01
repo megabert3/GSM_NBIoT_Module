@@ -63,30 +63,33 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.ipDomenNameTxtBx_3 = new System.Windows.Forms.TextBox();
             this.portTxtBx_3 = new System.Windows.Forms.MaskedTextBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.IPv6RdBtn_3 = new System.Windows.Forms.RadioButton();
             this.domenNameRdBtn_3 = new System.Windows.Forms.RadioButton();
             this.IPv4RdBtn_3 = new System.Windows.Forms.RadioButton();
             this.label15 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.ipDomenNameTxtBx_3 = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.IPv6RdBtn_2 = new System.Windows.Forms.RadioButton();
             this.domenNameRdBtn_2 = new System.Windows.Forms.RadioButton();
             this.IPv4RdBtn_2 = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.ipDomenNameTxtBx_2 = new System.Windows.Forms.MaskedTextBox();
             this.portTxtBx_2 = new System.Windows.Forms.MaskedTextBox();
+            this.ipDomenNameTxtBx_2 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.ipDomenNameTxtBx_1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.IPv6RdBtn_1 = new System.Windows.Forms.RadioButton();
             this.domenNameRdBtn_1 = new System.Windows.Forms.RadioButton();
             this.IPv4RdBtn_1 = new System.Windows.Forms.RadioButton();
             this.label11 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.ipDomenNameTxtBx_1 = new System.Windows.Forms.MaskedTextBox();
             this.portTxtBx_1 = new System.Windows.Forms.MaskedTextBox();
             this.setServersSettingsBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
@@ -271,9 +274,9 @@ namespace GSM_NBIoT_Module.view {
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(130, 6);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(117, 13);
+            this.label10.Size = new System.Drawing.Size(134, 13);
             this.label10.TabIndex = 28;
-            this.label10.Text = "(mm:ss) 15:00 до 00:30";
+            this.label10.Text = "(mm:ss) от 00:30 до 15:00 ";
             // 
             // groupBox9
             // 
@@ -317,7 +320,7 @@ namespace GSM_NBIoT_Module.view {
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(133, 13);
             this.label9.TabIndex = 27;
-            this.label9.Text = "(hh:mm) от 04:15 до 00:05";
+            this.label9.Text = "(hh:mm) от 00:05 до 04:15";
             // 
             // groupBox8
             // 
@@ -405,7 +408,7 @@ namespace GSM_NBIoT_Module.view {
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(131, 13);
             this.label7.TabIndex = 25;
-            this.label7.Text = "(mm:ss) от 04:15 до 00:15";
+            this.label7.Text = "(mm:ss) от 00:15 до 04:15";
             // 
             // groupBox6
             // 
@@ -449,7 +452,7 @@ namespace GSM_NBIoT_Module.view {
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(148, 13);
             this.label6.TabIndex = 24;
-            this.label6.Text = "(hh) от 24 часов до 12 часов";
+            this.label6.Text = "(hh) от 12 часов до 24 часов";
             // 
             // groupBox5
             // 
@@ -491,9 +494,9 @@ namespace GSM_NBIoT_Module.view {
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(130, 6);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(186, 13);
+            this.label5.Size = new System.Drawing.Size(189, 13);
             this.label5.TabIndex = 23;
-            this.label5.Text = "(hh:mm:ss) от 20 часов до 60 секунд";
+            this.label5.Text = "(hh:mm:ss) от 60 секунд до 20 часов ";
             // 
             // connectingAcceptBtn
             // 
@@ -546,9 +549,9 @@ namespace GSM_NBIoT_Module.view {
             this.label19.AutoSize = true;
             this.label19.Location = new System.Drawing.Point(130, 6);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(117, 13);
+            this.label19.Size = new System.Drawing.Size(131, 13);
             this.label19.TabIndex = 28;
-            this.label19.Text = "(mm:ss) 16:45 до 00:15";
+            this.label19.Text = "(mm:ss) от 16:45 до 00:15";
             // 
             // userHostTableLayoutPanel
             // 
@@ -594,7 +597,7 @@ namespace GSM_NBIoT_Module.view {
             this.groupBox3.Size = new System.Drawing.Size(518, 76);
             this.groupBox3.TabIndex = 26;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Параметры сервера №3";
+            this.groupBox3.Text = "Параметры сервера №2";
             // 
             // tableLayoutPanel6
             // 
@@ -606,11 +609,11 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel6.Controls.Add(this.ipDomenNameTxtBx_3, 1, 1);
             this.tableLayoutPanel6.Controls.Add(this.portTxtBx_3, 4, 1);
             this.tableLayoutPanel6.Controls.Add(this.panel3, 1, 0);
             this.tableLayoutPanel6.Controls.Add(this.label15, 3, 1);
             this.tableLayoutPanel6.Controls.Add(this.label17, 0, 1);
-            this.tableLayoutPanel6.Controls.Add(this.ipDomenNameTxtBx_3, 1, 1);
             this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 19);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 2;
@@ -624,6 +627,16 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel6.Size = new System.Drawing.Size(510, 51);
             this.tableLayoutPanel6.TabIndex = 3;
             // 
+            // ipDomenNameTxtBx_3
+            // 
+            this.tableLayoutPanel6.SetColumnSpan(this.ipDomenNameTxtBx_3, 2);
+            this.ipDomenNameTxtBx_3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ipDomenNameTxtBx_3.Location = new System.Drawing.Point(54, 28);
+            this.ipDomenNameTxtBx_3.Name = "ipDomenNameTxtBx_3";
+            this.ipDomenNameTxtBx_3.Size = new System.Drawing.Size(248, 20);
+            this.ipDomenNameTxtBx_3.TabIndex = 1;
+            this.ipDomenNameTxtBx_3.TextChanged += new System.EventHandler(this.ipDomenNameTxtBx_3_TextChanged);
+            // 
             // portTxtBx_3
             // 
             this.portTxtBx_3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -636,12 +649,23 @@ namespace GSM_NBIoT_Module.view {
             // panel3
             // 
             this.tableLayoutPanel6.SetColumnSpan(this.panel3, 2);
+            this.panel3.Controls.Add(this.IPv6RdBtn_3);
             this.panel3.Controls.Add(this.domenNameRdBtn_3);
             this.panel3.Controls.Add(this.IPv4RdBtn_3);
             this.panel3.Location = new System.Drawing.Point(54, 3);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(248, 18);
             this.panel3.TabIndex = 3;
+            // 
+            // IPv6RdBtn_3
+            // 
+            this.IPv6RdBtn_3.AutoSize = true;
+            this.IPv6RdBtn_3.Location = new System.Drawing.Point(196, 0);
+            this.IPv6RdBtn_3.Name = "IPv6RdBtn_3";
+            this.IPv6RdBtn_3.Size = new System.Drawing.Size(47, 17);
+            this.IPv6RdBtn_3.TabIndex = 5;
+            this.IPv6RdBtn_3.Text = "IPv6";
+            this.IPv6RdBtn_3.UseVisualStyleBackColor = true;
             // 
             // domenNameRdBtn_3
             // 
@@ -658,7 +682,7 @@ namespace GSM_NBIoT_Module.view {
             // IPv4RdBtn_3
             // 
             this.IPv4RdBtn_3.AutoSize = true;
-            this.IPv4RdBtn_3.Location = new System.Drawing.Point(133, 0);
+            this.IPv4RdBtn_3.Location = new System.Drawing.Point(115, 0);
             this.IPv4RdBtn_3.Name = "IPv4RdBtn_3";
             this.IPv4RdBtn_3.Size = new System.Drawing.Size(47, 17);
             this.IPv4RdBtn_3.TabIndex = 2;
@@ -686,15 +710,6 @@ namespace GSM_NBIoT_Module.view {
             this.label17.TabIndex = 3;
             this.label17.Text = "Адрес";
             // 
-            // ipDomenNameTxtBx_3
-            // 
-            this.ipDomenNameTxtBx_3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel6.SetColumnSpan(this.ipDomenNameTxtBx_3, 2);
-            this.ipDomenNameTxtBx_3.Location = new System.Drawing.Point(54, 28);
-            this.ipDomenNameTxtBx_3.Name = "ipDomenNameTxtBx_3";
-            this.ipDomenNameTxtBx_3.Size = new System.Drawing.Size(248, 20);
-            this.ipDomenNameTxtBx_3.TabIndex = 9;
-            // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -705,7 +720,7 @@ namespace GSM_NBIoT_Module.view {
             this.groupBox1.Size = new System.Drawing.Size(518, 77);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Параметры сервера №2";
+            this.groupBox1.Text = "Параметры сервера №1";
             // 
             // tableLayoutPanel5
             // 
@@ -720,8 +735,8 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel5.Controls.Add(this.panel2, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.label1, 3, 1);
             this.tableLayoutPanel5.Controls.Add(this.label13, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.ipDomenNameTxtBx_2, 1, 1);
             this.tableLayoutPanel5.Controls.Add(this.portTxtBx_2, 4, 1);
+            this.tableLayoutPanel5.Controls.Add(this.ipDomenNameTxtBx_2, 1, 1);
             this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 19);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 2;
@@ -738,12 +753,23 @@ namespace GSM_NBIoT_Module.view {
             // panel2
             // 
             this.tableLayoutPanel5.SetColumnSpan(this.panel2, 2);
+            this.panel2.Controls.Add(this.IPv6RdBtn_2);
             this.panel2.Controls.Add(this.domenNameRdBtn_2);
             this.panel2.Controls.Add(this.IPv4RdBtn_2);
             this.panel2.Location = new System.Drawing.Point(54, 3);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(248, 18);
             this.panel2.TabIndex = 3;
+            // 
+            // IPv6RdBtn_2
+            // 
+            this.IPv6RdBtn_2.AutoSize = true;
+            this.IPv6RdBtn_2.Location = new System.Drawing.Point(196, 0);
+            this.IPv6RdBtn_2.Name = "IPv6RdBtn_2";
+            this.IPv6RdBtn_2.Size = new System.Drawing.Size(47, 17);
+            this.IPv6RdBtn_2.TabIndex = 4;
+            this.IPv6RdBtn_2.Text = "IPv6";
+            this.IPv6RdBtn_2.UseVisualStyleBackColor = true;
             // 
             // domenNameRdBtn_2
             // 
@@ -760,7 +786,7 @@ namespace GSM_NBIoT_Module.view {
             // IPv4RdBtn_2
             // 
             this.IPv4RdBtn_2.AutoSize = true;
-            this.IPv4RdBtn_2.Location = new System.Drawing.Point(133, 0);
+            this.IPv4RdBtn_2.Location = new System.Drawing.Point(115, 0);
             this.IPv4RdBtn_2.Name = "IPv4RdBtn_2";
             this.IPv4RdBtn_2.Size = new System.Drawing.Size(47, 17);
             this.IPv4RdBtn_2.TabIndex = 2;
@@ -788,15 +814,6 @@ namespace GSM_NBIoT_Module.view {
             this.label13.TabIndex = 3;
             this.label13.Text = "Адрес";
             // 
-            // ipDomenNameTxtBx_2
-            // 
-            this.ipDomenNameTxtBx_2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel5.SetColumnSpan(this.ipDomenNameTxtBx_2, 2);
-            this.ipDomenNameTxtBx_2.Location = new System.Drawing.Point(54, 28);
-            this.ipDomenNameTxtBx_2.Name = "ipDomenNameTxtBx_2";
-            this.ipDomenNameTxtBx_2.Size = new System.Drawing.Size(248, 20);
-            this.ipDomenNameTxtBx_2.TabIndex = 9;
-            // 
             // portTxtBx_2
             // 
             this.portTxtBx_2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -805,6 +822,16 @@ namespace GSM_NBIoT_Module.view {
             this.portTxtBx_2.Name = "portTxtBx_2";
             this.portTxtBx_2.Size = new System.Drawing.Size(148, 20);
             this.portTxtBx_2.TabIndex = 11;
+            // 
+            // ipDomenNameTxtBx_2
+            // 
+            this.tableLayoutPanel5.SetColumnSpan(this.ipDomenNameTxtBx_2, 2);
+            this.ipDomenNameTxtBx_2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ipDomenNameTxtBx_2.Location = new System.Drawing.Point(54, 28);
+            this.ipDomenNameTxtBx_2.Name = "ipDomenNameTxtBx_2";
+            this.ipDomenNameTxtBx_2.Size = new System.Drawing.Size(248, 20);
+            this.ipDomenNameTxtBx_2.TabIndex = 12;
+            this.ipDomenNameTxtBx_2.TextChanged += new System.EventHandler(this.ipDomenNameTxtBx_2_TextChanged);
             // 
             // groupBox2
             // 
@@ -816,7 +843,7 @@ namespace GSM_NBIoT_Module.view {
             this.groupBox2.Size = new System.Drawing.Size(518, 74);
             this.groupBox2.TabIndex = 24;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Параметры сервера №1";
+            this.groupBox2.Text = "Параметры сервера №0";
             // 
             // tableLayoutPanel3
             // 
@@ -828,10 +855,10 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel3.Controls.Add(this.ipDomenNameTxtBx_1, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.panel1, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.label11, 3, 1);
             this.tableLayoutPanel3.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.ipDomenNameTxtBx_1, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.portTxtBx_1, 4, 1);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 19);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -846,15 +873,36 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel3.Size = new System.Drawing.Size(510, 51);
             this.tableLayoutPanel3.TabIndex = 3;
             // 
+            // ipDomenNameTxtBx_1
+            // 
+            this.tableLayoutPanel3.SetColumnSpan(this.ipDomenNameTxtBx_1, 2);
+            this.ipDomenNameTxtBx_1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ipDomenNameTxtBx_1.Location = new System.Drawing.Point(54, 28);
+            this.ipDomenNameTxtBx_1.Name = "ipDomenNameTxtBx_1";
+            this.ipDomenNameTxtBx_1.Size = new System.Drawing.Size(248, 20);
+            this.ipDomenNameTxtBx_1.TabIndex = 1;
+            this.ipDomenNameTxtBx_1.TextChanged += new System.EventHandler(this.ipDomenNameTxtBx_1_TextChanged);
+            // 
             // panel1
             // 
             this.tableLayoutPanel3.SetColumnSpan(this.panel1, 2);
+            this.panel1.Controls.Add(this.IPv6RdBtn_1);
             this.panel1.Controls.Add(this.domenNameRdBtn_1);
             this.panel1.Controls.Add(this.IPv4RdBtn_1);
             this.panel1.Location = new System.Drawing.Point(54, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(248, 18);
             this.panel1.TabIndex = 3;
+            // 
+            // IPv6RdBtn_1
+            // 
+            this.IPv6RdBtn_1.AutoSize = true;
+            this.IPv6RdBtn_1.Location = new System.Drawing.Point(196, 0);
+            this.IPv6RdBtn_1.Name = "IPv6RdBtn_1";
+            this.IPv6RdBtn_1.Size = new System.Drawing.Size(47, 17);
+            this.IPv6RdBtn_1.TabIndex = 3;
+            this.IPv6RdBtn_1.Text = "IPv6";
+            this.IPv6RdBtn_1.UseVisualStyleBackColor = true;
             // 
             // domenNameRdBtn_1
             // 
@@ -871,7 +919,7 @@ namespace GSM_NBIoT_Module.view {
             // IPv4RdBtn_1
             // 
             this.IPv4RdBtn_1.AutoSize = true;
-            this.IPv4RdBtn_1.Location = new System.Drawing.Point(133, 0);
+            this.IPv4RdBtn_1.Location = new System.Drawing.Point(115, 0);
             this.IPv4RdBtn_1.Name = "IPv4RdBtn_1";
             this.IPv4RdBtn_1.Size = new System.Drawing.Size(47, 17);
             this.IPv4RdBtn_1.TabIndex = 2;
@@ -898,15 +946,6 @@ namespace GSM_NBIoT_Module.view {
             this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Адрес";
-            // 
-            // ipDomenNameTxtBx_1
-            // 
-            this.ipDomenNameTxtBx_1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel3.SetColumnSpan(this.ipDomenNameTxtBx_1, 2);
-            this.ipDomenNameTxtBx_1.Location = new System.Drawing.Point(54, 28);
-            this.ipDomenNameTxtBx_1.Name = "ipDomenNameTxtBx_1";
-            this.ipDomenNameTxtBx_1.Size = new System.Drawing.Size(248, 20);
-            this.ipDomenNameTxtBx_1.TabIndex = 9;
             // 
             // portTxtBx_1
             // 
@@ -1008,6 +1047,7 @@ namespace GSM_NBIoT_Module.view {
             this.Name = "ModemConfig";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Конфигурация модема";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ModemConfig_FormClosed);
             this.Load += new System.EventHandler(this.ModemConfig_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -1122,9 +1162,6 @@ namespace GSM_NBIoT_Module.view {
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
-        private System.Windows.Forms.MaskedTextBox ipDomenNameTxtBx_1;
-        private System.Windows.Forms.MaskedTextBox ipDomenNameTxtBx_3;
-        private System.Windows.Forms.MaskedTextBox ipDomenNameTxtBx_2;
         private System.Windows.Forms.MaskedTextBox portTxtBx_1;
         private System.Windows.Forms.MaskedTextBox portTxtBx_3;
         private System.Windows.Forms.MaskedTextBox portTxtBx_2;
@@ -1133,5 +1170,11 @@ namespace GSM_NBIoT_Module.view {
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
         private System.Windows.Forms.MaskedTextBox incomholdtimeMskTxtBx;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox ipDomenNameTxtBx_1;
+        private System.Windows.Forms.TextBox ipDomenNameTxtBx_2;
+        private System.Windows.Forms.TextBox ipDomenNameTxtBx_3;
+        private System.Windows.Forms.RadioButton IPv6RdBtn_1;
+        private System.Windows.Forms.RadioButton IPv6RdBtn_2;
+        private System.Windows.Forms.RadioButton IPv6RdBtn_3;
     }
 }

@@ -26,6 +26,8 @@ namespace GSM_NBIoT_Module {
 
         private Form passForm;
 
+        private ModemConfig modemConfigForm;
+
         private Thread flashThread;
 
         //Типы используемых модемов
@@ -745,7 +747,24 @@ namespace GSM_NBIoT_Module {
         }
 
         private void configModemtlStpBtn_Click(object sender, EventArgs e) {
-            new ModemConfig().ShowDialog();
+
+            if (modemConfigForm == null) {
+                modemConfigForm = new ModemConfig(this);
+                modemConfigForm.Show();
+
+            } else {
+                modemConfigForm.Select();
+                modemConfigForm.WindowState = FormWindowState.Normal;
+                modemConfigForm.BringToFront();
+            }
+        }
+
+
+        /// <summary>
+        /// Обнуляет ссылку на окно конфигурации модема
+        /// </summary>
+        public void removeModemConfigForm() {
+            modemConfigForm = null;
         }
     }
 }
