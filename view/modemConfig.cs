@@ -9,7 +9,9 @@ using System.Drawing;
 using System.Globalization;
 using System.IO.Ports;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -31,11 +33,11 @@ namespace GSM_NBIoT_Module.view {
             //Добавление настраиваемых параметров
             DataGridViewRow row = new DataGridViewRow();
             ZPORTcommandsDataGridView.Rows.Add(row);
-            row.Cells[0].Value = "Настройка пользовательских серверов";
+            row.Cells[0].Value = "1. Настройка пользовательских серверов";
 
             row = new DataGridViewRow();
             ZPORTcommandsDataGridView.Rows.Add(row);
-            ZPORTcommandsDataGridView.Rows[1].Cells[0].Value = "Параметры инициализации связи";
+            ZPORTcommandsDataGridView.Rows[1].Cells[0].Value = "2. Параметры инициализации связи";
 
             ZPORTcommandsDataGridView.Columns[0].Width = ZPORTcommandsDataGridView.Size.Width;
 
@@ -234,22 +236,19 @@ namespace GSM_NBIoT_Module.view {
                         if (domenNameRdBtn_1.Checked) return 0;
                         else if (IPv4RdBtn_1.Checked) return 1;
                         else return 2;
-
-                    } break;
+                    }
 
                 case 2: {
                         if (domenNameRdBtn_2.Checked) return 0;
                         else if (IPv4RdBtn_2.Checked) return 1;
                         else return 2;
-
-                    } break;
+                    }
 
                 case 3: {
                         if (domenNameRdBtn_3.Checked) return 0;
                         else if (IPv4RdBtn_3.Checked) return 1;
                         else return 2;
-
-                    }break;
+                    }
             }
 
             throw new ArgumentException("Сценария с аргументом i не предусмотрено");
@@ -271,7 +270,6 @@ namespace GSM_NBIoT_Module.view {
             //Отправка данных в порт
             string dataToPort;
 
-            //Если поле IP адреса или доменного имени пустое, то удаляю значения из микроконтроллера
             if (String.IsNullOrEmpty(domenOrIPData.Text) ||
                 (domenOrIPData.Text.Length == 2 && (domenOrIPData.Text.ElementAt(0) == '\"' && domenOrIPData.Text.ElementAt(1) == '\"'))) {
 
@@ -443,7 +441,7 @@ namespace GSM_NBIoT_Module.view {
                     } else if (line.Contains("ERROR")) {
                         domenOrIPData.Focus();
                         domenOrIPData.SelectAll();
-                        throw new MKCommandException("Не удалось записать параметры сервера №" + (numbServerProperties + 1));
+                        throw new MKCommandException("Не удалось записать параметры сервера №" + (numbServerProperties));
                     }
                 }
             }
@@ -718,7 +716,7 @@ namespace GSM_NBIoT_Module.view {
                 if (timeInSeconds > getSeconds(20, 0, 0) || timeInSeconds < 60) {
                     periodMsdTxtBx.Focus();
                     periodMsdTxtBx.SelectAll();
-                    Flasher.exceptionDialog("Периодичность инициации сеансов связи не может быть больше 20-ти часов и меньше 1-ой минуты");
+                    Flasher.exceptionDialog("Периодичность инициации сеансов связи не может быть меньше 1-ой минуты и больше 20-ти часов");
                     return;
                 }
 
@@ -730,7 +728,7 @@ namespace GSM_NBIoT_Module.view {
                 if (hours > 24 || hours < 12) {
                     serviceMsdTxtBx.Focus();
                     serviceMsdTxtBx.SelectAll();
-                    Flasher.exceptionDialog("Периодичность инициации сеансов связи не может быть больше 24-х часови меньше 12-ти часов");
+                    Flasher.exceptionDialog("Периодичность инициации сеансов связи не может быть меньше 12-ти часов и больше 24-х часов");
                     return;
                 }
 
@@ -749,7 +747,7 @@ namespace GSM_NBIoT_Module.view {
                 if (timeInSeconds > 255 || timeInSeconds < 15) {
                     letwaitMsdTxtBx.Focus();
                     letwaitMsdTxtBx.SelectAll();
-                    Flasher.exceptionDialog("Время ожидания ответа сервера не может быть больше 04:15 и меньше 00:15");
+                    Flasher.exceptionDialog("Время ожидания ответа сервера не может быть меньше 00:15 и больше 04:15");
                     return;
                 }
 
@@ -758,7 +756,7 @@ namespace GSM_NBIoT_Module.view {
                 if (amoutTry > 6 || amoutTry < 1) {
                     trylimitMsdTxtBx.Focus();
                     trylimitMsdTxtBx.SelectAll();
-                    Flasher.exceptionDialog("Количество попыток связи с сервером не может быть больше 6-ти и меньше 1-й");
+                    Flasher.exceptionDialog("Количество попыток связи с сервером не может быть меньше 1-й и больше 6-ти");
                     return;
                 }
 
@@ -777,7 +775,7 @@ namespace GSM_NBIoT_Module.view {
                 if (timeInSeconds > getSeconds(4, 15, 0) || timeInSeconds < getSeconds(0, 5, 0)) {
                     sesslimitMsdTxtBx.Focus();
                     sesslimitMsdTxtBx.SelectAll();
-                    Flasher.exceptionDialog("Предельное время сеанса связи не может быть больше 04:15 и меньше 00:05");
+                    Flasher.exceptionDialog("Предельное время сеанса связи не может быть меньше 00:05 и больше 04:15");
                     return;
                 }
 
@@ -796,7 +794,7 @@ namespace GSM_NBIoT_Module.view {
                 if (timeInSeconds > 1005 || timeInSeconds < 15) {
                     holdTimeMsdTxtBx.Focus();
                     holdTimeMsdTxtBx.SelectAll();
-                    Flasher.exceptionDialog("Время удержания сеанса связи не может быть больше 16:45 и меньше 00:15");
+                    Flasher.exceptionDialog("Время удержания сеанса связи не может быть меньше 00:15 и больше 16:45");
                     return;
                 }
 
@@ -823,7 +821,7 @@ namespace GSM_NBIoT_Module.view {
                     timeInSeconds = getSeconds(0, minutes, seconds);
 
                     if (timeInSeconds > 900 || timeInSeconds < 30) {
-                        Flasher.exceptionDialog("Время удержания входящего соединения при отсутствии поступления данных от счетчика не может быть больше 15:00 и меньше 00:30");
+                        Flasher.exceptionDialog("Время удержания входящего соединения при отсутствии поступления данных от счетчика не может быть меньше 00:30 и больше 15:00");
                         return;
                     }
 
