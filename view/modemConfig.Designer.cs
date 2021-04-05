@@ -28,6 +28,37 @@ namespace GSM_NBIoT_Module.view {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.ZPORTcommandsDataGridView = new System.Windows.Forms.DataGridView();
             this.parametersColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.connectingTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
+            this.incomholdtimeMskTxtBx = new System.Windows.Forms.MaskedTextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
+            this.sesslimitMsdTxtBx = new System.Windows.Forms.MaskedTextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
+            this.trylimitMsdTxtBx = new System.Windows.Forms.MaskedTextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.letwaitMsdTxtBx = new System.Windows.Forms.MaskedTextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.serviceMsdTxtBx = new System.Windows.Forms.MaskedTextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.periodMsdTxtBx = new System.Windows.Forms.MaskedTextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.connectingAcceptBtn = new System.Windows.Forms.Button();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.holdTimeMsdTxtBx = new System.Windows.Forms.MaskedTextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.userHostTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -61,37 +92,6 @@ namespace GSM_NBIoT_Module.view {
             this.label2 = new System.Windows.Forms.Label();
             this.portTxtBx_1 = new System.Windows.Forms.MaskedTextBox();
             this.setServersSettingsBtn = new System.Windows.Forms.Button();
-            this.connectingTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
-            this.incomholdtimeMskTxtBx = new System.Windows.Forms.MaskedTextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
-            this.sesslimitMsdTxtBx = new System.Windows.Forms.MaskedTextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.trylimitMsdTxtBx = new System.Windows.Forms.MaskedTextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
-            this.letwaitMsdTxtBx = new System.Windows.Forms.MaskedTextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.serviceMsdTxtBx = new System.Windows.Forms.MaskedTextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.periodMsdTxtBx = new System.Windows.Forms.MaskedTextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.connectingAcceptBtn = new System.Windows.Forms.Button();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
-            this.holdTimeMsdTxtBx = new System.Windows.Forms.MaskedTextBox();
-            this.label19 = new System.Windows.Forms.Label();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.verFWTxtBx = new System.Windows.Forms.TextBox();
@@ -104,17 +104,6 @@ namespace GSM_NBIoT_Module.view {
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ZPORTcommandsDataGridView)).BeginInit();
-            this.userHostTableLayoutPanel.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.connectingTableLayoutPanel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.groupBox11.SuspendLayout();
@@ -131,6 +120,17 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
+            this.userHostTableLayoutPanel.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -149,8 +149,8 @@ namespace GSM_NBIoT_Module.view {
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.connectingTableLayoutPanel);
             this.splitContainer1.Panel2.Controls.Add(this.userHostTableLayoutPanel);
+            this.splitContainer1.Panel2.Controls.Add(this.connectingTableLayoutPanel);
             this.splitContainer1.Size = new System.Drawing.Size(779, 485);
             this.splitContainer1.SplitterDistance = 237;
             this.splitContainer1.TabIndex = 0;
@@ -187,6 +187,371 @@ namespace GSM_NBIoT_Module.view {
             this.parametersColumn.Name = "parametersColumn";
             this.parametersColumn.ReadOnly = true;
             this.parametersColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // connectingTableLayoutPanel
+            // 
+            this.connectingTableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.connectingTableLayoutPanel.ColumnCount = 1;
+            this.connectingTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.connectingTableLayoutPanel.Controls.Add(this.tableLayoutPanel2, 0, 0);
+            this.connectingTableLayoutPanel.Location = new System.Drawing.Point(3, 6);
+            this.connectingTableLayoutPanel.Name = "connectingTableLayoutPanel";
+            this.connectingTableLayoutPanel.RowCount = 1;
+            this.connectingTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.connectingTableLayoutPanel.Size = new System.Drawing.Size(530, 474);
+            this.connectingTableLayoutPanel.TabIndex = 2;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanel2.Controls.Add(this.groupBox11, 0, 6);
+            this.tableLayoutPanel2.Controls.Add(this.groupBox9, 0, 4);
+            this.tableLayoutPanel2.Controls.Add(this.groupBox8, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.groupBox7, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.groupBox6, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.groupBox5, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.connectingAcceptBtn, 1, 7);
+            this.tableLayoutPanel2.Controls.Add(this.groupBox10, 0, 5);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 8;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28438F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28437F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28437F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28437F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28437F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28907F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28907F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(524, 468);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // groupBox11
+            // 
+            this.tableLayoutPanel2.SetColumnSpan(this.groupBox11, 2);
+            this.groupBox11.Controls.Add(this.tableLayoutPanel12);
+            this.groupBox11.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox11.Location = new System.Drawing.Point(3, 357);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(518, 53);
+            this.groupBox11.TabIndex = 35;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "7. Время удержания входящего соединения при отсутствии поступления данных от счет" +
+    "чика";
+            // 
+            // tableLayoutPanel12
+            // 
+            this.tableLayoutPanel12.ColumnCount = 2;
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel12.Controls.Add(this.incomholdtimeMskTxtBx, 0, 0);
+            this.tableLayoutPanel12.Controls.Add(this.label10, 1, 0);
+            this.tableLayoutPanel12.Location = new System.Drawing.Point(6, 20);
+            this.tableLayoutPanel12.Name = "tableLayoutPanel12";
+            this.tableLayoutPanel12.RowCount = 1;
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(508, 25);
+            this.tableLayoutPanel12.TabIndex = 0;
+            // 
+            // incomholdtimeMskTxtBx
+            // 
+            this.incomholdtimeMskTxtBx.Location = new System.Drawing.Point(3, 3);
+            this.incomholdtimeMskTxtBx.Mask = "00:00";
+            this.incomholdtimeMskTxtBx.Name = "incomholdtimeMskTxtBx";
+            this.incomholdtimeMskTxtBx.Size = new System.Drawing.Size(99, 20);
+            this.incomholdtimeMskTxtBx.TabIndex = 22;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(130, 6);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(134, 13);
+            this.label10.TabIndex = 28;
+            this.label10.Text = "(mm:ss) от 00:30 до 15:00 ";
+            // 
+            // groupBox9
+            // 
+            this.tableLayoutPanel2.SetColumnSpan(this.groupBox9, 2);
+            this.groupBox9.Controls.Add(this.tableLayoutPanel10);
+            this.groupBox9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox9.Location = new System.Drawing.Point(3, 239);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(518, 53);
+            this.groupBox9.TabIndex = 33;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "5. Предельное время сеанса связи";
+            // 
+            // tableLayoutPanel10
+            // 
+            this.tableLayoutPanel10.ColumnCount = 2;
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel10.Controls.Add(this.sesslimitMsdTxtBx, 0, 0);
+            this.tableLayoutPanel10.Controls.Add(this.label9, 1, 0);
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(6, 20);
+            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            this.tableLayoutPanel10.RowCount = 1;
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(508, 25);
+            this.tableLayoutPanel10.TabIndex = 0;
+            // 
+            // sesslimitMsdTxtBx
+            // 
+            this.sesslimitMsdTxtBx.Location = new System.Drawing.Point(3, 3);
+            this.sesslimitMsdTxtBx.Mask = "00:00";
+            this.sesslimitMsdTxtBx.Name = "sesslimitMsdTxtBx";
+            this.sesslimitMsdTxtBx.Size = new System.Drawing.Size(99, 20);
+            this.sesslimitMsdTxtBx.TabIndex = 21;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(130, 6);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(133, 13);
+            this.label9.TabIndex = 27;
+            this.label9.Text = "(hh:mm) от 00:05 до 04:15";
+            // 
+            // groupBox8
+            // 
+            this.tableLayoutPanel2.SetColumnSpan(this.groupBox8, 2);
+            this.groupBox8.Controls.Add(this.tableLayoutPanel9);
+            this.groupBox8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox8.Location = new System.Drawing.Point(3, 180);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(518, 53);
+            this.groupBox8.TabIndex = 32;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "4. Количество попыток связи с сервером";
+            // 
+            // tableLayoutPanel9
+            // 
+            this.tableLayoutPanel9.ColumnCount = 2;
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel9.Controls.Add(this.trylimitMsdTxtBx, 0, 0);
+            this.tableLayoutPanel9.Controls.Add(this.label8, 1, 0);
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(6, 20);
+            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
+            this.tableLayoutPanel9.RowCount = 1;
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(508, 25);
+            this.tableLayoutPanel9.TabIndex = 0;
+            // 
+            // trylimitMsdTxtBx
+            // 
+            this.trylimitMsdTxtBx.Location = new System.Drawing.Point(3, 3);
+            this.trylimitMsdTxtBx.Mask = "0";
+            this.trylimitMsdTxtBx.Name = "trylimitMsdTxtBx";
+            this.trylimitMsdTxtBx.Size = new System.Drawing.Size(99, 20);
+            this.trylimitMsdTxtBx.TabIndex = 20;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(130, 6);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(118, 13);
+            this.label8.TabIndex = 26;
+            this.label8.Text = "(количество) от 1 до 6";
+            // 
+            // groupBox7
+            // 
+            this.tableLayoutPanel2.SetColumnSpan(this.groupBox7, 2);
+            this.groupBox7.Controls.Add(this.tableLayoutPanel8);
+            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox7.Location = new System.Drawing.Point(3, 121);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(518, 53);
+            this.groupBox7.TabIndex = 31;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "3. Время ожидания ответа сервера";
+            // 
+            // tableLayoutPanel8
+            // 
+            this.tableLayoutPanel8.ColumnCount = 2;
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel8.Controls.Add(this.letwaitMsdTxtBx, 0, 0);
+            this.tableLayoutPanel8.Controls.Add(this.label7, 1, 0);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(6, 20);
+            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
+            this.tableLayoutPanel8.RowCount = 1;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(508, 25);
+            this.tableLayoutPanel8.TabIndex = 0;
+            // 
+            // letwaitMsdTxtBx
+            // 
+            this.letwaitMsdTxtBx.Location = new System.Drawing.Point(3, 3);
+            this.letwaitMsdTxtBx.Mask = "00:00";
+            this.letwaitMsdTxtBx.Name = "letwaitMsdTxtBx";
+            this.letwaitMsdTxtBx.Size = new System.Drawing.Size(99, 20);
+            this.letwaitMsdTxtBx.TabIndex = 19;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(130, 6);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(131, 13);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "(mm:ss) от 00:15 до 04:15";
+            // 
+            // groupBox6
+            // 
+            this.tableLayoutPanel2.SetColumnSpan(this.groupBox6, 2);
+            this.groupBox6.Controls.Add(this.tableLayoutPanel7);
+            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox6.Location = new System.Drawing.Point(3, 62);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(518, 53);
+            this.groupBox6.TabIndex = 30;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "2. Периодичность инициации сеансов связи с базовым сервером";
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.ColumnCount = 2;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel7.Controls.Add(this.serviceMsdTxtBx, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.label6, 1, 0);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(6, 20);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(508, 25);
+            this.tableLayoutPanel7.TabIndex = 0;
+            // 
+            // serviceMsdTxtBx
+            // 
+            this.serviceMsdTxtBx.Location = new System.Drawing.Point(3, 3);
+            this.serviceMsdTxtBx.Mask = "00";
+            this.serviceMsdTxtBx.Name = "serviceMsdTxtBx";
+            this.serviceMsdTxtBx.Size = new System.Drawing.Size(99, 20);
+            this.serviceMsdTxtBx.TabIndex = 18;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(130, 6);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(148, 13);
+            this.label6.TabIndex = 24;
+            this.label6.Text = "(hh) от 12 часов до 24 часов";
+            // 
+            // groupBox5
+            // 
+            this.tableLayoutPanel2.SetColumnSpan(this.groupBox5, 2);
+            this.groupBox5.Controls.Add(this.tableLayoutPanel1);
+            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox5.Location = new System.Drawing.Point(3, 3);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(518, 53);
+            this.groupBox5.TabIndex = 29;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "1. Периодичность инициации сеансов связи с серверами";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel1.Controls.Add(this.periodMsdTxtBx, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 20);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(508, 25);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // periodMsdTxtBx
+            // 
+            this.periodMsdTxtBx.Location = new System.Drawing.Point(3, 3);
+            this.periodMsdTxtBx.Mask = "00:00:00";
+            this.periodMsdTxtBx.Name = "periodMsdTxtBx";
+            this.periodMsdTxtBx.Size = new System.Drawing.Size(99, 20);
+            this.periodMsdTxtBx.TabIndex = 17;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(130, 6);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(189, 13);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "(hh:mm:ss) от 60 секунд до 20 часов ";
+            // 
+            // connectingAcceptBtn
+            // 
+            this.connectingAcceptBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.connectingAcceptBtn.Location = new System.Drawing.Point(424, 442);
+            this.connectingAcceptBtn.Name = "connectingAcceptBtn";
+            this.connectingAcceptBtn.Size = new System.Drawing.Size(97, 23);
+            this.connectingAcceptBtn.TabIndex = 1;
+            this.connectingAcceptBtn.Text = "Записать";
+            this.connectingAcceptBtn.UseVisualStyleBackColor = true;
+            this.connectingAcceptBtn.Click += new System.EventHandler(this.connectingAcceptBtn_Click);
+            // 
+            // groupBox10
+            // 
+            this.tableLayoutPanel2.SetColumnSpan(this.groupBox10, 2);
+            this.groupBox10.Controls.Add(this.tableLayoutPanel11);
+            this.groupBox10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox10.Location = new System.Drawing.Point(3, 298);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(518, 53);
+            this.groupBox10.TabIndex = 34;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "6. Время удержания сеанса связи при отсутствии обмена данными";
+            // 
+            // tableLayoutPanel11
+            // 
+            this.tableLayoutPanel11.ColumnCount = 2;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel11.Controls.Add(this.holdTimeMsdTxtBx, 0, 0);
+            this.tableLayoutPanel11.Controls.Add(this.label19, 1, 0);
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(6, 20);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            this.tableLayoutPanel11.RowCount = 1;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(508, 25);
+            this.tableLayoutPanel11.TabIndex = 0;
+            // 
+            // holdTimeMsdTxtBx
+            // 
+            this.holdTimeMsdTxtBx.Location = new System.Drawing.Point(3, 3);
+            this.holdTimeMsdTxtBx.Mask = "00:00";
+            this.holdTimeMsdTxtBx.Name = "holdTimeMsdTxtBx";
+            this.holdTimeMsdTxtBx.Size = new System.Drawing.Size(99, 20);
+            this.holdTimeMsdTxtBx.TabIndex = 22;
+            // 
+            // label19
+            // 
+            this.label19.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(130, 6);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(131, 13);
+            this.label19.TabIndex = 28;
+            this.label19.Text = "(mm:ss) от 16:45 до 00:15";
             // 
             // userHostTableLayoutPanel
             // 
@@ -602,371 +967,6 @@ namespace GSM_NBIoT_Module.view {
             this.setServersSettingsBtn.UseVisualStyleBackColor = true;
             this.setServersSettingsBtn.Click += new System.EventHandler(this.setServersSettingsBtn_Click);
             // 
-            // connectingTableLayoutPanel
-            // 
-            this.connectingTableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.connectingTableLayoutPanel.ColumnCount = 1;
-            this.connectingTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.connectingTableLayoutPanel.Controls.Add(this.tableLayoutPanel2, 0, 0);
-            this.connectingTableLayoutPanel.Location = new System.Drawing.Point(3, 6);
-            this.connectingTableLayoutPanel.Name = "connectingTableLayoutPanel";
-            this.connectingTableLayoutPanel.RowCount = 1;
-            this.connectingTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.connectingTableLayoutPanel.Size = new System.Drawing.Size(530, 474);
-            this.connectingTableLayoutPanel.TabIndex = 2;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.tableLayoutPanel2.Controls.Add(this.groupBox11, 0, 6);
-            this.tableLayoutPanel2.Controls.Add(this.groupBox9, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.groupBox8, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.groupBox7, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.groupBox6, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.groupBox5, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.connectingAcceptBtn, 1, 7);
-            this.tableLayoutPanel2.Controls.Add(this.groupBox10, 0, 5);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 8;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28438F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28437F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28437F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28437F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28437F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28907F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28907F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(524, 468);
-            this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // groupBox11
-            // 
-            this.tableLayoutPanel2.SetColumnSpan(this.groupBox11, 2);
-            this.groupBox11.Controls.Add(this.tableLayoutPanel12);
-            this.groupBox11.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox11.Location = new System.Drawing.Point(3, 357);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(518, 53);
-            this.groupBox11.TabIndex = 35;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "7. Время удержания входящего соединения при отсутствии поступления данных от счет" +
-    "чика";
-            // 
-            // tableLayoutPanel12
-            // 
-            this.tableLayoutPanel12.ColumnCount = 2;
-            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel12.Controls.Add(this.incomholdtimeMskTxtBx, 0, 0);
-            this.tableLayoutPanel12.Controls.Add(this.label10, 1, 0);
-            this.tableLayoutPanel12.Location = new System.Drawing.Point(6, 20);
-            this.tableLayoutPanel12.Name = "tableLayoutPanel12";
-            this.tableLayoutPanel12.RowCount = 1;
-            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel12.Size = new System.Drawing.Size(508, 25);
-            this.tableLayoutPanel12.TabIndex = 0;
-            // 
-            // incomholdtimeMskTxtBx
-            // 
-            this.incomholdtimeMskTxtBx.Location = new System.Drawing.Point(3, 3);
-            this.incomholdtimeMskTxtBx.Mask = "00:00";
-            this.incomholdtimeMskTxtBx.Name = "incomholdtimeMskTxtBx";
-            this.incomholdtimeMskTxtBx.Size = new System.Drawing.Size(99, 20);
-            this.incomholdtimeMskTxtBx.TabIndex = 22;
-            // 
-            // label10
-            // 
-            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(130, 6);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(134, 13);
-            this.label10.TabIndex = 28;
-            this.label10.Text = "(mm:ss) от 00:30 до 15:00 ";
-            // 
-            // groupBox9
-            // 
-            this.tableLayoutPanel2.SetColumnSpan(this.groupBox9, 2);
-            this.groupBox9.Controls.Add(this.tableLayoutPanel10);
-            this.groupBox9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox9.Location = new System.Drawing.Point(3, 239);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(518, 53);
-            this.groupBox9.TabIndex = 33;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "5. Предельное время сеанса связи";
-            // 
-            // tableLayoutPanel10
-            // 
-            this.tableLayoutPanel10.ColumnCount = 2;
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel10.Controls.Add(this.sesslimitMsdTxtBx, 0, 0);
-            this.tableLayoutPanel10.Controls.Add(this.label9, 1, 0);
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(6, 20);
-            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
-            this.tableLayoutPanel10.RowCount = 1;
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(508, 25);
-            this.tableLayoutPanel10.TabIndex = 0;
-            // 
-            // sesslimitMsdTxtBx
-            // 
-            this.sesslimitMsdTxtBx.Location = new System.Drawing.Point(3, 3);
-            this.sesslimitMsdTxtBx.Mask = "00:00";
-            this.sesslimitMsdTxtBx.Name = "sesslimitMsdTxtBx";
-            this.sesslimitMsdTxtBx.Size = new System.Drawing.Size(99, 20);
-            this.sesslimitMsdTxtBx.TabIndex = 21;
-            // 
-            // label9
-            // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(130, 6);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(133, 13);
-            this.label9.TabIndex = 27;
-            this.label9.Text = "(hh:mm) от 00:05 до 04:15";
-            // 
-            // groupBox8
-            // 
-            this.tableLayoutPanel2.SetColumnSpan(this.groupBox8, 2);
-            this.groupBox8.Controls.Add(this.tableLayoutPanel9);
-            this.groupBox8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox8.Location = new System.Drawing.Point(3, 180);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(518, 53);
-            this.groupBox8.TabIndex = 32;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "4. Количество попыток связи с сервером";
-            // 
-            // tableLayoutPanel9
-            // 
-            this.tableLayoutPanel9.ColumnCount = 2;
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel9.Controls.Add(this.trylimitMsdTxtBx, 0, 0);
-            this.tableLayoutPanel9.Controls.Add(this.label8, 1, 0);
-            this.tableLayoutPanel9.Location = new System.Drawing.Point(6, 20);
-            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
-            this.tableLayoutPanel9.RowCount = 1;
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(508, 25);
-            this.tableLayoutPanel9.TabIndex = 0;
-            // 
-            // trylimitMsdTxtBx
-            // 
-            this.trylimitMsdTxtBx.Location = new System.Drawing.Point(3, 3);
-            this.trylimitMsdTxtBx.Mask = "0";
-            this.trylimitMsdTxtBx.Name = "trylimitMsdTxtBx";
-            this.trylimitMsdTxtBx.Size = new System.Drawing.Size(99, 20);
-            this.trylimitMsdTxtBx.TabIndex = 20;
-            // 
-            // label8
-            // 
-            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(130, 6);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(118, 13);
-            this.label8.TabIndex = 26;
-            this.label8.Text = "(количество) от 1 до 6";
-            // 
-            // groupBox7
-            // 
-            this.tableLayoutPanel2.SetColumnSpan(this.groupBox7, 2);
-            this.groupBox7.Controls.Add(this.tableLayoutPanel8);
-            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox7.Location = new System.Drawing.Point(3, 121);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(518, 53);
-            this.groupBox7.TabIndex = 31;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "3. Время ожидания ответа сервера";
-            // 
-            // tableLayoutPanel8
-            // 
-            this.tableLayoutPanel8.ColumnCount = 2;
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel8.Controls.Add(this.letwaitMsdTxtBx, 0, 0);
-            this.tableLayoutPanel8.Controls.Add(this.label7, 1, 0);
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(6, 20);
-            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
-            this.tableLayoutPanel8.RowCount = 1;
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(508, 25);
-            this.tableLayoutPanel8.TabIndex = 0;
-            // 
-            // letwaitMsdTxtBx
-            // 
-            this.letwaitMsdTxtBx.Location = new System.Drawing.Point(3, 3);
-            this.letwaitMsdTxtBx.Mask = "00:00";
-            this.letwaitMsdTxtBx.Name = "letwaitMsdTxtBx";
-            this.letwaitMsdTxtBx.Size = new System.Drawing.Size(99, 20);
-            this.letwaitMsdTxtBx.TabIndex = 19;
-            // 
-            // label7
-            // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(130, 6);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(131, 13);
-            this.label7.TabIndex = 25;
-            this.label7.Text = "(mm:ss) от 00:15 до 04:15";
-            // 
-            // groupBox6
-            // 
-            this.tableLayoutPanel2.SetColumnSpan(this.groupBox6, 2);
-            this.groupBox6.Controls.Add(this.tableLayoutPanel7);
-            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox6.Location = new System.Drawing.Point(3, 62);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(518, 53);
-            this.groupBox6.TabIndex = 30;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "2. Периодичность инициации сеансов связи с базовым сервером";
-            // 
-            // tableLayoutPanel7
-            // 
-            this.tableLayoutPanel7.ColumnCount = 2;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel7.Controls.Add(this.serviceMsdTxtBx, 0, 0);
-            this.tableLayoutPanel7.Controls.Add(this.label6, 1, 0);
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(6, 20);
-            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 1;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(508, 25);
-            this.tableLayoutPanel7.TabIndex = 0;
-            // 
-            // serviceMsdTxtBx
-            // 
-            this.serviceMsdTxtBx.Location = new System.Drawing.Point(3, 3);
-            this.serviceMsdTxtBx.Mask = "00";
-            this.serviceMsdTxtBx.Name = "serviceMsdTxtBx";
-            this.serviceMsdTxtBx.Size = new System.Drawing.Size(99, 20);
-            this.serviceMsdTxtBx.TabIndex = 18;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(130, 6);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(148, 13);
-            this.label6.TabIndex = 24;
-            this.label6.Text = "(hh) от 12 часов до 24 часов";
-            // 
-            // groupBox5
-            // 
-            this.tableLayoutPanel2.SetColumnSpan(this.groupBox5, 2);
-            this.groupBox5.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox5.Location = new System.Drawing.Point(3, 3);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(518, 53);
-            this.groupBox5.TabIndex = 29;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "1. Периодичность инициации сеансов связи с серверами";
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel1.Controls.Add(this.periodMsdTxtBx, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 20);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(508, 25);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // periodMsdTxtBx
-            // 
-            this.periodMsdTxtBx.Location = new System.Drawing.Point(3, 3);
-            this.periodMsdTxtBx.Mask = "00:00:00";
-            this.periodMsdTxtBx.Name = "periodMsdTxtBx";
-            this.periodMsdTxtBx.Size = new System.Drawing.Size(99, 20);
-            this.periodMsdTxtBx.TabIndex = 17;
-            // 
-            // label5
-            // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(130, 6);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(189, 13);
-            this.label5.TabIndex = 23;
-            this.label5.Text = "(hh:mm:ss) от 60 секунд до 20 часов ";
-            // 
-            // connectingAcceptBtn
-            // 
-            this.connectingAcceptBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.connectingAcceptBtn.Location = new System.Drawing.Point(424, 442);
-            this.connectingAcceptBtn.Name = "connectingAcceptBtn";
-            this.connectingAcceptBtn.Size = new System.Drawing.Size(97, 23);
-            this.connectingAcceptBtn.TabIndex = 1;
-            this.connectingAcceptBtn.Text = "Записать";
-            this.connectingAcceptBtn.UseVisualStyleBackColor = true;
-            this.connectingAcceptBtn.Click += new System.EventHandler(this.connectingAcceptBtn_Click);
-            // 
-            // groupBox10
-            // 
-            this.tableLayoutPanel2.SetColumnSpan(this.groupBox10, 2);
-            this.groupBox10.Controls.Add(this.tableLayoutPanel11);
-            this.groupBox10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox10.Location = new System.Drawing.Point(3, 298);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(518, 53);
-            this.groupBox10.TabIndex = 34;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "6. Время удержания сеанса связи при отсутствии обмена данными";
-            // 
-            // tableLayoutPanel11
-            // 
-            this.tableLayoutPanel11.ColumnCount = 2;
-            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel11.Controls.Add(this.holdTimeMsdTxtBx, 0, 0);
-            this.tableLayoutPanel11.Controls.Add(this.label19, 1, 0);
-            this.tableLayoutPanel11.Location = new System.Drawing.Point(6, 20);
-            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
-            this.tableLayoutPanel11.RowCount = 1;
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel11.Size = new System.Drawing.Size(508, 25);
-            this.tableLayoutPanel11.TabIndex = 0;
-            // 
-            // holdTimeMsdTxtBx
-            // 
-            this.holdTimeMsdTxtBx.Location = new System.Drawing.Point(3, 3);
-            this.holdTimeMsdTxtBx.Mask = "00:00";
-            this.holdTimeMsdTxtBx.Name = "holdTimeMsdTxtBx";
-            this.holdTimeMsdTxtBx.Size = new System.Drawing.Size(99, 20);
-            this.holdTimeMsdTxtBx.TabIndex = 22;
-            // 
-            // label19
-            // 
-            this.label19.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(130, 6);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(131, 13);
-            this.label19.TabIndex = 28;
-            this.label19.Text = "(mm:ss) от 16:45 до 00:15";
-            // 
             // cancelBtn
             // 
             this.cancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1054,23 +1054,6 @@ namespace GSM_NBIoT_Module.view {
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ZPORTcommandsDataGridView)).EndInit();
-            this.userHostTableLayoutPanel.ResumeLayout(false);
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.connectingTableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
@@ -1094,6 +1077,23 @@ namespace GSM_NBIoT_Module.view {
             this.groupBox10.ResumeLayout(false);
             this.tableLayoutPanel11.ResumeLayout(false);
             this.tableLayoutPanel11.PerformLayout();
+            this.userHostTableLayoutPanel.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);

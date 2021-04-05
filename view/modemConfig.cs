@@ -251,7 +251,7 @@ namespace GSM_NBIoT_Module.view {
                     }
             }
 
-            throw new ArgumentException("Сценария с аргументом i не предусмотрено");
+            throw new ArgumentException("Сценария с аргументом " + i + " не предусмотрено");
         }
 
         /// <summary>
@@ -980,9 +980,11 @@ namespace GSM_NBIoT_Module.view {
             }
         }
 
+        private ToolTip toolTip = new ToolTip();
         private void domenNameRdBtnGroup_1_CheckedChanged(object sender, EventArgs e) {
             if (domenNameRdBtn_1.Checked) {
                 ipDomenNameTxtBx_1.Text = oldValueDomenName_1;
+                toolTip.SetToolTip(ipDomenNameTxtBx_1, "Доменное имя должно иметь знак \" в начале и в конце.\nДоменное имя ");
 
             } else if (IPv4RdBtn_1.Checked) {
                 ipDomenNameTxtBx_1.Text = oldValueIPv4_1;
