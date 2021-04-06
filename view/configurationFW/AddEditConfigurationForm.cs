@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GSM_NBIoT_Module.classes.applicationHelper;
 using GSM_NBIoT_Module.classes.controllerOnBoard.Configuration;
 
 namespace GSM_NBIoT_Module {
@@ -284,48 +285,9 @@ namespace GSM_NBIoT_Module {
 
                     string localDomenName = "";
 
-                    string[] ipv6Arr = ipv6.Split(':');
-
-                    List<byte> listByteIPv6 = new List<byte>();
-
-                    if (ipv6Arr.Length != 8) throw new FormatException();
-
-                    foreach (string cell in ipv6Arr) {
-
-                        string cell_2_Byte = cell.Trim();
-
-                        if (cell_2_Byte.Length > 4) throw new FormatException();
-
-                        if (String.IsNullOrEmpty(cell_2_Byte)) {
-                            listByteIPv6.AddRange(new byte[] { 0, 0 });
-                            localDomenName += "0:";
-                            continue;
-                        }
-
-                        //В зависимости от длины формата ячейки с адресом заполняю массив байтами
-                        if (cell_2_Byte.Length <= 2) {
-                            listByteIPv6.Add(0);
-                            listByteIPv6.Add(Convert.ToByte(cell_2_Byte, 16));
-
-                        } else {
-                            if (cell_2_Byte.Length == 3) {
-                                listByteIPv6.Add(Convert.ToByte(cell_2_Byte.Substring(0, 1), 16));
-                                listByteIPv6.Add(Convert.ToByte(cell_2_Byte.Substring(1), 16));
-
-                            } else {
-                                string messArr = cell_2_Byte.Substring(0, 2);
-                                string arr = cell_2_Byte.Substring(2);
-                                listByteIPv6.Add(Convert.ToByte(cell_2_Byte.Substring(0, 2), 16));
-                                listByteIPv6.Add(Convert.ToByte(cell_2_Byte.Substring(2), 16));
-                            }
-                        }
-
-                        localDomenName += cell_2_Byte + ":";
-                    }
-
                     //2001:DB0:0:123A:0:0:0:30
-                    domenNameByteArr = listByteIPv6.ToArray();
-                    domenName = localDomenName.Substring(0, localDomenName.Length - 1);
+                    domenNameByteArr = IPv6Parser.getIPv6AddresByteArray(ipv6);
+                    domenName = ipv6;
 
                     //Селектор для IPv6
                     selector = 0x02;
@@ -334,8 +296,7 @@ namespace GSM_NBIoT_Module {
 
                     domenNameTxtBox.Focus();
                     domenNameTxtBox.SelectAll();
-                    Flasher.exceptionDialog("Неверный формат записи IPv6, диапазон каждого значения в одном хекстете может быть от 0..F (HEX)" +
-                        "\nПример записи: 2001:DB0:0:123A::::30");
+                    Flasher.exceptionDialog(ex.Message);
                     return;
                 }
 

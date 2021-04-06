@@ -1,4 +1,5 @@
 ﻿using GSM_NBIoT_Module.classes;
+using GSM_NBIoT_Module.classes.applicationHelper;
 using GSM_NBIoT_Module.classes.applicationHelper.exceptions;
 using System;
 using System.Collections.Generic;
@@ -146,53 +147,59 @@ namespace GSM_NBIoT_Module.view {
             string port = "";
 
             //Заполняю информацией поля
-            //Доменное имя и порт сервера 1
+            //Доменное имя и порт сервера 0
             getIPv4AndPortUserHost(0, ref iPorDomen, ref port);
             portTxtBx_1.Text = port;
 
-            if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
-                domenNameRdBtn_1.Checked = true;
+            if (String.IsNullOrEmpty(iPorDomen)) {
+                if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
+                    domenNameRdBtn_1.Checked = true;
 
-            } else if (iPorDomen.Contains('.')) {
-                IPv4RdBtn_1.Checked = true;
+                } else if (iPorDomen.Contains('.')) {
+                    IPv4RdBtn_1.Checked = true;
 
-            } else {
-                IPv6RdBtn_1.Checked = true;
+                } else {
+                    IPv6RdBtn_1.Checked = true;
+                }
+
+                ipDomenNameTxtBx_1.Text = iPorDomen;
             }
 
-            ipDomenNameTxtBx_1.Text = iPorDomen;
+            if (String.IsNullOrEmpty(iPorDomen)) {
+                //Доменное имя и порт сервера 1
+                getIPv4AndPortUserHost(1, ref iPorDomen, ref port);
+                portTxtBx_2.Text = port;
 
-            //Доменное имя и порт сервера 2
-            getIPv4AndPortUserHost(1, ref iPorDomen, ref port);
-            portTxtBx_2.Text = port;
+                if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
+                    domenNameRdBtn_2.Checked = true;
 
-            if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
-                domenNameRdBtn_2.Checked = true;
+                } else if (iPorDomen.Contains('.')) {
+                    IPv4RdBtn_2.Checked = true;
 
-            } else if (iPorDomen.Contains('.')) {
-                IPv4RdBtn_2.Checked = true;
+                } else {
+                    IPv6RdBtn_2.Checked = true;
+                }
 
-            } else {
-                IPv6RdBtn_2.Checked = true;
+                ipDomenNameTxtBx_2.Text = iPorDomen;
             }
 
-            ipDomenNameTxtBx_2.Text = iPorDomen;
+            if (String.IsNullOrEmpty(iPorDomen)) {
+                //Доменное имя и порт сервера 2
+                getIPv4AndPortUserHost(2, ref iPorDomen, ref port);
+                portTxtBx_3.Text = port;
 
-            //Доменное имя и порт сервера 3
-            getIPv4AndPortUserHost(2, ref iPorDomen, ref port);
-            portTxtBx_3.Text = port;
+                if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
+                    domenNameRdBtn_3.Checked = true;
 
-            if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
-                domenNameRdBtn_3.Checked = true;
+                } else if (iPorDomen.Contains('.')) {
+                    IPv4RdBtn_3.Checked = true;
 
-            } else if (iPorDomen.Contains('.')) {
-                IPv4RdBtn_3.Checked = true;
+                } else {
+                    IPv6RdBtn_3.Checked = true;
+                }
 
-            } else {
-                IPv6RdBtn_3.Checked = true;
+                ipDomenNameTxtBx_3.Text = iPorDomen;
             }
-
-            ipDomenNameTxtBx_3.Text = iPorDomen;
         }
 
         /// <summary>
@@ -358,40 +365,13 @@ namespace GSM_NBIoT_Module.view {
                             try {
                                 string ipv6 = domenOrIPData.Text.Trim();
 
-                                string localDomenName = "";
-
-                                string[] ipv6Arr = ipv6.Split(':');
-
-                                if (ipv6Arr.Length != 8) throw new FormatException();
-
-                                foreach (string cell in ipv6Arr) {
-
-                                    string cell_2_Byte = cell.Trim();
-
-                                    if (cell_2_Byte.Length > 4) throw new FormatException();
-
-                                    if (String.IsNullOrEmpty(cell_2_Byte)) {
-                                        localDomenName += "0:";
-                                        continue;
-                                    }
-
-                                    foreach (char ch in cell_2_Byte.ToUpper().ToArray()) {
-                                        //Проверка на диапазон значений от 0..f
-                                        if (!((ch >= 48 && ch <= 57) || (ch >= 65 && ch <= 70))) throw new FormatException();
-                                    }
-
-                                    localDomenName += cell_2_Byte + ":";
-                                }
-
-                                //Пример 2001:DB0:0:123A:0:0:0:30
-                                domenOrIPData.Text = localDomenName.Substring(0, localDomenName.Length - 1);
+                                IPv6Parser.checValidValue(ipv6);
 
                             } catch(Exception) {
 
                                 domenOrIPData.Focus();
                                 domenOrIPData.SelectAll();
-                                throw new FormatException("Неверный формат записи IPv6, диапазон каждого значения в одном хекстете может быть от 0..F (HEX)" + 
-                                    "\nПример записи: 2001:DB0:0:123A::::30");
+                                throw;
                             }
 
                         } break;
