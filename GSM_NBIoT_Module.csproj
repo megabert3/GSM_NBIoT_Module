@@ -52,7 +52,7 @@
   <ItemGroup>
     <Compile Include="classes\applicationHelper\IPv6Parser.cs" />
     <Compile Include="classes\applicationHelper\exceptions\CP_Error.cs" />
-    <Compile Include="classes\applicationHelper\progressBar.cs" />
+    <Compile Include="classes\applicationHelper\ProgressBar.cs" />
     <Compile Include="classes\applicationHelper\exceptions\ATCommandException.cs" />
     <Compile Include="classes\applicationHelper\exceptions\MKCommandException.cs" />
     <Compile Include="classes\applicationHelper\exceptions\DeviceNotFoundException.cs" />
@@ -234,6 +234,8 @@
     <None Include="Resources\edit_property_32px.png" />
     <None Include="Resources\add_property_32px.png" />
     <None Include="Resources\view_details_32px.png" />
+    <None Include="Resources\prototype_10px.png" />
+    <None Include="Resources\prototype_15px.png" />
     <Content Include="unnamed.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -61,7 +61,7 @@
             this.stopBit2RdBtn = new System.Windows.Forms.RadioButton();
             this.stopBit1RdBtn = new System.Windows.Forms.RadioButton();
             this.stopBit1_5RdBtn = new System.Windows.Forms.RadioButton();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.CP2105grpBx = new System.Windows.Forms.GroupBox();
             this.searchCP2105Ports = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.enhanGPIO_1chBx = new System.Windows.Forms.CheckBox();
@@ -191,8 +191,9 @@
             this.otherGroup = new System.Windows.Forms.GroupBox();
             this.addEndLine = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.COMportGrpBx = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.showSendDataInCOMChBx = new System.Windows.Forms.CheckBox();
             this.changeAlignment = new System.Windows.Forms.Button();
             this.clEqualsRf = new System.Windows.Forms.CheckBox();
             this.saveLog = new System.Windows.Forms.Button();
@@ -210,13 +211,12 @@
             this.MK_AnswerRhTxtBox = new System.Windows.Forms.RichTextBox();
             this.quectelAnswerRhTxtBx = new System.Windows.Forms.RichTextBox();
             this.showOrHideControlPanel = new System.Windows.Forms.Button();
-            this.showSendDataInCOMChBx = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.bandRateGroup.SuspendLayout();
             this.dataBitGroup.SuspendLayout();
             this.parityGroup.SuspendLayout();
             this.stopBitGroup.SuspendLayout();
-            this.groupBox6.SuspendLayout();
+            this.CP2105grpBx.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.modeGroup.SuspendLayout();
@@ -228,7 +228,7 @@
             this.tabPage5.SuspendLayout();
             this.otherGroup.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this.COMportGrpBx.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -680,18 +680,18 @@
             this.stopBit1_5RdBtn.Text = "1.5";
             this.stopBit1_5RdBtn.UseVisualStyleBackColor = true;
             // 
-            // groupBox6
+            // CP2105grpBx
             // 
-            this.groupBox6.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.groupBox6.Controls.Add(this.searchCP2105Ports);
-            this.groupBox6.Controls.Add(this.groupBox8);
-            this.groupBox6.Controls.Add(this.groupBox7);
-            this.groupBox6.Location = new System.Drawing.Point(144, 16);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(361, 120);
-            this.groupBox6.TabIndex = 20;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "CP2105";
+            this.CP2105grpBx.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.CP2105grpBx.Controls.Add(this.searchCP2105Ports);
+            this.CP2105grpBx.Controls.Add(this.groupBox8);
+            this.CP2105grpBx.Controls.Add(this.groupBox7);
+            this.CP2105grpBx.Location = new System.Drawing.Point(144, 16);
+            this.CP2105grpBx.Name = "CP2105grpBx";
+            this.CP2105grpBx.Size = new System.Drawing.Size(361, 120);
+            this.CP2105grpBx.TabIndex = 20;
+            this.CP2105grpBx.TabStop = false;
+            this.CP2105grpBx.Text = "CP2105";
             // 
             // searchCP2105Ports
             // 
@@ -2002,7 +2002,7 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.Silver;
-            this.flowLayoutPanel1.Controls.Add(this.groupBox4);
+            this.flowLayoutPanel1.Controls.Add(this.COMportGrpBx);
             this.flowLayoutPanel1.Controls.Add(this.groupBox5);
             this.flowLayoutPanel1.Controls.Add(this.groupBox2);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -2011,19 +2011,19 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1401, 147);
             this.flowLayoutPanel1.TabIndex = 32;
             // 
-            // groupBox4
+            // COMportGrpBx
             // 
-            this.groupBox4.Controls.Add(this.stopBitGroup);
-            this.groupBox4.Controls.Add(this.parityGroup);
-            this.groupBox4.Controls.Add(this.dataBitGroup);
-            this.groupBox4.Controls.Add(this.bandRateGroup);
-            this.groupBox4.Controls.Add(this.groupBox1);
-            this.groupBox4.Location = new System.Drawing.Point(3, 3);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(615, 142);
-            this.groupBox4.TabIndex = 30;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Настройки связи по COM порту";
+            this.COMportGrpBx.Controls.Add(this.stopBitGroup);
+            this.COMportGrpBx.Controls.Add(this.parityGroup);
+            this.COMportGrpBx.Controls.Add(this.dataBitGroup);
+            this.COMportGrpBx.Controls.Add(this.bandRateGroup);
+            this.COMportGrpBx.Controls.Add(this.groupBox1);
+            this.COMportGrpBx.Location = new System.Drawing.Point(3, 3);
+            this.COMportGrpBx.Name = "COMportGrpBx";
+            this.COMportGrpBx.Size = new System.Drawing.Size(615, 142);
+            this.COMportGrpBx.TabIndex = 30;
+            this.COMportGrpBx.TabStop = false;
+            this.COMportGrpBx.Text = "Настройки связи по COM порту";
             // 
             // groupBox5
             // 
@@ -2041,6 +2041,17 @@
             this.groupBox5.TabIndex = 33;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Работа с логом";
+            // 
+            // showSendDataInCOMChBx
+            // 
+            this.showSendDataInCOMChBx.AutoSize = true;
+            this.showSendDataInCOMChBx.Location = new System.Drawing.Point(151, 116);
+            this.showSendDataInCOMChBx.Name = "showSendDataInCOMChBx";
+            this.showSendDataInCOMChBx.Size = new System.Drawing.Size(95, 17);
+            this.showSendDataInCOMChBx.TabIndex = 38;
+            this.showSendDataInCOMChBx.Text = "Отпр. данные";
+            this.showSendDataInCOMChBx.UseVisualStyleBackColor = true;
+            this.showSendDataInCOMChBx.CheckedChanged += new System.EventHandler(this.showSendDataInCOMChBx_CheckedChanged);
             // 
             // changeAlignment
             // 
@@ -2083,6 +2094,7 @@
             this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox3.Controls.Add(this.inputModeTextRdBtn);
             this.groupBox3.Controls.Add(this.inputModeHexRdBtn);
+            this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox3.Location = new System.Drawing.Point(10, 17);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(137, 56);
@@ -2127,7 +2139,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.groupBox6);
+            this.groupBox2.Controls.Add(this.CP2105grpBx);
             this.groupBox2.Controls.Add(this.otherGroup);
             this.groupBox2.Location = new System.Drawing.Point(880, 3);
             this.groupBox2.Name = "groupBox2";
@@ -2169,7 +2181,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 7);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1403, 434);
+            this.tabControl1.Size = new System.Drawing.Size(1403, 430);
             this.tabControl1.TabIndex = 25;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -2179,7 +2191,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(1395, 408);
+            this.tabPage6.Size = new System.Drawing.Size(1395, 404);
             this.tabPage6.TabIndex = 0;
             this.tabPage6.Text = "Основное окно сообщений";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -2191,7 +2203,7 @@
             this.terminalLogRichTxtBx.Location = new System.Drawing.Point(3, 3);
             this.terminalLogRichTxtBx.Name = "terminalLogRichTxtBx";
             this.terminalLogRichTxtBx.ReadOnly = true;
-            this.terminalLogRichTxtBx.Size = new System.Drawing.Size(1389, 402);
+            this.terminalLogRichTxtBx.Size = new System.Drawing.Size(1389, 398);
             this.terminalLogRichTxtBx.TabIndex = 24;
             this.terminalLogRichTxtBx.Text = "";
             // 
@@ -2201,7 +2213,7 @@
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(1395, 408);
+            this.tabPage7.Size = new System.Drawing.Size(1395, 404);
             this.tabPage7.TabIndex = 1;
             this.tabPage7.Text = "Окно отсортированных сообщений";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -2219,7 +2231,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.quectelAnswerRhTxtBx);
-            this.splitContainer2.Size = new System.Drawing.Size(1389, 402);
+            this.splitContainer2.Size = new System.Drawing.Size(1389, 398);
             this.splitContainer2.SplitterDistance = 686;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -2231,7 +2243,7 @@
             this.MK_AnswerRhTxtBox.Location = new System.Drawing.Point(0, 0);
             this.MK_AnswerRhTxtBox.Name = "MK_AnswerRhTxtBox";
             this.MK_AnswerRhTxtBox.ReadOnly = true;
-            this.MK_AnswerRhTxtBox.Size = new System.Drawing.Size(686, 402);
+            this.MK_AnswerRhTxtBox.Size = new System.Drawing.Size(686, 398);
             this.MK_AnswerRhTxtBox.TabIndex = 0;
             this.MK_AnswerRhTxtBox.Text = "";
             // 
@@ -2242,7 +2254,7 @@
             this.quectelAnswerRhTxtBx.Location = new System.Drawing.Point(0, 0);
             this.quectelAnswerRhTxtBx.Name = "quectelAnswerRhTxtBx";
             this.quectelAnswerRhTxtBx.ReadOnly = true;
-            this.quectelAnswerRhTxtBx.Size = new System.Drawing.Size(699, 402);
+            this.quectelAnswerRhTxtBx.Size = new System.Drawing.Size(699, 398);
             this.quectelAnswerRhTxtBx.TabIndex = 1;
             this.quectelAnswerRhTxtBx.Text = "";
             // 
@@ -2257,17 +2269,6 @@
             this.showOrHideControlPanel.Text = "button1";
             this.showOrHideControlPanel.UseVisualStyleBackColor = true;
             this.showOrHideControlPanel.Click += new System.EventHandler(this.showOrHideControlPanel_Click);
-            // 
-            // showSendDataInCOMChBx
-            // 
-            this.showSendDataInCOMChBx.AutoSize = true;
-            this.showSendDataInCOMChBx.Location = new System.Drawing.Point(151, 116);
-            this.showSendDataInCOMChBx.Name = "showSendDataInCOMChBx";
-            this.showSendDataInCOMChBx.Size = new System.Drawing.Size(95, 17);
-            this.showSendDataInCOMChBx.TabIndex = 38;
-            this.showSendDataInCOMChBx.Text = "Отпр. данные";
-            this.showSendDataInCOMChBx.UseVisualStyleBackColor = true;
-            this.showSendDataInCOMChBx.CheckedChanged += new System.EventHandler(this.showSendDataInCOMChBx_CheckedChanged);
             // 
             // Terminal
             // 
@@ -2300,7 +2301,7 @@
             this.parityGroup.PerformLayout();
             this.stopBitGroup.ResumeLayout(false);
             this.stopBitGroup.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
+            this.CP2105grpBx.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.groupBox7.ResumeLayout(false);
@@ -2315,7 +2316,7 @@
             this.tabPage5.ResumeLayout(false);
             this.otherGroup.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
+            this.COMportGrpBx.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -2375,7 +2376,7 @@
         private System.Windows.Forms.RadioButton stopBit2RdBtn;
         private System.Windows.Forms.RadioButton stopBit1RdBtn;
         private System.Windows.Forms.RadioButton stopBit1_5RdBtn;
-        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.GroupBox CP2105grpBx;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Label label2;
@@ -2513,7 +2514,7 @@
         private System.Windows.Forms.RadioButton inputModeTextRdBtn;
         private System.Windows.Forms.RadioButton inputModeHexRdBtn;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox COMportGrpBx;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox clEqualsRf;
         private System.Windows.Forms.Button showOrHideControlPanel;

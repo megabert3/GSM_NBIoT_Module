@@ -25,7 +25,7 @@ namespace GSM_NBIoT_Module.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(" V2.3.5")]
+        [global::System.Configuration.DefaultSettingValueAttribute(" V2.3.6")]
         public string version {
             get {
                 return ((string)(this["version"]));
@@ -218,6 +218,18 @@ namespace GSM_NBIoT_Module.Properties {
             }
             set {
                 this["terminal_showSendDataInCOMChBx"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"C:\\\\\"")]
+        public string modemConfig_pathToScript {
+            get {
+                return ((string)(this["modemConfig_pathToScript"]));
+            }
+            set {
+                this["modemConfig_pathToScript"] = value;
             }
         }
     }

@@ -21,12 +21,18 @@ namespace GSM_NBIoT_Module {
             InitializeComponent();
         }
 
+        private static Form mainFrame;
+
         //Ссылка на форму с конфигурацией
         private Form configurationForm;
 
+        //Ссылка на форму с паролем для конфигурации
         private Form passForm;
 
+        //Ссылка на форму с конфигурацияей модема
         private ModemConfig modemConfigForm;
+
+        private Terminal terminalForm;
 
         private Thread flashThread;
 
@@ -43,7 +49,6 @@ namespace GSM_NBIoT_Module {
 
         public static Stopwatch firmwareWriteStart = new Stopwatch();
 
-        private static Form mainFrame;
 
         //Буфер сообщений для перепрошивки микроконтроллера
         private static StringBuilder logBuffer;
@@ -156,10 +161,6 @@ namespace GSM_NBIoT_Module {
             Board GSM3;
 
             try {
-                //Отключаю кнопку старт
-                enableStartButton(false);
-                //Отключаю кнопку конфигурации
-                enableEditConfAndTerminalBtn(false);
 
                 //============================================================= Передаю выбранный конфиурационный файл
                 string selectedConfiguration = "";
@@ -185,8 +186,6 @@ namespace GSM_NBIoT_Module {
 
                     Invoke((MethodInvoker)delegate {
                         exceptionDialog("Для работы программы необходимо создать конфигурационный файл");
-                        enableStartButton(true);
-                        enableEditConfAndTerminalBtn(true);
                     });
 
                     return;
@@ -206,8 +205,6 @@ namespace GSM_NBIoT_Module {
                         Invoke((MethodInvoker)delegate {
                             exceptionDialog("Программе не удалось найти папку с прошивками для микроконтроллера \"StorageMKFW\", проверьте целостность программы" +
                                 " или переустановите её и попробуйте снова");
-                            enableStartButton(true);
-                            enableEditConfAndTerminalBtn(true);
                         });
                         return;
                     }
@@ -218,8 +215,6 @@ namespace GSM_NBIoT_Module {
                         Invoke((MethodInvoker)delegate {
                             exceptionDialog("Программе не удалось найти файл с прошивкой для микроконтроллера " + "\"" + configurationFW.getFwForMKName() + "\" " +
                                 "необходимо добавить файл в папку \"StorageMKFW\"");
-                            enableStartButton(true);
-                            enableEditConfAndTerminalBtn(true);
                         });
                         return;
                     }
@@ -234,8 +229,6 @@ namespace GSM_NBIoT_Module {
                         Invoke((MethodInvoker)delegate {
                             exceptionDialog("Программе не удалось найти папку с прошивками для модуля Quectel \"StorageQuectelFW\", проверьте целостность программы" +
                                 " или переустановите её и попробуйте снова");
-                            enableStartButton(true);
-                            enableEditConfAndTerminalBtn(true);
                         });
                         return;
                     }
@@ -246,8 +239,6 @@ namespace GSM_NBIoT_Module {
                         Invoke((MethodInvoker)delegate {
                             exceptionDialog("Программе не удалось найти файл с прошивкой для модуля Quectel " + "\"" + configurationFW.getfwForQuectelName() + "\" " +
                                 "необходимо добавить файл в папку \"StorageQuectelFW\"");
-                            enableStartButton(true);
-                            enableEditConfAndTerminalBtn(true);
                         });
                         return;
                     }
@@ -259,8 +250,6 @@ namespace GSM_NBIoT_Module {
                     if (matches.Count > 0) {
                         Invoke((MethodInvoker)delegate {
                             exceptionDialog("Путь к прошивке не должен содержать русские символы или пробельные символы\n" + pathWFforQuectel);
-                            enableStartButton(true);
-                            enableEditConfAndTerminalBtn(true);
                         });
                         return;
                     }
@@ -270,12 +259,26 @@ namespace GSM_NBIoT_Module {
                 if (String.IsNullOrEmpty(configurationFW.getfwForQuectelName()) & String.IsNullOrEmpty(configurationFW.getFwForMKName())) {
                     Invoke((MethodInvoker)delegate {
                         exceptionDialog("В конфигурации не указана прошивка ни для микроконтроллера, ни для модуля Quectel");
-                        enableStartButton(true);
-                        enableEditConfAndTerminalBtn(true);
                     });
                     return;
                 }
 
+                //Отключаю кнопку старт
+                enableStartButton(false);
+                //Отключаю кнопку конфигурации
+                enableEditConfAndTerminalBtn(false);
+
+                //Если открыты другие окна, то блокирую в них кнопки управления
+                if (terminalForm != null || modemConfigForm != null) {
+                    bool answer = Flasher.YesOrNoDialog("Обнаружено наличие других открытых окон программы." +
+                        " Продолжение перепрошивки приведёт к блокировке кнопок доступа к COM порту в других окнах, желаете продолжить перепрошивку?",
+                        "Блокировка доступа к COM порту");
+
+                    if (!answer) throw new OperationCanceledException("Отмена начала перепрошивки пользователем");
+
+                    enableBtnIntTerminalForm(false);
+                }
+                
                 //================================== Перепрошивка модема ===========================================================
                 firmwareWriteStart.Start();
 
@@ -289,6 +292,7 @@ namespace GSM_NBIoT_Module {
                 //включаю кнопку старт
                 enableStartButton(true);
                 enableEditConfAndTerminalBtn(true);
+                enableBtnIntTerminalForm(true);
 
             } catch (Exception ex) {
                 addProgressFlashMKLogInMainLog();               
@@ -314,6 +318,7 @@ namespace GSM_NBIoT_Module {
                 //включаю кнопку старт
                 enableStartButton(true);
                 enableEditConfAndTerminalBtn(true);
+                enableBtnIntTerminalForm(true);
             }
         }
 
@@ -378,7 +383,6 @@ namespace GSM_NBIoT_Module {
                 taipitFlasherToolStrip.Enabled = stateButton;
             });
         }
-        
 
         /// <summary>
         /// Обновляет комбобокс с конфигурациями основоного окна при добавлении новой конфигурации
@@ -609,6 +613,10 @@ namespace GSM_NBIoT_Module {
                 configurationTextBox.AppendText(Environment.NewLine);
                 configurationTextBox.AppendText("Имя прошивки Quectel: " + configurationFW.getfwForQuectelName() + Environment.NewLine);
                 configurationTextBox.AppendText(Environment.NewLine);
+                configurationTextBox.AppendText("APN: " + configurationFW.getAPN_Name() + Environment.NewLine);
+                configurationTextBox.AppendText(Environment.NewLine);
+                configurationTextBox.AppendText("Порт входящего соединения: " + configurationFW.getListenPort() + Environment.NewLine);
+                configurationTextBox.AppendText(Environment.NewLine);
 
                 List<string> list = configurationFW.getQuectelCommandList();
 
@@ -742,10 +750,33 @@ namespace GSM_NBIoT_Module {
             }
         }
 
+        /// <summary>
+        /// Проверяетна то, что уже не открыто окно терминала
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void terminalTlStpBtn_Click(object sender, EventArgs e) {
-            new Terminal().ShowDialog();
+
+            if (terminalForm == null) {
+                terminalForm = new Terminal(this);
+                terminalForm.Show();
+
+            } else {
+                terminalForm.Select();
+                terminalForm.WindowState = FormWindowState.Normal;
+                terminalForm.BringToFront();
+            }
         }
 
+        public void removeTerminalForm() {
+            terminalForm = null;
+        }
+
+        /// <summary>
+        /// Проверяетна то, что уже не открыто окно конфигурации модемаы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void configModemtlStpBtn_Click(object sender, EventArgs e) {
 
             if (modemConfigForm == null) {
@@ -759,12 +790,26 @@ namespace GSM_NBIoT_Module {
             }
         }
 
-
         /// <summary>
         /// Обнуляет ссылку на окно конфигурации модема
         /// </summary>
         public void removeModemConfigForm() {
             modemConfigForm = null;
+        }
+
+        /// <summary>
+        /// Блокирует кнопки управления ногами CP2105 и ограничивает доступ к COM порту. Используется при перепрошивке модема 
+        /// </summary>
+        /// <param name="enable"></param>
+        private void enableBtnIntTerminalForm(bool enable) {
+
+            if (terminalForm != null) {
+                terminalForm.enableGPIOGroupAndDisconnectCOM(enable);
+            }
+
+            if (modemConfigForm != null) {
+                modemConfigForm.enableReadWritebtnInFrame(enable);
+            }
         }
     }
 }

@@ -29,6 +29,26 @@ namespace GSM_NBIoT_Module.view {
         private SerialPort serialPort = new SerialPort();
         private int timeOut = 1000;
 
+        //Подсказка для вкладки пользовательских настроек подключения у серверам
+        private ToolTip toolTipForUserHostParam = new ToolTip();
+
+        //Текст подсказок для полей записи адреса
+        private const string domenNametoolTipMess = "Значение доменного имени должно быть помещено в знак \" в начале и в конце." +
+                    "\nЗначение доменного имени не должно быть больше 28 символов" +
+                    "\nПример записи: \"devices.226.taipit.ru\"" +
+                    "\nПри записи полностью пустого значения (без знаков \") параметр сервера полностью удаляется";
+
+        private const string ipV4toolTipMess = "Формат записи IPv4 XXX.XXX.XXX.XXX, где XXX должен иметь диапазон 0..255" +
+                    "\nПример записи: 66.254.114.41" +
+                    "\nПри записи полностью пустого значения параметр сервера полностью удаляется";
+
+        private const string ipV6toolTipMess = "Формат записи IPv6 XXXX:XXXX:XXXX:XXXX:XXXX:XXXX:XXXX:XXXX, где X должен иметь диапазон 0..F" +
+                    "\nПримеры записи:" +
+                    "\n2001:0DB0:0000:123A:0000:0000:0000:0030" +
+                    "\n2001:DB0:0:123A:0:0:0:30" +
+                    "\n2001:DB0:0:123A::30" +
+                    "\nПри записи полностью пустого значения параметр сервера полностью удаляется";
+
         private void ModemConfig_Load(object sender, EventArgs e) {
 
             //Добавление настраиваемых параметров
@@ -62,11 +82,16 @@ namespace GSM_NBIoT_Module.view {
             IPv4RdBtn_3.CheckedChanged += domenNameRdBtnGroup_3_CheckedChanged;
             IPv6RdBtn_3.CheckedChanged += domenNameRdBtnGroup_3_CheckedChanged;
 
+            domenNameRdBtn_1.PerformClick();
+            domenNameRdBtn_2.PerformClick();
+            domenNameRdBtn_3.PerformClick();
+
             //Установка подсказок полям
             ToolTip toolTip = new ToolTip();
             toolTip.AutoPopDelay = 7000;
             toolTip.InitialDelay = 250;
             toolTip.ReshowDelay = 0;
+            toolTip.ShowAlways = true;
 
             toolTip.SetToolTip(periodMsdTxtBx, "Формат hh:mm:ss\nЗначение по умолчанию 06:00:00");
             toolTip.SetToolTip(serviceMsdTxtBx, "Формат hh\nЗначение по умолчанию 20");
@@ -76,7 +101,29 @@ namespace GSM_NBIoT_Module.view {
             toolTip.SetToolTip(holdTimeMsdTxtBx, "Формат mm:ss\nЗначение по умолчанию 04:16");
             toolTip.SetToolTip(incomholdtimeMskTxtBx, "Формат mm:ss\nЗначение по умолчанию 03:00");
 
-            refreshInfo.PerformClick();
+            toolTip.SetToolTip(portTxtBx_1, "Значение порта должно быть в диапазоне 0..65535");
+            toolTip.SetToolTip(portTxtBx_2, "Значение порта должно быть в диапазоне 0..65535");
+            toolTip.SetToolTip(portTxtBx_3, "Значение порта должно быть в диапазоне 0..65535");
+
+            toolTip.SetToolTip(domenNameRdBtn_1, domenNametoolTipMess);
+            toolTip.SetToolTip(domenNameRdBtn_2, domenNametoolTipMess);
+            toolTip.SetToolTip(domenNameRdBtn_3, domenNametoolTipMess);
+
+            toolTip.SetToolTip(IPv4RdBtn_1, ipV4toolTipMess);
+            toolTip.SetToolTip(IPv4RdBtn_2, ipV4toolTipMess);
+            toolTip.SetToolTip(IPv4RdBtn_3, ipV4toolTipMess);
+
+            toolTip.SetToolTip(IPv6RdBtn_1, ipV6toolTipMess);
+            toolTip.SetToolTip(IPv6RdBtn_2, ipV6toolTipMess);
+            toolTip.SetToolTip(IPv6RdBtn_3, ipV6toolTipMess);
+
+            //Подсказка для полей с адресом дополнительных серверов
+            toolTipForUserHostParam.AutoPopDelay = 15000;
+            toolTipForUserHostParam.InitialDelay = 0;
+            toolTipForUserHostParam.ReshowDelay = 0;
+            toolTipForUserHostParam.ShowAlways = true;
+
+            refreshInfoBtn.PerformClick();
         }
 
         /// <summary>
@@ -118,8 +165,15 @@ namespace GSM_NBIoT_Module.view {
 
                 serialPort.Open();
 
-                verFWTxtBx.Text = getVerFW();
-                verProtTxtBx.Text = getVerZport();
+                Dictionary<string, string> deviceParams = getParamsDeviceCommand();
+
+                verFWTxtBx.Text = deviceParams["FW"];
+                verProtTxtBx.Text = deviceParams["ZPORT"];
+                tergetIdTxtBx.Text = deviceParams["TARGET"];
+                protocolIdTxtBx.Text = deviceParams["PROT_ID"];
+                IndexTxtBx.Text = deviceParams["IDX"];
+                copyIDTxtBx.Text = deviceParams["COPY_ID"];
+                modemImeiTxtBx.Text = getModemIMEI();
 
                 getCustomSettingsServers();
 
@@ -151,7 +205,7 @@ namespace GSM_NBIoT_Module.view {
             getIPv4AndPortUserHost(0, ref iPorDomen, ref port);
             portTxtBx_1.Text = port;
 
-            if (String.IsNullOrEmpty(iPorDomen)) {
+            if (!String.IsNullOrEmpty(iPorDomen)) {
                 if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
                     domenNameRdBtn_1.Checked = true;
 
@@ -165,7 +219,7 @@ namespace GSM_NBIoT_Module.view {
                 ipDomenNameTxtBx_1.Text = iPorDomen;
             }
 
-            if (String.IsNullOrEmpty(iPorDomen)) {
+            if (!String.IsNullOrEmpty(iPorDomen)) {
                 //Доменное имя и порт сервера 1
                 getIPv4AndPortUserHost(1, ref iPorDomen, ref port);
                 portTxtBx_2.Text = port;
@@ -183,7 +237,7 @@ namespace GSM_NBIoT_Module.view {
                 ipDomenNameTxtBx_2.Text = iPorDomen;
             }
 
-            if (String.IsNullOrEmpty(iPorDomen)) {
+            if (!String.IsNullOrEmpty(iPorDomen)) {
                 //Доменное имя и порт сервера 2
                 getIPv4AndPortUserHost(2, ref iPorDomen, ref port);
                 portTxtBx_3.Text = port;
@@ -213,14 +267,14 @@ namespace GSM_NBIoT_Module.view {
                 checkGPIO_CP2105();
 
                 serialPort.Open();
-             
+
                 checkCustomServerProperties(0, formatAddresRecord(1), ipDomenNameTxtBx_1, portTxtBx_1);
                 checkCustomServerProperties(1, formatAddresRecord(2), ipDomenNameTxtBx_2, portTxtBx_2);
                 checkCustomServerProperties(2, formatAddresRecord(3), ipDomenNameTxtBx_3, portTxtBx_3);
 
                 serialPort.Close();
 
-                refreshInfo.PerformClick();
+                refreshInfoBtn.PerformClick();
 
                 Cursor = Cursors.Default;
                 Flasher.successfullyDialog("Настройка пользовательских серверов успешно записаны", "Запись параметров");
@@ -238,7 +292,7 @@ namespace GSM_NBIoT_Module.view {
         /// <param name="i">Для какой группы радиобаттонов</param>
         /// <returns></returns>
         private int formatAddresRecord(int i) {
-            switch(i) {
+            switch (i) {
                 case 1: {
                         if (domenNameRdBtn_1.Checked) return 0;
                         else if (IPv4RdBtn_1.Checked) return 1;
@@ -310,7 +364,8 @@ namespace GSM_NBIoT_Module.view {
                                     throw new FormatException("Доменное имя должно содержать только ASCII символы");
                                 }
                             }
-                        } break;
+                        }
+                        break;
 
                     //Если должен поступить на вход IPv4 адрес
                     case 1: {
@@ -348,7 +403,8 @@ namespace GSM_NBIoT_Module.view {
                                 throw new FormatException("Неверный формат записи IPv4, формат должен иметь вид xxx.xxx.xxx.xxx, где xxx могут иметь значения от 0..255");
                             }
 
-                        } break;
+                        }
+                        break;
 
                     //Если должен поступить на вход IPv6 адрес
                     case 2: {
@@ -367,20 +423,19 @@ namespace GSM_NBIoT_Module.view {
 
                                 IPv6Parser.checValidValue(ipv6);
 
-                            } catch(Exception) {
-
+                            } catch (Exception) {
                                 domenOrIPData.Focus();
                                 domenOrIPData.SelectAll();
                                 throw;
                             }
 
-                        } break;
+                        }
+                        break;
                 }
 
+                //Проверка коректности ввода порта
                 if (String.IsNullOrEmpty(portData.Text) ||
                     (Convert.ToInt32(portData.Text) > 65535 || Convert.ToInt32(portData.Text) < 0)) {
-
-                    //Проверка коректности ввода порта
                     portData.Focus();
                     portData.SelectAll();
                     throw new FormatException("Значение порта должно быть в диапазоне 0..65535");
@@ -449,29 +504,26 @@ namespace GSM_NBIoT_Module.view {
         }
 
         /// <summary>
-        /// Получает версию Zporta прошивки
+        /// Возвращает все параметры из микроконтроллера, которая выдаёт команда DEVICE
         /// </summary>
-        /// <returns></returns>
-        private string getVerZport() {
-            return sendCommandMKForVerFWAndVerZPort("device zport");
-        }
+        /// <returns>
+        /// Ключи Map'ы по параметрам: 
+        /// <para>ZPORT - Версия Zport'a</para>
+        /// <para>MDMMODEL - модель модуля Quectel</para>
+        /// <para>FW - версия прошивки микроконтроллера</para>
+        /// <para>COPY_ID - номер копии прошивки</para>
+        /// <para>TARGET - targetID</para>
+        /// <para>IDX - Индекс id</para>
+        /// <para>PROT_ID - Протокол ID</para>
+        /// <para>FUN - не знаю, но пусть будет тут</para>
+        /// </returns>
+        private Dictionary<string, string> getParamsDeviceCommand() {
 
-        /// <summary>
-        /// Позвращает версию прошивки
-        /// </summary>
-        /// <returns></returns>
-        private string getVerFW() {
-            return sendCommandMKForVerFWAndVerZPort("device FW");
-        }
+            Dictionary<string, string> paramsDictionary = new Dictionary<string, string>();
 
-        /// <summary>
-        /// Получает персию ZPORT'a и версию прошивки
-        /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
-        private string sendCommandMKForVerFWAndVerZPort(string command) {
-
-            serialPort.WriteLine(command);
+            //Пример ответа:
+            //Za) DEVICE (ZPORT:ZP009 /MDMMODEL:QBC92) (FW:ZU018 /COPY_ID:27F87014_000B"hex") (TARGET:1 /IDX:3 /PROT_ID:2 /FUN:00"hex") OK
+            serialPort.WriteLine("device");
 
             long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
             string line = "";
@@ -489,7 +541,59 @@ namespace GSM_NBIoT_Module.view {
 
                     if (line.EndsWith("OK")) {
                         string[] arrLine = line.Split(':');
-                        return arrLine[1].Substring(0, 5);
+
+                        paramsDictionary.Add("ZPORT", arrLine[1].Substring(0, 5));
+                        paramsDictionary.Add("MDMMODEL", arrLine[2].Substring(0, arrLine[2].IndexOf(')')));
+                        paramsDictionary.Add("FW", arrLine[3].Substring(0, 5));
+                        paramsDictionary.Add("COPY_ID", arrLine[4].Substring(0, arrLine[4].IndexOf(')')));
+                        paramsDictionary.Add("TARGET", arrLine[5].Substring(0, arrLine[5].IndexOf(' ')));
+                        paramsDictionary.Add("IDX", arrLine[6].Substring(0, arrLine[6].IndexOf(' ')));
+                        paramsDictionary.Add("PROT_ID", arrLine[7].Substring(0, arrLine[7].IndexOf(' ')));
+                        paramsDictionary.Add("FUN", arrLine[8].Substring(0, arrLine[8].IndexOf(')')));
+
+                        return paramsDictionary;
+
+                    } else if (line.Contains("ERROR")) {
+
+                        throw new MKCommandException("Ответ микроконтроллера на команду \"device\": " + line);
+                    }
+                }
+            }
+
+            throw new TimeoutException("Превышено время ожидания ответа от микроконтроллера");
+        }
+
+        /// <summary>
+        /// Возвращает значение IMEI модема
+        /// </summary>
+        /// <returns></returns>
+        private string getModemIMEI() {
+            serialPort.WriteLine("mdmimid");
+
+            long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+            string line = "";
+
+            //Пока не вышло время по таймауту
+            while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
+
+                //Если данные пришли в порт
+                while (serialPort.BytesToRead != 0) {
+
+                    //Обновляю таймаут
+                    endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+
+                    line = serialPort.ReadLine();
+
+                    //Пример ответа: MDMIMID (IMEI:) (IMSI:) (ICCID:) OK
+                    if (line.EndsWith("OK")) {
+
+                        string[] arrLine = line.Split(':');
+
+                        return arrLine[1].Substring(0, arrLine[1].IndexOf(')'));
+
+                    } else if (line.Contains("ERROR")) {
+
+                        throw new MKCommandException("Ответ микроконтроллера на команду \"mdmimid\": " + line);
                     }
                 }
             }
@@ -527,29 +631,13 @@ namespace GSM_NBIoT_Module.view {
 
                         string[] arrLine = line.Split('(');
 
-
                         //Получаю IP или доменное имя
                         //IP:0:0:0:0:0:0:0:0)
-                        char[] iPCharArr = arrLine[2].ToCharArray();
-
-                        for (int j = 3; j < iPCharArr.Length; j++) {
-                            if (iPCharArr[j] != ')') {
-                                domenNameOrIP += iPCharArr[j];
-                            } else {
-                                break;
-                            }
-                        }
+                        domenNameOrIP = arrLine[2].Substring(3, arrLine[2].IndexOf(')') - 3);
 
                         //Получаю порт
                         //PORT:8103) OK
-                        char[] arrCharPort = arrLine[3].ToCharArray();
-                        for (int k = 5; k < arrCharPort.Length; k++) {
-                            if (arrCharPort[k] != ')') {
-                                port += arrCharPort[k];
-                            } else {
-                                break;
-                            }
-                        }
+                        port = arrLine[3].Substring(5, arrLine[3].IndexOf(')') - 5);
 
                         return;
                     }
@@ -675,7 +763,7 @@ namespace GSM_NBIoT_Module.view {
 
             try {
                 if (String.IsNullOrEmpty(verProtTxtBx.Text)) {
-                    refreshInfo.PerformClick();
+                    refreshInfoBtn.PerformClick();
                 }
 
                 //Проверка на валидность параметров-----------------------------
@@ -845,7 +933,7 @@ namespace GSM_NBIoT_Module.view {
 
                 serialPort.Close();
 
-                refreshInfo.PerformClick();
+                refreshInfoBtn.PerformClick();
 
             } catch (Exception ex) {
 
@@ -960,41 +1048,80 @@ namespace GSM_NBIoT_Module.view {
             }
         }
 
-        private ToolTip toolTip = new ToolTip();
         private void domenNameRdBtnGroup_1_CheckedChanged(object sender, EventArgs e) {
+
             if (domenNameRdBtn_1.Checked) {
                 ipDomenNameTxtBx_1.Text = oldValueDomenName_1;
-                toolTip.SetToolTip(ipDomenNameTxtBx_1, "Доменное имя должно иметь знак \" в начале и в конце.\nДоменное имя ");
+                toolTipForUserHostParam.SetToolTip(ipDomenNameTxtBx_1, domenNametoolTipMess);
 
             } else if (IPv4RdBtn_1.Checked) {
                 ipDomenNameTxtBx_1.Text = oldValueIPv4_1;
+                toolTipForUserHostParam.SetToolTip(ipDomenNameTxtBx_1, ipV4toolTipMess);
 
             } else {
                 ipDomenNameTxtBx_1.Text = oldValueIPv6_1;
+                toolTipForUserHostParam.SetToolTip(ipDomenNameTxtBx_1, ipV6toolTipMess);
             }
         }
 
         private void domenNameRdBtnGroup_2_CheckedChanged(object sender, EventArgs e) {
             if (domenNameRdBtn_2.Checked) {
-                ipDomenNameTxtBx_2.Text = oldValueDomenName_2;
+                ipDomenNameTxtBx_2.Text = oldValueDomenName_1;
+                toolTipForUserHostParam.SetToolTip(ipDomenNameTxtBx_2, domenNametoolTipMess);
 
             } else if (IPv4RdBtn_2.Checked) {
-                ipDomenNameTxtBx_2.Text = oldValueIPv4_2;
+                ipDomenNameTxtBx_2.Text = oldValueIPv4_1;
+                toolTipForUserHostParam.SetToolTip(ipDomenNameTxtBx_2, ipV4toolTipMess);
 
             } else {
-                ipDomenNameTxtBx_2.Text = oldValueIPv6_2;
+                ipDomenNameTxtBx_2.Text = oldValueIPv6_1;
+                toolTipForUserHostParam.SetToolTip(ipDomenNameTxtBx_2, ipV6toolTipMess);
             }
         }
 
         private void domenNameRdBtnGroup_3_CheckedChanged(object sender, EventArgs e) {
             if (domenNameRdBtn_3.Checked) {
-                ipDomenNameTxtBx_3.Text = oldValueDomenName_3;
+                ipDomenNameTxtBx_3.Text = oldValueDomenName_1;
+                toolTipForUserHostParam.SetToolTip(ipDomenNameTxtBx_3, domenNametoolTipMess);
 
             } else if (IPv4RdBtn_3.Checked) {
-                ipDomenNameTxtBx_3.Text = oldValueIPv4_3;
+                ipDomenNameTxtBx_3.Text = oldValueIPv4_1;
+                toolTipForUserHostParam.SetToolTip(ipDomenNameTxtBx_3, ipV4toolTipMess);
 
             } else {
-                ipDomenNameTxtBx_3.Text = oldValueIPv6_3;
+                ipDomenNameTxtBx_3.Text = oldValueIPv6_1;
+                toolTipForUserHostParam.SetToolTip(ipDomenNameTxtBx_3, ipV6toolTipMess);
+            }
+        }
+
+        public void enableReadWritebtnInFrame(bool enbleBtn) {
+
+            splitContainer1.Invoke((MethodInvoker)delegate {
+                refreshInfoBtn.Enabled = enbleBtn;
+                setServersSettingsBtn.Enabled = enbleBtn;
+                connectingAcceptBtn.Enabled = enbleBtn;
+            });
+        }
+
+        private void createScript_Click(object sender, EventArgs e) {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.InitialDirectory = Properties.Settings.Default.modemConfig_pathToScript;
+
+            saveFileDialog.FileName = "taipitConfigModemScript " + DateTime.Now.ToString("yyyy_MM_dd_HH-mm-ss") + ".txt";
+            saveFileDialog.Filter = "txt (*.txt*)|*.txt*";
+            saveFileDialog.FilterIndex = 0;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+
+                Properties.Settings.Default.Save();
+
+                //Формирую скрипт
+                string scryptTxt = "Настройка пользовательских серверов\n" +
+                    "0,";
+                
+
+                Flasher.successfullyDialog("Лог успешно сохранен", "Сохранение лога");
             }
         }
     }

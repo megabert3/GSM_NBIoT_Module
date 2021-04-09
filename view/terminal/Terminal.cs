@@ -16,6 +16,8 @@ using static GSM_NBIoT_Module.classes.CP2105_Connector;
 namespace GSM_NBIoT_Module.view {
     public partial class Terminal : Form {
 
+        private Flasher flasherForm;
+
         CP2105_Connector cP2105 = CP2105_Connector.GetCP2105_ConnectorInstance();
 
         //COM порт для подключения
@@ -48,6 +50,12 @@ namespace GSM_NBIoT_Module.view {
 
         public Terminal() {
             InitializeComponent();
+        }
+
+        public Terminal(Flasher flasherForm) {
+            InitializeComponent();
+
+            this.flasherForm = flasherForm;
         }
 
         private void Terminal_Load(object sender, EventArgs e) {
@@ -321,7 +329,7 @@ namespace GSM_NBIoT_Module.view {
                             serialPort.DiscardInBuffer();
                             serialPort.Close();
 
-                        }catch (InvalidOperationException) {
+                        } catch (InvalidOperationException) {
                             connect = false;
                             enablePortSettings(true);
                             indBtn.BackColor = defaultColor;
@@ -510,15 +518,30 @@ namespace GSM_NBIoT_Module.view {
             cpNumbStandartPortTxtBx.Text = stand.ToString();
             cpNumbEnhancedPortTxtBx.Text = enh.ToString();
 
+            //Выставляю текущее состояние ножек CP предварительно убрав слушателя
             try {
+                standGPIO_0chBx.CheckedChanged -= standardGPIO_CheckedChanged;
+                standGPIO_1chBx.CheckedChanged -= standardGPIO_CheckedChanged;
+                standGPIO_2chBx.CheckedChanged -= standardGPIO_CheckedChanged;
+
                 StateGPIO_OnStandardPort stageGPIOSta = cP2105.GetStageGPIOStandardPort();
                 standGPIO_0chBx.Checked = stageGPIOSta.stageGPIO_0;
                 standGPIO_1chBx.Checked = stageGPIOSta.stageGPIO_1;
                 standGPIO_2chBx.Checked = stageGPIOSta.stageGPIO_2;
 
+                standGPIO_0chBx.CheckedChanged += standardGPIO_CheckedChanged;
+                standGPIO_1chBx.CheckedChanged += standardGPIO_CheckedChanged;
+                standGPIO_2chBx.CheckedChanged += standardGPIO_CheckedChanged;
+
+                enhanGPIO_0chBx.CheckedChanged -= enhabcedGPIO_CheckedChanged;
+                enhanGPIO_1chBx.CheckedChanged -= enhabcedGPIO_CheckedChanged;
+
                 StateGPIO_OnEnhabcedPort stageGPIOEnh = cP2105.GetStageGPIOEnhabcedPort();
                 enhanGPIO_0chBx.Checked = stageGPIOEnh.stageGPIO_0;
                 enhanGPIO_1chBx.Checked = stageGPIOEnh.stageGPIO_1;
+
+                enhanGPIO_0chBx.CheckedChanged += enhabcedGPIO_CheckedChanged;
+                enhanGPIO_1chBx.CheckedChanged += enhabcedGPIO_CheckedChanged;
 
             } catch (CP_Error ex) {
                 Flasher.exceptionDialog(ex.Message);
@@ -540,6 +563,7 @@ namespace GSM_NBIoT_Module.view {
             }
 
             int stdPortNo;
+
             try {
                 stdPortNo = Convert.ToInt32(cpNumbStandartPortTxtBx.Text.Trim());
             } catch (FormatException) {
@@ -558,19 +582,30 @@ namespace GSM_NBIoT_Module.view {
             }
 
             try {
-                cP2105.WriteGPIOStageAndSetFlags(stdPortNo, standGPIO_0chBx.Checked, standGPIO_1chBx.Checked, standGPIO_2chBx.Checked, 100, false);
-            } catch (CP_Error ex) {
+                StateGPIO_OnStandardPort stateGPIO_OnStandard = CP2105_Connector.GetCP2105_ConnectorInstance().GetStageGPIOStandardPort(stdPortNo);
 
+                if (stateGPIO_OnStandard.stageGPIO_0 != standGPIO_0chBx.Checked ||
+                    stateGPIO_OnStandard.stageGPIO_1 != standGPIO_1chBx.Checked ||
+                    stateGPIO_OnStandard.stageGPIO_2 != standGPIO_2chBx.Checked) {       
+
+                    cP2105.WriteGPIOStageAndSetFlags(stdPortNo, standGPIO_0chBx.Checked, standGPIO_1chBx.Checked, standGPIO_2chBx.Checked, 100, false);
+
+                }
+
+            } catch (CP_Error ex) {
+                if (connectToCOM) {
+                    connOrDisCOMBtn.PerformClick();
+                }
                 Flasher.exceptionDialog(ex.Message);
                 Cursor = Cursors.Default;
                 return;
             }
 
-            Cursor = Cursors.Default;
-
             if (connectToCOM) {
                 connOrDisCOMBtn.PerformClick();
             }
+
+            Cursor = Cursors.Default;
         }
 
         private void enhabcedGPIO_CheckedChanged(object sender, EventArgs e) {
@@ -599,19 +634,29 @@ namespace GSM_NBIoT_Module.view {
             }
 
             try {
-                cP2105.WriteGPIOStageAndSetFlags(stdPortNo, enhanGPIO_0chBx.Checked, enhanGPIO_1chBx.Checked, 100, false);
-            } catch (CP_Error ex) {
+                StateGPIO_OnEnhabcedPort stateGPIO_OnEnhabced = CP2105_Connector.GetCP2105_ConnectorInstance().GetStageGPIOEnhabcedPort(stdPortNo);
 
+                if (stateGPIO_OnEnhabced.stageGPIO_0 != enhanGPIO_0chBx.Checked ||
+                    stateGPIO_OnEnhabced.stageGPIO_1 != enhanGPIO_1chBx.Checked) {
+
+                    cP2105.WriteGPIOStageAndSetFlags(stdPortNo, enhanGPIO_0chBx.Checked, enhanGPIO_1chBx.Checked, 100, false);
+       
+                }
+
+            } catch (CP_Error ex) {
+                if (connectToCOM) {
+                    connOrDisCOMBtn.PerformClick();
+                }
                 Flasher.exceptionDialog(ex.Message);
                 Cursor = Cursors.Default;
                 return;
             }
 
-            Cursor = Cursors.Default;
-
             if (connectToCOM) {
                 connOrDisCOMBtn.PerformClick();
             }
+
+            Cursor = Cursors.Default;
         }
 
         private void connectToMKBtn_Click(object sender, EventArgs e) {
@@ -688,7 +733,7 @@ namespace GSM_NBIoT_Module.view {
                         cP2105.WriteGPIOStageAndSetFlags(sta, true, true, true, 100, false);
                         stageSta = cP2105.GetStageGPIOStandardPort();
                     }
-                    
+
                     standGPIO_0chBx.Checked = stageSta.stageGPIO_0;
                     standGPIO_1chBx.Checked = stageSta.stageGPIO_1;
                     standGPIO_2chBx.Checked = stageSta.stageGPIO_2;
@@ -810,6 +855,8 @@ namespace GSM_NBIoT_Module.view {
                     Close();
                 }
 
+                flasherForm.removeTerminalForm();
+
             } catch (IOException ex) {
                 e.Cancel = true;
 
@@ -830,13 +877,13 @@ namespace GSM_NBIoT_Module.view {
 
                         try {
                             dataByte = serialPort.ReadByte();
-                        }catch (InvalidOperationException) {
+                        } catch (InvalidOperationException) {
                             //Пользователь нажал закрыть порт или он отвалился
                         }
 
                         //Если режим текста
                         if (inputModeTextRdBtn.Checked) {
-                            
+
                             if (dataByte == CR_Byte) {
                                 //Если установлен флаг, что /r == /n
                                 if (clEqualsRf.Checked) {
@@ -1079,7 +1126,7 @@ namespace GSM_NBIoT_Module.view {
                             string newStrWithoutSpase = mess.Trim().Replace(" ", "");
 
                             sendByteList = new List<byte>(StringToByteArray(newStrWithoutSpase));
-                            
+
                         } catch (ArgumentException) {
                             Flasher.exceptionDialog("Неверный формат введнных данных. Количество знаков должно быть чётным и иметь диапазон от 00 до FF");
                             return;
@@ -1124,7 +1171,7 @@ namespace GSM_NBIoT_Module.view {
 
                         }
                     }
-                    
+
                     //Отправка данных в ком порт
                     serialPort.Write(sendByteList.ToArray(), 0, sendByteList.Count);
                 }
@@ -1186,7 +1233,7 @@ namespace GSM_NBIoT_Module.view {
         }
 
         private void messInCOMTxtBx_KeyDown(object sender, KeyEventArgs e) {
-            
+
             if (e.KeyCode == Keys.Enter) {
                 if (messInCOMTxtBx.Focused) {
                     sendBtn.PerformClick();
@@ -1555,7 +1602,7 @@ namespace GSM_NBIoT_Module.view {
             toolTip.SetToolTip(connectToModuleBtn, "Автоматически выставляет параметры, необходимые для общения с модулем Qectel");
             toolTip.SetToolTip(connectToMKBtn, "Автоматически выставляет параметры, необходимые для общения с микрокотроллером");
 
-            toolTip.SetToolTip(groupBox6, "Управление состоянием ног CP2105");
+            toolTip.SetToolTip(CP2105grpBx, "Управление состоянием ног CP2105");
             toolTip.SetToolTip(searchCP2105Ports, "Находит порты модема и считывает состояния ног CP2105");
 
             toolTip.SetToolTip(showOrHideControlPanel, "Нажмите чтобы скрыть/раскрыть панель с настройками\nИспользуйте: S");
@@ -1671,15 +1718,29 @@ namespace GSM_NBIoT_Module.view {
                 splitContainer2.SplitterDistance = splitContainer2.Size.Width / 2;
 
             } else {
-                splitContainer2.Orientation = Orientation.Horizontal;
 
+                splitContainer2.Orientation = Orientation.Horizontal;
                 splitContainer2.SplitterDistance = splitContainer2.Size.Height / 2;
-            }            
+            }
         }
 
         private void showSendDataInCOMChBx_CheckedChanged(object sender, EventArgs e) {
             Properties.Settings.Default.terminal_showSendDataInCOMChBx = showSendDataInCOMChBx.Checked;
             Properties.Settings.Default.Save();
+        }
+
+        public void enableGPIOGroupAndDisconnectCOM(bool enableBtn) {
+
+            splitContainer1.Invoke((MethodInvoker)delegate {
+
+                groupBox2.Enabled = enableBtn;
+
+                if (connect) { 
+                    connOrDisCOMBtn.PerformClick();
+                }
+
+                COMportGrpBx.Enabled = enableBtn;
+            });
         }
     }
 }

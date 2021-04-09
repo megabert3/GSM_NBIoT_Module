@@ -158,6 +158,18 @@ namespace GSM_NBIoT_Module.classes {
             return stateGPIO_OnEnhabcedPort;
         }
 
+        public StateGPIO_OnEnhabcedPort GetStageGPIOEnhabcedPort(int com) {
+
+            StateGPIO_OnEnhabcedPort stateGPIO_OnEnhabcedPort = new StateGPIO_OnEnhabcedPort();
+
+            ReadGPIOStageAndSetFlags(com);
+
+            stateGPIO_OnEnhabcedPort.stageGPIO_0 = stageGPIO_0;
+            stateGPIO_OnEnhabcedPort.stageGPIO_1 = stageGPIO_1;
+
+            return stateGPIO_OnEnhabcedPort;
+        }
+
         /// <summary>
         /// Возвращает состояние ножек на стандртном порте
         /// </summary>
@@ -175,9 +187,21 @@ namespace GSM_NBIoT_Module.classes {
             return stateGPIO_OnStandardPort;
         }
 
+        public StateGPIO_OnStandardPort GetStageGPIOStandardPort(int com) {
+
+            StateGPIO_OnStandardPort stateGPIO_OnStandardPort = new StateGPIO_OnStandardPort();
+
+            ReadGPIOStageAndSetFlags(com);
+
+            stateGPIO_OnStandardPort.stageGPIO_0 = stageGPIO_0;
+            stateGPIO_OnStandardPort.stageGPIO_1 = stageGPIO_1;
+            stateGPIO_OnStandardPort.stageGPIO_2 = stageGPIO_2;
+
+            return stateGPIO_OnStandardPort;
+        }
+
         /// <summary>
         /// Считывает состояние ножек CP2105 и устанавливает их значение в переменные класса.
-        /// Выкидывает исключение DeviseError
         /// </summary>
         /// <param name="COM_portNo"> Номер COM порта к которому подключено устройсво</param>
         public void ReadGPIOStageAndSetFlags(int COM_portNo) {
