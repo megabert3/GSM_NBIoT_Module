@@ -224,12 +224,24 @@ namespace GSM_NBIoT_Module.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("\"C:\\\\\"")]
-        public string modemConfig_pathToScript {
+        public string modemConfig_pathToSaveScript {
             get {
-                return ((string)(this["modemConfig_pathToScript"]));
+                return ((string)(this["modemConfig_pathToSaveScript"]));
             }
             set {
-                this["modemConfig_pathToScript"] = value;
+                this["modemConfig_pathToSaveScript"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"C:\\\\\"")]
+        public string modemConfig_pathToLoadScript {
+            get {
+                return ((string)(this["modemConfig_pathToLoadScript"]));
+            }
+            set {
+                this["modemConfig_pathToLoadScript"] = value;
             }
         }
     }

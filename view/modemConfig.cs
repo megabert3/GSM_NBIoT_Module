@@ -8,6 +8,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Net;
@@ -1103,10 +1104,16 @@ namespace GSM_NBIoT_Module.view {
             });
         }
 
+        //=============================== Работа со скриптами, запись параметров в файл и из файла ========================
+        /// <summary>
+        /// Действии при нажатии на кнопку сохранения скрипта
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void createScript_Click(object sender, EventArgs e) {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
-            saveFileDialog.InitialDirectory = Properties.Settings.Default.modemConfig_pathToScript;
+            saveFileDialog.InitialDirectory = Properties.Settings.Default.modemConfig_pathToSaveScript;
 
             saveFileDialog.FileName = "taipitConfigModemScript " + DateTime.Now.ToString("yyyy_MM_dd_HH-mm-ss") + ".txt";
             saveFileDialog.Filter = "txt (*.txt*)|*.txt*";
@@ -1116,12 +1123,455 @@ namespace GSM_NBIoT_Module.view {
 
                 Properties.Settings.Default.Save();
 
-                //Формирую скрипт
-                string scryptTxt = "Настройка пользовательских серверов\n" +
-                    "0,";
-                
+                checkValidParametersForScrypt();
 
-                Flasher.successfullyDialog("Лог успешно сохранен", "Сохранение лога");
+                File.WriteAllText(saveFileDialog.FileName, generateUserHostParametersForTheScript() + "\n" + generateConnectingParametersForTheScript());
+
+                Flasher.successfullyDialog("Скрипт успешно сохранен", "Сохранение скрипта");
+            }
+        }
+
+        /// <summary>
+        /// Проверяет валидность значений в окне с конфигурацией модема
+        /// </summary>
+        private void checkValidParametersForScrypt() {
+            //Проверка валидности значений в полях с вкладки настпройки пользовательских серверов
+            checkValidUserHostParameters(formatAddresRecord(1), ipDomenNameTxtBx_1, portTxtBx_1);
+            checkValidUserHostParameters(formatAddresRecord(2), ipDomenNameTxtBx_2, portTxtBx_2);
+            checkValidUserHostParameters(formatAddresRecord(3), ipDomenNameTxtBx_3, portTxtBx_3);
+
+            //Проверка валидности значений в полях с вкладки параметры инициализации связи
+            checkValidConnectingParameters();
+        }
+
+        /// <summary>
+        /// Возвращает сформированные параметры из вкладки параметры пользовательских серверов для текстового файла (скрипта)
+        /// </summary>
+        /// <returns></returns>
+        private string generateUserHostParametersForTheScript() {
+            /*Пример:
+             * Настройка пользовательских серверов
+             * 0,Доменное имя,"devices.226.taipit.ru",8080
+             * 1,IPv4,124.12.55.255,8080
+             * 2,IPv6,12AF:3B:38C::10,8080
+             */
+
+            return "Настройка пользовательских серверов\n" +
+                generateLineUserHostParameters(0, formatAddresRecord(1), ipDomenNameTxtBx_1, portTxtBx_1) + "\n" +
+                generateLineUserHostParameters(1, formatAddresRecord(2), ipDomenNameTxtBx_2, portTxtBx_2) + "\n" +
+                generateLineUserHostParameters(2, formatAddresRecord(3), ipDomenNameTxtBx_3, portTxtBx_3) + "\n";
+        }
+
+        /// <summary>
+        /// Генерирует строку с параметрами, которые соответствуют параметрам определённого сервера
+        /// </summary>
+        /// <param name="numbServerProperties">Номер настройки сервера</param>
+        /// <param name="domenOrIPv4Check">Формат записи адреса</param>
+        /// <param name="domenOrIPData">Значение адреса</param>
+        /// <param name="portData">Значение порта</param>
+        /// <returns></returns>
+        private string generateLineUserHostParameters(int numbServerProperties, int domenOrIPv4Check, TextBox domenOrIPData, MaskedTextBox portData) {
+
+            if (String.IsNullOrEmpty(domenOrIPData.Text)) {
+                return numbServerProperties + ", EMPTY";
+
+            } else {
+                switch(domenOrIPv4Check) {
+                    //Доменное имя
+                    case 0: {
+                            return numbServerProperties + ", Доменное имя, " + domenOrIPData.Text.Trim() + ", " + portData.Text.Trim();
+                        }
+
+                    //IPv4
+                    case 1: {
+                            return numbServerProperties + ", IPv4, " + domenOrIPData.Text.Trim() + ", " + portData.Text.Trim();
+                        }
+
+                    //IPv6
+                    case 2: {
+                            return numbServerProperties + ", IPv6, " + domenOrIPData.Text.Trim() + ", " + portData.Text.Trim();
+                        }
+
+                    default: {
+                            throw new ArgumentException("Формат записи адреса не реализован");
+                        }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Возвращает сформированные параметры из вкладки Параметры инициализации связи для текстового файла (скрипта)
+        /// </summary>
+        /// <returns></returns>
+        private string generateConnectingParametersForTheScript() {
+            /*Пример:
+            Параметры инициализации связи
+            PERIOD:06:00:00
+            SERVICE:20
+            LETWAIT:01:00
+            TRYLIMIT:3
+            SESSLIMIT:00:20
+            HOLDTIME:04:16
+            INCOMHOLDTIME:03:00*/
+
+            return "Параметры инициализации связи\n" +
+                "PERIOD:" + periodMsdTxtBx.Text + "\n" +
+                "SERVICE:" + serviceMsdTxtBx.Text + "\n" +
+                "LETWAIT:" + letwaitMsdTxtBx.Text + "\n" +
+                "TRYLIMIT:" + trylimitMsdTxtBx.Text + "\n" +
+                "SESSLIMIT:" + sesslimitMsdTxtBx.Text + "\n" +
+                "HOLDTIME:" + holdTimeMsdTxtBx.Text + "\n" +
+                "INCOMHOLDTIME:" + incomholdtimeMskTxtBx.Text;
+        }
+
+        /// <summary>
+        /// Проверяет валидность значений с вкладки настпройки пользовательских серверов, а именно значение порта и адреса
+        /// </summary>
+        /// <param name="domenOrIPv4Check">В каком формате передаётся адрес</param>
+        /// <param name="domenOrIPData">Значение адреса</param>
+        /// <param name="portData">Значение порта</param>
+        private void checkValidUserHostParameters(int domenOrIPv4Check, TextBox domenOrIPData, MaskedTextBox portData) {
+
+            //Если значения IP адреса или Доменного имени не пустое
+            if (!(String.IsNullOrEmpty(domenOrIPData.Text) ||
+                (domenOrIPData.Text.Length == 2 && (domenOrIPData.Text.ElementAt(0) == '\"' && domenOrIPData.Text.ElementAt(1) == '\"')))) {
+
+                //Если должно поступить на вход доменное имя
+                switch (domenOrIPv4Check) {
+                    case 0: {
+                            char[] domenNameArr = domenOrIPData.Text.ToCharArray();
+
+                            if (domenNameArr[0] != '\"' || domenNameArr[domenNameArr.Length - 1] != '\"') {
+                                domenOrIPData.Focus();
+                                domenOrIPData.SelectAll();
+                                throw new FormatException("Доменное имя должно содержать знак \" в начале и конце");
+                            }
+
+                            //C учётом кавычек
+                            if (domenNameArr.Length - 2 > 28) {
+                                domenOrIPData.Focus();
+                                domenOrIPData.SelectAll();
+                                throw new FormatException("Доменное имя не должно быть больше 28 символов");
+                            }
+
+                            for (int i = 1; i < domenNameArr.Length - 1; i++) {
+                                if (domenNameArr[i] < 0x20 || domenNameArr[i] > 0x7F) {
+                                    domenOrIPData.Focus();
+                                    domenOrIPData.SelectAll();
+                                    throw new FormatException("Доменное имя должно содержать только ASCII символы");
+                                }
+                            }
+                        }
+                        break;
+
+                    //Если должен поступить на вход IPv4 адрес
+                    case 1: {
+                            //Проверка значений
+                            try {
+                                string ipv4 = domenOrIPData.Text.Trim();
+
+                                string[] ipv4Arr = ipv4.Split('.');
+
+                                List<byte> byteList = new List<byte>();
+
+                                if (ipv4Arr.Length != 4) throw new FormatException();
+
+                                foreach (string ipNode in ipv4Arr) {
+                                    if (String.IsNullOrEmpty(ipNode.Trim())) {
+                                        byteList.Add(0);
+                                        continue;
+                                    }
+
+                                    int localByte = Convert.ToInt32(ipNode.Trim());
+
+                                    if (localByte < 0 || localByte > 255) throw new FormatException();
+
+                                    byteList.Add((byte)localByte);
+                                }
+
+                                domenOrIPData.Text = byteList[0] + "." +
+                                    byteList[1] + "." +
+                                    byteList[2] + "." +
+                                    byteList[3];
+
+                            } catch (Exception) {
+                                domenOrIPData.Focus();
+                                domenOrIPData.SelectAll();
+                                throw new FormatException("Неверный формат записи IPv4, формат должен иметь вид xxx.xxx.xxx.xxx, где xxx могут иметь значения от 0..255");
+                            }
+
+                        }
+                        break;
+
+                    //Если должен поступить на вход IPv6 адрес
+                    case 2: {
+                            try {
+                                string ipv6 = domenOrIPData.Text.Trim();
+
+                                IPv6Parser.checValidValue(ipv6);
+
+                            } catch (Exception) {
+                                domenOrIPData.Focus();
+                                domenOrIPData.SelectAll();
+                                throw;
+                            }
+
+                        }
+                        break;
+                }
+
+                //Проверка коректности ввода порта
+                if (String.IsNullOrEmpty(portData.Text) ||
+                    (Convert.ToInt32(portData.Text) > 65535 || Convert.ToInt32(portData.Text) < 0)) {
+                    portData.Focus();
+                    portData.SelectAll();
+                    throw new FormatException("Значение порта должно быть в диапазоне 0..65535");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Проверка валидности значений в полях с вкладки параметры инициализации связи
+        /// </summary>
+        private void checkValidConnectingParameters() {
+            int hours;
+            int minutes;
+            int seconds;
+            int timeInSeconds;
+            string[] periodArr;
+
+            //Проверка на валидность параметров
+            //Период инициализации сеансов связи
+            periodArr = periodMsdTxtBx.Text.Split(':');
+
+            checkFieldTimeFormat(periodArr, periodMsdTxtBx, "Формат времени поля \"Период инициализации севнсов связи\" должен иметь формат hh:mm:ss");
+
+            hours = Convert.ToInt32(periodArr[0]);
+            minutes = Convert.ToInt32(periodArr[1]);
+            seconds = Convert.ToInt32(periodArr[2]);
+
+            timeInSeconds = getSeconds(hours, minutes, seconds);
+
+            checkTimeFormat(hours, minutes, seconds, periodMsdTxtBx);
+
+            //Проверка на границы
+            if (timeInSeconds > getSeconds(20, 0, 0) || timeInSeconds < 60) {
+                periodMsdTxtBx.Focus();
+                periodMsdTxtBx.SelectAll();
+                throw new ArgumentException("Периодичность инициации сеансов связи не может быть меньше 1-ой минуты и больше 20-ти часов");
+            }
+
+            //Период инициализации севнсов связи с базовым сервером
+            checkFieldTimeFormat(serviceMsdTxtBx.Text.Split(':'), serviceMsdTxtBx, "Формат времени поля \"Периодичность инициации сеансов связи с базовым сервером\" должен иметь формат hh");
+
+            hours = Convert.ToInt32(serviceMsdTxtBx.Text);
+
+            if (hours > 24 || hours < 12) {
+                serviceMsdTxtBx.Focus();
+                serviceMsdTxtBx.SelectAll();
+                throw new ArgumentException("Периодичность инициации сеансов связи не может быть меньше 12-ти часов и больше 24-х часов");
+            }
+
+            //Время ожидания ответа сервера
+            periodArr = letwaitMsdTxtBx.Text.Split(':');
+
+            checkFieldTimeFormat(periodArr, letwaitMsdTxtBx, "Формат времени поля \"Время ожидания ответа сервера\" должен иметь формат mm:ss");
+
+            minutes = Convert.ToInt32(periodArr[0]);
+            seconds = Convert.ToInt32(periodArr[1]);
+
+            checkTimeFormat(0, minutes, seconds, letwaitMsdTxtBx);
+
+            timeInSeconds = getSeconds(0, minutes, seconds);
+
+            if (timeInSeconds > 255 || timeInSeconds < 15) {
+                letwaitMsdTxtBx.Focus();
+                letwaitMsdTxtBx.SelectAll();
+                throw new ArgumentException("Время ожидания ответа сервера не может быть меньше 00:15 и больше 04:15");
+            }
+
+            //Количество попыток связи с сервером
+            int amoutTry = Convert.ToInt32(trylimitMsdTxtBx.Text);
+            if (amoutTry > 6 || amoutTry < 1) {
+                trylimitMsdTxtBx.Focus();
+                trylimitMsdTxtBx.SelectAll();
+                throw new ArgumentException("Количество попыток связи с сервером не может быть меньше 1-й и больше 6-ти");
+            }
+
+            //Предельное время сеанса связи
+            periodArr = sesslimitMsdTxtBx.Text.Split(':');
+
+            checkFieldTimeFormat(periodArr, sesslimitMsdTxtBx, "Формат времени поля \"Предельное время сеанса связи\" должен иметь формат hh:mm");
+
+            hours = Convert.ToInt32(periodArr[0]);
+            minutes = Convert.ToInt32(periodArr[1]);
+
+            checkTimeFormat(hours, minutes, 0, sesslimitMsdTxtBx);
+
+            timeInSeconds = getSeconds(hours, minutes, 0);
+
+            if (timeInSeconds > getSeconds(4, 15, 0) || timeInSeconds < getSeconds(0, 5, 0)) {
+                sesslimitMsdTxtBx.Focus();
+                sesslimitMsdTxtBx.SelectAll();
+                throw new ArgumentException("Предельное время сеанса связи не может быть меньше 00:05 и больше 04:15");
+                
+            }
+
+            //Время удержания сеанса связи при отсутствии обмена данными                
+            periodArr = holdTimeMsdTxtBx.Text.Split(':');
+
+            checkFieldTimeFormat(periodArr, holdTimeMsdTxtBx, "Формат времени поля \"Время удержания сеанса связи при отсутствии обмена данными\" должен иметь формат mm:ss");
+
+            minutes = Convert.ToInt32(periodArr[0]);
+            seconds = Convert.ToInt32(periodArr[1]);
+
+            checkTimeFormat(0, minutes, seconds, holdTimeMsdTxtBx);
+
+            timeInSeconds = getSeconds(0, minutes, seconds);
+
+            if (timeInSeconds > 1005 || timeInSeconds < 15) {
+                holdTimeMsdTxtBx.Focus();
+                holdTimeMsdTxtBx.SelectAll();
+                throw new ArgumentException("Время удержания сеанса связи не может быть меньше 00:15 и больше 16:45");
+            }
+
+            //время удержания входящего соединения при отсутствии поступления данных от подключённого устройства (счётчика)
+            periodArr = incomholdtimeMskTxtBx.Text.Split(':');
+
+            checkFieldTimeFormat(periodArr, incomholdtimeMskTxtBx, "Формат времени поля \"Время удержания входящего соединения при отсутствии поступления данных от счетчика\" должен иметь формат mm:ss");
+
+            minutes = Convert.ToInt32(periodArr[0]);
+            seconds = Convert.ToInt32(periodArr[1]);
+
+            checkTimeFormat(0, minutes, seconds, incomholdtimeMskTxtBx);
+
+            timeInSeconds = getSeconds(0, minutes, seconds);
+
+            if (timeInSeconds > 900 || timeInSeconds < 30) {
+                throw new ArgumentException("Время удержания входящего соединения при отсутствии поступления данных от счетчика не может быть меньше 00:30 и больше 15:00");
+            }
+        }
+
+        /// <summary>
+        /// Действие при загрузке скрипта
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void loadScript_Click(object sender, EventArgs e) {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.InitialDirectory = Properties.Settings.Default.modemConfig_pathToLoadScript;
+
+            //openFileDialog.FileName = "taipitConfigModemScript " + DateTime.Now.ToString("yyyy_MM_dd_HH-mm-ss") + ".txt";
+            openFileDialog.Filter = "txt (*.txt*)|*.txt*";
+            openFileDialog.FilterIndex = 0;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK) {
+
+                Properties.Settings.Default.Save();
+
+                string[] scriptLine = File.ReadAllLines(openFileDialog.FileName);
+
+
+            }
+        }
+
+        private void parseAndSetUserHostOfScript(string userHostLine) {
+
+            string[] userHostParsmsArr = userHostLine.Split(',');
+
+            if (userHostParsmsArr.Length != 4 || userHostParsmsArr.Length != 2)
+                throw new FormatException("Формат строки не поддерживается.\nЗначение: " + userHostLine);
+
+            //В зависимости от номера параметров сервера
+            switch (Convert.ToInt32(userHostParsmsArr[0])) {
+                //Параметры сервера №0
+                case 0: {
+                        //Тип записи адреса (IPv4, IPv6, Доменное имя)
+                        switch(userHostParsmsArr[1].Trim().ToLower()) {
+
+                            case "доменное имя": {
+                                    domenNameRdBtn_1.Checked = true;
+                                    ipDomenNameTxtBx_1.Text = userHostParsmsArr[2];
+                                    portTxtBx_1.Text = userHostParsmsArr[3];
+                                }
+                                break;
+
+                            case "ipv4": {
+                                    IPv4RdBtn_1.Checked = true;
+                                    ipDomenNameTxtBx_1.Text = userHostParsmsArr[2];
+                                    portTxtBx_1.Text = userHostParsmsArr[3];
+                                }
+                                break;
+
+                            case "ipv6": {
+                                    IPv6RdBtn_1.Checked = true;
+                                    ipDomenNameTxtBx_1.Text = userHostParsmsArr[2];
+                                    portTxtBx_1.Text = userHostParsmsArr[3];
+                                }
+                                break;
+                        }
+                    } break;
+
+                //Параметры сервера №1
+                case 1: {
+                        //Тип записи адреса (IPv4, IPv6, Доменное имя)
+                        switch (userHostParsmsArr[1].Trim().ToLower()) {
+
+                            case "доменное имя": {
+                                    domenNameRdBtn_2.Checked = true;
+                                    ipDomenNameTxtBx_2.Text = userHostParsmsArr[2];
+                                    portTxtBx_2.Text = userHostParsmsArr[3];
+                                }
+                                break;
+
+                            case "ipv4": {
+                                    IPv4RdBtn_2.Checked = true;
+                                    ipDomenNameTxtBx_2.Text = userHostParsmsArr[2];
+                                    portTxtBx_2.Text = userHostParsmsArr[3];
+                                }
+                                break;
+
+                            case "ipv6": {
+                                    IPv6RdBtn_2.Checked = true;
+                                    ipDomenNameTxtBx_2.Text = userHostParsmsArr[2];
+                                    portTxtBx_2.Text = userHostParsmsArr[3];
+                                }
+                                break;
+                        }
+                    } break;
+
+                //Параметры сервера №2
+                case 2: {
+                        //Тип записи адреса (IPv4, IPv6, Доменное имя)
+                        switch (userHostParsmsArr[1].Trim().ToLower()) {
+
+                            case "доменное имя": {
+                                    domenNameRdBtn_3.Checked = true;
+                                    ipDomenNameTxtBx_3.Text = userHostParsmsArr[2];
+                                    portTxtBx_3.Text = userHostParsmsArr[3];
+                                }
+                                break;
+
+                            case "ipv4": {
+                                    IPv4RdBtn_3.Checked = true;
+                                    ipDomenNameTxtBx_3.Text = userHostParsmsArr[2];
+                                    portTxtBx_3.Text = userHostParsmsArr[3];
+                                }
+                                break;
+
+                            case "ipv6": {
+                                    IPv6RdBtn_3.Checked = true;
+                                    ipDomenNameTxtBx_3.Text = userHostParsmsArr[2];
+                                    portTxtBx_3.Text = userHostParsmsArr[3];
+                                }
+                                break;
+                        }
+                    } break;
+
+                default: {
+                        throw new ArgumentException("Настройки сервера №" + userHostParsmsArr[0] + " не предусмотрены");
+                    } break;
             }
         }
     }

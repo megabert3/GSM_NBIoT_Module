@@ -53,7 +53,10 @@
     <Setting Name="terminal_showSendDataInCOMChBx" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="modemConfig_pathToScript" Type="System.String" Scope="User">
+    <Setting Name="modemConfig_pathToSaveScript" Type="System.String" Scope="User">
+      <Value Profile="(Default)">"C:\\"</Value>
+    </Setting>
+    <Setting Name="modemConfig_pathToLoadScript" Type="System.String" Scope="User">
       <Value Profile="(Default)">"C:\\"</Value>
     </Setting>
   </Settings>

@@ -32,8 +32,10 @@ namespace GSM_NBIoT_Module {
         //Ссылка на форму с конфигурацияей модема
         private ModemConfig modemConfigForm;
 
+        //Ссылка на форму с терминалом
         private Terminal terminalForm;
 
+        //Основной поток перепрошивки модема
         private Thread flashThread;
 
         //Типы используемых модемов
@@ -678,7 +680,7 @@ namespace GSM_NBIoT_Module {
         private void saveLogBtn_Click(object sender, EventArgs e) {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
-            saveFileDialog.InitialDirectory = Properties.Settings.Default.mainFlasherLog_SaveLogDir;
+            saveFileDialog.InitialDirectory = Settings.Default.mainFlasherLog_SaveLogDir;
 
             saveFileDialog.FileName = "taipitFlasherLog " + DateTime.Now.ToString("yyyy_MM_dd_HH-mm-ss") + ".log";
             saveFileDialog.Filter = "All files (*.*)|*.*";
@@ -687,7 +689,7 @@ namespace GSM_NBIoT_Module {
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK) {
 
-                Properties.Settings.Default.Save();
+                Settings.Default.Save();
 
                 // сохраняем текст в файл
                 File.WriteAllText(saveFileDialog.FileName, flashProcessRichTxtBox.Text);
