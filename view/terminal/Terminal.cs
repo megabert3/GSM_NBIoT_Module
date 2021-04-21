@@ -1564,7 +1564,8 @@ namespace GSM_NBIoT_Module.view {
             saveFileDialog.InitialDirectory = Properties.Settings.Default.terminal_SaveLogDir;
 
             saveFileDialog.FileName = "taipitTerminalLog_" + DateTime.Now.ToString("yyyy_MM_dd_HH-mm-ss") + ".log";
-            saveFileDialog.Filter = "All files (*.*)|*.*";
+            saveFileDialog.Filter = "log (*.log*)|*.log*";
+            saveFileDialog.DefaultExt = "log";
             saveFileDialog.FilterIndex = 0;
 
 

@@ -447,9 +447,9 @@ namespace GSM_NBIoT_Module {
                         ConfigurationFW configurationFW = new ConfigurationFW(name, (byte)target_ID, (byte)index, (byte)protocol_ID, eGeneral_ID_Interface_Func_MCL_Mode_flg_Nbit,
                             (ushort)port, selector, domenName, domenNameByteArr, pathToFW_MKtxtBx.Text, pathToFW_QuectelTxtBx.Text, quectelCommands);
 
-                        configuration.setListenPort((ushort)listenPort);
-                        configuration.setAPN_Name(APN_DomenName);
-                        configuration.setAPN_NameByteArr(APN_DomenNameByteArr);
+                        configurationFW.setListenPort((ushort)listenPort);
+                        configurationFW.setAPN_Name(APN_DomenName);
+                        configurationFW.setAPN_NameByteArr(APN_DomenNameByteArr);
 
                         configurationFileStorage.addConfigurateFileInStorage(configurationFW);
 
@@ -461,7 +461,7 @@ namespace GSM_NBIoT_Module {
                         //Обновляю комбобокс с конфигурациями основного окна
                         Flasher.refreshConfigurationCmBox();
 
-                        ActiveForm.Close();
+                        Close();
 
                         return;
 

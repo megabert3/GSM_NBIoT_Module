@@ -683,10 +683,10 @@ namespace GSM_NBIoT_Module {
             saveFileDialog.InitialDirectory = Settings.Default.mainFlasherLog_SaveLogDir;
 
             saveFileDialog.FileName = "taipitFlasherLog " + DateTime.Now.ToString("yyyy_MM_dd_HH-mm-ss") + ".log";
-            saveFileDialog.Filter = "All files (*.*)|*.*";
+            saveFileDialog.DefaultExt = "log";
+            saveFileDialog.Filter = "log (*.log*)|*.log*";
             saveFileDialog.FilterIndex = 0;
            
-
             if (saveFileDialog.ShowDialog() == DialogResult.OK) {
 
                 Settings.Default.Save();
@@ -694,14 +694,14 @@ namespace GSM_NBIoT_Module {
                 // сохраняем текст в файл
                 File.WriteAllText(saveFileDialog.FileName, flashProcessRichTxtBox.Text);
 
-                Flasher.successfullyDialog("Лог успешно сохранен", "Сохранение лога");
+                successfullyDialog("Лог успешно сохранен", "Сохранение лога");
             }
         }
 
         private void Flasher_FormClosing(object sender, FormClosingEventArgs e) {
             if (flashThread != null) {
                 if (flashThread.IsAlive) {
-                    Flasher.exceptionDialog("Нельзя выйти во время перепрошивки модема");
+                    exceptionDialog("Нельзя выйти во время перепрошивки модема");
                     e.Cancel = true;
                 }
             }

@@ -28,6 +28,39 @@ namespace GSM_NBIoT_Module.view {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.ZPORTcommandsDataGridView = new System.Windows.Forms.DataGridView();
             this.parametersColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.userHostTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.portTxtBx_3 = new System.Windows.Forms.TextBox();
+            this.ipDomenNameTxtBx_3 = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.IPv6RdBtn_3 = new System.Windows.Forms.RadioButton();
+            this.domenNameRdBtn_3 = new System.Windows.Forms.RadioButton();
+            this.IPv4RdBtn_3 = new System.Windows.Forms.RadioButton();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.portTxtBx_2 = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.IPv6RdBtn_2 = new System.Windows.Forms.RadioButton();
+            this.domenNameRdBtn_2 = new System.Windows.Forms.RadioButton();
+            this.IPv4RdBtn_2 = new System.Windows.Forms.RadioButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.ipDomenNameTxtBx_2 = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.portTxtBx_1 = new System.Windows.Forms.TextBox();
+            this.ipDomenNameTxtBx_1 = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.IPv6RdBtn_1 = new System.Windows.Forms.RadioButton();
+            this.domenNameRdBtn_1 = new System.Windows.Forms.RadioButton();
+            this.IPv4RdBtn_1 = new System.Windows.Forms.RadioButton();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.setServersSettingsBtn = new System.Windows.Forms.Button();
             this.connectingTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
@@ -59,39 +92,6 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.holdTimeMsdTxtBx = new System.Windows.Forms.MaskedTextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.userHostTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.ipDomenNameTxtBx_3 = new System.Windows.Forms.TextBox();
-            this.portTxtBx_3 = new System.Windows.Forms.MaskedTextBox();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.IPv6RdBtn_3 = new System.Windows.Forms.RadioButton();
-            this.domenNameRdBtn_3 = new System.Windows.Forms.RadioButton();
-            this.IPv4RdBtn_3 = new System.Windows.Forms.RadioButton();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.IPv6RdBtn_2 = new System.Windows.Forms.RadioButton();
-            this.domenNameRdBtn_2 = new System.Windows.Forms.RadioButton();
-            this.IPv4RdBtn_2 = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.portTxtBx_2 = new System.Windows.Forms.MaskedTextBox();
-            this.ipDomenNameTxtBx_2 = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.ipDomenNameTxtBx_1 = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.IPv6RdBtn_1 = new System.Windows.Forms.RadioButton();
-            this.domenNameRdBtn_1 = new System.Windows.Forms.RadioButton();
-            this.IPv4RdBtn_1 = new System.Windows.Forms.RadioButton();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.portTxtBx_1 = new System.Windows.Forms.MaskedTextBox();
-            this.setServersSettingsBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.verFWTxtBx = new System.Windows.Forms.TextBox();
@@ -116,6 +116,17 @@ namespace GSM_NBIoT_Module.view {
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ZPORTcommandsDataGridView)).BeginInit();
+            this.userHostTableLayoutPanel.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.connectingTableLayoutPanel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.groupBox11.SuspendLayout();
@@ -132,17 +143,6 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
-            this.userHostTableLayoutPanel.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -198,6 +198,419 @@ namespace GSM_NBIoT_Module.view {
             this.parametersColumn.Name = "parametersColumn";
             this.parametersColumn.ReadOnly = true;
             this.parametersColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // userHostTableLayoutPanel
+            // 
+            this.userHostTableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.userHostTableLayoutPanel.ColumnCount = 1;
+            this.userHostTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.userHostTableLayoutPanel.Controls.Add(this.tableLayoutPanel4, 0, 0);
+            this.userHostTableLayoutPanel.Location = new System.Drawing.Point(3, 6);
+            this.userHostTableLayoutPanel.Name = "userHostTableLayoutPanel";
+            this.userHostTableLayoutPanel.RowCount = 1;
+            this.userHostTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.userHostTableLayoutPanel.Size = new System.Drawing.Size(532, 492);
+            this.userHostTableLayoutPanel.TabIndex = 1;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Controls.Add(this.groupBox3, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.groupBox1, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.groupBox2, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.setServersSettingsBtn, 0, 3);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 4;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(526, 486);
+            this.tableLayoutPanel4.TabIndex = 3;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.tableLayoutPanel6);
+            this.groupBox3.Location = new System.Drawing.Point(3, 193);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(520, 76);
+            this.groupBox3.TabIndex = 26;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Параметры сервера №2";
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel6.ColumnCount = 5;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel6.Controls.Add(this.portTxtBx_3, 4, 1);
+            this.tableLayoutPanel6.Controls.Add(this.ipDomenNameTxtBx_3, 1, 1);
+            this.tableLayoutPanel6.Controls.Add(this.panel3, 1, 0);
+            this.tableLayoutPanel6.Controls.Add(this.label15, 3, 1);
+            this.tableLayoutPanel6.Controls.Add(this.label17, 0, 1);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 19);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 2;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.01961F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.98039F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(512, 51);
+            this.tableLayoutPanel6.TabIndex = 3;
+            // 
+            // portTxtBx_3
+            // 
+            this.portTxtBx_3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.portTxtBx_3.Location = new System.Drawing.Point(361, 28);
+            this.portTxtBx_3.Name = "portTxtBx_3";
+            this.portTxtBx_3.Size = new System.Drawing.Size(148, 20);
+            this.portTxtBx_3.TabIndex = 3;
+            // 
+            // ipDomenNameTxtBx_3
+            // 
+            this.tableLayoutPanel6.SetColumnSpan(this.ipDomenNameTxtBx_3, 2);
+            this.ipDomenNameTxtBx_3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ipDomenNameTxtBx_3.Location = new System.Drawing.Point(54, 28);
+            this.ipDomenNameTxtBx_3.Name = "ipDomenNameTxtBx_3";
+            this.ipDomenNameTxtBx_3.Size = new System.Drawing.Size(250, 20);
+            this.ipDomenNameTxtBx_3.TabIndex = 1;
+            this.ipDomenNameTxtBx_3.TextChanged += new System.EventHandler(this.ipDomenNameTxtBx_3_TextChanged);
+            // 
+            // panel3
+            // 
+            this.tableLayoutPanel6.SetColumnSpan(this.panel3, 2);
+            this.panel3.Controls.Add(this.IPv6RdBtn_3);
+            this.panel3.Controls.Add(this.domenNameRdBtn_3);
+            this.panel3.Controls.Add(this.IPv4RdBtn_3);
+            this.panel3.Location = new System.Drawing.Point(54, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(248, 18);
+            this.panel3.TabIndex = 3;
+            // 
+            // IPv6RdBtn_3
+            // 
+            this.IPv6RdBtn_3.AutoSize = true;
+            this.IPv6RdBtn_3.Location = new System.Drawing.Point(196, 0);
+            this.IPv6RdBtn_3.Name = "IPv6RdBtn_3";
+            this.IPv6RdBtn_3.Size = new System.Drawing.Size(47, 17);
+            this.IPv6RdBtn_3.TabIndex = 5;
+            this.IPv6RdBtn_3.Text = "IPv6";
+            this.IPv6RdBtn_3.UseVisualStyleBackColor = true;
+            // 
+            // domenNameRdBtn_3
+            // 
+            this.domenNameRdBtn_3.AutoSize = true;
+            this.domenNameRdBtn_3.Location = new System.Drawing.Point(3, 0);
+            this.domenNameRdBtn_3.Name = "domenNameRdBtn_3";
+            this.domenNameRdBtn_3.Size = new System.Drawing.Size(101, 17);
+            this.domenNameRdBtn_3.TabIndex = 1;
+            this.domenNameRdBtn_3.Text = "Доменное имя";
+            this.domenNameRdBtn_3.UseVisualStyleBackColor = true;
+            // 
+            // IPv4RdBtn_3
+            // 
+            this.IPv4RdBtn_3.AutoSize = true;
+            this.IPv4RdBtn_3.Checked = true;
+            this.IPv4RdBtn_3.Location = new System.Drawing.Point(115, 0);
+            this.IPv4RdBtn_3.Name = "IPv4RdBtn_3";
+            this.IPv4RdBtn_3.Size = new System.Drawing.Size(47, 17);
+            this.IPv4RdBtn_3.TabIndex = 2;
+            this.IPv4RdBtn_3.TabStop = true;
+            this.IPv4RdBtn_3.Text = "IPv4";
+            this.IPv4RdBtn_3.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(323, 31);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(32, 13);
+            this.label15.TabIndex = 7;
+            this.label15.Text = "Порт";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label17
+            // 
+            this.label17.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(10, 31);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(38, 13);
+            this.label17.TabIndex = 3;
+            this.label17.Text = "Адрес";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.tableLayoutPanel5);
+            this.groupBox1.Location = new System.Drawing.Point(3, 98);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(520, 77);
+            this.groupBox1.TabIndex = 25;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Параметры сервера №1";
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel5.ColumnCount = 5;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel5.Controls.Add(this.portTxtBx_2, 4, 1);
+            this.tableLayoutPanel5.Controls.Add(this.panel2, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.label1, 3, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label13, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.ipDomenNameTxtBx_2, 1, 1);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 19);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 2;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.01961F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.98039F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(512, 51);
+            this.tableLayoutPanel5.TabIndex = 3;
+            // 
+            // portTxtBx_2
+            // 
+            this.portTxtBx_2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.portTxtBx_2.Location = new System.Drawing.Point(361, 28);
+            this.portTxtBx_2.Name = "portTxtBx_2";
+            this.portTxtBx_2.Size = new System.Drawing.Size(148, 20);
+            this.portTxtBx_2.TabIndex = 2;
+            // 
+            // panel2
+            // 
+            this.tableLayoutPanel5.SetColumnSpan(this.panel2, 2);
+            this.panel2.Controls.Add(this.IPv6RdBtn_2);
+            this.panel2.Controls.Add(this.domenNameRdBtn_2);
+            this.panel2.Controls.Add(this.IPv4RdBtn_2);
+            this.panel2.Location = new System.Drawing.Point(54, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(248, 18);
+            this.panel2.TabIndex = 3;
+            // 
+            // IPv6RdBtn_2
+            // 
+            this.IPv6RdBtn_2.AutoSize = true;
+            this.IPv6RdBtn_2.Location = new System.Drawing.Point(196, 0);
+            this.IPv6RdBtn_2.Name = "IPv6RdBtn_2";
+            this.IPv6RdBtn_2.Size = new System.Drawing.Size(47, 17);
+            this.IPv6RdBtn_2.TabIndex = 4;
+            this.IPv6RdBtn_2.Text = "IPv6";
+            this.IPv6RdBtn_2.UseVisualStyleBackColor = true;
+            // 
+            // domenNameRdBtn_2
+            // 
+            this.domenNameRdBtn_2.AutoSize = true;
+            this.domenNameRdBtn_2.Location = new System.Drawing.Point(3, 0);
+            this.domenNameRdBtn_2.Name = "domenNameRdBtn_2";
+            this.domenNameRdBtn_2.Size = new System.Drawing.Size(101, 17);
+            this.domenNameRdBtn_2.TabIndex = 1;
+            this.domenNameRdBtn_2.Text = "Доменное имя";
+            this.domenNameRdBtn_2.UseVisualStyleBackColor = true;
+            // 
+            // IPv4RdBtn_2
+            // 
+            this.IPv4RdBtn_2.AutoSize = true;
+            this.IPv4RdBtn_2.Checked = true;
+            this.IPv4RdBtn_2.Location = new System.Drawing.Point(115, 0);
+            this.IPv4RdBtn_2.Name = "IPv4RdBtn_2";
+            this.IPv4RdBtn_2.Size = new System.Drawing.Size(47, 17);
+            this.IPv4RdBtn_2.TabIndex = 2;
+            this.IPv4RdBtn_2.TabStop = true;
+            this.IPv4RdBtn_2.Text = "IPv4";
+            this.IPv4RdBtn_2.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(323, 31);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Порт";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label13
+            // 
+            this.label13.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(10, 31);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(38, 13);
+            this.label13.TabIndex = 3;
+            this.label13.Text = "Адрес";
+            // 
+            // ipDomenNameTxtBx_2
+            // 
+            this.tableLayoutPanel5.SetColumnSpan(this.ipDomenNameTxtBx_2, 2);
+            this.ipDomenNameTxtBx_2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ipDomenNameTxtBx_2.Location = new System.Drawing.Point(54, 28);
+            this.ipDomenNameTxtBx_2.Name = "ipDomenNameTxtBx_2";
+            this.ipDomenNameTxtBx_2.Size = new System.Drawing.Size(250, 20);
+            this.ipDomenNameTxtBx_2.TabIndex = 12;
+            this.ipDomenNameTxtBx_2.TextChanged += new System.EventHandler(this.ipDomenNameTxtBx_2_TextChanged);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.tableLayoutPanel3);
+            this.groupBox2.Location = new System.Drawing.Point(3, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(520, 74);
+            this.groupBox2.TabIndex = 24;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Параметры сервера №0";
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel3.ColumnCount = 5;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel3.Controls.Add(this.portTxtBx_1, 4, 1);
+            this.tableLayoutPanel3.Controls.Add(this.ipDomenNameTxtBx_1, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.panel1, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label11, 3, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label2, 0, 1);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 19);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.01961F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.98039F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(512, 51);
+            this.tableLayoutPanel3.TabIndex = 3;
+            // 
+            // portTxtBx_1
+            // 
+            this.portTxtBx_1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.portTxtBx_1.Location = new System.Drawing.Point(361, 28);
+            this.portTxtBx_1.Name = "portTxtBx_1";
+            this.portTxtBx_1.Size = new System.Drawing.Size(148, 20);
+            this.portTxtBx_1.TabIndex = 1;
+            // 
+            // ipDomenNameTxtBx_1
+            // 
+            this.tableLayoutPanel3.SetColumnSpan(this.ipDomenNameTxtBx_1, 2);
+            this.ipDomenNameTxtBx_1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ipDomenNameTxtBx_1.Location = new System.Drawing.Point(54, 28);
+            this.ipDomenNameTxtBx_1.Name = "ipDomenNameTxtBx_1";
+            this.ipDomenNameTxtBx_1.Size = new System.Drawing.Size(250, 20);
+            this.ipDomenNameTxtBx_1.TabIndex = 1;
+            this.ipDomenNameTxtBx_1.TextChanged += new System.EventHandler(this.ipDomenNameTxtBx_1_TextChanged);
+            // 
+            // panel1
+            // 
+            this.tableLayoutPanel3.SetColumnSpan(this.panel1, 2);
+            this.panel1.Controls.Add(this.IPv6RdBtn_1);
+            this.panel1.Controls.Add(this.domenNameRdBtn_1);
+            this.panel1.Controls.Add(this.IPv4RdBtn_1);
+            this.panel1.Location = new System.Drawing.Point(54, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(248, 18);
+            this.panel1.TabIndex = 3;
+            // 
+            // IPv6RdBtn_1
+            // 
+            this.IPv6RdBtn_1.AutoSize = true;
+            this.IPv6RdBtn_1.Location = new System.Drawing.Point(196, 0);
+            this.IPv6RdBtn_1.Name = "IPv6RdBtn_1";
+            this.IPv6RdBtn_1.Size = new System.Drawing.Size(47, 17);
+            this.IPv6RdBtn_1.TabIndex = 3;
+            this.IPv6RdBtn_1.Text = "IPv6";
+            this.IPv6RdBtn_1.UseVisualStyleBackColor = true;
+            // 
+            // domenNameRdBtn_1
+            // 
+            this.domenNameRdBtn_1.AutoSize = true;
+            this.domenNameRdBtn_1.Location = new System.Drawing.Point(3, 0);
+            this.domenNameRdBtn_1.Name = "domenNameRdBtn_1";
+            this.domenNameRdBtn_1.Size = new System.Drawing.Size(101, 17);
+            this.domenNameRdBtn_1.TabIndex = 1;
+            this.domenNameRdBtn_1.Text = "Доменное имя";
+            this.domenNameRdBtn_1.UseVisualStyleBackColor = true;
+            // 
+            // IPv4RdBtn_1
+            // 
+            this.IPv4RdBtn_1.AutoSize = true;
+            this.IPv4RdBtn_1.Checked = true;
+            this.IPv4RdBtn_1.Location = new System.Drawing.Point(115, 0);
+            this.IPv4RdBtn_1.Name = "IPv4RdBtn_1";
+            this.IPv4RdBtn_1.Size = new System.Drawing.Size(47, 17);
+            this.IPv4RdBtn_1.TabIndex = 2;
+            this.IPv4RdBtn_1.TabStop = true;
+            this.IPv4RdBtn_1.Text = "IPv4";
+            this.IPv4RdBtn_1.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(323, 31);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(32, 13);
+            this.label11.TabIndex = 7;
+            this.label11.Text = "Порт";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(10, 31);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Адрес";
+            // 
+            // setServersSettingsBtn
+            // 
+            this.setServersSettingsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.setServersSettingsBtn.Location = new System.Drawing.Point(426, 460);
+            this.setServersSettingsBtn.Name = "setServersSettingsBtn";
+            this.setServersSettingsBtn.Size = new System.Drawing.Size(97, 23);
+            this.setServersSettingsBtn.TabIndex = 27;
+            this.setServersSettingsBtn.Text = "Записать";
+            this.setServersSettingsBtn.UseVisualStyleBackColor = true;
+            this.setServersSettingsBtn.Click += new System.EventHandler(this.setServersSettingsBtn_Click);
             // 
             // connectingTableLayoutPanel
             // 
@@ -563,423 +976,7 @@ namespace GSM_NBIoT_Module.view {
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(131, 13);
             this.label19.TabIndex = 28;
-            this.label19.Text = "(mm:ss) от 16:45 до 00:15";
-            // 
-            // userHostTableLayoutPanel
-            // 
-            this.userHostTableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.userHostTableLayoutPanel.ColumnCount = 1;
-            this.userHostTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.userHostTableLayoutPanel.Controls.Add(this.tableLayoutPanel4, 0, 0);
-            this.userHostTableLayoutPanel.Location = new System.Drawing.Point(3, 6);
-            this.userHostTableLayoutPanel.Name = "userHostTableLayoutPanel";
-            this.userHostTableLayoutPanel.RowCount = 1;
-            this.userHostTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.userHostTableLayoutPanel.Size = new System.Drawing.Size(532, 492);
-            this.userHostTableLayoutPanel.TabIndex = 1;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel4.ColumnCount = 1;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.groupBox3, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.groupBox1, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.groupBox2, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.setServersSettingsBtn, 0, 3);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 4;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(526, 486);
-            this.tableLayoutPanel4.TabIndex = 3;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.tableLayoutPanel6);
-            this.groupBox3.Location = new System.Drawing.Point(3, 193);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(520, 76);
-            this.groupBox3.TabIndex = 26;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Параметры сервера №2";
-            // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel6.ColumnCount = 5;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanel6.Controls.Add(this.ipDomenNameTxtBx_3, 1, 1);
-            this.tableLayoutPanel6.Controls.Add(this.portTxtBx_3, 4, 1);
-            this.tableLayoutPanel6.Controls.Add(this.panel3, 1, 0);
-            this.tableLayoutPanel6.Controls.Add(this.label15, 3, 1);
-            this.tableLayoutPanel6.Controls.Add(this.label17, 0, 1);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 19);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 2;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.01961F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.98039F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(512, 51);
-            this.tableLayoutPanel6.TabIndex = 3;
-            // 
-            // ipDomenNameTxtBx_3
-            // 
-            this.tableLayoutPanel6.SetColumnSpan(this.ipDomenNameTxtBx_3, 2);
-            this.ipDomenNameTxtBx_3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ipDomenNameTxtBx_3.Location = new System.Drawing.Point(54, 28);
-            this.ipDomenNameTxtBx_3.Name = "ipDomenNameTxtBx_3";
-            this.ipDomenNameTxtBx_3.Size = new System.Drawing.Size(250, 20);
-            this.ipDomenNameTxtBx_3.TabIndex = 1;
-            this.ipDomenNameTxtBx_3.TextChanged += new System.EventHandler(this.ipDomenNameTxtBx_3_TextChanged);
-            // 
-            // portTxtBx_3
-            // 
-            this.portTxtBx_3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.portTxtBx_3.Location = new System.Drawing.Point(361, 28);
-            this.portTxtBx_3.Mask = "00000";
-            this.portTxtBx_3.Name = "portTxtBx_3";
-            this.portTxtBx_3.Size = new System.Drawing.Size(148, 20);
-            this.portTxtBx_3.TabIndex = 12;
-            // 
-            // panel3
-            // 
-            this.tableLayoutPanel6.SetColumnSpan(this.panel3, 2);
-            this.panel3.Controls.Add(this.IPv6RdBtn_3);
-            this.panel3.Controls.Add(this.domenNameRdBtn_3);
-            this.panel3.Controls.Add(this.IPv4RdBtn_3);
-            this.panel3.Location = new System.Drawing.Point(54, 3);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(248, 18);
-            this.panel3.TabIndex = 3;
-            // 
-            // IPv6RdBtn_3
-            // 
-            this.IPv6RdBtn_3.AutoSize = true;
-            this.IPv6RdBtn_3.Location = new System.Drawing.Point(196, 0);
-            this.IPv6RdBtn_3.Name = "IPv6RdBtn_3";
-            this.IPv6RdBtn_3.Size = new System.Drawing.Size(47, 17);
-            this.IPv6RdBtn_3.TabIndex = 5;
-            this.IPv6RdBtn_3.Text = "IPv6";
-            this.IPv6RdBtn_3.UseVisualStyleBackColor = true;
-            // 
-            // domenNameRdBtn_3
-            // 
-            this.domenNameRdBtn_3.AutoSize = true;
-            this.domenNameRdBtn_3.Location = new System.Drawing.Point(3, 0);
-            this.domenNameRdBtn_3.Name = "domenNameRdBtn_3";
-            this.domenNameRdBtn_3.Size = new System.Drawing.Size(101, 17);
-            this.domenNameRdBtn_3.TabIndex = 1;
-            this.domenNameRdBtn_3.Text = "Доменное имя";
-            this.domenNameRdBtn_3.UseVisualStyleBackColor = true;
-            // 
-            // IPv4RdBtn_3
-            // 
-            this.IPv4RdBtn_3.AutoSize = true;
-            this.IPv4RdBtn_3.Checked = true;
-            this.IPv4RdBtn_3.Location = new System.Drawing.Point(115, 0);
-            this.IPv4RdBtn_3.Name = "IPv4RdBtn_3";
-            this.IPv4RdBtn_3.Size = new System.Drawing.Size(47, 17);
-            this.IPv4RdBtn_3.TabIndex = 2;
-            this.IPv4RdBtn_3.TabStop = true;
-            this.IPv4RdBtn_3.Text = "IPv4";
-            this.IPv4RdBtn_3.UseVisualStyleBackColor = true;
-            // 
-            // label15
-            // 
-            this.label15.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(323, 31);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(32, 13);
-            this.label15.TabIndex = 7;
-            this.label15.Text = "Порт";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label17
-            // 
-            this.label17.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(10, 31);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(38, 13);
-            this.label17.TabIndex = 3;
-            this.label17.Text = "Адрес";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.tableLayoutPanel5);
-            this.groupBox1.Location = new System.Drawing.Point(3, 98);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(520, 77);
-            this.groupBox1.TabIndex = 25;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Параметры сервера №1";
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel5.ColumnCount = 5;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanel5.Controls.Add(this.panel2, 1, 0);
-            this.tableLayoutPanel5.Controls.Add(this.label1, 3, 1);
-            this.tableLayoutPanel5.Controls.Add(this.label13, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.portTxtBx_2, 4, 1);
-            this.tableLayoutPanel5.Controls.Add(this.ipDomenNameTxtBx_2, 1, 1);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 19);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 2;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.01961F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.98039F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(512, 51);
-            this.tableLayoutPanel5.TabIndex = 3;
-            // 
-            // panel2
-            // 
-            this.tableLayoutPanel5.SetColumnSpan(this.panel2, 2);
-            this.panel2.Controls.Add(this.IPv6RdBtn_2);
-            this.panel2.Controls.Add(this.domenNameRdBtn_2);
-            this.panel2.Controls.Add(this.IPv4RdBtn_2);
-            this.panel2.Location = new System.Drawing.Point(54, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(248, 18);
-            this.panel2.TabIndex = 3;
-            // 
-            // IPv6RdBtn_2
-            // 
-            this.IPv6RdBtn_2.AutoSize = true;
-            this.IPv6RdBtn_2.Location = new System.Drawing.Point(196, 0);
-            this.IPv6RdBtn_2.Name = "IPv6RdBtn_2";
-            this.IPv6RdBtn_2.Size = new System.Drawing.Size(47, 17);
-            this.IPv6RdBtn_2.TabIndex = 4;
-            this.IPv6RdBtn_2.Text = "IPv6";
-            this.IPv6RdBtn_2.UseVisualStyleBackColor = true;
-            // 
-            // domenNameRdBtn_2
-            // 
-            this.domenNameRdBtn_2.AutoSize = true;
-            this.domenNameRdBtn_2.Location = new System.Drawing.Point(3, 0);
-            this.domenNameRdBtn_2.Name = "domenNameRdBtn_2";
-            this.domenNameRdBtn_2.Size = new System.Drawing.Size(101, 17);
-            this.domenNameRdBtn_2.TabIndex = 1;
-            this.domenNameRdBtn_2.Text = "Доменное имя";
-            this.domenNameRdBtn_2.UseVisualStyleBackColor = true;
-            // 
-            // IPv4RdBtn_2
-            // 
-            this.IPv4RdBtn_2.AutoSize = true;
-            this.IPv4RdBtn_2.Checked = true;
-            this.IPv4RdBtn_2.Location = new System.Drawing.Point(115, 0);
-            this.IPv4RdBtn_2.Name = "IPv4RdBtn_2";
-            this.IPv4RdBtn_2.Size = new System.Drawing.Size(47, 17);
-            this.IPv4RdBtn_2.TabIndex = 2;
-            this.IPv4RdBtn_2.TabStop = true;
-            this.IPv4RdBtn_2.Text = "IPv4";
-            this.IPv4RdBtn_2.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(323, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Порт";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label13
-            // 
-            this.label13.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(10, 31);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(38, 13);
-            this.label13.TabIndex = 3;
-            this.label13.Text = "Адрес";
-            // 
-            // portTxtBx_2
-            // 
-            this.portTxtBx_2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.portTxtBx_2.Location = new System.Drawing.Point(361, 28);
-            this.portTxtBx_2.Mask = "00000";
-            this.portTxtBx_2.Name = "portTxtBx_2";
-            this.portTxtBx_2.Size = new System.Drawing.Size(148, 20);
-            this.portTxtBx_2.TabIndex = 11;
-            // 
-            // ipDomenNameTxtBx_2
-            // 
-            this.tableLayoutPanel5.SetColumnSpan(this.ipDomenNameTxtBx_2, 2);
-            this.ipDomenNameTxtBx_2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ipDomenNameTxtBx_2.Location = new System.Drawing.Point(54, 28);
-            this.ipDomenNameTxtBx_2.Name = "ipDomenNameTxtBx_2";
-            this.ipDomenNameTxtBx_2.Size = new System.Drawing.Size(250, 20);
-            this.ipDomenNameTxtBx_2.TabIndex = 12;
-            this.ipDomenNameTxtBx_2.TextChanged += new System.EventHandler(this.ipDomenNameTxtBx_2_TextChanged);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.tableLayoutPanel3);
-            this.groupBox2.Location = new System.Drawing.Point(3, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(520, 74);
-            this.groupBox2.TabIndex = 24;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Параметры сервера №0";
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel3.ColumnCount = 5;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanel3.Controls.Add(this.ipDomenNameTxtBx_1, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.panel1, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.label11, 3, 1);
-            this.tableLayoutPanel3.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.portTxtBx_1, 4, 1);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 19);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.01961F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.98039F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(512, 51);
-            this.tableLayoutPanel3.TabIndex = 3;
-            // 
-            // ipDomenNameTxtBx_1
-            // 
-            this.tableLayoutPanel3.SetColumnSpan(this.ipDomenNameTxtBx_1, 2);
-            this.ipDomenNameTxtBx_1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ipDomenNameTxtBx_1.Location = new System.Drawing.Point(54, 28);
-            this.ipDomenNameTxtBx_1.Name = "ipDomenNameTxtBx_1";
-            this.ipDomenNameTxtBx_1.Size = new System.Drawing.Size(250, 20);
-            this.ipDomenNameTxtBx_1.TabIndex = 1;
-            this.ipDomenNameTxtBx_1.TextChanged += new System.EventHandler(this.ipDomenNameTxtBx_1_TextChanged);
-            // 
-            // panel1
-            // 
-            this.tableLayoutPanel3.SetColumnSpan(this.panel1, 2);
-            this.panel1.Controls.Add(this.IPv6RdBtn_1);
-            this.panel1.Controls.Add(this.domenNameRdBtn_1);
-            this.panel1.Controls.Add(this.IPv4RdBtn_1);
-            this.panel1.Location = new System.Drawing.Point(54, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(248, 18);
-            this.panel1.TabIndex = 3;
-            // 
-            // IPv6RdBtn_1
-            // 
-            this.IPv6RdBtn_1.AutoSize = true;
-            this.IPv6RdBtn_1.Location = new System.Drawing.Point(196, 0);
-            this.IPv6RdBtn_1.Name = "IPv6RdBtn_1";
-            this.IPv6RdBtn_1.Size = new System.Drawing.Size(47, 17);
-            this.IPv6RdBtn_1.TabIndex = 3;
-            this.IPv6RdBtn_1.Text = "IPv6";
-            this.IPv6RdBtn_1.UseVisualStyleBackColor = true;
-            // 
-            // domenNameRdBtn_1
-            // 
-            this.domenNameRdBtn_1.AutoSize = true;
-            this.domenNameRdBtn_1.Location = new System.Drawing.Point(3, 0);
-            this.domenNameRdBtn_1.Name = "domenNameRdBtn_1";
-            this.domenNameRdBtn_1.Size = new System.Drawing.Size(101, 17);
-            this.domenNameRdBtn_1.TabIndex = 1;
-            this.domenNameRdBtn_1.Text = "Доменное имя";
-            this.domenNameRdBtn_1.UseVisualStyleBackColor = true;
-            // 
-            // IPv4RdBtn_1
-            // 
-            this.IPv4RdBtn_1.AutoSize = true;
-            this.IPv4RdBtn_1.Checked = true;
-            this.IPv4RdBtn_1.Location = new System.Drawing.Point(115, 0);
-            this.IPv4RdBtn_1.Name = "IPv4RdBtn_1";
-            this.IPv4RdBtn_1.Size = new System.Drawing.Size(47, 17);
-            this.IPv4RdBtn_1.TabIndex = 2;
-            this.IPv4RdBtn_1.TabStop = true;
-            this.IPv4RdBtn_1.Text = "IPv4";
-            this.IPv4RdBtn_1.UseVisualStyleBackColor = true;
-            // 
-            // label11
-            // 
-            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(323, 31);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(32, 13);
-            this.label11.TabIndex = 7;
-            this.label11.Text = "Порт";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 31);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Адрес";
-            // 
-            // portTxtBx_1
-            // 
-            this.portTxtBx_1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.portTxtBx_1.Location = new System.Drawing.Point(361, 28);
-            this.portTxtBx_1.Mask = "00000";
-            this.portTxtBx_1.Name = "portTxtBx_1";
-            this.portTxtBx_1.Size = new System.Drawing.Size(148, 20);
-            this.portTxtBx_1.TabIndex = 10;
-            // 
-            // setServersSettingsBtn
-            // 
-            this.setServersSettingsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.setServersSettingsBtn.Location = new System.Drawing.Point(426, 460);
-            this.setServersSettingsBtn.Name = "setServersSettingsBtn";
-            this.setServersSettingsBtn.Size = new System.Drawing.Size(97, 23);
-            this.setServersSettingsBtn.TabIndex = 27;
-            this.setServersSettingsBtn.Text = "Записать";
-            this.setServersSettingsBtn.UseVisualStyleBackColor = true;
-            this.setServersSettingsBtn.Click += new System.EventHandler(this.setServersSettingsBtn_Click);
+            this.label19.Text = "(mm:ss) от 00:15 до 16:45";
             // 
             // cancelBtn
             // 
@@ -1164,7 +1161,7 @@ namespace GSM_NBIoT_Module.view {
             this.loadScript.Name = "loadScript";
             this.loadScript.Size = new System.Drawing.Size(93, 23);
             this.loadScript.TabIndex = 10;
-            this.loadScript.Text = "Скрипта";
+            this.loadScript.Text = "Запись";
             this.loadScript.UseVisualStyleBackColor = true;
             this.loadScript.Click += new System.EventHandler(this.loadScript_Click);
             // 
@@ -1188,6 +1185,23 @@ namespace GSM_NBIoT_Module.view {
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ZPORTcommandsDataGridView)).EndInit();
+            this.userHostTableLayoutPanel.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.connectingTableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
@@ -1211,23 +1225,6 @@ namespace GSM_NBIoT_Module.view {
             this.groupBox10.ResumeLayout(false);
             this.tableLayoutPanel11.ResumeLayout(false);
             this.tableLayoutPanel11.PerformLayout();
-            this.userHostTableLayoutPanel.ResumeLayout(false);
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
@@ -1296,9 +1293,6 @@ namespace GSM_NBIoT_Module.view {
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
-        private System.Windows.Forms.MaskedTextBox portTxtBx_1;
-        private System.Windows.Forms.MaskedTextBox portTxtBx_3;
-        private System.Windows.Forms.MaskedTextBox portTxtBx_2;
         private System.Windows.Forms.Button setServersSettingsBtn;
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
@@ -1322,5 +1316,8 @@ namespace GSM_NBIoT_Module.view {
         private System.Windows.Forms.TextBox copyIDTxtBx;
         private System.Windows.Forms.Button createScript;
         private System.Windows.Forms.Button loadScript;
+        private System.Windows.Forms.TextBox portTxtBx_3;
+        private System.Windows.Forms.TextBox portTxtBx_2;
+        private System.Windows.Forms.TextBox portTxtBx_1;
     }
 }

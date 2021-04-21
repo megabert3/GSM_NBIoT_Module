@@ -1,6 +1,7 @@
 ﻿using GSM_NBIoT_Module.classes;
 using GSM_NBIoT_Module.classes.applicationHelper;
 using GSM_NBIoT_Module.classes.applicationHelper.exceptions;
+using GSM_NBIoT_Module.classes.modemConfig;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +13,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -164,7 +166,7 @@ namespace GSM_NBIoT_Module.view {
                 getNbModemPort();
                 checkGPIO_CP2105();
 
-                serialPort.Open();
+                if (!serialPort.IsOpen) serialPort.Open();
 
                 Dictionary<string, string> deviceParams = getParamsDeviceCommand();
 
@@ -180,9 +182,7 @@ namespace GSM_NBIoT_Module.view {
 
                 getCONNECTINGparametersAndSetInConnectingPanel();
 
-                if (serialPort.IsOpen) {
-                    serialPort.Close();
-                }
+                if (serialPort.IsOpen) serialPort.Close();
 
                 Cursor = Cursors.Default;
 
@@ -220,11 +220,11 @@ namespace GSM_NBIoT_Module.view {
                 ipDomenNameTxtBx_1.Text = iPorDomen;
             }
 
-            if (!String.IsNullOrEmpty(iPorDomen)) {
-                //Доменное имя и порт сервера 1
-                getIPv4AndPortUserHost(1, ref iPorDomen, ref port);
-                portTxtBx_2.Text = port;
+            //Доменное имя и порт сервера 1
+            getIPv4AndPortUserHost(1, ref iPorDomen, ref port);
+            portTxtBx_2.Text = port;
 
+            if (!String.IsNullOrEmpty(iPorDomen)) {
                 if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
                     domenNameRdBtn_2.Checked = true;
 
@@ -238,11 +238,11 @@ namespace GSM_NBIoT_Module.view {
                 ipDomenNameTxtBx_2.Text = iPorDomen;
             }
 
-            if (!String.IsNullOrEmpty(iPorDomen)) {
-                //Доменное имя и порт сервера 2
-                getIPv4AndPortUserHost(2, ref iPorDomen, ref port);
-                portTxtBx_3.Text = port;
+            //Доменное имя и порт сервера 2
+            getIPv4AndPortUserHost(2, ref iPorDomen, ref port);
+            portTxtBx_3.Text = port;
 
+            if (!String.IsNullOrEmpty(iPorDomen)) {
                 if (iPorDomen.StartsWith("\"") && iPorDomen.EndsWith("\"")) {
                     domenNameRdBtn_3.Checked = true;
 
@@ -261,30 +261,9 @@ namespace GSM_NBIoT_Module.view {
         /// Устанавливает пользовательские параметры дополнительных серверов (Вкладка: настройка пользовательских серверов)
         /// </summary>
         private void writeCustomServersProperties() {
-            try {
-                Cursor = Cursors.WaitCursor;
-
-                getNbModemPort();
-                checkGPIO_CP2105();
-
-                serialPort.Open();
-
-                checkCustomServerProperties(0, formatAddresRecord(1), ipDomenNameTxtBx_1, portTxtBx_1);
-                checkCustomServerProperties(1, formatAddresRecord(2), ipDomenNameTxtBx_2, portTxtBx_2);
-                checkCustomServerProperties(2, formatAddresRecord(3), ipDomenNameTxtBx_3, portTxtBx_3);
-
-                serialPort.Close();
-
-                refreshInfoBtn.PerformClick();
-
-                Cursor = Cursors.Default;
-                Flasher.successfullyDialog("Настройка пользовательских серверов успешно записаны", "Запись параметров");
-
-            } catch (Exception ex) {
-                Cursor = Cursors.Default;
-                serialPort.Close();
-                Flasher.exceptionDialog(ex.Message);
-            }
+            checkCustomServerProperties(0, formatAddresRecord(1), ipDomenNameTxtBx_1, portTxtBx_1);
+            checkCustomServerProperties(1, formatAddresRecord(2), ipDomenNameTxtBx_2, portTxtBx_2);
+            checkCustomServerProperties(2, formatAddresRecord(3), ipDomenNameTxtBx_3, portTxtBx_3);
         }
 
         /// <summary>
@@ -327,7 +306,7 @@ namespace GSM_NBIoT_Module.view {
         /// </param>
         /// <param name="domenOrIPData"></param>
         /// <param name="portData"></param>
-        private void checkCustomServerProperties(int numbServerProperties, int domenOrIPv4Check, TextBox domenOrIPData, MaskedTextBox portData) {
+        private void checkCustomServerProperties(int numbServerProperties, int domenOrIPv4Check, TextBox domenOrIPData, TextBox portData) {
 
             //Отправка данных в порт
             string dataToPort;
@@ -435,12 +414,18 @@ namespace GSM_NBIoT_Module.view {
                 }
 
                 //Проверка коректности ввода порта
-                if (String.IsNullOrEmpty(portData.Text) ||
-                    (Convert.ToInt32(portData.Text) > 65535 || Convert.ToInt32(portData.Text) < 0)) {
+                int portValue;
+
+                if (!int.TryParse(portData.Text, out portValue)) {
+                    portData.Focus();
+                    portData.SelectAll();
+                    throw new ArgumentException("Значение порта дожно быть числовым и находиться в диапазоне 0..65535");
+                }
+
+                if (portValue > 65535 || portValue < 0) {
                     portData.Focus();
                     portData.SelectAll();
                     throw new FormatException("Значение порта должно быть в диапазоне 0..65535");
-
                 }
 
                 //Если доменное имя, то добавляются кавычки
@@ -491,6 +476,9 @@ namespace GSM_NBIoT_Module.view {
         private int getNbModemPort() {
             CP2105_Connector.GetCP2105_ConnectorInstance().FindDevicePorts();
             int enh = CP2105_Connector.GetCP2105_ConnectorInstance().getEnhancedPort();
+
+            if (serialPort.IsOpen) serialPort.Close();
+
             serialPort.PortName = "COM" + enh;
             return enh;
         }
@@ -756,194 +744,64 @@ namespace GSM_NBIoT_Module.view {
         }
 
         private void writeConnectingParameters() {
-            int hours;
-            int minutes;
-            int seconds;
-            int timeInSeconds;
-            string[] periodArr;
 
-            try {
-                if (String.IsNullOrEmpty(verProtTxtBx.Text)) {
-                    refreshInfoBtn.PerformClick();
-                }
-
-                //Проверка на валидность параметров-----------------------------
-                //Период инициализации севнсов связи
-                periodArr = periodMsdTxtBx.Text.Split(':');
-
-                checkFieldTimeFormat(periodArr, periodMsdTxtBx, "Формат времени поля \"Период инициализации севнсов связи\" должен иметь формат hh:mm:ss");
-
-                hours = Convert.ToInt32(periodArr[0]);
-                minutes = Convert.ToInt32(periodArr[1]);
-                seconds = Convert.ToInt32(periodArr[2]);
-
-                timeInSeconds = getSeconds(hours, minutes, seconds);
-
-                checkTimeFormat(hours, minutes, seconds, periodMsdTxtBx);
-
-                //Проверка на границы
-                if (timeInSeconds > getSeconds(20, 0, 0) || timeInSeconds < 60) {
-                    periodMsdTxtBx.Focus();
-                    periodMsdTxtBx.SelectAll();
-                    Flasher.exceptionDialog("Периодичность инициации сеансов связи не может быть меньше 1-ой минуты и больше 20-ти часов");
-                    return;
-                }
-
-                //Период инициализации севнсов связи с базовым сервером
-                checkFieldTimeFormat(serviceMsdTxtBx.Text.Split(':'), serviceMsdTxtBx, "Формат времени поля \"Периодичность инициации сеансов связи с базовым сервером\" должен иметь формат hh");
-
-                hours = Convert.ToInt32(serviceMsdTxtBx.Text);
-
-                if (hours > 24 || hours < 12) {
-                    serviceMsdTxtBx.Focus();
-                    serviceMsdTxtBx.SelectAll();
-                    Flasher.exceptionDialog("Периодичность инициации сеансов связи не может быть меньше 12-ти часов и больше 24-х часов");
-                    return;
-                }
-
-                //Время ожидания ответа сервера
-                periodArr = letwaitMsdTxtBx.Text.Split(':');
-
-                checkFieldTimeFormat(periodArr, letwaitMsdTxtBx, "Формат времени поля \"Время ожидания ответа сервера\" должен иметь формат mm:ss");
-
-                minutes = Convert.ToInt32(periodArr[0]);
-                seconds = Convert.ToInt32(periodArr[1]);
-
-                checkTimeFormat(0, minutes, seconds, letwaitMsdTxtBx);
-
-                timeInSeconds = getSeconds(0, minutes, seconds);
-
-                if (timeInSeconds > 255 || timeInSeconds < 15) {
-                    letwaitMsdTxtBx.Focus();
-                    letwaitMsdTxtBx.SelectAll();
-                    Flasher.exceptionDialog("Время ожидания ответа сервера не может быть меньше 00:15 и больше 04:15");
-                    return;
-                }
-
-                //Количество попыток связи с сервером
-                int amoutTry = Convert.ToInt32(trylimitMsdTxtBx.Text);
-                if (amoutTry > 6 || amoutTry < 1) {
-                    trylimitMsdTxtBx.Focus();
-                    trylimitMsdTxtBx.SelectAll();
-                    Flasher.exceptionDialog("Количество попыток связи с сервером не может быть меньше 1-й и больше 6-ти");
-                    return;
-                }
-
-                //Предельное время сеанса связи
-                periodArr = sesslimitMsdTxtBx.Text.Split(':');
-
-                checkFieldTimeFormat(periodArr, sesslimitMsdTxtBx, "Формат времени поля \"Предельное время сеанса связи\" должен иметь формат hh:mm");
-
-                hours = Convert.ToInt32(periodArr[0]);
-                minutes = Convert.ToInt32(periodArr[1]);
-
-                checkTimeFormat(hours, minutes, 0, sesslimitMsdTxtBx);
-
-                timeInSeconds = getSeconds(hours, minutes, 0);
-
-                if (timeInSeconds > getSeconds(4, 15, 0) || timeInSeconds < getSeconds(0, 5, 0)) {
-                    sesslimitMsdTxtBx.Focus();
-                    sesslimitMsdTxtBx.SelectAll();
-                    Flasher.exceptionDialog("Предельное время сеанса связи не может быть меньше 00:05 и больше 04:15");
-                    return;
-                }
-
-                //Время удержания сеанса связи при отсутствии обмена данными                
-                periodArr = holdTimeMsdTxtBx.Text.Split(':');
-
-                checkFieldTimeFormat(periodArr, holdTimeMsdTxtBx, "Формат времени поля \"Время удержания сеанса связи при отсутствии обмена данными\" должен иметь формат mm:ss");
-
-                minutes = Convert.ToInt32(periodArr[0]);
-                seconds = Convert.ToInt32(periodArr[1]);
-
-                checkTimeFormat(0, minutes, seconds, holdTimeMsdTxtBx);
-
-                timeInSeconds = getSeconds(0, minutes, seconds);
-
-                if (timeInSeconds > 1005 || timeInSeconds < 15) {
-                    holdTimeMsdTxtBx.Focus();
-                    holdTimeMsdTxtBx.SelectAll();
-                    Flasher.exceptionDialog("Время удержания сеанса связи не может быть меньше 00:15 и больше 16:45");
-                    return;
-                }
-
-                //Формирую сообщение на отправку данных
-                string comandInCOM = "CONNECTING PERIOD=" + periodMsdTxtBx.Text +
-                    "; SERVICE=" + serviceMsdTxtBx.Text + ":" + ":" +
-                    "; LETWAIT=" + ":" + letwaitMsdTxtBx.Text +
-                    "; TRYLIMIT=" + trylimitMsdTxtBx.Text +
-                    "; SESSLIMIT=" + sesslimitMsdTxtBx.Text + ":" +
-                    "; HOLDTIME=" + ":" + holdTimeMsdTxtBx.Text;
-
-                //Если версия ZPorta больше 8-ой, то добавляется эта команда
-                if (Convert.ToInt32(verProtTxtBx.Text.Substring(2)) > 8) {
-
-                    periodArr = incomholdtimeMskTxtBx.Text.Split(':');
-
-                    checkFieldTimeFormat(periodArr, incomholdtimeMskTxtBx, "Формат времени поля \"Время удержания входящего соединения при отсутствии поступления данных от счетчика\" должен иметь формат mm:ss");
-
-                    minutes = Convert.ToInt32(periodArr[0]);
-                    seconds = Convert.ToInt32(periodArr[1]);
-
-                    checkTimeFormat(0, minutes, seconds, incomholdtimeMskTxtBx);
-
-                    timeInSeconds = getSeconds(0, minutes, seconds);
-
-                    if (timeInSeconds > 900 || timeInSeconds < 30) {
-                        Flasher.exceptionDialog("Время удержания входящего соединения при отсутствии поступления данных от счетчика не может быть меньше 00:30 и больше 15:00");
-                        return;
-                    }
-
-                    //Добавляю команду к сообщению
-                    comandInCOM += "; INCOMHOLDTIME=" + ":" + incomholdtimeMskTxtBx.Text;
-                }
-
-                getNbModemPort();
-
-                serialPort.Open();
-
-                serialPort.WriteLine(comandInCOM);
-
-                long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
-                string line = "";
-                bool successfully = false;
-
-                //Пока не вышло время по таймауту
-                while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
-
-                    //Если данные пришли в порт
-                    while (serialPort.BytesToRead != 0) {
-
-                        //Обновляю таймаут
-                        endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
-
-                        line = serialPort.ReadLine();
-                    }
-
-                    if (line.EndsWith("OK")) {
-                        successfully = true;
-                        break;
-                    }
-                }
-
-                if (!successfully) {
-                    Flasher.exceptionDialog("Не удалось получить подтверждение от модема, что данные записаны, попробуйте снова");
-                } else {
-                    Flasher.successfullyDialog("Параметры инициализации связи успешно записаны", "Запись параметров");
-                }
-
-                serialPort.Close();
-
+            //Если версия ZPort'a не известна, то обновляю информацию
+            if (String.IsNullOrEmpty(verProtTxtBx.Text)) {
                 refreshInfoBtn.PerformClick();
 
-            } catch (Exception ex) {
+                if (String.IsNullOrEmpty(verProtTxtBx.Text)) return;
+            }
 
-                if (serialPort.IsOpen) {
-                    serialPort.Close();
+            //Формирую сообщение на отправку данных
+            string comandInCOM = "CONNECTING PERIOD=" + periodMsdTxtBx.Text +
+                "; SERVICE=" + serviceMsdTxtBx.Text + ":" + ":" +
+                "; LETWAIT=" + ":" + letwaitMsdTxtBx.Text +
+                "; TRYLIMIT=" + trylimitMsdTxtBx.Text +
+                "; SESSLIMIT=" + sesslimitMsdTxtBx.Text + ":" +
+                "; HOLDTIME=" + ":" + holdTimeMsdTxtBx.Text;
+
+            //Если версия ZPorta больше 8-ой, то добавляется эта команда
+            if (Convert.ToInt32(verProtTxtBx.Text.Substring(2)) > 8) {
+
+                //Добавляю команду к сообщению
+                comandInCOM += "; INCOMHOLDTIME=" + ":" + incomholdtimeMskTxtBx.Text;
+            }
+
+            getNbModemPort();
+
+            if (!serialPort.IsOpen) serialPort.Open();
+
+            serialPort.WriteLine(comandInCOM);
+
+            long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+            string line = "";
+            bool successfully = false;
+
+            //Пока не вышло время по таймауту
+            while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
+
+                //Если данные пришли в порт
+                while (serialPort.BytesToRead != 0) {
+
+                    //Обновляю таймаут
+                    endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+
+                    line = serialPort.ReadLine();
                 }
 
-                Flasher.exceptionDialog(ex.Message);
+                if (line.EndsWith("OK")) {
+                    successfully = true;
+                    break;
+                }
             }
+
+            if (!successfully) {
+                throw new DeviceError("Не удалось получить подтверждение от модема, что данные записаны, попробуйте снова");
+            }
+
+            if (serialPort.IsOpen) serialPort.Close();
+
+            refreshInfoBtn.PerformClick();
         }
 
         /// <summary>
@@ -988,7 +846,18 @@ namespace GSM_NBIoT_Module.view {
         }
 
         private void connectingAcceptBtn_Click(object sender, EventArgs e) {
-            writeConnectingParameters();
+            try {
+                checkValidConnectingParameters();
+
+                writeConnectingParameters();
+
+                Flasher.successfullyDialog("Параметры инициализации связи успешно записаны", "Запись параметров");
+
+            } catch (Exception ex) {
+
+                if (serialPort.IsOpen) serialPort.Close();
+                Flasher.exceptionDialog(ex.Message);
+            }
         }
 
         /// <summary>
@@ -997,7 +866,28 @@ namespace GSM_NBIoT_Module.view {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void setServersSettingsBtn_Click(object sender, EventArgs e) {
-            writeCustomServersProperties();
+            try {
+                Cursor = Cursors.WaitCursor;
+
+                getNbModemPort();
+                checkGPIO_CP2105();
+
+                if (!serialPort.IsOpen) serialPort.Open();
+
+                writeCustomServersProperties();
+
+                if (serialPort.IsOpen) serialPort.Close();
+
+                refreshInfoBtn.PerformClick();
+
+                Cursor = Cursors.Default;
+                Flasher.successfullyDialog("Настройка пользовательских серверов успешно записаны", "Запись параметров");
+
+            } catch (Exception ex) {
+                Cursor = Cursors.Default;
+                serialPort.Close();
+                Flasher.exceptionDialog(ex.Message);
+            }
         }
 
         private void ModemConfig_FormClosed(object sender, FormClosedEventArgs e) {
@@ -1067,30 +957,30 @@ namespace GSM_NBIoT_Module.view {
 
         private void domenNameRdBtnGroup_2_CheckedChanged(object sender, EventArgs e) {
             if (domenNameRdBtn_2.Checked) {
-                ipDomenNameTxtBx_2.Text = oldValueDomenName_1;
+                ipDomenNameTxtBx_2.Text = oldValueDomenName_2;
                 toolTipForUserHostParam.SetToolTip(ipDomenNameTxtBx_2, domenNametoolTipMess);
 
             } else if (IPv4RdBtn_2.Checked) {
-                ipDomenNameTxtBx_2.Text = oldValueIPv4_1;
+                ipDomenNameTxtBx_2.Text = oldValueIPv4_2;
                 toolTipForUserHostParam.SetToolTip(ipDomenNameTxtBx_2, ipV4toolTipMess);
 
             } else {
-                ipDomenNameTxtBx_2.Text = oldValueIPv6_1;
+                ipDomenNameTxtBx_2.Text = oldValueIPv6_2;
                 toolTipForUserHostParam.SetToolTip(ipDomenNameTxtBx_2, ipV6toolTipMess);
             }
         }
 
         private void domenNameRdBtnGroup_3_CheckedChanged(object sender, EventArgs e) {
             if (domenNameRdBtn_3.Checked) {
-                ipDomenNameTxtBx_3.Text = oldValueDomenName_1;
+                ipDomenNameTxtBx_3.Text = oldValueDomenName_3;
                 toolTipForUserHostParam.SetToolTip(ipDomenNameTxtBx_3, domenNametoolTipMess);
 
             } else if (IPv4RdBtn_3.Checked) {
-                ipDomenNameTxtBx_3.Text = oldValueIPv4_1;
+                ipDomenNameTxtBx_3.Text = oldValueIPv4_3;
                 toolTipForUserHostParam.SetToolTip(ipDomenNameTxtBx_3, ipV4toolTipMess);
 
             } else {
-                ipDomenNameTxtBx_3.Text = oldValueIPv6_1;
+                ipDomenNameTxtBx_3.Text = oldValueIPv6_3;
                 toolTipForUserHostParam.SetToolTip(ipDomenNameTxtBx_3, ipV6toolTipMess);
             }
         }
@@ -1111,23 +1001,34 @@ namespace GSM_NBIoT_Module.view {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void createScript_Click(object sender, EventArgs e) {
+
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
             saveFileDialog.InitialDirectory = Properties.Settings.Default.modemConfig_pathToSaveScript;
 
-            saveFileDialog.FileName = "taipitConfigModemScript " + DateTime.Now.ToString("yyyy_MM_dd_HH-mm-ss") + ".txt";
-            saveFileDialog.Filter = "txt (*.txt*)|*.txt*";
+            saveFileDialog.FileName = "taipitConfigModemScript " + DateTime.Now.ToString("yyyy_MM_dd_HH-mm-ss") + ".dat";
+            saveFileDialog.Filter = "dat (*.dat*)|*.dat*";
+            saveFileDialog.DefaultExt = "dat";
             saveFileDialog.FilterIndex = 0;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK) {
 
                 Properties.Settings.Default.Save();
 
-                checkValidParametersForScrypt();
+                try {
+                    checkValidParametersForScrypt();
 
-                File.WriteAllText(saveFileDialog.FileName, generateUserHostParametersForTheScript() + "\n" + generateConnectingParametersForTheScript());
+                    ModemConfigScript modemConfigScript = new ModemConfigScript(generateUserHostParametersForTheScript() + "\n" + generateConnectingParametersForTheScript());
 
-                Flasher.successfullyDialog("Скрипт успешно сохранен", "Сохранение скрипта");
+                    using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.OpenOrCreate)) {
+                        new BinaryFormatter().Serialize(fs, modemConfigScript);
+                    }
+
+                    Flasher.successfullyDialog("Скрипт успешно сохранен", "Сохранение скрипта");
+
+                } catch (Exception ex) {
+                    Flasher.exceptionDialog("Произошла ошибка при записи скрипта:\n" + ex.Message);
+                }
             }
         }
 
@@ -1170,13 +1071,13 @@ namespace GSM_NBIoT_Module.view {
         /// <param name="domenOrIPData">Значение адреса</param>
         /// <param name="portData">Значение порта</param>
         /// <returns></returns>
-        private string generateLineUserHostParameters(int numbServerProperties, int domenOrIPv4Check, TextBox domenOrIPData, MaskedTextBox portData) {
+        private string generateLineUserHostParameters(int numbServerProperties, int domenOrIPv4Check, TextBox domenOrIPData, TextBox portData) {
 
             if (String.IsNullOrEmpty(domenOrIPData.Text)) {
                 return numbServerProperties + ", EMPTY";
 
             } else {
-                switch(domenOrIPv4Check) {
+                switch (domenOrIPv4Check) {
                     //Доменное имя
                     case 0: {
                             return numbServerProperties + ", Доменное имя, " + domenOrIPData.Text.Trim() + ", " + portData.Text.Trim();
@@ -1206,22 +1107,22 @@ namespace GSM_NBIoT_Module.view {
         private string generateConnectingParametersForTheScript() {
             /*Пример:
             Параметры инициализации связи
-            PERIOD:06:00:00
-            SERVICE:20
-            LETWAIT:01:00
-            TRYLIMIT:3
-            SESSLIMIT:00:20
-            HOLDTIME:04:16
-            INCOMHOLDTIME:03:00*/
+            PERIOD-06:00:00
+            SERVICE-20
+            LETWAIT-01:00
+            TRYLIMIT-3
+            SESSLIMIT-00:20
+            HOLDTIME-04:16
+            INCOMHOLDTIME-03:00*/
 
             return "Параметры инициализации связи\n" +
-                "PERIOD:" + periodMsdTxtBx.Text + "\n" +
-                "SERVICE:" + serviceMsdTxtBx.Text + "\n" +
-                "LETWAIT:" + letwaitMsdTxtBx.Text + "\n" +
-                "TRYLIMIT:" + trylimitMsdTxtBx.Text + "\n" +
-                "SESSLIMIT:" + sesslimitMsdTxtBx.Text + "\n" +
-                "HOLDTIME:" + holdTimeMsdTxtBx.Text + "\n" +
-                "INCOMHOLDTIME:" + incomholdtimeMskTxtBx.Text;
+                "PERIOD-" + periodMsdTxtBx.Text + "\n" +
+                "SERVICE-" + serviceMsdTxtBx.Text + "\n" +
+                "LETWAIT-" + letwaitMsdTxtBx.Text + "\n" +
+                "TRYLIMIT-" + trylimitMsdTxtBx.Text + "\n" +
+                "SESSLIMIT-" + sesslimitMsdTxtBx.Text + "\n" +
+                "HOLDTIME-" + holdTimeMsdTxtBx.Text + "\n" +
+                "INCOMHOLDTIME-" + incomholdtimeMskTxtBx.Text;
         }
 
         /// <summary>
@@ -1230,7 +1131,7 @@ namespace GSM_NBIoT_Module.view {
         /// <param name="domenOrIPv4Check">В каком формате передаётся адрес</param>
         /// <param name="domenOrIPData">Значение адреса</param>
         /// <param name="portData">Значение порта</param>
-        private void checkValidUserHostParameters(int domenOrIPv4Check, TextBox domenOrIPData, MaskedTextBox portData) {
+        private void checkValidUserHostParameters(int domenOrIPv4Check, TextBox domenOrIPData, TextBox portData) {
 
             //Если значения IP адреса или Доменного имени не пустое
             if (!(String.IsNullOrEmpty(domenOrIPData.Text) ||
@@ -1340,6 +1241,13 @@ namespace GSM_NBIoT_Module.view {
             int timeInSeconds;
             string[] periodArr;
 
+            //Если версия ZPort'a не известна, то обновляю информацию
+            if (String.IsNullOrEmpty(verProtTxtBx.Text)) {
+                refreshInfoBtn.PerformClick();
+
+                if (String.IsNullOrEmpty(verProtTxtBx.Text)) return;
+            }
+
             //Проверка на валидность параметров
             //Период инициализации сеансов связи
             periodArr = periodMsdTxtBx.Text.Split(':');
@@ -1414,7 +1322,7 @@ namespace GSM_NBIoT_Module.view {
                 sesslimitMsdTxtBx.Focus();
                 sesslimitMsdTxtBx.SelectAll();
                 throw new ArgumentException("Предельное время сеанса связи не может быть меньше 00:05 и больше 04:15");
-                
+
             }
 
             //Время удержания сеанса связи при отсутствии обмена данными                
@@ -1450,6 +1358,25 @@ namespace GSM_NBIoT_Module.view {
             if (timeInSeconds > 900 || timeInSeconds < 30) {
                 throw new ArgumentException("Время удержания входящего соединения при отсутствии поступления данных от счетчика не может быть меньше 00:30 и больше 15:00");
             }
+
+            //Если версия ZPorta больше 8-ой, то добавляется эта команда
+            if (Convert.ToInt32(verProtTxtBx.Text.Substring(2)) > 8) {
+
+                periodArr = incomholdtimeMskTxtBx.Text.Split(':');
+
+                checkFieldTimeFormat(periodArr, incomholdtimeMskTxtBx, "Формат времени поля \"Время удержания входящего соединения при отсутствии поступления данных от счетчика\" должен иметь формат mm:ss");
+
+                minutes = Convert.ToInt32(periodArr[0]);
+                seconds = Convert.ToInt32(periodArr[1]);
+
+                checkTimeFormat(0, minutes, seconds, incomholdtimeMskTxtBx);
+
+                timeInSeconds = getSeconds(0, minutes, seconds);
+
+                if (timeInSeconds > 900 || timeInSeconds < 30) {
+                    throw new ArgumentException("Время удержания входящего соединения при отсутствии поступления данных от счетчика не может быть меньше 00:30 и больше 15:00");
+                }
+            }
         }
 
         /// <summary>
@@ -1462,116 +1389,287 @@ namespace GSM_NBIoT_Module.view {
 
             openFileDialog.InitialDirectory = Properties.Settings.Default.modemConfig_pathToLoadScript;
 
-            //openFileDialog.FileName = "taipitConfigModemScript " + DateTime.Now.ToString("yyyy_MM_dd_HH-mm-ss") + ".txt";
-            openFileDialog.Filter = "txt (*.txt*)|*.txt*";
+            openFileDialog.Filter = "dat (*.dat*)|*.dat*";
             openFileDialog.FilterIndex = 0;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK) {
 
                 Properties.Settings.Default.Save();
 
-                string[] scriptLine = File.ReadAllLines(openFileDialog.FileName);
+                try {
+                    Cursor = Cursors.WaitCursor;
 
+                    ModemConfigScript script;
 
+                    using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.OpenOrCreate)) {
+                        script = (ModemConfigScript) new BinaryFormatter().Deserialize(fs);
+                    }
+
+                    string[] scriptLines = script.getScriptData().Split('\n');
+
+                    for (int i = 0; i < scriptLines.Length; i++) {
+
+                        if (!String.IsNullOrEmpty(scriptLines[i])) {
+
+                            switch (scriptLines[i]) {
+                                case "Настройка пользовательских серверов": {
+
+                                        i++; //Перехожу к следующей строке со значениями для параметров настройки пользовательских серверов
+
+                                        while (i < scriptLines.Length) {
+
+                                            //Если встречается следующий блок данных
+                                            if (scriptLines[i].Equals("Параметры инициализации связи")) {
+                                                i--; //Для того чтобы эта строчка попала в switch
+                                                break;
+                                            }
+
+                                            parseAndSetUserHostOfScript(scriptLines[i]);
+                                            i++;
+                                        }
+                                    }
+                                    break;
+
+                                case "Параметры инициализации связи": {
+
+                                        i++; //Перехожу к следующей строке со значениями для параметров инициализации связи
+
+                                        while (i < scriptLines.Length) {
+
+                                            if (scriptLines[i].Equals("Настройка пользовательских серверов")) {
+                                                i--; //Для того чтобы эта строчка попала в switch
+                                                break;
+                                            }
+
+                                            parseAndSetConnectingParameters(scriptLines[i]);
+                                            i++;
+                                        }
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+
+                    getNbModemPort();
+                    checkGPIO_CP2105();
+
+                    if (!serialPort.IsOpen) serialPort.Open();
+
+                    writeCustomServersProperties();
+
+                    checkValidConnectingParameters();
+
+                    writeConnectingParameters();
+
+                    if (!serialPort.IsOpen) serialPort.Close();
+
+                    refreshInfoBtn.PerformClick();
+
+                    Flasher.successfullyDialog("Параметры из файла успешно записаны в модем", "Запись параметров");
+
+                    Cursor = Cursors.Default;
+
+                } catch (Exception ex) {
+
+                    if (serialPort.IsOpen) serialPort.Close();
+                    Cursor = Cursors.Default;
+                    Flasher.exceptionDialog(ex.Message);
+                }
             }
         }
 
         private void parseAndSetUserHostOfScript(string userHostLine) {
 
+            if (String.IsNullOrEmpty(userHostLine)) return;
+
             string[] userHostParsmsArr = userHostLine.Split(',');
 
-            if (userHostParsmsArr.Length != 4 || userHostParsmsArr.Length != 2)
+            //Если не по формату
+            if (userHostParsmsArr.Length == 4 || userHostParsmsArr.Length == 2) {
+
+                //В зависимости от номера параметров сервера
+                switch (Convert.ToInt32(userHostParsmsArr[0])) {
+                    //Параметры сервера №0
+                    case 0: {
+                            //Тип записи адреса (IPv4, IPv6, Доменное имя)
+                            switch (userHostParsmsArr[1].Trim().ToLower()) {
+
+                                case "доменное имя": {
+                                        domenNameRdBtn_1.Checked = true;
+                                        ipDomenNameTxtBx_1.Text = userHostParsmsArr[2].Trim();
+                                        portTxtBx_1.Text = userHostParsmsArr[3].Trim();
+                                    }
+                                    break;
+
+                                case "ipv4": {
+                                        IPv4RdBtn_1.Checked = true;
+                                        ipDomenNameTxtBx_1.Text = userHostParsmsArr[2].Trim();
+                                        portTxtBx_1.Text = userHostParsmsArr[3].Trim();
+                                    }
+                                    break;
+
+                                case "ipv6": {
+                                        IPv6RdBtn_1.Checked = true;
+                                        ipDomenNameTxtBx_1.Text = userHostParsmsArr[2].Trim();
+                                        portTxtBx_1.Text = userHostParsmsArr[3].Trim();
+                                    }
+                                    break;
+
+                                case "empty": {
+                                        ipDomenNameTxtBx_1.Text = "";
+                                        portTxtBx_1.Text = "";
+                                    }
+                                    break;
+
+                                default: {
+                                        throw new ArgumentException("Неверный параметр: " + userHostParsmsArr[1].Trim().ToLower() + ". Проверьте параметры указанные в файле");
+                                    }
+
+                            }
+                        }
+                        break;
+
+                    //Параметры сервера №1
+                    case 1: {
+                            //Тип записи адреса (IPv4, IPv6, Доменное имя)
+                            switch (userHostParsmsArr[1].Trim().ToLower()) {
+
+                                case "доменное имя": {
+                                        domenNameRdBtn_2.Checked = true;
+                                        ipDomenNameTxtBx_2.Text = userHostParsmsArr[2].Trim();
+                                        portTxtBx_2.Text = userHostParsmsArr[3].Trim();
+                                    }
+                                    break;
+
+                                case "ipv4": {
+                                        IPv4RdBtn_2.Checked = true;
+                                        ipDomenNameTxtBx_2.Text = userHostParsmsArr[2].Trim();
+                                        portTxtBx_2.Text = userHostParsmsArr[3].Trim();
+                                    }
+                                    break;
+
+                                case "ipv6": {
+                                        IPv6RdBtn_2.Checked = true;
+                                        ipDomenNameTxtBx_2.Text = userHostParsmsArr[2].Trim();
+                                        portTxtBx_2.Text = userHostParsmsArr[3].Trim();
+                                    }
+                                    break;
+
+                                case "empty": {
+                                        ipDomenNameTxtBx_2.Text = "";
+                                        portTxtBx_2.Text = "";
+                                    }
+                                    break;
+
+                                default: {
+                                        throw new ArgumentException("Неверный параметр: " + userHostParsmsArr[1].Trim().ToLower() + ". Проверьте параметры указанные в файле");
+                                    }
+                            }
+                        }
+                        break;
+
+                    //Параметры сервера №2
+                    case 2: {
+                            //Тип записи адреса (IPv4, IPv6, Доменное имя)
+                            switch (userHostParsmsArr[1].Trim().ToLower()) {
+
+                                case "доменное имя": {
+                                        domenNameRdBtn_3.Checked = true;
+                                        ipDomenNameTxtBx_3.Text = userHostParsmsArr[2].Trim();
+                                        portTxtBx_3.Text = userHostParsmsArr[3].Trim();
+                                    }
+                                    break;
+
+                                case "ipv4": {
+                                        IPv4RdBtn_3.Checked = true;
+                                        ipDomenNameTxtBx_3.Text = userHostParsmsArr[2].Trim();
+                                        portTxtBx_3.Text = userHostParsmsArr[3].Trim();
+                                    }
+                                    break;
+
+                                case "ipv6": {
+                                        IPv6RdBtn_3.Checked = true;
+                                        ipDomenNameTxtBx_3.Text = userHostParsmsArr[2].Trim();
+                                        portTxtBx_3.Text = userHostParsmsArr[3].Trim();
+                                    }
+                                    break;
+
+                                case "empty": {
+                                        ipDomenNameTxtBx_3.Text = "";
+                                        portTxtBx_3.Text = "";
+                                    }
+                                    break;
+
+                                default: {
+                                        throw new ArgumentException("Неверный параметр: " + userHostParsmsArr[1].Trim().ToLower() + ". Проверьте параметры указанные в файле");
+                                    }
+                            }
+                        }
+                        break;
+
+                    default: {
+                            throw new ArgumentException("Настройки сервера №" + userHostParsmsArr[0] + " не предусмотрены");
+                        }
+                        break;
+                }
+
+            } else {
                 throw new FormatException("Формат строки не поддерживается.\nЗначение: " + userHostLine);
+            }
+        }
 
-            //В зависимости от номера параметров сервера
-            switch (Convert.ToInt32(userHostParsmsArr[0])) {
-                //Параметры сервера №0
-                case 0: {
-                        //Тип записи адреса (IPv4, IPv6, Доменное имя)
-                        switch(userHostParsmsArr[1].Trim().ToLower()) {
+        private void parseAndSetConnectingParameters(string connectingParameterLine) {
 
-                            case "доменное имя": {
-                                    domenNameRdBtn_1.Checked = true;
-                                    ipDomenNameTxtBx_1.Text = userHostParsmsArr[2];
-                                    portTxtBx_1.Text = userHostParsmsArr[3];
-                                }
-                                break;
+            if (String.IsNullOrEmpty(connectingParameterLine)) return;
 
-                            case "ipv4": {
-                                    IPv4RdBtn_1.Checked = true;
-                                    ipDomenNameTxtBx_1.Text = userHostParsmsArr[2];
-                                    portTxtBx_1.Text = userHostParsmsArr[3];
-                                }
-                                break;
+            string[] connectingParameterArr = connectingParameterLine.Split('-');
 
-                            case "ipv6": {
-                                    IPv6RdBtn_1.Checked = true;
-                                    ipDomenNameTxtBx_1.Text = userHostParsmsArr[2];
-                                    portTxtBx_1.Text = userHostParsmsArr[3];
-                                }
-                                break;
-                        }
-                    } break;
+            if (connectingParameterArr.Length != 2)
+                throw new ArgumentException("Формат строки не поддерживается.\nЗначение: " + connectingParameterLine);
 
-                //Параметры сервера №1
-                case 1: {
-                        //Тип записи адреса (IPv4, IPv6, Доменное имя)
-                        switch (userHostParsmsArr[1].Trim().ToLower()) {
+            switch (connectingParameterArr[0]) {
+                /*PERIOD-06:00:00
+                SERVICE-20
+                LETWAIT-01:00
+                TRYLIMIT-3
+                SESSLIMIT-00:20
+                HOLDTIME-04:16
+                INCOMHOLDTIME-03:00*/
 
-                            case "доменное имя": {
-                                    domenNameRdBtn_2.Checked = true;
-                                    ipDomenNameTxtBx_2.Text = userHostParsmsArr[2];
-                                    portTxtBx_2.Text = userHostParsmsArr[3];
-                                }
-                                break;
+                case "PERIOD": {
+                        periodMsdTxtBx.Text = connectingParameterArr[1];
+                    }
+                    break;
 
-                            case "ipv4": {
-                                    IPv4RdBtn_2.Checked = true;
-                                    ipDomenNameTxtBx_2.Text = userHostParsmsArr[2];
-                                    portTxtBx_2.Text = userHostParsmsArr[3];
-                                }
-                                break;
+                case "SERVICE": {
+                        serviceMsdTxtBx.Text = connectingParameterArr[1];
+                    }
+                    break;
 
-                            case "ipv6": {
-                                    IPv6RdBtn_2.Checked = true;
-                                    ipDomenNameTxtBx_2.Text = userHostParsmsArr[2];
-                                    portTxtBx_2.Text = userHostParsmsArr[3];
-                                }
-                                break;
-                        }
-                    } break;
+                case "LETWAIT": {
+                        letwaitMsdTxtBx.Text = connectingParameterArr[1];
+                    }
+                    break;
 
-                //Параметры сервера №2
-                case 2: {
-                        //Тип записи адреса (IPv4, IPv6, Доменное имя)
-                        switch (userHostParsmsArr[1].Trim().ToLower()) {
+                case "TRYLIMIT": {
+                        trylimitMsdTxtBx.Text = connectingParameterArr[1];
+                    }
+                    break;
 
-                            case "доменное имя": {
-                                    domenNameRdBtn_3.Checked = true;
-                                    ipDomenNameTxtBx_3.Text = userHostParsmsArr[2];
-                                    portTxtBx_3.Text = userHostParsmsArr[3];
-                                }
-                                break;
+                case "SESSLIMIT": {
+                        sesslimitMsdTxtBx.Text = connectingParameterArr[1];
+                    }
+                    break;
 
-                            case "ipv4": {
-                                    IPv4RdBtn_3.Checked = true;
-                                    ipDomenNameTxtBx_3.Text = userHostParsmsArr[2];
-                                    portTxtBx_3.Text = userHostParsmsArr[3];
-                                }
-                                break;
+                case "HOLDTIME": {
+                        holdTimeMsdTxtBx.Text = connectingParameterArr[1];
+                    }
+                    break;
 
-                            case "ipv6": {
-                                    IPv6RdBtn_3.Checked = true;
-                                    ipDomenNameTxtBx_3.Text = userHostParsmsArr[2];
-                                    portTxtBx_3.Text = userHostParsmsArr[3];
-                                }
-                                break;
-                        }
-                    } break;
-
-                default: {
-                        throw new ArgumentException("Настройки сервера №" + userHostParsmsArr[0] + " не предусмотрены");
-                    } break;
+                case "INCOMHOLDTIME": {
+                        incomholdtimeMskTxtBx.Text = connectingParameterArr[1];
+                    }
+                    break;
             }
         }
     }
