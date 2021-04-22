@@ -120,6 +120,10 @@ namespace GSM_NBIoT_Module.view {
             toolTip.SetToolTip(IPv6RdBtn_2, ipV6toolTipMess);
             toolTip.SetToolTip(IPv6RdBtn_3, ipV6toolTipMess);
 
+            //Подсказки для кнопок создания и записи скриптов
+            toolTip.SetToolTip(createScript, "Создать скрипт для быстрой записи параметров в модем.\nДанный скрипт создаётся на основе значений указанных\nна данный момент в полях конфигурации модема");
+            toolTip.SetToolTip(loadScript, "Записать конфигурационные параметры в модем из файла");
+
             //Подсказка для полей с адресом дополнительных серверов
             toolTipForUserHostParam.AutoPopDelay = 15000;
             toolTipForUserHostParam.InitialDelay = 0;
@@ -380,7 +384,7 @@ namespace GSM_NBIoT_Module.view {
                             } catch (Exception) {
                                 domenOrIPData.Focus();
                                 domenOrIPData.SelectAll();
-                                throw new FormatException("Неверный формат записи IPv4, формат должен иметь вид xxx.xxx.xxx.xxx, где xxx могут иметь значения от 0..255");
+                                throw new FormatException("Неверный формат записи IPv4, формат должен иметь вид XXX.XXX.XXX.XXX, где XXX может иметь значение от 0..255");
                             }
 
                         }
@@ -1401,8 +1405,12 @@ namespace GSM_NBIoT_Module.view {
 
                     ModemConfigScript script;
 
-                    using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.OpenOrCreate)) {
-                        script = (ModemConfigScript) new BinaryFormatter().Deserialize(fs);
+                    try {
+                        using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.OpenOrCreate)) {
+                            script = (ModemConfigScript)new BinaryFormatter().Deserialize(fs);
+                        }
+                    } catch (InvalidCastException ex) {
+                        throw new InvalidCastException("Выбранный файл не является файлом для конфигурации модема");
                     }
 
                     string[] scriptLines = script.getScriptData().Split('\n');

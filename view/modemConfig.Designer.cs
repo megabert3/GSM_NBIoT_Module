@@ -100,7 +100,6 @@ namespace GSM_NBIoT_Module.view {
             this.refreshInfoBtn = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label20 = new System.Windows.Forms.Label();
-            this.createScript = new System.Windows.Forms.Button();
             this.copyIDTxtBx = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.IndexTxtBx = new System.Windows.Forms.TextBox();
@@ -111,6 +110,7 @@ namespace GSM_NBIoT_Module.view {
             this.label12 = new System.Windows.Forms.Label();
             this.modemImeiTxtBx = new System.Windows.Forms.TextBox();
             this.loadScript = new System.Windows.Forms.Button();
+            this.createScript = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -1067,16 +1067,6 @@ namespace GSM_NBIoT_Module.view {
             this.label20.TabIndex = 17;
             this.label20.Text = "ID копии прошивки";
             // 
-            // createScript
-            // 
-            this.createScript.Image = global::GSM_NBIoT_Module.Properties.Resources.prototype_15px;
-            this.createScript.Location = new System.Drawing.Point(754, 58);
-            this.createScript.Name = "createScript";
-            this.createScript.Size = new System.Drawing.Size(23, 23);
-            this.createScript.TabIndex = 9;
-            this.createScript.UseVisualStyleBackColor = true;
-            this.createScript.Click += new System.EventHandler(this.createScript_Click);
-            // 
             // copyIDTxtBx
             // 
             this.copyIDTxtBx.Location = new System.Drawing.Point(609, 23);
@@ -1157,13 +1147,27 @@ namespace GSM_NBIoT_Module.view {
             // 
             // loadScript
             // 
-            this.loadScript.Location = new System.Drawing.Point(596, 626);
+            this.loadScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.loadScript.Image = global::GSM_NBIoT_Module.Properties.Resources.inscription_15px;
+            this.loadScript.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.loadScript.Location = new System.Drawing.Point(537, 626);
             this.loadScript.Name = "loadScript";
-            this.loadScript.Size = new System.Drawing.Size(93, 23);
+            this.loadScript.Size = new System.Drawing.Size(152, 23);
             this.loadScript.TabIndex = 10;
-            this.loadScript.Text = "Запись";
+            this.loadScript.Text = "Конфигурация из файла";
+            this.loadScript.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.loadScript.UseVisualStyleBackColor = true;
             this.loadScript.Click += new System.EventHandler(this.loadScript_Click);
+            // 
+            // createScript
+            // 
+            this.createScript.Image = global::GSM_NBIoT_Module.Properties.Resources.prototype_15px;
+            this.createScript.Location = new System.Drawing.Point(754, 58);
+            this.createScript.Name = "createScript";
+            this.createScript.Size = new System.Drawing.Size(23, 23);
+            this.createScript.TabIndex = 9;
+            this.createScript.UseVisualStyleBackColor = true;
+            this.createScript.Click += new System.EventHandler(this.createScript_Click);
             // 
             // ModemConfig
             // 

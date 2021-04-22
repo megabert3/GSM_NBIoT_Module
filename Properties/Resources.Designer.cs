@@ -133,6 +133,16 @@ namespace GSM_NBIoT_Module.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap inscription_15px {
+            get {
+                object obj = ResourceManager.GetObject("inscription_15px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap log_25px {
             get {
                 object obj = ResourceManager.GetObject("log_25px", resourceCulture);

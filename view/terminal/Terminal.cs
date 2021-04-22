@@ -45,6 +45,7 @@ namespace GSM_NBIoT_Module.view {
 
         //Байт новой строки
         public int LF_Byte { get; set; }
+
         //Байт переноса каретки
         public int CR_Byte { get; set; }
 

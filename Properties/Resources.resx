@@ -127,6 +127,9 @@
   <data name="Logo-R" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Logo-R1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="restart_26px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\restart_26px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="view_details_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\view_details_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -148,14 +151,14 @@
   <data name="collapse_arrow_25px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\collapse_arrow_25px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="add_property_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add_property_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="log_25px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\log_25px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="prototype_10px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\prototype_10px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="prototype_15px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\prototype_15px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="log_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\log_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -163,10 +166,10 @@
   <data name="restart_15px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\restart_15px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="restart_26px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\restart_26px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="add_property_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\add_property_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="prototype_15px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\prototype_15px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="inscription_15px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\inscription_15px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

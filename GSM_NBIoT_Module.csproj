@@ -237,6 +237,7 @@
     <None Include="Resources\view_details_32px.png" />
     <None Include="Resources\prototype_10px.png" />
     <None Include="Resources\prototype_15px.png" />
+    <None Include="Resources\inscription_15px.png" />
     <Content Include="unnamed.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
