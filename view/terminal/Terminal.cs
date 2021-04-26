@@ -1744,5 +1744,13 @@ namespace GSM_NBIoT_Module.view {
                 COMportGrpBx.Enabled = enableBtn;
             });
         }
+
+        public bool Connect {
+            get { return connect; }
+        }
+
+        public void clickConnectionInCOMPortBtnOfTerminalForm() {
+            connOrDisCOMBtn.PerformClick();
+        }
     }
 }

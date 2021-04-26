@@ -211,8 +211,15 @@ namespace GSM_NBIoT_Module.classes {
 
             IntPtr COM_Port = CreateFile(COM_portName);
 
-            if (COM_Port.ToInt32() == -1)
-                throw new CP_Error("Не удалось открыть COM порт.");
+            if (COM_Port.ToInt32() == -1) {
+                MyCloseHandle(COM_Port);
+
+                COM_Port = CreateFile(COM_portName);
+
+                if (COM_Port.ToInt32() == -1) {
+                    throw new CP_Error("Не удалось открыть COM порт.");
+                }
+            }
 
             uint statusGPIO = 0;
 

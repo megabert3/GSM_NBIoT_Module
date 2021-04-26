@@ -813,5 +813,24 @@ namespace GSM_NBIoT_Module {
                 modemConfigForm.enableReadWritebtnInFrame(enable);
             }
         }
+
+        /// <summary>
+        /// Возвращает значение подключения к COM порту из формы терминала
+        /// </summary>
+        /// <returns></returns>
+        public bool getStateConnectionOnCOMofTerminalForm() {
+            if (terminalForm == null) {
+                return false;
+
+            } else {
+                return terminalForm.Connect;
+            }
+        }
+
+        public void performClickConnOfTerminalForm() {
+            if (terminalForm != null) {
+                terminalForm.clickConnectionInCOMPortBtnOfTerminalForm();
+            }
+        }
     }
 }

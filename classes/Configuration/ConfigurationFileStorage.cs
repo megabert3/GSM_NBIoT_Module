@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace GSM_NBIoT_Module.classes.controllerOnBoard.Configuration {
     /// <summary>
     /// Данный класс выполняет роль хранилища для создаваемых конфигураций микроконтроллера (class ConfigurationFW).
-    /// Сереализирует и десереализирует файл с объектами конфигурациы
+    /// Сереализирует и десереализирует файл с объектами конфигурации
     /// </summary>
     [Serializable]
     class ConfigurationFileStorage {

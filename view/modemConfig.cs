@@ -165,12 +165,20 @@ namespace GSM_NBIoT_Module.view {
         private void refreshInfo_Click(object sender, EventArgs e) {
             try {
 
+                //Проверяю используется ли COM порт в окне терминала
+                bool connectOnCOMterminal = flasMainForm.getStateConnectionOnCOMofTerminalForm();
+                if (connectOnCOMterminal) {
+                    flasMainForm.performClickConnOfTerminalForm();
+                }
+
                 Cursor = Cursors.WaitCursor;
 
                 getNbModemPort();
                 checkGPIO_CP2105();
 
                 if (!serialPort.IsOpen) serialPort.Open();
+
+                setAValidRangeForTheLabelInfoForConnectingParam();
 
                 Dictionary<string, string> deviceParams = getParamsDeviceCommand();
 
@@ -187,6 +195,8 @@ namespace GSM_NBIoT_Module.view {
                 getCONNECTINGparametersAndSetInConnectingPanel();
 
                 if (serialPort.IsOpen) serialPort.Close();
+
+                if (connectOnCOMterminal) flasMainForm.performClickConnOfTerminalForm();
 
                 Cursor = Cursors.Default;
 
@@ -460,10 +470,10 @@ namespace GSM_NBIoT_Module.view {
 
                     line = serialPort.ReadLine();
 
-                    if (line.EndsWith("OK")) {
+                    if (line.Contains("Za) USERHOST") && line.EndsWith("OK")) {
                         return;
 
-                    } else if (line.Contains("ERROR")) {
+                    } else if (line.Contains("Za) USERHOST") && line.Contains("ERROR")) {
                         domenOrIPData.Focus();
                         domenOrIPData.SelectAll();
                         throw new MKCommandException("Не удалось записать параметры сервера №" + (numbServerProperties));
@@ -512,11 +522,12 @@ namespace GSM_NBIoT_Module.view {
         /// </returns>
         private Dictionary<string, string> getParamsDeviceCommand() {
 
+            if (!serialPort.IsOpen) serialPort.Open();
             Dictionary<string, string> paramsDictionary = new Dictionary<string, string>();
 
             //Пример ответа:
             //Za) DEVICE (ZPORT:ZP009 /MDMMODEL:QBC92) (FW:ZU018 /COPY_ID:27F87014_000B"hex") (TARGET:1 /IDX:3 /PROT_ID:2 /FUN:00"hex") OK
-            serialPort.WriteLine("device");
+            serialPort.WriteLine("DEVICE");
 
             long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
             string line = "";
@@ -532,7 +543,8 @@ namespace GSM_NBIoT_Module.view {
 
                     line = serialPort.ReadLine();
 
-                    if (line.EndsWith("OK")) {
+                    if (line.Contains("Za) DEVICE") && line.EndsWith("OK")) {
+
                         string[] arrLine = line.Split(':');
 
                         paramsDictionary.Add("ZPORT", arrLine[1].Substring(0, 5));
@@ -544,15 +556,18 @@ namespace GSM_NBIoT_Module.view {
                         paramsDictionary.Add("PROT_ID", arrLine[7].Substring(0, arrLine[7].IndexOf(' ')));
                         paramsDictionary.Add("FUN", arrLine[8].Substring(0, arrLine[8].IndexOf(')')));
 
+                        if (serialPort.IsOpen) serialPort.Close();
                         return paramsDictionary;
 
-                    } else if (line.Contains("ERROR")) {
+                    } else if (line.Contains("Za) DEVICE") && line.Contains("ERROR")) {
 
-                        throw new MKCommandException("Ответ микроконтроллера на команду \"device\": " + line);
+                        if (serialPort.IsOpen) serialPort.Close();
+                        throw new MKCommandException("Ответ микроконтроллера на команду \"DEVICR\": " + line);
                     }
                 }
             }
 
+            if (serialPort.IsOpen) serialPort.Close();
             throw new TimeoutException("Превышено время ожидания ответа от микроконтроллера");
         }
 
@@ -561,7 +576,10 @@ namespace GSM_NBIoT_Module.view {
         /// </summary>
         /// <returns></returns>
         private string getModemIMEI() {
-            serialPort.WriteLine("mdmimid");
+
+            if (!serialPort.IsOpen) serialPort.Open();
+
+            serialPort.WriteLine("MDMIMID");
 
             long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
             string line = "";
@@ -578,19 +596,21 @@ namespace GSM_NBIoT_Module.view {
                     line = serialPort.ReadLine();
 
                     //Пример ответа: MDMIMID (IMEI:) (IMSI:) (ICCID:) OK
-                    if (line.EndsWith("OK")) {
+                    if (line.Contains("Za) MDMIMID") && line.EndsWith("OK")) {
 
                         string[] arrLine = line.Split(':');
 
                         return arrLine[1].Substring(0, arrLine[1].IndexOf(')'));
 
-                    } else if (line.Contains("ERROR")) {
+                    } else if (line.Contains("MDMIMID") && line.Contains("ERROR")) {
 
-                        throw new MKCommandException("Ответ микроконтроллера на команду \"mdmimid\": " + line);
+                        if (serialPort.IsOpen) serialPort.Close();
+                        throw new MKCommandException("Ответ микроконтроллера на команду \"MDMIMID\": " + line);
                     }
                 }
             }
 
+            if (serialPort.IsOpen) serialPort.Close();
             throw new TimeoutException("Превышено время ожидания ответа от микроконтроллера");
         }
 
@@ -620,7 +640,7 @@ namespace GSM_NBIoT_Module.view {
 
                     line = serialPort.ReadLine();
 
-                    if (line.EndsWith("OK")) {
+                    if (line.Contains("Za) USERHOST") && line.EndsWith("OK")) {
 
                         string[] arrLine = line.Split('(');
 
@@ -647,7 +667,7 @@ namespace GSM_NBIoT_Module.view {
 
             serialPort.WriteLine("CONNECTING");
 
-            long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+            long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut; 
             string line = "";
 
             //Пока не вышло время по таймауту
@@ -661,48 +681,43 @@ namespace GSM_NBIoT_Module.view {
 
                     line = serialPort.ReadLine();
 
-                    if (line.EndsWith("OK")) {
+                    if (line.Contains("Za) CONNECTING") && line.EndsWith("OK")) {
 
                         StringBuilder strBuild = new StringBuilder("");
-                        int lastIndex = 0;
 
                         //Za) CONNECTING (PERIOD:6:00:00) (SERVICE:20::) (LETWAIT: :1:00) (TRYLIMIT:3) (SESSLIMIT: :20:) (HOLDTIME: :4:16) "Note h:m:s" OK
+                        //Za) CONNECTING (PERIOD:6:00:00) (SERVICE:20::) (LETWAIT: :1:00) (TRYLIMIT:3) (SESSLIMIT: :20:) (HOLDTIME: :4:16) (INCOMHOLDTIME: :3:00) "Note h:m:s" DEMO OK
                         string[] answer = line.Split('(');
 
                         //Добавляю PERIOD
-                        string period = answer[1].Substring(7, answer[1].Length - 2 - 7);
+                        string period = answer[1].Substring(answer[1].IndexOf(':') + 1, answer[1].IndexOf(')') - answer[1].IndexOf(':') - 1);
                         periodMsdTxtBx.Text = parseTimeForMskTxtBox(period, false);
 
                         //Добавляю SERVICE
-                        string service = answer[2].Substring(8, answer[2].Length - 2 - 8);
-                        serviceMsdTxtBx.Text = service;
+                        string service = answer[2].Substring(answer[2].IndexOf(':') + 1, answer[2].IndexOf(')') - answer[2].IndexOf(':') - 1);
+                        serviceMsdTxtBx.Text = parseTimeForMskTxtBox(service, false);
 
                         //Добавляю LETWAIT
-                        string letwait = answer[3].Substring(9, answer[3].Length - 2 - 9);
-                        letwaitMsdTxtBx.Text = parseTimeForMskTxtBox(letwait, true);
+                        string letwait = answer[3].Substring(answer[3].IndexOf(':') + 1, answer[3].IndexOf(')') - answer[3].IndexOf(':') - 1);
+                        letwaitMsdTxtBx.Text = parseTimeForMskTxtBox(letwait, false);
 
                         //Добавляю TRYLIMIT
-                        string trylimit = answer[4].Substring(9, 1);
+                        string trylimit = answer[4].Substring(answer[4].IndexOf(':') + 1, answer[4].IndexOf(')') - answer[4].IndexOf(':') - 1);
                         trylimitMsdTxtBx.Text = trylimit;
 
                         //Добавляю SESSLIMIT
-                        string sesslimit = answer[5].Substring(11, answer[5].Length - 2 - 10);
+                        string sesslimit = answer[5].Substring(answer[5].IndexOf(':') + 1, answer[5].IndexOf(')') - answer[5].IndexOf(':') - 1);
                         sesslimitMsdTxtBx.Text = parseTimeForMskTxtBox(sesslimit, false);
 
                         //Добавляю HOLDTIME
-                        if (Convert.ToInt32(verProtTxtBx.Text.Substring(2)) < 9) {
-                            string holdtime = answer[6].Substring(10, answer[6].Length - 17 - 9);
-                            holdTimeMsdTxtBx.Text = parseTimeForMskTxtBox(holdtime, true);
+                        string holdtime = answer[6].Substring(answer[6].IndexOf(':') + 1, answer[6].IndexOf(')') - answer[6].IndexOf(':') - 1);
+                        holdTimeMsdTxtBx.Text = parseTimeForMskTxtBox(holdtime, false);
 
-                            //Отключаю возможность редактирования последней команды, которую не поддерживает данная версия протокола
-                            groupBox11.Enabled = false;
-                        } else {
-
-                            string holdtime = answer[6].Substring(9, answer[6].Length - 2 - 8);
-                            holdTimeMsdTxtBx.Text = parseTimeForMskTxtBox(holdtime, true);
-
-                            holdtime = answer[7].Substring(15, answer[7].Length - 2 - 15 - 15);
-                            incomholdtimeMskTxtBx.Text = parseTimeForMskTxtBox(holdtime, true);
+                        
+                        if (Convert.ToInt32(verProtTxtBx.Text.Substring(2)) >= 9) {
+                            //Добавляю INCOMHOLDTIME
+                            holdtime = answer[7].Substring(answer[7].IndexOf(':') + 1, answer[7].IndexOf(')') - answer[7].IndexOf(':') - 1);
+                            incomholdtimeMskTxtBx.Text = parseTimeForMskTxtBox(holdtime, false);
                             groupBox11.Enabled = true;
                         }
 
@@ -747,6 +762,9 @@ namespace GSM_NBIoT_Module.view {
             return parseTime.ToString();
         }
 
+        /// <summary>
+        /// Записывает параметры команды CONNECTING в микроконтроллер
+        /// </summary>
         private void writeConnectingParameters() {
 
             //Если версия ZPort'a не известна, то обновляю информацию
@@ -758,10 +776,10 @@ namespace GSM_NBIoT_Module.view {
 
             //Формирую сообщение на отправку данных
             string comandInCOM = "CONNECTING PERIOD=" + periodMsdTxtBx.Text +
-                "; SERVICE=" + serviceMsdTxtBx.Text + ":" + ":" +
+                "; SERVICE=" + serviceMsdTxtBx.Text +
                 "; LETWAIT=" + ":" + letwaitMsdTxtBx.Text +
                 "; TRYLIMIT=" + trylimitMsdTxtBx.Text +
-                "; SESSLIMIT=" + sesslimitMsdTxtBx.Text + ":" +
+                "; SESSLIMIT=" + sesslimitMsdTxtBx.Text +
                 "; HOLDTIME=" + ":" + holdTimeMsdTxtBx.Text;
 
             //Если версия ZPorta больше 8-ой, то добавляется эта команда
@@ -778,8 +796,7 @@ namespace GSM_NBIoT_Module.view {
             serialPort.WriteLine(comandInCOM);
 
             long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
-            string line = "";
-            bool successfully = false;
+            string line = "";            
 
             //Пока не вышло время по таймауту
             while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
@@ -791,21 +808,17 @@ namespace GSM_NBIoT_Module.view {
                     endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
 
                     line = serialPort.ReadLine();
-                }
 
-                if (line.EndsWith("OK")) {
-                    successfully = true;
-                    break;
+                    if (line.Contains("Za) CONNECTING") && line.EndsWith("OK")) {
+                        if (serialPort.IsOpen) serialPort.Close();
+                        return;
+
+                    } else if (line.Contains("Za) CONNECTING") && line.Contains("ERROR")) {
+                        if (serialPort.IsOpen) serialPort.Close();
+                        throw new DeviceError("Не удалось получить подтверждение от модема, что данные записаны, попробуйте снова");
+                    }
                 }
             }
-
-            if (!successfully) {
-                throw new DeviceError("Не удалось получить подтверждение от модема, что данные записаны, попробуйте снова");
-            }
-
-            if (serialPort.IsOpen) serialPort.Close();
-
-            refreshInfoBtn.PerformClick();
         }
 
         /// <summary>
@@ -819,6 +832,12 @@ namespace GSM_NBIoT_Module.view {
             return (hours * 3600) + (minutes * 60) + seconds;
         }
 
+        private int getSeconds(string timeHHmmSS) {
+            string[] time = timeHHmmSS.Split(':');
+
+            return (Convert.ToInt32(time[0]) * 3600) + (Convert.ToInt32(time[1]) * 60) + Convert.ToInt32(time[2]);
+        }
+
         /// <summary>
         /// Проверяет формат времени введённый пользователем
         /// </summary>
@@ -828,7 +847,7 @@ namespace GSM_NBIoT_Module.view {
         /// <param name="maskedTextBox"></param>
         private void checkTimeFormat(int hours, int minutes, int seconds, MaskedTextBox maskedTextBox) {
             //Проверка на корректность значений
-            if (hours > 24 || minutes > 59 || seconds > 59) {
+            if (hours > 99 || minutes > 59 || seconds > 59) {
                 maskedTextBox.Focus();
                 maskedTextBox.SelectAll();
                 throw new FormatException("Неверный формат введенных данных, значение часов не может быть больше 24-х, а значение минут или секунд не может быть больше 59-ти");
@@ -851,9 +870,21 @@ namespace GSM_NBIoT_Module.view {
 
         private void connectingAcceptBtn_Click(object sender, EventArgs e) {
             try {
+
+                bool connectOnCOMterminal = flasMainForm.getStateConnectionOnCOMofTerminalForm();
+                if (connectOnCOMterminal) {
+                    flasMainForm.performClickConnOfTerminalForm();
+                }
+
                 checkValidConnectingParameters();
 
                 writeConnectingParameters();
+
+                refreshInfoBtn.PerformClick();
+
+                if (connectOnCOMterminal) {
+                    flasMainForm.performClickConnOfTerminalForm();
+                }
 
                 Flasher.successfullyDialog("Параметры инициализации связи успешно записаны", "Запись параметров");
 
@@ -873,6 +904,11 @@ namespace GSM_NBIoT_Module.view {
             try {
                 Cursor = Cursors.WaitCursor;
 
+                bool connectOnCOMterminal = flasMainForm.getStateConnectionOnCOMofTerminalForm();
+                if (connectOnCOMterminal) {
+                    flasMainForm.performClickConnOfTerminalForm();
+                }
+
                 getNbModemPort();
                 checkGPIO_CP2105();
 
@@ -885,6 +921,11 @@ namespace GSM_NBIoT_Module.view {
                 refreshInfoBtn.PerformClick();
 
                 Cursor = Cursors.Default;
+
+                if (connectOnCOMterminal) {
+                    flasMainForm.performClickConnOfTerminalForm();
+                }
+
                 Flasher.successfullyDialog("Настройка пользовательских серверов успешно записаны", "Запись параметров");
 
             } catch (Exception ex) {
@@ -1239,146 +1280,165 @@ namespace GSM_NBIoT_Module.view {
         /// Проверка валидности значений в полях с вкладки параметры инициализации связи
         /// </summary>
         private void checkValidConnectingParameters() {
+
             int hours;
             int minutes;
             int seconds;
             int timeInSeconds;
             string[] periodArr;
 
-            //Если версия ZPort'a не известна, то обновляю информацию
+            //Если версия ZPort'a не известна, то обновляю информацию (ПОДУМАТЬ!!!!!!!!)
             if (String.IsNullOrEmpty(verProtTxtBx.Text)) {
                 refreshInfoBtn.PerformClick();
 
                 if (String.IsNullOrEmpty(verProtTxtBx.Text)) return;
             }
 
+            //Za) CONNECTING (PERIOD:6:00:00) (SERVICE:20::) (LETWAIT: :1:00) (TRYLIMIT:3) (SESSLIMIT: :20:) (HOLDTIME: :4:16) (INCOMHOLDTIME: :3:00) "Note h:m:s" DEMO OK
+            Dictionary<string, string> minValues = minValuesForCommandCONNECTING();
+            Dictionary<string, string> maxValues = maxValuesForCommandCONNECTING();
+
             //Проверка на валидность параметров
             //Период инициализации сеансов связи
-            periodArr = periodMsdTxtBx.Text.Split(':');
+            if (minValues.ContainsKey("PERIOD")) {
 
-            checkFieldTimeFormat(periodArr, periodMsdTxtBx, "Формат времени поля \"Период инициализации севнсов связи\" должен иметь формат hh:mm:ss");
+                periodArr = periodMsdTxtBx.Text.Split(':');
+                checkFieldTimeFormat(periodArr, periodMsdTxtBx, "Формат времени поля \"Период инициализации сеансов связи\" должен иметь формат hh:mm:ss");
 
-            hours = Convert.ToInt32(periodArr[0]);
-            minutes = Convert.ToInt32(periodArr[1]);
-            seconds = Convert.ToInt32(periodArr[2]);
+                hours = Convert.ToInt32(periodArr[0]);
+                minutes = Convert.ToInt32(periodArr[1]);
+                seconds = Convert.ToInt32(periodArr[2]);
 
-            timeInSeconds = getSeconds(hours, minutes, seconds);
+                checkTimeFormat(hours, minutes, seconds, periodMsdTxtBx);
 
-            checkTimeFormat(hours, minutes, seconds, periodMsdTxtBx);
+                //Получаю время в секундах введённое пользователем
+                timeInSeconds = getSeconds(hours, minutes, seconds);
 
-            //Проверка на границы
-            if (timeInSeconds > getSeconds(20, 0, 0) || timeInSeconds < 60) {
-                periodMsdTxtBx.Focus();
-                periodMsdTxtBx.SelectAll();
-                throw new ArgumentException("Периодичность инициации сеансов связи не может быть меньше 1-ой минуты и больше 20-ти часов");
+                //Проверка на границы
+                if (timeInSeconds < getSeconds(minValues["PERIOD"]) || timeInSeconds > getSeconds(maxValues["PERIOD"])) {
+                    periodMsdTxtBx.Focus();
+                    periodMsdTxtBx.SelectAll();
+                    throw new ArgumentException("Периодичность инициации сеансов связи не может быть меньше " + minValues["PERIOD"] + " и больше " + maxValues["PERIOD"]);
+                }
             }
 
             //Период инициализации севнсов связи с базовым сервером
-            checkFieldTimeFormat(serviceMsdTxtBx.Text.Split(':'), serviceMsdTxtBx, "Формат времени поля \"Периодичность инициации сеансов связи с базовым сервером\" должен иметь формат hh");
+            if (minValues.ContainsKey("SERVICE")) {
 
-            hours = Convert.ToInt32(serviceMsdTxtBx.Text);
+                periodArr = serviceMsdTxtBx.Text.Split(':');
+                checkFieldTimeFormat(periodArr, serviceMsdTxtBx, "Формат времени поля \"Периодичность инициации сеансов связи с базовым сервером\" должен иметь формат hh:mm:ss");
 
-            if (hours > 24 || hours < 12) {
-                serviceMsdTxtBx.Focus();
-                serviceMsdTxtBx.SelectAll();
-                throw new ArgumentException("Периодичность инициации сеансов связи не может быть меньше 12-ти часов и больше 24-х часов");
-            }
+                hours = Convert.ToInt32(periodArr[0]);
+                minutes = Convert.ToInt32(periodArr[1]);
+                seconds = Convert.ToInt32(periodArr[2]);
+
+                checkTimeFormat(hours, minutes, seconds, serviceMsdTxtBx);
+
+                timeInSeconds = getSeconds(hours, minutes, seconds);
+
+                //Проверка на границы
+                if (timeInSeconds < getSeconds(minValues["SERVICE"]) || timeInSeconds > getSeconds(maxValues["SERVICE"])) {
+                    serviceMsdTxtBx.Focus();
+                    serviceMsdTxtBx.SelectAll();
+                    throw new ArgumentException("Периодичность инициации сеансов связи с базовым сервером не может быть меньше " + minValues["SERVICE"] + " и больше " + maxValues["SERVICE"]);
+                }   
+            }            
 
             //Время ожидания ответа сервера
-            periodArr = letwaitMsdTxtBx.Text.Split(':');
+            if (minValues.ContainsKey("LETWAIT")) {
 
-            checkFieldTimeFormat(periodArr, letwaitMsdTxtBx, "Формат времени поля \"Время ожидания ответа сервера\" должен иметь формат mm:ss");
+                periodArr = letwaitMsdTxtBx.Text.Split(':');
 
-            minutes = Convert.ToInt32(periodArr[0]);
-            seconds = Convert.ToInt32(periodArr[1]);
+                checkFieldTimeFormat(periodArr, letwaitMsdTxtBx, "Формат времени поля \"Время ожидания ответа сервера\" должен иметь формат hh:mm:ss");
 
-            checkTimeFormat(0, minutes, seconds, letwaitMsdTxtBx);
+                hours = Convert.ToInt32(periodArr[0]);
+                minutes = Convert.ToInt32(periodArr[1]);
+                seconds = Convert.ToInt32(periodArr[2]);
 
-            timeInSeconds = getSeconds(0, minutes, seconds);
+                checkTimeFormat(hours, minutes, seconds, letwaitMsdTxtBx);
 
-            if (timeInSeconds > 255 || timeInSeconds < 15) {
-                letwaitMsdTxtBx.Focus();
-                letwaitMsdTxtBx.SelectAll();
-                throw new ArgumentException("Время ожидания ответа сервера не может быть меньше 00:15 и больше 04:15");
+                timeInSeconds = getSeconds(hours, minutes, seconds);
+
+                if (timeInSeconds < getSeconds(minValues["LETWAIT"]) || timeInSeconds > getSeconds(maxValues["LETWAIT"])) {
+                    letwaitMsdTxtBx.Focus();
+                    letwaitMsdTxtBx.SelectAll();
+                    throw new ArgumentException("Время ожидания ответа сервера не может быть меньше " + minValues["LETWAIT"] + " и больше " + maxValues["LETWAIT"]);
+                }
             }
 
             //Количество попыток связи с сервером
-            int amoutTry = Convert.ToInt32(trylimitMsdTxtBx.Text);
-            if (amoutTry > 6 || amoutTry < 1) {
-                trylimitMsdTxtBx.Focus();
-                trylimitMsdTxtBx.SelectAll();
-                throw new ArgumentException("Количество попыток связи с сервером не может быть меньше 1-й и больше 6-ти");
+            if (minValues.ContainsKey("TRYLIMIT")) {
+                int amoutTry = Convert.ToInt32(trylimitMsdTxtBx.Text);
+
+                if (amoutTry < Convert.ToInt32(minValues["TRYLIMIT"]) || amoutTry > Convert.ToInt32(maxValues["TRYLIMIT"])) {
+                    trylimitMsdTxtBx.Focus();
+                    trylimitMsdTxtBx.SelectAll();
+                    throw new ArgumentException("Количество попыток связи с сервером не может быть меньше " + minValues["TRYLIMIT"] + " и больше " + maxValues["TRYLIMIT"]);
+                }
             }
 
             //Предельное время сеанса связи
-            periodArr = sesslimitMsdTxtBx.Text.Split(':');
+            if (minValues.ContainsKey("SESSLIMIT")) {
+                periodArr = sesslimitMsdTxtBx.Text.Split(':');
 
-            checkFieldTimeFormat(periodArr, sesslimitMsdTxtBx, "Формат времени поля \"Предельное время сеанса связи\" должен иметь формат hh:mm");
+                checkFieldTimeFormat(periodArr, sesslimitMsdTxtBx, "Формат времени поля \"Предельное время сеанса связи\" должен иметь формат hh:mm:ss");
 
-            hours = Convert.ToInt32(periodArr[0]);
-            minutes = Convert.ToInt32(periodArr[1]);
+                hours = Convert.ToInt32(periodArr[0]);
+                minutes = Convert.ToInt32(periodArr[1]);
+                seconds = Convert.ToInt32(periodArr[2]);
 
-            checkTimeFormat(hours, minutes, 0, sesslimitMsdTxtBx);
+                checkTimeFormat(hours, minutes, seconds, sesslimitMsdTxtBx);
 
-            timeInSeconds = getSeconds(hours, minutes, 0);
+                timeInSeconds = getSeconds(hours, minutes, seconds);
 
-            if (timeInSeconds > getSeconds(4, 15, 0) || timeInSeconds < getSeconds(0, 5, 0)) {
-                sesslimitMsdTxtBx.Focus();
-                sesslimitMsdTxtBx.SelectAll();
-                throw new ArgumentException("Предельное время сеанса связи не может быть меньше 00:05 и больше 04:15");
-
+                if (timeInSeconds < getSeconds(minValues["SESSLIMIT"]) || timeInSeconds > getSeconds(maxValues["SESSLIMIT"])) {
+                    sesslimitMsdTxtBx.Focus();
+                    sesslimitMsdTxtBx.SelectAll();                    
+                    throw new ArgumentException("Предельное время сеанса связи не может быть меньше " + minValues["SESSLIMIT"] + " и больше " + maxValues["SESSLIMIT"]);
+                }
             }
 
-            //Время удержания сеанса связи при отсутствии обмена данными                
-            periodArr = holdTimeMsdTxtBx.Text.Split(':');
+            //Время удержания сеанса связи при отсутствии обмена данными
+            if (minValues.ContainsKey("HOLDTIME")) {
 
-            checkFieldTimeFormat(periodArr, holdTimeMsdTxtBx, "Формат времени поля \"Время удержания сеанса связи при отсутствии обмена данными\" должен иметь формат mm:ss");
+                periodArr = holdTimeMsdTxtBx.Text.Split(':');
 
-            minutes = Convert.ToInt32(periodArr[0]);
-            seconds = Convert.ToInt32(periodArr[1]);
+                checkFieldTimeFormat(periodArr, holdTimeMsdTxtBx, "Формат времени поля \"Время удержания сеанса связи при отсутствии обмена данными\" должен иметь формат hh:mm:ss");
 
-            checkTimeFormat(0, minutes, seconds, holdTimeMsdTxtBx);
+                hours = Convert.ToInt32(periodArr[0]);
+                minutes = Convert.ToInt32(periodArr[1]);
+                seconds = Convert.ToInt32(periodArr[2]);
 
-            timeInSeconds = getSeconds(0, minutes, seconds);
+                checkTimeFormat(hours, minutes, seconds, holdTimeMsdTxtBx);
 
-            if (timeInSeconds > 1005 || timeInSeconds < 15) {
-                holdTimeMsdTxtBx.Focus();
-                holdTimeMsdTxtBx.SelectAll();
-                throw new ArgumentException("Время удержания сеанса связи не может быть меньше 00:15 и больше 16:45");
+                timeInSeconds = getSeconds(hours, minutes, seconds);
+
+                if (timeInSeconds < getSeconds(minValues["HOLDTIME"]) || timeInSeconds > getSeconds(maxValues["HOLDTIME"])) {
+                    holdTimeMsdTxtBx.Focus();
+                    holdTimeMsdTxtBx.SelectAll();
+                    throw new ArgumentException("Время удержания сеанса связи не может быть меньше " + minValues["HOLDTIME"] + " и больше " + maxValues["HOLDTIME"]);
+                }
             }
 
             //время удержания входящего соединения при отсутствии поступления данных от подключённого устройства (счётчика)
-            periodArr = incomholdtimeMskTxtBx.Text.Split(':');
-
-            checkFieldTimeFormat(periodArr, incomholdtimeMskTxtBx, "Формат времени поля \"Время удержания входящего соединения при отсутствии поступления данных от счетчика\" должен иметь формат mm:ss");
-
-            minutes = Convert.ToInt32(periodArr[0]);
-            seconds = Convert.ToInt32(periodArr[1]);
-
-            checkTimeFormat(0, minutes, seconds, incomholdtimeMskTxtBx);
-
-            timeInSeconds = getSeconds(0, minutes, seconds);
-
-            if (timeInSeconds > 900 || timeInSeconds < 30) {
-                throw new ArgumentException("Время удержания входящего соединения при отсутствии поступления данных от счетчика не может быть меньше 00:30 и больше 15:00");
-            }
-
-            //Если версия ZPorta больше 8-ой, то добавляется эта команда
-            if (Convert.ToInt32(verProtTxtBx.Text.Substring(2)) > 8) {
+            if (minValues.ContainsKey("INCOMHOLDTIME")) {
 
                 periodArr = incomholdtimeMskTxtBx.Text.Split(':');
 
-                checkFieldTimeFormat(periodArr, incomholdtimeMskTxtBx, "Формат времени поля \"Время удержания входящего соединения при отсутствии поступления данных от счетчика\" должен иметь формат mm:ss");
+                checkFieldTimeFormat(periodArr, incomholdtimeMskTxtBx, "Формат времени поля \"Время удержания входящего соединения при отсутствии поступления данных от счетчика\" должен иметь формат hh:mm:ss");
 
-                minutes = Convert.ToInt32(periodArr[0]);
-                seconds = Convert.ToInt32(periodArr[1]);
+                hours = Convert.ToInt32(periodArr[0]);
+                minutes = Convert.ToInt32(periodArr[1]);
+                seconds = Convert.ToInt32(periodArr[2]);
 
-                checkTimeFormat(0, minutes, seconds, incomholdtimeMskTxtBx);
+                checkTimeFormat(hours, minutes, seconds, incomholdtimeMskTxtBx);
 
-                timeInSeconds = getSeconds(0, minutes, seconds);
+                timeInSeconds = getSeconds(hours, minutes, seconds);
 
-                if (timeInSeconds > 900 || timeInSeconds < 30) {
-                    throw new ArgumentException("Время удержания входящего соединения при отсутствии поступления данных от счетчика не может быть меньше 00:30 и больше 15:00");
+                if (timeInSeconds < getSeconds(minValues["INCOMHOLDTIME"]) || timeInSeconds > getSeconds(maxValues["INCOMHOLDTIME"])) {
+                    incomholdtimeMskTxtBx.Focus();
+                    incomholdtimeMskTxtBx.SelectAll();
+                    throw new ArgumentException("Время удержания входящего соединения при отсутствии поступления данных от счетчика не может быть меньше " + minValues["INCOMHOLDTIME"] + " и больше " + maxValues["INCOMHOLDTIME"]);
                 }
             }
         }
@@ -1458,6 +1518,11 @@ namespace GSM_NBIoT_Module.view {
                         }
                     }
 
+                    bool connectOnCOMterminal = flasMainForm.getStateConnectionOnCOMofTerminalForm();
+                    if (connectOnCOMterminal) {
+                        flasMainForm.performClickConnOfTerminalForm();
+                    }
+
                     getNbModemPort();
                     checkGPIO_CP2105();
 
@@ -1472,6 +1537,10 @@ namespace GSM_NBIoT_Module.view {
                     if (!serialPort.IsOpen) serialPort.Close();
 
                     refreshInfoBtn.PerformClick();
+
+                    if (connectOnCOMterminal) {
+                        flasMainForm.performClickConnOfTerminalForm();
+                    }
 
                     Flasher.successfullyDialog("Параметры из файла успешно записаны в модем", "Запись параметров");
 
@@ -1679,6 +1748,309 @@ namespace GSM_NBIoT_Module.view {
                     }
                     break;
             }
+        }
+
+        private void setAValidRangeForTheLabelInfoForConnectingParam() {
+            Dictionary<string, string> minValues = minValuesForCommandCONNECTING();
+            Dictionary<string, string> maxValues = maxValuesForCommandCONNECTING();
+            Dictionary<string, string> defaultValues = defaultValuesForCommandCONNECTING();
+
+            foreach (KeyValuePair<string, string> param in defaultValues) {
+
+                switch (param.Key) {
+
+                    case "PERIOD": {
+                            periodLabel.Text = "От " + minValues[param.Key] + " до " + maxValues[param.Key] + ". Значение по умолчанию " + param.Value;
+                        } break;
+
+                    case "SERVICE": {
+                            serviceLabel.Text = "От " + minValues[param.Key] + " до " + maxValues[param.Key] + ". Значение по умолчанию " + param.Value;
+                        } break;
+
+                    case "LETWAIT": {
+                            letWaitLabel.Text = "От " + minValues[param.Key] + " до " + maxValues[param.Key] + ". Значение по умолчанию " + param.Value;
+                        } break;
+
+                    case "TRYLIMIT": {
+                            tryLimitLabel.Text = "От " + minValues[param.Key] + " до " + maxValues[param.Key] + ". Значение по умолчанию " + param.Value;
+                        } break;
+
+                    case "SESSLIMIT": {
+                            sessLimitLabel.Text = "От " + minValues[param.Key] + " до " + maxValues[param.Key] + ". Значение по умолчанию " + param.Value;
+                        } break;
+
+                    case "HOLDTIME": {
+                            holdTimeLabel.Text = "От " + minValues[param.Key] + " до " + maxValues[param.Key] + ". Значение по умолчанию " + param.Value;
+                        } break;
+
+                    case "INCOMHOLDTIME": {
+                            incomHoldTimeLabel.Text = "От " + minValues[param.Key] + " до " + maxValues[param.Key] + ". Значение по умолчанию " + param.Value;
+                        } break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Получает значения по умолчанию (заводские) команды CONNECTING
+        /// </summary>
+        /// <returns></returns>
+        private Dictionary<string, string> defaultValuesForCommandCONNECTING() {
+
+            if (!serialPort.IsOpen) serialPort.Open();
+
+            Dictionary<string, string> connectingTimesValues = new Dictionary<string, string>();
+
+            serialPort.WriteLine("CONNECTING ALL=X DEMO");
+
+            long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+            string line = "";
+
+            //Пока не вышло время по таймауту
+            while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
+
+                //Если данные пришли в порт
+                while (serialPort.BytesToRead != 0) {
+
+                    //Обновляю таймаут
+                    endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+
+                    line = serialPort.ReadLine();
+
+                    if (line.Contains("Za) CONNECTING") && line.EndsWith("OK")) {
+                        //Пример строки
+                        //Za) CONNECTING (PERIOD:6:00:00) (SERVICE:20::) (LETWAIT: :1:00) (TRYLIMIT:3) (SESSLIMIT: :20:) (HOLDTIME: :4:16) (INCOMHOLDTIME: :3:00) "Note h:m:s" DEMO OK
+
+                        string[] splitLine = line.Split('(');
+
+                        for (int i = 1; i < splitLine.Length; i++) {
+
+                            //Получаю название параметра 
+                            switch (splitLine[i].Substring(0, splitLine[i].IndexOf(':'))) {
+
+                                case "PERIOD": {
+                                        //Получаю значение времени периода
+                                        string period = splitLine[i].Substring(splitLine[i].IndexOf(':') + 1, splitLine[i].LastIndexOf(')') - 1 - splitLine[i].IndexOf(':'));
+                                        connectingTimesValues["PERIOD"] = parseTimeForMskTxtBox(period, false);
+                                    } break;
+
+                                case "SERVICE": {
+                                        string service = splitLine[i].Substring(splitLine[i].IndexOf(':') + 1, splitLine[i].LastIndexOf(')') - 1 - splitLine[i].IndexOf(':'));
+                                        connectingTimesValues["SERVICE"] = parseTimeForMskTxtBox(service, false);
+                                    } break;
+
+                                case "LETWAIT": {
+                                        string letwait = splitLine[i].Substring(splitLine[i].IndexOf(':') + 1, splitLine[i].LastIndexOf(')') - 1 - splitLine[i].IndexOf(':'));
+                                        connectingTimesValues["LETWAIT"] = parseTimeForMskTxtBox(letwait, false);
+                                    } break;
+
+                                case "TRYLIMIT": {
+                                        string trylimit = splitLine[i].Substring(splitLine[i].IndexOf(':') + 1, splitLine[i].LastIndexOf(')') - 1 - splitLine[i].IndexOf(':'));
+                                        connectingTimesValues["TRYLIMIT"] = trylimit;
+                                    } break;
+
+                                case "SESSLIMIT": {
+                                        string sesslimit = splitLine[i].Substring(splitLine[i].IndexOf(':') + 1, splitLine[i].LastIndexOf(')') - 1 - splitLine[i].IndexOf(':'));
+                                        connectingTimesValues["SESSLIMIT"] = parseTimeForMskTxtBox(sesslimit, false);
+                                    } break;
+
+                                case "HOLDTIME": {
+                                        string holdtime = splitLine[i].Substring(splitLine[i].IndexOf(':') + 1, splitLine[i].LastIndexOf(')') - 1 - splitLine[i].IndexOf(':'));
+                                        connectingTimesValues["HOLDTIME"] = parseTimeForMskTxtBox(holdtime, false);
+                                    } break;
+
+                                case "INCOMHOLDTIME": {
+                                        string incomholdtime = splitLine[i].Substring(splitLine[i].IndexOf(':') + 1, splitLine[i].LastIndexOf(')') - 1 - splitLine[i].IndexOf(':'));
+                                        connectingTimesValues["INCOMHOLDTIME"] = parseTimeForMskTxtBox(incomholdtime, false);
+                                    } break;
+                            }
+                        }
+
+                        if (serialPort.IsOpen) serialPort.Close();
+                        return connectingTimesValues;
+
+                    } else if (line.Contains("Za) CONNECTING") && line.Contains("ERROR")) {
+                        if (serialPort.IsOpen) serialPort.Close();
+                        throw new MKCommandException("Ответ микроконтроллера на команду \"CONNECTING ALL=X DEMO\" ERROR");
+                    }
+                }
+            }
+
+            if (serialPort.IsOpen) serialPort.Close();
+            throw new TimeoutException("Превышено время ожидания ответа от микроконтроллера");
+        }
+
+        /// <summary>
+        /// Получает максимально допустимые значения параметров команды CONNECTING
+        /// </summary>
+        /// <returns></returns>
+        private Dictionary<string, string> maxValuesForCommandCONNECTING() {
+
+            Dictionary<string, string> connectingTimesValues = new Dictionary<string, string>();
+
+            if (!serialPort.IsOpen) serialPort.Open();
+
+            List<string> paramsConnecting = getAllSupportParametersCommandConnecting();
+
+            foreach (string param in paramsConnecting) {
+
+                /*Zc) CONNECTING PERIOD=MAX DEMO
+                 Za) CONNECTING (PERIOD:20:00:00) "Note h:m:s" DEMO OK*/
+
+                serialPort.WriteLine("CONNECTING " + param + "=MAX DEMO");
+
+                long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+                string line = "";
+
+                bool takeAnswer = false;
+
+                //Пока не вышло время по таймауту
+                while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
+
+                    //Если данные пришли в порт
+                    if (serialPort.BytesToRead != 0) {
+
+                        //Обновляю таймаут
+                        endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+
+                        line = serialPort.ReadLine();
+
+                        if (line.Contains("Za) CONNECTING") && line.EndsWith("OK")) {
+
+                            if (param.Equals("TRYLIMIT")) {
+                                connectingTimesValues.Add(param, line.Substring(line.IndexOf(':') + 1, line.LastIndexOf(')') - line.IndexOf(':') - 1));
+
+                            } else {
+                                connectingTimesValues.Add(param, parseTimeForMskTxtBox(line.Substring(line.IndexOf(':') + 1, line.LastIndexOf(')') - line.IndexOf(':') - 1), false));
+                            }
+                            takeAnswer = true;
+                            break;
+
+                        } else if (line.Contains("Za) CONNECTING") && line.Contains("ERROR")) {
+                            if (serialPort.IsOpen) serialPort.Close();
+                            throw new MKCommandException("Ответ микроконтроллера на команду \"CONNECTING " + param  + "=MAX DEMO\" ERROR");
+                        }
+                    }
+                }
+
+                if (!takeAnswer) {
+                    if (serialPort.IsOpen) serialPort.Close();
+                    throw new TimeoutException("Превышено время ожидания ответа от микроконтроллера");
+                }
+            }
+
+            if (serialPort.IsOpen) serialPort.Close();
+            return connectingTimesValues;
+        }
+
+        /// <summary>
+        /// Получает минимально допустимые значения параметров команды CONNECTING
+        /// </summary>
+        /// <returns></returns>
+        private Dictionary<string, string> minValuesForCommandCONNECTING() {
+
+            Dictionary<string, string> connectingTimesValues = new Dictionary<string, string>();
+
+            if (!serialPort.IsOpen) serialPort.Open();
+
+            List<string> paramsConnecting = getAllSupportParametersCommandConnecting();
+
+            foreach (string param in paramsConnecting) {
+
+                /*Zc) CONNECTING PERIOD=MAX DEMO
+                 Za) CONNECTING (PERIOD:20:00:00) "Note h:m:s" DEMO OK*/
+
+                serialPort.WriteLine("CONNECTING " + param + "=MIN DEMO");
+
+                long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+                string line = "";
+
+                bool takeAnswer = false;
+
+                //Пока не вышло время по таймауту
+                while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
+
+                    //Если данные пришли в порт
+                    if (serialPort.BytesToRead != 0) {
+
+                        //Обновляю таймаут
+                        endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+
+                        line = serialPort.ReadLine();
+
+                        if (line.Contains("Za) CONNECTING") && line.EndsWith("OK")) {
+
+                            if (param.Equals("TRYLIMIT")) {
+                                connectingTimesValues.Add(param, line.Substring(line.IndexOf(':') + 1, line.LastIndexOf(')') - line.IndexOf(':') - 1));
+
+                            } else {
+                                connectingTimesValues.Add(param, parseTimeForMskTxtBox(line.Substring(line.IndexOf(':') + 1, line.LastIndexOf(')') - line.IndexOf(':') - 1), false));
+                            }
+
+                            takeAnswer = true;
+                            break;
+
+                        } else if (line.Contains("Za) CONNECTING") && line.Contains("ERROR")) {
+
+                            if (serialPort.IsOpen) serialPort.Close();
+                            throw new MKCommandException("Ответ микроконтроллера на команду \"CONNECTING " + param + "=MAX DEMO\" ERROR");
+                        }
+                    }
+                }
+
+                if (!takeAnswer) {
+                    if (serialPort.IsOpen) serialPort.Close();
+                    throw new TimeoutException("Превышено время ожидания ответа от микроконтроллера");
+                }
+            }
+
+            if (serialPort.IsOpen) serialPort.Close();
+
+            return connectingTimesValues;
+        }
+
+        /// <summary>
+        /// Получает все поддерживаемые параметры коменды CONNECTING
+        /// </summary>
+        /// <returns></returns>
+        private List<string> getAllSupportParametersCommandConnecting() {
+
+            List<string> paramList = new List<string>();
+
+            serialPort.WriteLine("CONNECTING ALL=X DEMO");
+
+            long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+            string line = "";
+
+            //Пока не вышло время по таймауту
+            while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
+
+                //Если данные пришли в порт
+                while (serialPort.BytesToRead != 0) {
+
+                    //Обновляю таймаут
+                    endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+
+                    line = serialPort.ReadLine();
+
+                    if (line.Contains("Za) CONNECTING") && line.EndsWith("OK")) {
+                        //Пример строки
+                        //Za) CONNECTING (PERIOD:6:00:00) (SERVICE:20::) (LETWAIT: :1:00) (TRYLIMIT:3) (SESSLIMIT: :20:) (HOLDTIME: :4:16) (INCOMHOLDTIME: :3:00) "Note h:m:s" DEMO OK
+
+                        string[] splitLine = line.Split('(');
+
+                        for (int i = 1; i < splitLine.Length; i++) {
+                            paramList.Add(splitLine[i].Substring(0, splitLine[i].IndexOf(':')));
+                        }
+
+                        return paramList;
+
+                    } else if (line.Contains("Za) CONNECTING") && line.Contains("ERROR")) {
+                        throw new MKCommandException("Ответ микроконтроллера на команду \"CONNECTING ALL=X DEMO\" ERROR");
+                    }
+                }
+            }
+
+            throw new TimeoutException("Превышено время ожидания ответа от микроконтроллера");
         }
     }
 }
