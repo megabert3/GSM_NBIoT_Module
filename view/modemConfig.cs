@@ -32,25 +32,28 @@ namespace GSM_NBIoT_Module.view {
         private SerialPort serialPort = new SerialPort();
         private int timeOut = 1000;
 
+        //Если ли подключение к COM порту в окне терминала
+        bool connectOnCOMterminal = false;
+
         //Подсказка для вкладки пользовательских настроек подключения у серверам
         private ToolTip toolTipForUserHostParam = new ToolTip();
 
         //Текст подсказок для полей записи адреса
-        private const string domenNametoolTipMess = "Значение доменного имени должно быть помещено в знак \" в начале и в конце." +
+        private const string domenNametoolTipMess = "Значение доменного имени должно именть знак \" в начале и в конце (помещено в кавычки)." +
                     "\nЗначение доменного имени не должно быть больше 28 символов" +
                     "\nПример записи: \"devices.226.taipit.ru\"" +
-                    "\nПри записи полностью пустого значения (без знаков \") параметр сервера полностью удаляется";
+                    "\nПри записи полностью пустого значения (без знаков \") или пустого значения между знаками \" параметры сервера полностью удаляются";
 
-        private const string ipV4toolTipMess = "Формат записи IPv4 XXX.XXX.XXX.XXX, где XXX должен иметь диапазон 0..255" +
+        private const string ipV4toolTipMess = "Формат записи IPv4 XXX.XXX.XXX.XXX, где XXX должно быть десятичным числом в диапазоне 0..255" +
                     "\nПример записи: 66.254.114.41" +
-                    "\nПри записи полностью пустого значения параметр сервера полностью удаляется";
+                    "\nПри записи полностью пустого значения параметры сервера полностью удаляются";
 
-        private const string ipV6toolTipMess = "Формат записи IPv6 XXXX:XXXX:XXXX:XXXX:XXXX:XXXX:XXXX:XXXX, где X должен иметь диапазон 0..F" +
+        private const string ipV6toolTipMess = "Формат записи IPv6 XXXX:XXXX:XXXX:XXXX:XXXX:XXXX:XXXX:XXXX, диапазон каждого значения X в одном поле (XXXX)\nдолжен быть в диапазоне от 0..F (HEX) " +
                     "\nПримеры записи:" +
                     "\n2001:0DB0:0000:123A:0000:0000:0000:0030" +
                     "\n2001:DB0:0:123A:0:0:0:30" +
                     "\n2001:DB0:0:123A::30" +
-                    "\nПри записи полностью пустого значения параметр сервера полностью удаляется";
+                    "\nПри записи полностью пустого значения параметры сервера полностью удаляются";
 
         private void ModemConfig_Load(object sender, EventArgs e) {
 
@@ -91,18 +94,18 @@ namespace GSM_NBIoT_Module.view {
 
             //Установка подсказок полям
             ToolTip toolTip = new ToolTip();
-            toolTip.AutoPopDelay = 7000;
+            toolTip.AutoPopDelay = 15000;
             toolTip.InitialDelay = 250;
             toolTip.ReshowDelay = 0;
             toolTip.ShowAlways = true;
 
-            toolTip.SetToolTip(periodMsdTxtBx, "Формат hh:mm:ss\nЗначение по умолчанию 06:00:00");
-            toolTip.SetToolTip(serviceMsdTxtBx, "Формат hh\nЗначение по умолчанию 20");
-            toolTip.SetToolTip(letwaitMsdTxtBx, "Формат mm:ss\nЗначение по умолчанию 01:00");
-            toolTip.SetToolTip(trylimitMsdTxtBx, "Формат (количество)\nЗначение по умолчанию 3");
-            toolTip.SetToolTip(sesslimitMsdTxtBx, "Формат hh:mm\nЗначение по умолчанию 00:20");
-            toolTip.SetToolTip(holdTimeMsdTxtBx, "Формат mm:ss\nЗначение по умолчанию 04:16");
-            toolTip.SetToolTip(incomholdtimeMskTxtBx, "Формат mm:ss\nЗначение по умолчанию 03:00");
+            toolTip.SetToolTip(periodMsdTxtBx, "Формат hh:mm:ss");
+            toolTip.SetToolTip(serviceMsdTxtBx, "Формат hh:mm:ss");
+            toolTip.SetToolTip(letwaitMsdTxtBx, "Формат hh:mm:ss");
+            toolTip.SetToolTip(trylimitMsdTxtBx, "Формат (количество)");
+            toolTip.SetToolTip(sesslimitMsdTxtBx, "Формат hh:mm:ss");
+            toolTip.SetToolTip(holdTimeMsdTxtBx, "Формат hh:mm:ss");
+            toolTip.SetToolTip(incomholdtimeMskTxtBx, "Формат hh:mm:ss");
 
             toolTip.SetToolTip(portTxtBx_1, "Значение порта должно быть в диапазоне 0..65535");
             toolTip.SetToolTip(portTxtBx_2, "Значение порта должно быть в диапазоне 0..65535");
@@ -125,7 +128,7 @@ namespace GSM_NBIoT_Module.view {
             toolTip.SetToolTip(loadScript, "Записать конфигурационные параметры в модем из файла");
 
             //Подсказка для полей с адресом дополнительных серверов
-            toolTipForUserHostParam.AutoPopDelay = 15000;
+            toolTipForUserHostParam.AutoPopDelay = 10000;
             toolTipForUserHostParam.InitialDelay = 0;
             toolTipForUserHostParam.ReshowDelay = 0;
             toolTipForUserHostParam.ShowAlways = true;
@@ -166,7 +169,7 @@ namespace GSM_NBIoT_Module.view {
             try {
 
                 //Проверяю используется ли COM порт в окне терминала
-                bool connectOnCOMterminal = flasMainForm.getStateConnectionOnCOMofTerminalForm();
+                connectOnCOMterminal = flasMainForm.getStateConnectionOnCOMofTerminalForm();
                 if (connectOnCOMterminal) {
                     flasMainForm.performClickConnOfTerminalForm();
                 }
@@ -202,9 +205,11 @@ namespace GSM_NBIoT_Module.view {
 
             } catch (Exception ex) {
 
-                Flasher.exceptionDialog(ex.Message);
                 Cursor = Cursors.Default;
-                serialPort.Close();
+                Flasher.exceptionDialog(ex.Message);
+
+                if (serialPort.IsOpen) serialPort.Close();
+                if (connectOnCOMterminal) flasMainForm.performClickConnOfTerminalForm();
             }
         }
 
@@ -230,9 +235,9 @@ namespace GSM_NBIoT_Module.view {
                 } else {
                     IPv6RdBtn_1.Checked = true;
                 }
-
-                ipDomenNameTxtBx_1.Text = iPorDomen;
             }
+
+            ipDomenNameTxtBx_1.Text = iPorDomen;
 
             //Доменное имя и порт сервера 1
             getIPv4AndPortUserHost(1, ref iPorDomen, ref port);
@@ -322,11 +327,16 @@ namespace GSM_NBIoT_Module.view {
         /// <param name="portData"></param>
         private void checkCustomServerProperties(int numbServerProperties, int domenOrIPv4Check, TextBox domenOrIPData, TextBox portData) {
 
+            domenOrIPData.Text = domenOrIPData.Text.Trim();
+
             //Отправка данных в порт
             string dataToPort;
 
+            //Если пустое значение поля, то удаляю параметр
             if (String.IsNullOrEmpty(domenOrIPData.Text) ||
-                (domenOrIPData.Text.Length == 2 && (domenOrIPData.Text.ElementAt(0) == '\"' && domenOrIPData.Text.ElementAt(1) == '\"'))) {
+                //Или пустое значение между "  " при записи доменного имени
+                
+                (domenOrIPv4Check == 0 && String.IsNullOrEmpty(domenOrIPData.Text.Substring(1, domenOrIPData.Text.Length - 2)))) { 
 
                 dataToPort = "USERHOST N=" + numbServerProperties + " ALL=X";
 
@@ -342,6 +352,12 @@ namespace GSM_NBIoT_Module.view {
                                 domenOrIPData.Focus();
                                 domenOrIPData.SelectAll();
                                 throw new FormatException("Доменное имя должно содержать знак \" в начале и конце");
+                            }
+
+                            //Если между знаками "" пусто, то записываю команду на отчистку
+                            if (String.IsNullOrEmpty(domenOrIPData.Text.Trim().Substring(1, domenOrIPData.Text.Length - 2).Trim())) {
+                                dataToPort = "USERHOST N=" + numbServerProperties + " ALL=X";
+                                break;
                             }
 
                             //C учётом кавычек
@@ -365,9 +381,8 @@ namespace GSM_NBIoT_Module.view {
                     case 1: {
                             //Проверка значений
                             try {
-                                string ipv4 = domenOrIPData.Text.Trim();
 
-                                string[] ipv4Arr = ipv4.Split('.');
+                                string[] ipv4Arr = domenOrIPData.Text.Split('.');
 
                                 List<byte> byteList = new List<byte>();
 
@@ -413,16 +428,27 @@ namespace GSM_NBIoT_Module.view {
                             }
 
                             try {
-                                string ipv6 = domenOrIPData.Text.Trim();
 
-                                IPv6Parser.checValidValue(ipv6);
+                                //Потому что Сергей просит добавлять 0 если сокращённая запись находится в начеле или конце (вместо ::FF писать 0::FF). Это вызывает проблемы если 6 хекстетов уже есть
+                                //Но впереди обязательно нужен ноль, тогда Сергей считает, что уже больше кестетов (пример проблемы ::1:2:3:4:5:6 Сергей считает, что это неверный формат)
+                                if ((domenOrIPData.Text.IndexOf("::") == 0) &&
+                                    domenOrIPData.Text.Split(':').Length == 8) {
+
+                                    domenOrIPData.Text = domenOrIPData.Text.Replace("::", "0:0:");
+
+                                } else if (domenOrIPData.Text.LastIndexOf("::") == domenOrIPData.Text.Length - 2 &&
+                                    domenOrIPData.Text.Split(':').Length == 8) {
+
+                                    domenOrIPData.Text = domenOrIPData.Text.Replace("::", ":0:0");
+                                }
+
+                                IPv6Parser.checValidValue(domenOrIPData.Text);
 
                             } catch (Exception) {
                                 domenOrIPData.Focus();
                                 domenOrIPData.SelectAll();
                                 throw;
                             }
-
                         }
                         break;
                 }
@@ -439,7 +465,7 @@ namespace GSM_NBIoT_Module.view {
                 if (portValue > 65535 || portValue < 0) {
                     portData.Focus();
                     portData.SelectAll();
-                    throw new FormatException("Значение порта должно быть в диапазоне 0..65535");
+                    throw new ArgumentException("Значение порта должно быть в диапазоне 0..65535");
                 }
 
                 //Если доменное имя, то добавляются кавычки
@@ -476,7 +502,18 @@ namespace GSM_NBIoT_Module.view {
                     } else if (line.Contains("Za) USERHOST") && line.Contains("ERROR")) {
                         domenOrIPData.Focus();
                         domenOrIPData.SelectAll();
-                        throw new MKCommandException("Не удалось записать параметры сервера №" + (numbServerProperties));
+
+                        if (domenOrIPv4Check == 2) {
+                            throw new FormatException("Неверный формат записи IPv6, диапазон каждого значения в одном поле (XXXX) должен быть от 0..F (HEX)" +
+                            "\nДопускается сокращённый вид записи" +
+                            "\nПримеры записи:" +
+                            "\n2001:0DB0:0000:123A:0000:0000:0000:0030" +
+                            "\n2001:DB0:0:123A:0:0:0:30" +
+                            "\n2001:DB0:0:123A::30");
+
+                        } else {
+                            throw new MKCommandException("Не удалось записать параметры сервера №" + (numbServerProperties));
+                        }
                     }
                 }
             }
@@ -627,7 +664,7 @@ namespace GSM_NBIoT_Module.view {
             serialPort.WriteLine("USERHOST N=" + i);
 
             long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
-            string line = "";
+            string line;
 
             //Пока не вышло время по таймауту
             while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
@@ -713,7 +750,6 @@ namespace GSM_NBIoT_Module.view {
                         string holdtime = answer[6].Substring(answer[6].IndexOf(':') + 1, answer[6].IndexOf(')') - answer[6].IndexOf(':') - 1);
                         holdTimeMsdTxtBx.Text = parseTimeForMskTxtBox(holdtime, false);
 
-                        
                         if (Convert.ToInt32(verProtTxtBx.Text.Substring(2)) >= 9) {
                             //Добавляю INCOMHOLDTIME
                             holdtime = answer[7].Substring(answer[7].IndexOf(':') + 1, answer[7].IndexOf(')') - answer[7].IndexOf(':') - 1);
@@ -767,26 +803,37 @@ namespace GSM_NBIoT_Module.view {
         /// </summary>
         private void writeConnectingParameters() {
 
-            //Если версия ZPort'a не известна, то обновляю информацию
-            if (String.IsNullOrEmpty(verProtTxtBx.Text)) {
-                refreshInfoBtn.PerformClick();
-
-                if (String.IsNullOrEmpty(verProtTxtBx.Text)) return;
-            }
+            Dictionary<string, string> dictAllowedValues = defaultValuesForCommandCONNECTING();
 
             //Формирую сообщение на отправку данных
-            string comandInCOM = "CONNECTING PERIOD=" + periodMsdTxtBx.Text +
-                "; SERVICE=" + serviceMsdTxtBx.Text +
-                "; LETWAIT=" + ":" + letwaitMsdTxtBx.Text +
-                "; TRYLIMIT=" + trylimitMsdTxtBx.Text +
-                "; SESSLIMIT=" + sesslimitMsdTxtBx.Text +
-                "; HOLDTIME=" + ":" + holdTimeMsdTxtBx.Text;
+            string comandInCOM = "CONNECTING";
 
-            //Если версия ZPorta больше 8-ой, то добавляется эта команда
-            if (Convert.ToInt32(verProtTxtBx.Text.Substring(2)) > 8) {
+            if (dictAllowedValues.ContainsKey("PERIOD")) {
+                comandInCOM += " PERIOD=" + periodMsdTxtBx.Text + ";";
+            }
 
-                //Добавляю команду к сообщению
-                comandInCOM += "; INCOMHOLDTIME=" + ":" + incomholdtimeMskTxtBx.Text;
+            if (dictAllowedValues.ContainsKey("SERVICE")) {
+                comandInCOM += " SERVICE=" + serviceMsdTxtBx.Text + ";";
+            }
+
+            if (dictAllowedValues.ContainsKey("LETWAIT")) {
+                comandInCOM += " LETWAIT=" + letwaitMsdTxtBx.Text + ";";
+            }
+
+            if (dictAllowedValues.ContainsKey("TRYLIMIT")) {
+                comandInCOM += " TRYLIMIT=" + trylimitMsdTxtBx.Text + ";";
+            }
+
+            if (dictAllowedValues.ContainsKey("SESSLIMIT")) {
+                comandInCOM += " SESSLIMIT=" + sesslimitMsdTxtBx.Text + ";";
+            }
+
+            if (dictAllowedValues.ContainsKey("HOLDTIME")) {
+                comandInCOM += " HOLDTIME=" + holdTimeMsdTxtBx.Text + ";";
+            }
+
+            if (dictAllowedValues.ContainsKey("INCOMHOLDTIME")) {
+                comandInCOM += " INCOMHOLDTIME=" + holdTimeMsdTxtBx.Text + ";";
             }
 
             getNbModemPort();
@@ -871,7 +918,7 @@ namespace GSM_NBIoT_Module.view {
         private void connectingAcceptBtn_Click(object sender, EventArgs e) {
             try {
 
-                bool connectOnCOMterminal = flasMainForm.getStateConnectionOnCOMofTerminalForm();
+                connectOnCOMterminal = flasMainForm.getStateConnectionOnCOMofTerminalForm();
                 if (connectOnCOMterminal) {
                     flasMainForm.performClickConnOfTerminalForm();
                 }
@@ -882,16 +929,16 @@ namespace GSM_NBIoT_Module.view {
 
                 refreshInfoBtn.PerformClick();
 
-                if (connectOnCOMterminal) {
-                    flasMainForm.performClickConnOfTerminalForm();
-                }
+                if (connectOnCOMterminal) flasMainForm.performClickConnOfTerminalForm();
 
                 Flasher.successfullyDialog("Параметры инициализации связи успешно записаны", "Запись параметров");
 
             } catch (Exception ex) {
 
-                if (serialPort.IsOpen) serialPort.Close();
                 Flasher.exceptionDialog(ex.Message);
+
+                if (serialPort.IsOpen) serialPort.Close();
+                if (connectOnCOMterminal) flasMainForm.performClickConnOfTerminalForm();
             }
         }
 
@@ -904,7 +951,7 @@ namespace GSM_NBIoT_Module.view {
             try {
                 Cursor = Cursors.WaitCursor;
 
-                bool connectOnCOMterminal = flasMainForm.getStateConnectionOnCOMofTerminalForm();
+                connectOnCOMterminal = flasMainForm.getStateConnectionOnCOMofTerminalForm();
                 if (connectOnCOMterminal) {
                     flasMainForm.performClickConnOfTerminalForm();
                 }
@@ -922,16 +969,16 @@ namespace GSM_NBIoT_Module.view {
 
                 Cursor = Cursors.Default;
 
-                if (connectOnCOMterminal) {
-                    flasMainForm.performClickConnOfTerminalForm();
-                }
+                if (connectOnCOMterminal) flasMainForm.performClickConnOfTerminalForm();
 
                 Flasher.successfullyDialog("Настройка пользовательских серверов успешно записаны", "Запись параметров");
 
             } catch (Exception ex) {
+
                 Cursor = Cursors.Default;
-                serialPort.Close();
                 Flasher.exceptionDialog(ex.Message);
+                if (serialPort.IsOpen) serialPort.Close();
+                if (connectOnCOMterminal) flasMainForm.performClickConnOfTerminalForm();
             }
         }
 
@@ -1036,6 +1083,7 @@ namespace GSM_NBIoT_Module.view {
                 refreshInfoBtn.Enabled = enbleBtn;
                 setServersSettingsBtn.Enabled = enbleBtn;
                 connectingAcceptBtn.Enabled = enbleBtn;
+                loadScript.Enabled = enbleBtn;
             });
         }
 
@@ -1518,7 +1566,7 @@ namespace GSM_NBIoT_Module.view {
                         }
                     }
 
-                    bool connectOnCOMterminal = flasMainForm.getStateConnectionOnCOMofTerminalForm();
+                    connectOnCOMterminal = flasMainForm.getStateConnectionOnCOMofTerminalForm();
                     if (connectOnCOMterminal) {
                         flasMainForm.performClickConnOfTerminalForm();
                     }
@@ -1538,19 +1586,18 @@ namespace GSM_NBIoT_Module.view {
 
                     refreshInfoBtn.PerformClick();
 
-                    if (connectOnCOMterminal) {
-                        flasMainForm.performClickConnOfTerminalForm();
-                    }
+                    if (connectOnCOMterminal) flasMainForm.performClickConnOfTerminalForm();
 
                     Flasher.successfullyDialog("Параметры из файла успешно записаны в модем", "Запись параметров");
 
                     Cursor = Cursors.Default;
 
                 } catch (Exception ex) {
-
-                    if (serialPort.IsOpen) serialPort.Close();
                     Cursor = Cursors.Default;
                     Flasher.exceptionDialog(ex.Message);
+
+                    if (serialPort.IsOpen) serialPort.Close();
+                    if (connectOnCOMterminal) flasMainForm.performClickConnOfTerminalForm();
                 }
             }
         }

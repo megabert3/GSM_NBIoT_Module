@@ -278,7 +278,7 @@ namespace GSM_NBIoT_Module {
 
                     if (!answer) throw new OperationCanceledException("Отмена начала перепрошивки пользователем");
 
-                    enableBtnIntTerminalForm(false);
+                    enableBtnIntTerminalAndConfigForm(false);
                 }
                 
                 //================================== Перепрошивка модема ===========================================================
@@ -294,7 +294,7 @@ namespace GSM_NBIoT_Module {
                 //включаю кнопку старт
                 enableStartButton(true);
                 enableEditConfAndTerminalBtn(true);
-                enableBtnIntTerminalForm(true);
+                enableBtnIntTerminalAndConfigForm(true);
 
             } catch (Exception ex) {
                 addProgressFlashMKLogInMainLog();               
@@ -320,7 +320,7 @@ namespace GSM_NBIoT_Module {
                 //включаю кнопку старт
                 enableStartButton(true);
                 enableEditConfAndTerminalBtn(true);
-                enableBtnIntTerminalForm(true);
+                enableBtnIntTerminalAndConfigForm(true);
             }
         }
 
@@ -803,7 +803,7 @@ namespace GSM_NBIoT_Module {
         /// Блокирует кнопки управления ногами CP2105 и ограничивает доступ к COM порту. Используется при перепрошивке модема 
         /// </summary>
         /// <param name="enable"></param>
-        private void enableBtnIntTerminalForm(bool enable) {
+        private void enableBtnIntTerminalAndConfigForm(bool enable) {
 
             if (terminalForm != null) {
                 terminalForm.enableGPIOGroupAndDisconnectCOM(enable);

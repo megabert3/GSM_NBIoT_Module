@@ -794,6 +794,7 @@ namespace GSM_NBIoT_Module.view {
                 try {
                     sta = Convert.ToInt32(cpNumbStandartPortTxtBx.Text.Trim());
                     enh = Convert.ToInt32(cpNumbEnhancedPortTxtBx.Text.Trim());
+
                 } catch (FormatException) {
                     //Повторяю поиск
                     searchCP2105Ports.PerformClick();
@@ -1714,6 +1715,7 @@ namespace GSM_NBIoT_Module.view {
         }
 
         private void changeAlignment_Click(object sender, EventArgs e) {
+
             if (splitContainer2.Orientation == Orientation.Horizontal) {
                 splitContainer2.Orientation = Orientation.Vertical;
 
