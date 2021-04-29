@@ -113,6 +113,7 @@ namespace GSM_NBIoT_Module.view {
             //Скорость передачи
             int bandRate = Convert.ToInt32(Properties.Settings.Default.terminal_LastBandRate);
             bool find = false;
+
             foreach (Control rb in bandRateGroup.Controls) {
 
                 if (rb is RadioButton) {

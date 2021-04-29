@@ -927,9 +927,9 @@ namespace GSM_NBIoT_Module.view {
 
                 writeConnectingParameters();
 
-                refreshInfoBtn.PerformClick();
-
                 if (connectOnCOMterminal) flasMainForm.performClickConnOfTerminalForm();
+
+                refreshInfoBtn.PerformClick();
 
                 Flasher.successfullyDialog("Параметры инициализации связи успешно записаны", "Запись параметров");
 
@@ -965,11 +965,11 @@ namespace GSM_NBIoT_Module.view {
 
                 if (serialPort.IsOpen) serialPort.Close();
 
+                if (connectOnCOMterminal) flasMainForm.performClickConnOfTerminalForm();
+
                 refreshInfoBtn.PerformClick();
 
                 Cursor = Cursors.Default;
-
-                if (connectOnCOMterminal) flasMainForm.performClickConnOfTerminalForm();
 
                 Flasher.successfullyDialog("Настройка пользовательских серверов успешно записаны", "Запись параметров");
 
@@ -1584,9 +1584,9 @@ namespace GSM_NBIoT_Module.view {
 
                     if (!serialPort.IsOpen) serialPort.Close();
 
-                    refreshInfoBtn.PerformClick();
-
                     if (connectOnCOMterminal) flasMainForm.performClickConnOfTerminalForm();
+                    
+                    refreshInfoBtn.PerformClick();
 
                     Flasher.successfullyDialog("Параметры из файла успешно записаны в модем", "Запись параметров");
 
@@ -2098,6 +2098,11 @@ namespace GSM_NBIoT_Module.view {
             }
 
             throw new TimeoutException("Превышено время ожидания ответа от микроконтроллера");
+        }
+
+        private void cancelBtn_Click(object sender, EventArgs e) {
+            if (serialPort.IsOpen) Close();
+            Close();
         }
     }
 }
