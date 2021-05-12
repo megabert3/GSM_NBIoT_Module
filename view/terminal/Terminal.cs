@@ -1214,7 +1214,9 @@ namespace GSM_NBIoT_Module.view {
         }
 
         private void addMessInComLog(string mess) {
-            terminalLogRichTxtBx.AppendText(DateTime.Now.ToString("HH:mm:ss.fff") + " << " + mess + Environment.NewLine);
+            terminalLogRichTxtBx.Invoke((MethodInvoker)delegate {
+                terminalLogRichTxtBx.AppendText(DateTime.Now.ToString("HH:mm:ss.fff") + " << " + mess + Environment.NewLine);
+            });
         }
 
         /// <summary>

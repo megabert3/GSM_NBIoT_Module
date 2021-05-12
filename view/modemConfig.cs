@@ -4,19 +4,11 @@ using GSM_NBIoT_Module.classes.applicationHelper.exceptions;
 using GSM_NBIoT_Module.classes.modemConfig;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
-using System.Net;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GSM_NBIoT_Module.view {
@@ -151,12 +143,11 @@ namespace GSM_NBIoT_Module.view {
             switch (i) {
                 case 0: {
                         userHostTableLayoutPanel.BringToFront();
-                    }
-                    break;
+                    } break;
+
                 case 1: {
                         connectingTableLayoutPanel.BringToFront();
-                    }
-                    break;
+                    } break;
             }
         }
 
@@ -253,9 +244,9 @@ namespace GSM_NBIoT_Module.view {
                 } else {
                     IPv6RdBtn_2.Checked = true;
                 }
-
-                ipDomenNameTxtBx_2.Text = iPorDomen;
             }
+
+            ipDomenNameTxtBx_2.Text = iPorDomen;
 
             //Доменное имя и порт сервера 2
             getIPv4AndPortUserHost(2, ref iPorDomen, ref port);
@@ -271,9 +262,9 @@ namespace GSM_NBIoT_Module.view {
                 } else {
                     IPv6RdBtn_3.Checked = true;
                 }
-
-                ipDomenNameTxtBx_3.Text = iPorDomen;
             }
+
+            ipDomenNameTxtBx_3.Text = iPorDomen;
         }
 
         /// <summary>
@@ -335,8 +326,8 @@ namespace GSM_NBIoT_Module.view {
             //Если пустое значение поля, то удаляю параметр
             if (String.IsNullOrEmpty(domenOrIPData.Text) ||
                 //Или пустое значение между "  " при записи доменного имени
-                
-                (domenOrIPv4Check == 0 && String.IsNullOrEmpty(domenOrIPData.Text.Substring(1, domenOrIPData.Text.Length - 2)))) { 
+                (domenOrIPv4Check == 0 && domenOrIPData.Text.Length > 1 && domenOrIPData.Text.StartsWith("\"") && domenOrIPData.Text.EndsWith("\"")
+                && String.IsNullOrEmpty(domenOrIPData.Text.Substring(1, domenOrIPData.Text.Length - 2).Trim()))) { 
 
                 dataToPort = "USERHOST N=" + numbServerProperties + " ALL=X";
 
@@ -345,10 +336,12 @@ namespace GSM_NBIoT_Module.view {
 
                 //Если должно поступить на вход доменное имя
                 switch (domenOrIPv4Check) {
+                    
+
                     case 0: {
                             char[] domenNameArr = domenOrIPData.Text.ToCharArray();
 
-                            if (domenNameArr[0] != '\"' || domenNameArr[domenNameArr.Length - 1] != '\"') {
+                            if (domenNameArr.Length < 2 || (domenNameArr[0] != '\"' || domenNameArr[domenNameArr.Length - 1] != '\"')) {
                                 domenOrIPData.Focus();
                                 domenOrIPData.SelectAll();
                                 throw new FormatException("Доменное имя должно содержать знак \" в начале и конце");
@@ -430,7 +423,7 @@ namespace GSM_NBIoT_Module.view {
                             try {
 
                                 //Потому что Сергей просит добавлять 0 если сокращённая запись находится в начеле или конце (вместо ::FF писать 0::FF). Это вызывает проблемы если 6 хекстетов уже есть
-                                //Но впереди обязательно нужен ноль, тогда Сергей считает, что уже больше кестетов (пример проблемы ::1:2:3:4:5:6 Сергей считает, что это неверный формат)
+                                //Но впереди обязательно нужен ноль, тогда Сергей считает, что уже больше хестетов (пример проблемы ::1:2:3:4:5:6 Сергей считает, что это неверный формат)
                                 if ((domenOrIPData.Text.IndexOf("::") == 0) &&
                                     domenOrIPData.Text.Split(':').Length == 8) {
 
@@ -1109,7 +1102,14 @@ namespace GSM_NBIoT_Module.view {
                 Properties.Settings.Default.Save();
 
                 try {
+                    connectOnCOMterminal = flasMainForm.getStateConnectionOnCOMofTerminalForm();
+                    if (connectOnCOMterminal) {
+                        flasMainForm.performClickConnOfTerminalForm();
+                    }
+
                     checkValidParametersForScrypt();
+
+                    if (connectOnCOMterminal) flasMainForm.performClickConnOfTerminalForm();
 
                     ModemConfigScript modemConfigScript = new ModemConfigScript(generateUserHostParametersForTheScript() + "\n" + generateConnectingParametersForTheScript());
 
