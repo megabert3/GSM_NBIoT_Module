@@ -167,7 +167,7 @@ namespace GSM_NBIoT_Module.view {
 
                 Cursor = Cursors.WaitCursor;
 
-                getNbModemPort();
+                enhancedCOMtxtBx.Text = getNbModemPort().ToString();
                 checkGPIO_CP2105();
 
                 if (!serialPort.IsOpen) serialPort.Open();
@@ -182,7 +182,17 @@ namespace GSM_NBIoT_Module.view {
                 protocolIdTxtBx.Text = deviceParams["PROT_ID"];
                 IndexTxtBx.Text = deviceParams["IDX"];
                 copyIDTxtBx.Text = deviceParams["COPY_ID"];
-                modemImeiTxtBx.Text = getModemIMEI();
+
+                Dictionary<string, string> MDMIMIDParams = getMDMIMIDCommandParams();
+                modemImeiTxtBx.Text = MDMIMIDParams["IMEI"];
+                IMSItxtBx.Text = MDMIMIDParams["IMSI"];
+                ICCIDtxtBx.Text = MDMIMIDParams["ICCID"];
+
+                Dictionary<string, string> baseHost = getBaseHostParams();
+                hostIPTxtBx.Text = baseHost["IP"];
+                hostPortTxtBx.Text = baseHost["PORT"];
+
+                APNtxtBx.Text = getAPNParams()["BASE"];
 
                 getCustomSettingsServers();
 
@@ -602,17 +612,20 @@ namespace GSM_NBIoT_Module.view {
         }
 
         /// <summary>
-        /// Возвращает значение IMEI модема
+        /// Возвращает значения команды MDMIMID модема
+        /// <br>Ключ IMEI</br>
+        /// <br>Ключ IMSI</br>
+        /// <br>Ключ ICCID</br>
         /// </summary>
         /// <returns></returns>
-        private string getModemIMEI() {
+        private Dictionary<string, string> getMDMIMIDCommandParams() {
 
             if (!serialPort.IsOpen) serialPort.Open();
 
             serialPort.WriteLine("MDMIMID");
 
             long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
-            string line = "";
+            string line;
 
             //Пока не вышло время по таймауту
             while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
@@ -628,14 +641,115 @@ namespace GSM_NBIoT_Module.view {
                     //Пример ответа: MDMIMID (IMEI:) (IMSI:) (ICCID:) OK
                     if (line.Contains("Za) MDMIMID") && line.EndsWith("OK")) {
 
-                        string[] arrLine = line.Split(':');
+                        string[] arrLine = line.Split('(');
+                        string imei = arrLine[1].Substring(arrLine[1].IndexOf(':') + 1, arrLine[1].LastIndexOf(')') - (arrLine[1].IndexOf(':') + 1));
+                        string imsi = arrLine[2].Substring(arrLine[2].IndexOf(':') + 1, arrLine[2].LastIndexOf(')') - (arrLine[2].IndexOf(':') + 1));
+                        string iccid = arrLine[3].Substring(arrLine[3].IndexOf(':') + 1, arrLine[3].LastIndexOf(')') - (arrLine[3].IndexOf(':') + 1));
 
-                        return arrLine[1].Substring(0, arrLine[1].IndexOf(')'));
+                        return new Dictionary<string, string>() { { "IMEI", imei }, { "IMSI", imsi }, { "ICCID", iccid} };
 
                     } else if (line.Contains("MDMIMID") && line.Contains("ERROR")) {
 
                         if (serialPort.IsOpen) serialPort.Close();
                         throw new MKCommandException("Ответ микроконтроллера на команду \"MDMIMID\": " + line);
+                    }
+                }
+            }
+
+            if (serialPort.IsOpen) serialPort.Close();
+            throw new TimeoutException("Превышено время ожидания ответа от микроконтроллера");
+        }
+
+        /// <summary>
+        /// Возвращает данные на команду BASEHOST с микроконтроллера
+        /// <br>Ключ "IP" выдаёт доменное имя или IP базового сервера</br>
+        /// <br>Ключ "PORT" выдаёт порт базового сервера</br>
+        /// </summary>
+        /// <returns></returns>
+        private Dictionary<string, string> getBaseHostParams() {
+
+            if (!serialPort.IsOpen) serialPort.Open();
+
+            serialPort.WriteLine("BASEHOST");
+
+            long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+            string line;
+
+            //Пока не вышло время по таймауту
+            while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
+
+                //Если данные пришли в порт
+                while (serialPort.BytesToRead != 0) {
+
+                    //Обновляю таймаут
+                    endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+
+                    /*Zc) BASEHOST
+                    Za) BASEHOST (IP:0::FF) (PORT:1243) OK*/
+                    line = serialPort.ReadLine();
+
+                    if (line.Contains("Za) BASEHOST") && line.EndsWith("OK")) {
+
+                        string[] arrLine = line.Split('(');
+
+                        string ip = arrLine[1].Substring(arrLine[1].IndexOf(':') + 1, arrLine[1].LastIndexOf(')') - (arrLine[1].IndexOf(':') + 1));
+                        string port = arrLine[2].Substring(arrLine[2].IndexOf(':') + 1, arrLine[2].LastIndexOf(')') - (arrLine[2].IndexOf(':') + 1));
+
+                        return new Dictionary<string, string>() { { "IP", ip}, {"PORT", port } };
+
+                    } else if (line.Contains("BASEHOST") && line.Contains("ERROR")) {
+
+                        if (serialPort.IsOpen) serialPort.Close();
+                        throw new MKCommandException("Ответ микроконтроллера на команду \"BASEHOST\": " + line);
+                    }
+                }
+            }
+
+            if (serialPort.IsOpen) serialPort.Close();
+            throw new TimeoutException("Превышено время ожидания ответа от микроконтроллера");
+        }
+
+        /// <summary>
+        /// Возвращает данные на команду BASEHOST с микроконтроллера
+        /// <br>Ключ "IP" выдаёт доменное имя или IP базового сервера</br>
+        /// <br>Ключ "PORT" выдаёт порт базового сервера</br>
+        /// </summary>
+        /// <returns></returns>
+        private Dictionary<string, string> getAPNParams() {
+
+            if (!serialPort.IsOpen) serialPort.Open();
+
+            serialPort.WriteLine("APN");
+
+            long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+            string line;
+
+            //Пока не вышло время по таймауту
+            while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
+
+                //Если данные пришли в порт
+                while (serialPort.BytesToRead != 0) {
+
+                    //Обновляю таймаут
+                    endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
+
+                    /*Zc) APN
+                    Za) APN (BASE:"testTestovskiy") (USER:) OK*/
+                    line = serialPort.ReadLine();
+
+                    if (line.Contains("Za) APN") && line.EndsWith("OK")) {
+
+                        string[] arrLine = line.Split('(');
+
+                        string BASE = arrLine[1].Substring(arrLine[1].IndexOf(':') + 1, arrLine[1].LastIndexOf(')') - (arrLine[1].IndexOf(':') + 1));
+                        string user = arrLine[2].Substring(arrLine[2].IndexOf(':') + 1, arrLine[2].LastIndexOf(')') - (arrLine[2].IndexOf(':') + 1));
+
+                        return new Dictionary<string, string>() { { "BASE", BASE }, { "USER", user } };
+
+                    } else if (line.Contains("APN") && line.Contains("ERROR")) {
+
+                        if (serialPort.IsOpen) serialPort.Close();
+                        throw new MKCommandException("Ответ микроконтроллера на команду \"BASEHOST\": " + line);
                     }
                 }
             }
@@ -1819,6 +1933,7 @@ namespace GSM_NBIoT_Module.view {
 
                     case "TRYLIMIT": {
                             tryLimitLabel.Text = "От " + minValues[param.Key] + " до " + maxValues[param.Key] + ". Значение по умолчанию " + param.Value;
+                            trylimitMsdTxtBx.Mask = new string ('0', maxValues[param.Key].Length);
                         } break;
 
                     case "SESSLIMIT": {
