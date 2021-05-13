@@ -1517,7 +1517,7 @@ namespace GSM_NBIoT_Module.view {
                         using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.OpenOrCreate)) {
                             script = (ModemConfigScript)new BinaryFormatter().Deserialize(fs);
                         }
-                    } catch (InvalidCastException ex) {
+                    } catch (InvalidCastException) {
                         throw new InvalidCastException("Выбранный файл не является файлом для конфигурации модема");
                     }
 
@@ -1734,7 +1734,6 @@ namespace GSM_NBIoT_Module.view {
                     default: {
                             throw new ArgumentException("Настройки сервера №" + userHostParsmsArr[0] + " не предусмотрены");
                         }
-                        break;
                 }
 
             } else {

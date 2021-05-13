@@ -24,6 +24,7 @@ namespace GSM_NBIoT_Module.view {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModemConfig));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.ZPORTcommandsDataGridView = new System.Windows.Forms.DataGridView();
@@ -93,24 +94,38 @@ namespace GSM_NBIoT_Module.view {
             this.holdTimeMsdTxtBx = new System.Windows.Forms.MaskedTextBox();
             this.holdTimeLabel = new System.Windows.Forms.Label();
             this.cancelBtn = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.verFWTxtBx = new System.Windows.Forms.TextBox();
             this.verProtTxtBx = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.refreshInfoBtn = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label20 = new System.Windows.Forms.Label();
             this.createScript = new System.Windows.Forms.Button();
-            this.copyIDTxtBx = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.IndexTxtBx = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
             this.tergetIdTxtBx = new System.Windows.Forms.TextBox();
             this.protocolIdTxtBx = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.modemImeiTxtBx = new System.Windows.Forms.TextBox();
             this.loadScript = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.copyIDTxtBx = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.IndexTxtBx = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -143,27 +158,32 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tableLayoutPanel13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer1.Location = new System.Drawing.Point(1, 106);
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.ZPORTcommandsDataGridView);
+            this.splitContainer1.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.userHostTableLayoutPanel);
             this.splitContainer1.Panel2.Controls.Add(this.connectingTableLayoutPanel);
-            this.splitContainer1.Size = new System.Drawing.Size(791, 502);
-            this.splitContainer1.SplitterDistance = 247;
+            this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.splitContainer1.Size = new System.Drawing.Size(801, 499);
+            this.splitContainer1.SplitterDistance = 256;
             this.splitContainer1.TabIndex = 0;
             // 
             // ZPORTcommandsDataGridView
@@ -186,7 +206,7 @@ namespace GSM_NBIoT_Module.view {
             this.ZPORTcommandsDataGridView.ReadOnly = true;
             this.ZPORTcommandsDataGridView.RowHeadersVisible = false;
             this.ZPORTcommandsDataGridView.ShowCellToolTips = false;
-            this.ZPORTcommandsDataGridView.Size = new System.Drawing.Size(245, 500);
+            this.ZPORTcommandsDataGridView.Size = new System.Drawing.Size(254, 497);
             this.ZPORTcommandsDataGridView.TabIndex = 0;
             this.ZPORTcommandsDataGridView.TabStop = false;
             this.ZPORTcommandsDataGridView.SelectionChanged += new System.EventHandler(this.ZPORTcommandsDataGridView_SelectionChanged);
@@ -212,7 +232,7 @@ namespace GSM_NBIoT_Module.view {
             this.userHostTableLayoutPanel.Name = "userHostTableLayoutPanel";
             this.userHostTableLayoutPanel.RowCount = 1;
             this.userHostTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.userHostTableLayoutPanel.Size = new System.Drawing.Size(532, 492);
+            this.userHostTableLayoutPanel.Size = new System.Drawing.Size(533, 489);
             this.userHostTableLayoutPanel.TabIndex = 1;
             // 
             // tableLayoutPanel4
@@ -233,7 +253,7 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(526, 486);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(527, 483);
             this.tableLayoutPanel4.TabIndex = 3;
             // 
             // groupBox3
@@ -241,9 +261,9 @@ namespace GSM_NBIoT_Module.view {
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.tableLayoutPanel6);
-            this.groupBox3.Location = new System.Drawing.Point(3, 193);
+            this.groupBox3.Location = new System.Drawing.Point(3, 191);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(520, 76);
+            this.groupBox3.Size = new System.Drawing.Size(521, 76);
             this.groupBox3.TabIndex = 26;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "1.3 Параметры сервера №2";
@@ -273,7 +293,7 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(512, 51);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(513, 51);
             this.tableLayoutPanel6.TabIndex = 3;
             // 
             // portTxtBx_3
@@ -281,7 +301,7 @@ namespace GSM_NBIoT_Module.view {
             this.portTxtBx_3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.portTxtBx_3.Location = new System.Drawing.Point(361, 28);
             this.portTxtBx_3.Name = "portTxtBx_3";
-            this.portTxtBx_3.Size = new System.Drawing.Size(148, 20);
+            this.portTxtBx_3.Size = new System.Drawing.Size(149, 20);
             this.portTxtBx_3.TabIndex = 14;
             // 
             // ipDomenNameTxtBx_3
@@ -365,9 +385,9 @@ namespace GSM_NBIoT_Module.view {
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.tableLayoutPanel5);
-            this.groupBox1.Location = new System.Drawing.Point(3, 98);
+            this.groupBox1.Location = new System.Drawing.Point(3, 97);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(520, 77);
+            this.groupBox1.Size = new System.Drawing.Size(521, 77);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "1.2 Параметры сервера №1";
@@ -397,7 +417,7 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(512, 51);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(513, 51);
             this.tableLayoutPanel5.TabIndex = 3;
             // 
             // portTxtBx_2
@@ -405,7 +425,7 @@ namespace GSM_NBIoT_Module.view {
             this.portTxtBx_2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.portTxtBx_2.Location = new System.Drawing.Point(361, 28);
             this.portTxtBx_2.Name = "portTxtBx_2";
-            this.portTxtBx_2.Size = new System.Drawing.Size(148, 20);
+            this.portTxtBx_2.Size = new System.Drawing.Size(149, 20);
             this.portTxtBx_2.TabIndex = 4;
             // 
             // panel2
@@ -491,7 +511,7 @@ namespace GSM_NBIoT_Module.view {
             this.groupBox2.Controls.Add(this.tableLayoutPanel3);
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(520, 74);
+            this.groupBox2.Size = new System.Drawing.Size(521, 74);
             this.groupBox2.TabIndex = 24;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "1.1 Параметры сервера №0";
@@ -521,7 +541,7 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(512, 51);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(513, 51);
             this.tableLayoutPanel3.TabIndex = 3;
             // 
             // portTxtBx_1
@@ -529,7 +549,7 @@ namespace GSM_NBIoT_Module.view {
             this.portTxtBx_1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.portTxtBx_1.Location = new System.Drawing.Point(361, 28);
             this.portTxtBx_1.Name = "portTxtBx_1";
-            this.portTxtBx_1.Size = new System.Drawing.Size(148, 20);
+            this.portTxtBx_1.Size = new System.Drawing.Size(149, 20);
             this.portTxtBx_1.TabIndex = 5;
             // 
             // ipDomenNameTxtBx_1
@@ -550,7 +570,7 @@ namespace GSM_NBIoT_Module.view {
             this.panel1.Controls.Add(this.IPv4RdBtn_1);
             this.panel1.Location = new System.Drawing.Point(54, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(248, 18);
+            this.panel1.Size = new System.Drawing.Size(250, 18);
             this.panel1.TabIndex = 3;
             // 
             // IPv6RdBtn_1
@@ -611,7 +631,7 @@ namespace GSM_NBIoT_Module.view {
             // setServersSettingsBtn
             // 
             this.setServersSettingsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.setServersSettingsBtn.Location = new System.Drawing.Point(426, 460);
+            this.setServersSettingsBtn.Location = new System.Drawing.Point(427, 457);
             this.setServersSettingsBtn.Name = "setServersSettingsBtn";
             this.setServersSettingsBtn.Size = new System.Drawing.Size(97, 23);
             this.setServersSettingsBtn.TabIndex = 0;
@@ -631,7 +651,7 @@ namespace GSM_NBIoT_Module.view {
             this.connectingTableLayoutPanel.Name = "connectingTableLayoutPanel";
             this.connectingTableLayoutPanel.RowCount = 1;
             this.connectingTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.connectingTableLayoutPanel.Size = new System.Drawing.Size(532, 491);
+            this.connectingTableLayoutPanel.Size = new System.Drawing.Size(533, 488);
             this.connectingTableLayoutPanel.TabIndex = 2;
             // 
             // tableLayoutPanel2
@@ -662,7 +682,7 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28907F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(526, 485);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(527, 482);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // groupBox11
@@ -670,9 +690,9 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel2.SetColumnSpan(this.groupBox11, 2);
             this.groupBox11.Controls.Add(this.tableLayoutPanel12);
             this.groupBox11.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox11.Location = new System.Drawing.Point(3, 375);
+            this.groupBox11.Location = new System.Drawing.Point(3, 369);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(520, 53);
+            this.groupBox11.Size = new System.Drawing.Size(521, 53);
             this.groupBox11.TabIndex = 35;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "2.7. Время удержания входящего соединения при отсутствии поступления данных от сч" +
@@ -715,9 +735,9 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel2.SetColumnSpan(this.groupBox9, 2);
             this.groupBox9.Controls.Add(this.tableLayoutPanel10);
             this.groupBox9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox9.Location = new System.Drawing.Point(3, 251);
+            this.groupBox9.Location = new System.Drawing.Point(3, 247);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(520, 53);
+            this.groupBox9.Size = new System.Drawing.Size(521, 53);
             this.groupBox9.TabIndex = 33;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "2.5. Предельное время сеанса связи (hh:mm:ss)";
@@ -759,9 +779,9 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel2.SetColumnSpan(this.groupBox8, 2);
             this.groupBox8.Controls.Add(this.tableLayoutPanel9);
             this.groupBox8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox8.Location = new System.Drawing.Point(3, 189);
+            this.groupBox8.Location = new System.Drawing.Point(3, 186);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(520, 53);
+            this.groupBox8.Size = new System.Drawing.Size(521, 53);
             this.groupBox8.TabIndex = 32;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "2.4. Количество попыток связи с сервером (количество)";
@@ -803,9 +823,9 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel2.SetColumnSpan(this.groupBox7, 2);
             this.groupBox7.Controls.Add(this.tableLayoutPanel8);
             this.groupBox7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox7.Location = new System.Drawing.Point(3, 127);
+            this.groupBox7.Location = new System.Drawing.Point(3, 125);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(520, 53);
+            this.groupBox7.Size = new System.Drawing.Size(521, 53);
             this.groupBox7.TabIndex = 31;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "2.3. Время ожидания ответа сервера (hh:mm:ss)";
@@ -847,9 +867,9 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel2.SetColumnSpan(this.groupBox6, 2);
             this.groupBox6.Controls.Add(this.tableLayoutPanel7);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox6.Location = new System.Drawing.Point(3, 65);
+            this.groupBox6.Location = new System.Drawing.Point(3, 64);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(520, 53);
+            this.groupBox6.Size = new System.Drawing.Size(521, 53);
             this.groupBox6.TabIndex = 30;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "2.2. Периодичность инициации сеансов связи с базовым сервером (hh:mm:ss)";
@@ -893,7 +913,7 @@ namespace GSM_NBIoT_Module.view {
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox5.Location = new System.Drawing.Point(3, 3);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(520, 53);
+            this.groupBox5.Size = new System.Drawing.Size(521, 53);
             this.groupBox5.TabIndex = 29;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "2.1. Периодичность инициации сеансов связи с серверами (hh:mm:ss)";
@@ -933,7 +953,7 @@ namespace GSM_NBIoT_Module.view {
             // connectingAcceptBtn
             // 
             this.connectingAcceptBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.connectingAcceptBtn.Location = new System.Drawing.Point(426, 459);
+            this.connectingAcceptBtn.Location = new System.Drawing.Point(427, 456);
             this.connectingAcceptBtn.Name = "connectingAcceptBtn";
             this.connectingAcceptBtn.Size = new System.Drawing.Size(97, 23);
             this.connectingAcceptBtn.TabIndex = 7;
@@ -946,9 +966,9 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel2.SetColumnSpan(this.groupBox10, 2);
             this.groupBox10.Controls.Add(this.tableLayoutPanel11);
             this.groupBox10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox10.Location = new System.Drawing.Point(3, 313);
+            this.groupBox10.Location = new System.Drawing.Point(3, 308);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(520, 53);
+            this.groupBox10.Size = new System.Drawing.Size(521, 53);
             this.groupBox10.TabIndex = 34;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "2.6. Время удержания сеанса связи при отсутствии обмена данными (hh:mm:ss)";
@@ -988,7 +1008,7 @@ namespace GSM_NBIoT_Module.view {
             // cancelBtn
             // 
             this.cancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelBtn.Location = new System.Drawing.Point(695, 626);
+            this.cancelBtn.Location = new System.Drawing.Point(727, 574);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(93, 23);
             this.cancelBtn.TabIndex = 19;
@@ -996,43 +1016,37 @@ namespace GSM_NBIoT_Module.view {
             this.cancelBtn.UseVisualStyleBackColor = true;
             this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
             // 
-            // label3
-            // 
-            this.label3.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label3.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.label3.Location = new System.Drawing.Point(14, 55);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 30);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Прошивка микроконтроллера";
-            // 
             // verFWTxtBx
             // 
-            this.verFWTxtBx.Location = new System.Drawing.Point(120, 60);
+            this.verFWTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.verFWTxtBx.Location = new System.Drawing.Point(117, 5);
             this.verFWTxtBx.Name = "verFWTxtBx";
             this.verFWTxtBx.ReadOnly = true;
-            this.verFWTxtBx.Size = new System.Drawing.Size(100, 20);
+            this.verFWTxtBx.Size = new System.Drawing.Size(172, 20);
             this.verFWTxtBx.TabIndex = 5;
             // 
             // verProtTxtBx
             // 
-            this.verProtTxtBx.Location = new System.Drawing.Point(338, 60);
+            this.verProtTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.verProtTxtBx.Location = new System.Drawing.Point(375, 5);
             this.verProtTxtBx.Name = "verProtTxtBx";
             this.verProtTxtBx.ReadOnly = true;
-            this.verProtTxtBx.Size = new System.Drawing.Size(100, 20);
+            this.verProtTxtBx.Size = new System.Drawing.Size(172, 20);
             this.verProtTxtBx.TabIndex = 6;
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(232, 63);
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label4.Location = new System.Drawing.Point(295, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 13);
+            this.label4.Size = new System.Drawing.Size(62, 30);
             this.label4.TabIndex = 5;
             this.label4.Text = "Версия протокола";
             // 
             // refreshInfoBtn
             // 
-            this.refreshInfoBtn.Location = new System.Drawing.Point(667, 58);
+            this.refreshInfoBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.refreshInfoBtn.Location = new System.Drawing.Point(699, 11);
             this.refreshInfoBtn.Name = "refreshInfoBtn";
             this.refreshInfoBtn.Size = new System.Drawing.Size(85, 23);
             this.refreshInfoBtn.TabIndex = 8;
@@ -1040,107 +1054,59 @@ namespace GSM_NBIoT_Module.view {
             this.refreshInfoBtn.UseVisualStyleBackColor = true;
             this.refreshInfoBtn.Click += new System.EventHandler(this.refreshInfo_Click);
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.label20);
-            this.groupBox4.Controls.Add(this.createScript);
-            this.groupBox4.Controls.Add(this.copyIDTxtBx);
-            this.groupBox4.Controls.Add(this.label14);
-            this.groupBox4.Controls.Add(this.IndexTxtBx);
-            this.groupBox4.Controls.Add(this.label16);
-            this.groupBox4.Controls.Add(this.tergetIdTxtBx);
-            this.groupBox4.Controls.Add(this.protocolIdTxtBx);
-            this.groupBox4.Controls.Add(this.label18);
-            this.groupBox4.Controls.Add(this.label12);
-            this.groupBox4.Controls.Add(this.modemImeiTxtBx);
-            this.groupBox4.Controls.Add(this.label3);
-            this.groupBox4.Controls.Add(this.refreshInfoBtn);
-            this.groupBox4.Controls.Add(this.verFWTxtBx);
-            this.groupBox4.Controls.Add(this.verProtTxtBx);
-            this.groupBox4.Controls.Add(this.label4);
-            this.groupBox4.Location = new System.Drawing.Point(1, 4);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(787, 96);
-            this.groupBox4.TabIndex = 8;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Информация о модеме";
-            // 
             // label20
             // 
-            this.label20.Location = new System.Drawing.Point(545, 18);
+            this.label20.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label20.Location = new System.Drawing.Point(553, 1);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(62, 28);
+            this.label20.Size = new System.Drawing.Size(60, 28);
             this.label20.TabIndex = 17;
             this.label20.Text = "ID копии прошивки";
             // 
             // createScript
             // 
+            this.createScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.createScript.Image = global::GSM_NBIoT_Module.Properties.Resources.prototype_15px;
-            this.createScript.Location = new System.Drawing.Point(754, 58);
+            this.createScript.Location = new System.Drawing.Point(790, 11);
             this.createScript.Name = "createScript";
             this.createScript.Size = new System.Drawing.Size(23, 23);
             this.createScript.TabIndex = 9;
             this.createScript.UseVisualStyleBackColor = true;
             this.createScript.Click += new System.EventHandler(this.createScript_Click);
             // 
-            // copyIDTxtBx
-            // 
-            this.copyIDTxtBx.Location = new System.Drawing.Point(609, 23);
-            this.copyIDTxtBx.Name = "copyIDTxtBx";
-            this.copyIDTxtBx.ReadOnly = true;
-            this.copyIDTxtBx.Size = new System.Drawing.Size(164, 20);
-            this.copyIDTxtBx.TabIndex = 4;
-            // 
             // label14
             // 
+            this.label14.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(376, 26);
+            this.label14.Location = new System.Drawing.Point(553, 54);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(33, 13);
             this.label14.TabIndex = 15;
             this.label14.Text = "Index";
             // 
-            // IndexTxtBx
-            // 
-            this.IndexTxtBx.Location = new System.Drawing.Point(415, 23);
-            this.IndexTxtBx.Name = "IndexTxtBx";
-            this.IndexTxtBx.ReadOnly = true;
-            this.IndexTxtBx.Size = new System.Drawing.Size(111, 20);
-            this.IndexTxtBx.TabIndex = 3;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label16.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.label16.Location = new System.Drawing.Point(17, 26);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(52, 13);
-            this.label16.TabIndex = 10;
-            this.label16.Text = "Target ID";
-            // 
             // tergetIdTxtBx
             // 
-            this.tergetIdTxtBx.Location = new System.Drawing.Point(71, 23);
+            this.tergetIdTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tergetIdTxtBx.Location = new System.Drawing.Point(117, 51);
             this.tergetIdTxtBx.Name = "tergetIdTxtBx";
             this.tergetIdTxtBx.ReadOnly = true;
-            this.tergetIdTxtBx.Size = new System.Drawing.Size(100, 20);
+            this.tergetIdTxtBx.Size = new System.Drawing.Size(172, 20);
             this.tergetIdTxtBx.TabIndex = 1;
             // 
             // protocolIdTxtBx
             // 
-            this.protocolIdTxtBx.Location = new System.Drawing.Point(259, 23);
+            this.protocolIdTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.protocolIdTxtBx.Location = new System.Drawing.Point(375, 51);
             this.protocolIdTxtBx.Name = "protocolIdTxtBx";
             this.protocolIdTxtBx.ReadOnly = true;
-            this.protocolIdTxtBx.Size = new System.Drawing.Size(100, 20);
+            this.protocolIdTxtBx.Size = new System.Drawing.Size(172, 20);
             this.protocolIdTxtBx.TabIndex = 2;
             // 
             // label18
             // 
+            this.label18.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(183, 26);
+            this.label18.Location = new System.Drawing.Point(295, 54);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(70, 13);
             this.label18.TabIndex = 12;
@@ -1148,19 +1114,22 @@ namespace GSM_NBIoT_Module.view {
             // 
             // label12
             // 
+            this.label12.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(451, 63);
+            this.label12.Location = new System.Drawing.Point(3, 146);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(72, 13);
             this.label12.TabIndex = 9;
             this.label12.Text = "IMEI модема";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // modemImeiTxtBx
             // 
-            this.modemImeiTxtBx.Location = new System.Drawing.Point(529, 60);
+            this.modemImeiTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.modemImeiTxtBx.Location = new System.Drawing.Point(117, 143);
             this.modemImeiTxtBx.Name = "modemImeiTxtBx";
             this.modemImeiTxtBx.ReadOnly = true;
-            this.modemImeiTxtBx.Size = new System.Drawing.Size(132, 20);
+            this.modemImeiTxtBx.Size = new System.Drawing.Size(172, 20);
             this.modemImeiTxtBx.TabIndex = 7;
             // 
             // loadScript
@@ -1168,7 +1137,7 @@ namespace GSM_NBIoT_Module.view {
             this.loadScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.loadScript.Image = global::GSM_NBIoT_Module.Properties.Resources.inscription_15px;
             this.loadScript.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.loadScript.Location = new System.Drawing.Point(537, 626);
+            this.loadScript.Location = new System.Drawing.Point(569, 574);
             this.loadScript.Name = "loadScript";
             this.loadScript.Size = new System.Drawing.Size(152, 23);
             this.loadScript.TabIndex = 18;
@@ -1177,15 +1146,238 @@ namespace GSM_NBIoT_Module.view {
             this.loadScript.UseVisualStyleBackColor = true;
             this.loadScript.Click += new System.EventHandler(this.loadScript_Click);
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(5, 37);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(815, 531);
+            this.tabControl1.TabIndex = 20;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.splitContainer1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(807, 505);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Настройки параметров модема";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.tableLayoutPanel13);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(807, 505);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Информация о модеме";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel13
+            // 
+            this.tableLayoutPanel13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel13.ColumnCount = 6;
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 66F));
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel13.Controls.Add(this.groupBox14, 0, 7);
+            this.tableLayoutPanel13.Controls.Add(this.groupBox13, 0, 3);
+            this.tableLayoutPanel13.Controls.Add(this.modemImeiTxtBx, 1, 6);
+            this.tableLayoutPanel13.Controls.Add(this.label12, 0, 6);
+            this.tableLayoutPanel13.Controls.Add(this.textBox3, 5, 4);
+            this.tableLayoutPanel13.Controls.Add(this.label14, 4, 2);
+            this.tableLayoutPanel13.Controls.Add(this.label7, 4, 4);
+            this.tableLayoutPanel13.Controls.Add(this.copyIDTxtBx, 5, 0);
+            this.tableLayoutPanel13.Controls.Add(this.textBox2, 3, 4);
+            this.tableLayoutPanel13.Controls.Add(this.label6, 2, 4);
+            this.tableLayoutPanel13.Controls.Add(this.IndexTxtBx, 5, 2);
+            this.tableLayoutPanel13.Controls.Add(this.label20, 4, 0);
+            this.tableLayoutPanel13.Controls.Add(this.textBox1, 1, 4);
+            this.tableLayoutPanel13.Controls.Add(this.protocolIdTxtBx, 3, 2);
+            this.tableLayoutPanel13.Controls.Add(this.tergetIdTxtBx, 1, 2);
+            this.tableLayoutPanel13.Controls.Add(this.label18, 2, 2);
+            this.tableLayoutPanel13.Controls.Add(this.verFWTxtBx, 1, 0);
+            this.tableLayoutPanel13.Controls.Add(this.label4, 2, 0);
+            this.tableLayoutPanel13.Controls.Add(this.verProtTxtBx, 3, 0);
+            this.tableLayoutPanel13.Controls.Add(this.label5, 0, 4);
+            this.tableLayoutPanel13.Controls.Add(this.label8, 0, 2);
+            this.tableLayoutPanel13.Controls.Add(this.label9, 0, 0);
+            this.tableLayoutPanel13.Controls.Add(this.groupBox4, 0, 5);
+            this.tableLayoutPanel13.Controls.Add(this.groupBox12, 0, 1);
+            this.tableLayoutPanel13.Location = new System.Drawing.Point(6, 19);
+            this.tableLayoutPanel13.Name = "tableLayoutPanel13";
+            this.tableLayoutPanel13.RowCount = 8;
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(795, 185);
+            this.tableLayoutPanel13.TabIndex = 9;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox3.Location = new System.Drawing.Point(619, 97);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(173, 20);
+            this.textBox3.TabIndex = 15;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(553, 100);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(29, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "APN";
+            // 
+            // copyIDTxtBx
+            // 
+            this.copyIDTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.copyIDTxtBx.Location = new System.Drawing.Point(619, 5);
+            this.copyIDTxtBx.Name = "copyIDTxtBx";
+            this.copyIDTxtBx.ReadOnly = true;
+            this.copyIDTxtBx.Size = new System.Drawing.Size(173, 20);
+            this.copyIDTxtBx.TabIndex = 4;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox2.Location = new System.Drawing.Point(375, 97);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(172, 20);
+            this.textBox2.TabIndex = 12;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(295, 100);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(57, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Хост порт";
+            // 
+            // IndexTxtBx
+            // 
+            this.IndexTxtBx.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.IndexTxtBx.Location = new System.Drawing.Point(619, 51);
+            this.IndexTxtBx.Name = "IndexTxtBx";
+            this.IndexTxtBx.ReadOnly = true;
+            this.IndexTxtBx.Size = new System.Drawing.Size(173, 20);
+            this.IndexTxtBx.TabIndex = 3;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Location = new System.Drawing.Point(117, 97);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(172, 20);
+            this.textBox1.TabIndex = 10;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 100);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(44, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Хост IP";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 54);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(52, 13);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Target ID";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 2);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(104, 26);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "Прошивка микроконтроллера";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel13.SetColumnSpan(this.groupBox4, 6);
+            this.groupBox4.Location = new System.Drawing.Point(3, 125);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(789, 9);
+            this.groupBox4.TabIndex = 20;
+            this.groupBox4.TabStop = false;
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel13.SetColumnSpan(this.groupBox12, 6);
+            this.groupBox12.Location = new System.Drawing.Point(3, 33);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(789, 9);
+            this.groupBox12.TabIndex = 21;
+            this.groupBox12.TabStop = false;
+            // 
+            // groupBox13
+            // 
+            this.groupBox13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel13.SetColumnSpan(this.groupBox13, 6);
+            this.groupBox13.Location = new System.Drawing.Point(3, 79);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(789, 9);
+            this.groupBox13.TabIndex = 22;
+            this.groupBox13.TabStop = false;
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel13.SetColumnSpan(this.groupBox14, 6);
+            this.groupBox14.Location = new System.Drawing.Point(3, 172);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(789, 9);
+            this.groupBox14.TabIndex = 23;
+            this.groupBox14.TabStop = false;
+            // 
             // ModemConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(792, 659);
+            this.ClientSize = new System.Drawing.Size(824, 607);
+            this.Controls.Add(this.createScript);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.loadScript);
-            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.cancelBtn);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.refreshInfoBtn);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ModemConfig";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1237,8 +1429,12 @@ namespace GSM_NBIoT_Module.view {
             this.groupBox10.ResumeLayout(false);
             this.tableLayoutPanel11.ResumeLayout(false);
             this.tableLayoutPanel11.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tableLayoutPanel13.ResumeLayout(false);
+            this.tableLayoutPanel13.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1275,12 +1471,10 @@ namespace GSM_NBIoT_Module.view {
         private System.Windows.Forms.RadioButton IPv4RdBtn_1;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox verFWTxtBx;
         private System.Windows.Forms.TextBox verProtTxtBx;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button refreshInfoBtn;
-        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.MaskedTextBox periodMsdTxtBx;
         private System.Windows.Forms.MaskedTextBox serviceMsdTxtBx;
         private System.Windows.Forms.MaskedTextBox letwaitMsdTxtBx;
@@ -1319,17 +1513,33 @@ namespace GSM_NBIoT_Module.view {
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox modemImeiTxtBx;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox IndexTxtBx;
-        private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox tergetIdTxtBx;
         private System.Windows.Forms.TextBox protocolIdTxtBx;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox copyIDTxtBx;
         private System.Windows.Forms.Button createScript;
         private System.Windows.Forms.Button loadScript;
         private System.Windows.Forms.TextBox portTxtBx_3;
         private System.Windows.Forms.TextBox portTxtBx_2;
         private System.Windows.Forms.TextBox portTxtBx_1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
+        private System.Windows.Forms.TextBox copyIDTxtBx;
+        private System.Windows.Forms.TextBox IndexTxtBx;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox13;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.GroupBox groupBox14;
     }
 }
