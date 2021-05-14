@@ -58,6 +58,10 @@ namespace GSM_NBIoT_Module.view {
             ZPORTcommandsDataGridView.Rows.Add(row);
             ZPORTcommandsDataGridView.Rows[1].Cells[0].Value = "2. Параметры инициализации связи";
 
+            row = new DataGridViewRow();
+            ZPORTcommandsDataGridView.Rows.Add(row);
+            ZPORTcommandsDataGridView.Rows[2].Cells[0].Value = "3. Настройки входящего соединения";
+
             ZPORTcommandsDataGridView.Columns[0].Width = ZPORTcommandsDataGridView.Size.Width;
 
             //Параметры COM порта
@@ -83,6 +87,8 @@ namespace GSM_NBIoT_Module.view {
             domenNameRdBtn_1.PerformClick();
             domenNameRdBtn_2.PerformClick();
             domenNameRdBtn_3.PerformClick();
+
+            cmdKeyHexRdBt.CheckedChanged += cmdKeyRdBt_CheckedChanged;
 
             //Установка подсказок полям
             ToolTip toolTip = new ToolTip();
@@ -143,11 +149,18 @@ namespace GSM_NBIoT_Module.view {
             switch (i) {
                 case 0: {
                         userHostTableLayoutPanel.BringToFront();
-                    } break;
+                    }
+                    break;
 
                 case 1: {
                         connectingTableLayoutPanel.BringToFront();
-                    } break;
+                    }
+                    break;
+
+                case 2: {
+                        serverTabLytPnl.BringToFront();
+                    }
+                    break;
             }
         }
 
@@ -337,7 +350,7 @@ namespace GSM_NBIoT_Module.view {
             if (String.IsNullOrEmpty(domenOrIPData.Text) ||
                 //Или пустое значение между "  " при записи доменного имени
                 (domenOrIPv4Check == 0 && domenOrIPData.Text.Length > 1 && domenOrIPData.Text.StartsWith("\"") && domenOrIPData.Text.EndsWith("\"")
-                && String.IsNullOrEmpty(domenOrIPData.Text.Substring(1, domenOrIPData.Text.Length - 2).Trim()))) { 
+                && String.IsNullOrEmpty(domenOrIPData.Text.Substring(1, domenOrIPData.Text.Length - 2).Trim()))) {
 
                 dataToPort = "USERHOST N=" + numbServerProperties + " ALL=X";
 
@@ -346,7 +359,7 @@ namespace GSM_NBIoT_Module.view {
 
                 //Если должно поступить на вход доменное имя
                 switch (domenOrIPv4Check) {
-                    
+
 
                     case 0: {
                             char[] domenNameArr = domenOrIPData.Text.ToCharArray();
@@ -646,7 +659,7 @@ namespace GSM_NBIoT_Module.view {
                         string imsi = arrLine[2].Substring(arrLine[2].IndexOf(':') + 1, arrLine[2].LastIndexOf(')') - (arrLine[2].IndexOf(':') + 1));
                         string iccid = arrLine[3].Substring(arrLine[3].IndexOf(':') + 1, arrLine[3].LastIndexOf(')') - (arrLine[3].IndexOf(':') + 1));
 
-                        return new Dictionary<string, string>() { { "IMEI", imei }, { "IMSI", imsi }, { "ICCID", iccid} };
+                        return new Dictionary<string, string>() { { "IMEI", imei }, { "IMSI", imsi }, { "ICCID", iccid } };
 
                     } else if (line.Contains("MDMIMID") && line.Contains("ERROR")) {
 
@@ -695,7 +708,7 @@ namespace GSM_NBIoT_Module.view {
                         string ip = arrLine[1].Substring(arrLine[1].IndexOf(':') + 1, arrLine[1].LastIndexOf(')') - (arrLine[1].IndexOf(':') + 1));
                         string port = arrLine[2].Substring(arrLine[2].IndexOf(':') + 1, arrLine[2].LastIndexOf(')') - (arrLine[2].IndexOf(':') + 1));
 
-                        return new Dictionary<string, string>() { { "IP", ip}, {"PORT", port } };
+                        return new Dictionary<string, string>() { { "IP", ip }, { "PORT", port } };
 
                     } else if (line.Contains("BASEHOST") && line.Contains("ERROR")) {
 
@@ -811,7 +824,7 @@ namespace GSM_NBIoT_Module.view {
 
             serialPort.WriteLine("CONNECTING");
 
-            long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut; 
+            long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
             string line = "";
 
             //Пока не вышло время по таймауту
@@ -950,7 +963,7 @@ namespace GSM_NBIoT_Module.view {
             serialPort.WriteLine(comandInCOM);
 
             long endReadTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeOut;
-            string line = "";            
+            string line = "";
 
             //Пока не вышло время по таймауту
             while (DateTimeOffset.Now.ToUnixTimeMilliseconds() < endReadTime) {
@@ -1503,8 +1516,8 @@ namespace GSM_NBIoT_Module.view {
                     serviceMsdTxtBx.Focus();
                     serviceMsdTxtBx.SelectAll();
                     throw new ArgumentException("Периодичность инициации сеансов связи с базовым сервером не может быть меньше " + minValues["SERVICE"] + " и больше " + maxValues["SERVICE"]);
-                }   
-            }            
+                }
+            }
 
             //Время ожидания ответа сервера
             if (minValues.ContainsKey("LETWAIT")) {
@@ -1555,7 +1568,7 @@ namespace GSM_NBIoT_Module.view {
 
                 if (timeInSeconds < getSeconds(minValues["SESSLIMIT"]) || timeInSeconds > getSeconds(maxValues["SESSLIMIT"])) {
                     sesslimitMsdTxtBx.Focus();
-                    sesslimitMsdTxtBx.SelectAll();                    
+                    sesslimitMsdTxtBx.SelectAll();
                     throw new ArgumentException("Предельное время сеанса связи не может быть меньше " + minValues["SESSLIMIT"] + " и больше " + maxValues["SESSLIMIT"]);
                 }
             }
@@ -1699,7 +1712,7 @@ namespace GSM_NBIoT_Module.view {
                     if (!serialPort.IsOpen) serialPort.Close();
 
                     if (connectOnCOMterminal) flasMainForm.performClickConnOfTerminalForm();
-                    
+
                     refreshInfoBtn.PerformClick();
 
                     Flasher.successfullyDialog("Параметры из файла успешно записаны в модем", "Запись параметров");
@@ -1921,32 +1934,39 @@ namespace GSM_NBIoT_Module.view {
 
                     case "PERIOD": {
                             periodLabel.Text = "От " + minValues[param.Key] + " до " + maxValues[param.Key] + ". Значение по умолчанию " + param.Value;
-                        } break;
+                        }
+                        break;
 
                     case "SERVICE": {
                             serviceLabel.Text = "От " + minValues[param.Key] + " до " + maxValues[param.Key] + ". Значение по умолчанию " + param.Value;
-                        } break;
+                        }
+                        break;
 
                     case "LETWAIT": {
                             letWaitLabel.Text = "От " + minValues[param.Key] + " до " + maxValues[param.Key] + ". Значение по умолчанию " + param.Value;
-                        } break;
+                        }
+                        break;
 
                     case "TRYLIMIT": {
                             tryLimitLabel.Text = "От " + minValues[param.Key] + " до " + maxValues[param.Key] + ". Значение по умолчанию " + param.Value;
-                            trylimitMsdTxtBx.Mask = new string ('0', maxValues[param.Key].Length);
-                        } break;
+                            trylimitMsdTxtBx.Mask = new string('0', maxValues[param.Key].Length);
+                        }
+                        break;
 
                     case "SESSLIMIT": {
                             sessLimitLabel.Text = "От " + minValues[param.Key] + " до " + maxValues[param.Key] + ". Значение по умолчанию " + param.Value;
-                        } break;
+                        }
+                        break;
 
                     case "HOLDTIME": {
                             holdTimeLabel.Text = "От " + minValues[param.Key] + " до " + maxValues[param.Key] + ". Значение по умолчанию " + param.Value;
-                        } break;
+                        }
+                        break;
 
                     case "INCOMHOLDTIME": {
                             incomHoldTimeLabel.Text = "От " + minValues[param.Key] + " до " + maxValues[param.Key] + ". Значение по умолчанию " + param.Value;
-                        } break;
+                        }
+                        break;
                 }
             }
         }
@@ -1992,37 +2012,44 @@ namespace GSM_NBIoT_Module.view {
                                         //Получаю значение времени периода
                                         string period = splitLine[i].Substring(splitLine[i].IndexOf(':') + 1, splitLine[i].LastIndexOf(')') - 1 - splitLine[i].IndexOf(':'));
                                         connectingTimesValues["PERIOD"] = parseTimeForMskTxtBox(period, false);
-                                    } break;
+                                    }
+                                    break;
 
                                 case "SERVICE": {
                                         string service = splitLine[i].Substring(splitLine[i].IndexOf(':') + 1, splitLine[i].LastIndexOf(')') - 1 - splitLine[i].IndexOf(':'));
                                         connectingTimesValues["SERVICE"] = parseTimeForMskTxtBox(service, false);
-                                    } break;
+                                    }
+                                    break;
 
                                 case "LETWAIT": {
                                         string letwait = splitLine[i].Substring(splitLine[i].IndexOf(':') + 1, splitLine[i].LastIndexOf(')') - 1 - splitLine[i].IndexOf(':'));
                                         connectingTimesValues["LETWAIT"] = parseTimeForMskTxtBox(letwait, false);
-                                    } break;
+                                    }
+                                    break;
 
                                 case "TRYLIMIT": {
                                         string trylimit = splitLine[i].Substring(splitLine[i].IndexOf(':') + 1, splitLine[i].LastIndexOf(')') - 1 - splitLine[i].IndexOf(':'));
                                         connectingTimesValues["TRYLIMIT"] = trylimit;
-                                    } break;
+                                    }
+                                    break;
 
                                 case "SESSLIMIT": {
                                         string sesslimit = splitLine[i].Substring(splitLine[i].IndexOf(':') + 1, splitLine[i].LastIndexOf(')') - 1 - splitLine[i].IndexOf(':'));
                                         connectingTimesValues["SESSLIMIT"] = parseTimeForMskTxtBox(sesslimit, false);
-                                    } break;
+                                    }
+                                    break;
 
                                 case "HOLDTIME": {
                                         string holdtime = splitLine[i].Substring(splitLine[i].IndexOf(':') + 1, splitLine[i].LastIndexOf(')') - 1 - splitLine[i].IndexOf(':'));
                                         connectingTimesValues["HOLDTIME"] = parseTimeForMskTxtBox(holdtime, false);
-                                    } break;
+                                    }
+                                    break;
 
                                 case "INCOMHOLDTIME": {
                                         string incomholdtime = splitLine[i].Substring(splitLine[i].IndexOf(':') + 1, splitLine[i].LastIndexOf(')') - 1 - splitLine[i].IndexOf(':'));
                                         connectingTimesValues["INCOMHOLDTIME"] = parseTimeForMskTxtBox(incomholdtime, false);
-                                    } break;
+                                    }
+                                    break;
                             }
                         }
 
@@ -2088,7 +2115,7 @@ namespace GSM_NBIoT_Module.view {
 
                         } else if (line.Contains("Za) CONNECTING") && line.Contains("ERROR")) {
                             if (serialPort.IsOpen) serialPort.Close();
-                            throw new MKCommandException("Ответ микроконтроллера на команду \"CONNECTING " + param  + "=MAX DEMO\" ERROR");
+                            throw new MKCommandException("Ответ микроконтроллера на команду \"CONNECTING " + param + "=MAX DEMO\" ERROR");
                         }
                     }
                 }
@@ -2217,6 +2244,54 @@ namespace GSM_NBIoT_Module.view {
         private void cancelBtn_Click(object sender, EventArgs e) {
             if (serialPort.IsOpen) Close();
             Close();
+        }
+
+        private string cmdKeyHexString = "";
+        private string cmdKeyTextString = "";
+        private void cmdKeyTxtBx_TextChanged(object sender, EventArgs e) {
+
+            if (cmdKeyHexRdBt.Checked) {
+
+                if (!String.IsNullOrEmpty(cmdKeyTxtBx.Text.Trim())) {
+
+                    string byteString = cmdKeyTxtBx.Text.Replace(" ", "");
+
+                    char[] byteStringCharArr = cmdKeyTxtBx.Text.Trim().ToCharArray();
+
+                    try {
+                        cmdKeyConvertTxtBx.Text = Encoding.ASCII.GetString(StringToByteArray(byteString));
+                        cmdKeyHexString = cmdKeyTxtBx.Text.Trim();
+                    } catch (ArgumentOutOfRangeException) { } catch (FormatException) {
+                        Flasher.exceptionDialog("Неверный формат ввода данных. Значение в одном октете должно быть в диапазоне от 00 до FF ");
+                        cmdKeyTxtBx.Text = new string(byteStringCharArr, 0, byteStringCharArr.Length - 2);
+                        cmdKeyTxtBx.Focus();
+                        cmdKeyTxtBx.SelectionStart = cmdKeyTxtBx.Text.Length;
+                    }
+                }
+
+            } else {
+                byte[] bytesString = Encoding.UTF8.GetBytes(cmdKeyTxtBx.Text);
+
+                cmdKeyConvertTxtBx.Text = string.Join(" ", bytesString.Select(i => i.ToString("X2")));
+                cmdKeyTextString = cmdKeyTxtBx.Text;
+            }
+        }
+
+        private byte[] StringToByteArray(string hex) {
+            return Enumerable.Range(0, hex.Length)
+                             .Where(x => x % 2 == 0)
+                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+                             .ToArray();
+        }
+
+        private void cmdKeyRdBt_CheckedChanged(object sender, EventArgs e) {
+
+            if (cmdKeyHexRdBt.Checked) {
+                cmdKeyTxtBx.Text = cmdKeyHexString;
+
+            } else {
+                cmdKeyTxtBx.Text = cmdKeyTextString;
+            }
         }
     }
 }

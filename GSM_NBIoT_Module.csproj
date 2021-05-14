@@ -63,6 +63,7 @@
     <Compile Include="classes\GSM_NBIoT_Module\BC92_Module.cs" />
     <Compile Include="classes\modemBoard\GSM3_Board.cs" />
     <Compile Include="classes\modemConfig\ModemConfigScript.cs" />
+    <Compile Include="classes\modemConfig\ZPORT protochol\ServerCommand.cs" />
     <Compile Include="classes\terminal\Macros.cs" />
     <Compile Include="classes\terminal\MacrosesGroupStorage.cs" />
     <Compile Include="classes\terminal\MacrosesGroup.cs" />
