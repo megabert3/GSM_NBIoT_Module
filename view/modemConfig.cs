@@ -2,6 +2,7 @@
 using GSM_NBIoT_Module.classes.applicationHelper;
 using GSM_NBIoT_Module.classes.applicationHelper.exceptions;
 using GSM_NBIoT_Module.classes.modemConfig;
+using GSM_NBIoT_Module.classes.modemConfig.ZPORT_protochol;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -210,6 +211,15 @@ namespace GSM_NBIoT_Module.view {
                 getCustomSettingsServers();
 
                 getCONNECTINGparametersAndSetInConnectingPanel();
+
+                //Test
+                /*ServerCommand.writeServerParams(
+                    ServerCommand.checkValidPortParameter("15"),
+                    ServerCommand.CMDKEYParamByte(StringToByteArray("61626364")),
+                    "IPV6",
+                    serialPort);*/
+
+                Dictionary<string, string> dic = ServerCommand.readServerCommnadParams(serialPort);
 
                 if (serialPort.IsOpen) serialPort.Close();
 
@@ -2261,6 +2271,7 @@ namespace GSM_NBIoT_Module.view {
                     try {
                         cmdKeyConvertTxtBx.Text = Encoding.ASCII.GetString(StringToByteArray(byteString));
                         cmdKeyHexString = cmdKeyTxtBx.Text.Trim();
+
                     } catch (ArgumentOutOfRangeException) { } catch (FormatException) {
                         Flasher.exceptionDialog("Неверный формат ввода данных. Значение в одном октете должно быть в диапазоне от 00 до FF ");
                         cmdKeyTxtBx.Text = new string(byteStringCharArr, 0, byteStringCharArr.Length - 2);
