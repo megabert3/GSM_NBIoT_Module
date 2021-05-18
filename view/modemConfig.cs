@@ -212,14 +212,17 @@ namespace GSM_NBIoT_Module.view {
 
                 getCONNECTINGparametersAndSetInConnectingPanel();
 
-                //Test
-                /*ServerCommand.writeServerParams(
-                    ServerCommand.checkValidPortParameter("15"),
-                    ServerCommand.CMDKEYParamByte(StringToByteArray("61626364")),
-                    "IPV6",
-                    serialPort);*/
+                //Установка значений параметров в вкладке Настройки входящего соединения
+                Dictionary<string, string> serverCommandParam = ServerCommand.readServerCommnadParams(serialPort);
+                IncomingConnectionPortTxtBx.Text = serverCommandParam["PORT"];
+                cmdKeyHexRdBt.Checked = true;
+                cmdKeyTxtBx.Text = serverCommandParam["CMDKEY"];
 
-                Dictionary<string, string> dic = ServerCommand.readServerCommnadParams(serialPort);
+                if (serverCommandParam["IP"].Equals("IPV4")) {
+                    priorityIPv4rb.Checked = true;
+                } else {
+                    priorityIPv6rb.Checked = true;
+                }
 
                 if (serialPort.IsOpen) serialPort.Close();
 
@@ -1248,7 +1251,10 @@ namespace GSM_NBIoT_Module.view {
 
                     if (connectOnCOMterminal) flasMainForm.performClickConnOfTerminalForm();
 
-                    ModemConfigScript modemConfigScript = new ModemConfigScript(generateUserHostParametersForTheScript() + "\n" + generateConnectingParametersForTheScript());
+                    ModemConfigScript modemConfigScript = new ModemConfigScript(
+                        generateUserHostParametersForTheScript() + "\n" +
+                        generateConnectingParametersForTheScript() + "\n" +
+                        generateServerParametersForTheScript());
 
                     using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.OpenOrCreate)) {
                         new BinaryFormatter().Serialize(fs, modemConfigScript);
@@ -1273,6 +1279,9 @@ namespace GSM_NBIoT_Module.view {
 
             //Проверка валидности значений в полях с вкладки параметры инициализации связи
             checkValidConnectingParameters();
+
+            //Проверка валидности порта из вкладки параметры порта входящего соединения
+            ServerCommand.checkValidPortParameter(IncomingConnectionPortTxtBx.Text);
         }
 
         /// <summary>
@@ -1353,6 +1362,30 @@ namespace GSM_NBIoT_Module.view {
                 "SESSLIMIT-" + sesslimitMsdTxtBx.Text + "\n" +
                 "HOLDTIME-" + holdTimeMsdTxtBx.Text + "\n" +
                 "INCOMHOLDTIME-" + incomholdtimeMskTxtBx.Text;
+        }
+
+        private string generateServerParametersForTheScript() {
+
+            string head = "Настройки входящего соединения";
+            string port = ServerCommand.checkValidPortParameter(IncomingConnectionPortTxtBx.Text);
+            string CMDKEY;
+
+            if (cmdKeyHexRdBt.Checked) {
+                CMDKEY = cmdKeyTxtBx.Text.Replace(" ", "");
+
+            } else {
+                CMDKEY = cmdKeyConvertTxtBx.Text.Replace(" ", "");
+            }
+
+            string ip;
+
+            if (priorityIPv4rb.Checked) ip = "IPV4";
+            else ip = "IPV6";
+
+            return head + "\n" + 
+                "PORT-" + port + "\n" +
+                "CMDKEY-" + CMDKEY + "\n" +
+                "IP-" + ip;
         }
 
         /// <summary>
@@ -1689,12 +1722,24 @@ namespace GSM_NBIoT_Module.view {
 
                                         while (i < scriptLines.Length) {
 
-                                            if (scriptLines[i].Equals("Настройка пользовательских серверов")) {
+                                            if (scriptLines[i].Equals("Настройки входящего соединения")) {
                                                 i--; //Для того чтобы эта строчка попала в switch
                                                 break;
                                             }
 
                                             parseAndSetConnectingParameters(scriptLines[i]);
+                                            i++;
+                                        }
+                                    }
+                                    break;
+
+                                case "Настройки входящего соединения": {
+
+                                        i++; //Перехожу к следующей строке со значениями для параметров инициализации связи
+
+                                        while (i < scriptLines.Length) {
+
+                                            parseAndSetServerParameters(scriptLines[i]);
                                             i++;
                                         }
                                     }
@@ -1718,6 +1763,8 @@ namespace GSM_NBIoT_Module.view {
                     checkValidConnectingParameters();
 
                     writeConnectingParameters();
+
+                    writeServerCommandParameters();
 
                     if (!serialPort.IsOpen) serialPort.Close();
 
@@ -1930,6 +1977,32 @@ namespace GSM_NBIoT_Module.view {
                         incomholdtimeMskTxtBx.Text = connectingParameterArr[1];
                     }
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Устанавливает параметры со скрипта во вкладку порт входяжего соединения
+        /// </summary>
+        /// <param name="line"></param>
+        private void parseAndSetServerParameters(string line) {
+            string[] lineArr = line.Split('-');
+
+            switch (lineArr[0]) {
+                case "PORT": {
+                        IncomingConnectionPortTxtBx.Text = lineArr[1];
+                    }break;
+
+                case "CMDKEY": {
+                        cmdKeyHexRdBt.Checked = true;
+                        cmdKeyTxtBx.Text = lineArr[1];
+                    }break;
+
+                case "IP": {
+                        if (lineArr[1].Equals("IPV4")) priorityIPv4rb.Checked = true;
+                        else priorityIPv6rb.Checked = true;
+                    }
+                    break;
+                    
             }
         }
 
@@ -2256,10 +2329,13 @@ namespace GSM_NBIoT_Module.view {
             Close();
         }
 
+        //Последнее значение HEX формата
         private string cmdKeyHexString = "";
+        //Последнее значение Str формата
         private string cmdKeyTextString = "";
         private void cmdKeyTxtBx_TextChanged(object sender, EventArgs e) {
 
+            //Есди выбран режим ввода в формате HEX
             if (cmdKeyHexRdBt.Checked) {
 
                 if (!String.IsNullOrEmpty(cmdKeyTxtBx.Text.Trim())) {
@@ -2269,7 +2345,7 @@ namespace GSM_NBIoT_Module.view {
                     char[] byteStringCharArr = cmdKeyTxtBx.Text.Trim().ToCharArray();
 
                     try {
-                        cmdKeyConvertTxtBx.Text = Encoding.ASCII.GetString(StringToByteArray(byteString));
+                        cmdKeyConvertTxtBx.Text = Encoding.GetEncoding("windows-1251").GetString(StringToByteArray(byteString));
                         cmdKeyHexString = cmdKeyTxtBx.Text.Trim();
 
                     } catch (ArgumentOutOfRangeException) { } catch (FormatException) {
@@ -2278,10 +2354,15 @@ namespace GSM_NBIoT_Module.view {
                         cmdKeyTxtBx.Focus();
                         cmdKeyTxtBx.SelectionStart = cmdKeyTxtBx.Text.Length;
                     }
+
+                } else {
+                    cmdKeyConvertTxtBx.Text = "";
+                    cmdKeyHexString = cmdKeyConvertTxtBx.Text;
                 }
 
+                //Если выбран режим ввода txt
             } else {
-                byte[] bytesString = Encoding.UTF8.GetBytes(cmdKeyTxtBx.Text);
+                byte[] bytesString = Encoding.GetEncoding("windows-1251").GetBytes(cmdKeyTxtBx.Text);
 
                 cmdKeyConvertTxtBx.Text = string.Join(" ", bytesString.Select(i => i.ToString("X2")));
                 cmdKeyTextString = cmdKeyTxtBx.Text;
@@ -2303,6 +2384,42 @@ namespace GSM_NBIoT_Module.view {
             } else {
                 cmdKeyTxtBx.Text = cmdKeyTextString;
             }
+        }
+
+        private void writeServerParametersBtn_Click(object sender, EventArgs e) {
+
+            try {
+                writeServerCommandParameters();
+
+                refreshInfoBtn.PerformClick();
+
+                Flasher.successfullyDialog("Параметры входящего соединения успешно записаны", "Параметры входящего соединения");
+
+            } catch (Exception ex) {
+                Flasher.exceptionDialog(ex.Message);
+            }
+        }
+
+        private void writeServerCommandParameters() {
+            string ip;
+
+            if (priorityIPv4rb.Checked) ip = "IPv4";
+            else ip = "IPv6";
+
+            byte[] dataCMDKEY;
+
+            if (cmdKeyHexRdBt.Checked) {
+                dataCMDKEY = StringToByteArray(cmdKeyTxtBx.Text.Replace(" ", ""));
+            } else {
+                dataCMDKEY = StringToByteArray(cmdKeyConvertTxtBx.Text.Replace(" ", ""));
+            }
+
+            ServerCommand.writeServerParams(
+                IncomingConnectionPortTxtBx.Text,
+                dataCMDKEY,
+                ip,
+                serialPort
+            );
         }
     }
 }

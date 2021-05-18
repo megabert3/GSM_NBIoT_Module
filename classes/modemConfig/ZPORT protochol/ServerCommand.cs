@@ -44,7 +44,7 @@ namespace GSM_NBIoT_Module.classes.modemConfig.ZPORT_protochol {
         /// </summary>
         /// <param name="CMDKEYvalue"></param>
         /// <returns></returns>
-        public static byte[] CMDKEYParamByte(byte[] CMDKEYvalue) {
+        private static byte[] CMDKEYParamByte(byte[] CMDKEYvalue) {
             List<byte> dataToCOM = new List<byte>();
             /* * – первый символ (начало литерала) и последний символ (конец 
                    литерала) должны быть ASCII ‘”’ (двойные кавычки) ;
@@ -53,13 +53,21 @@ namespace GSM_NBIoT_Module.classes.modemConfig.ZPORT_protochol {
                    должны экранироваться символом ‘\’, т.е. заменяться на пары символов 
                \” , \\  и \0 - \O соответственно */
 
+            //\"057abc\"
+
             if (CMDKEYvalue.Length < 4 || CMDKEYvalue.Length > 12)
                 throw new FormatException("Длинна ключа должна быть не меньше 4 и не больше 12");
 
-            foreach (byte b in CMDKEYvalue) {
-                if (b >= 00 && b <= 31 ||
-                    b == 55 ||
-                    b == 92) {
+            for (int i = 0; i < CMDKEYvalue.Length; i++) {
+
+                byte b = CMDKEYvalue[i];
+
+                if (b >= 00 && b <= 31) {
+                    b += 48;
+
+                    dataToCOM.AddRange(new byte[] { 92, b });
+
+                } else if (b == 34 || b == 92) {
 
                     dataToCOM.AddRange(new byte[] { 92, b });
 
@@ -82,6 +90,8 @@ namespace GSM_NBIoT_Module.classes.modemConfig.ZPORT_protochol {
                12:34:58.742 >> Zc) SERVER PORT=13; CMDKEY="89\=\:"; IP=IPV6;
                12:34:58.782 >> Za) SERVER (PORT:13) (CMDKEY:"89\=\:") (IP:IPV6) OK
             */
+            port = checkValidPortParameter(port);
+            CMDKEY = CMDKEYParamByte(CMDKEY);
 
             List<byte> dataToCOM = new List<byte>(80);
 
@@ -123,6 +133,14 @@ namespace GSM_NBIoT_Module.classes.modemConfig.ZPORT_protochol {
             throw new TimeoutException("Превышено время ожидания ответа от микроконтроллера");
         }
 
+        /// <summary>
+        /// Считывает установленные параметры в команде SERVER 
+        /// <rb>PORT - слушающий порт входящего соединения</rb>
+        /// <rb>CMDKEY - ключ перевода входящего соединения из прозрачного режима в режим обмена по протоколу MOST</rb>
+        /// <rb>IP - приоритет типа IP-адреса сервера</rb>
+        /// </summary>
+        /// <param name="serialPort"></param>
+        /// <returns></returns>
         public static Dictionary<string, string> readServerCommnadParams(SerialPort serialPort) {
 
             if (!serialPort.IsOpen) serialPort.Open();
@@ -147,7 +165,7 @@ namespace GSM_NBIoT_Module.classes.modemConfig.ZPORT_protochol {
 
                     if (dataByte == 13) {
 
-                        /*
+                        /*Пример возврата команды
                         14:42:50.513 >> Zc) SERVER
                         14:42:50.544 >> Za) SERVER (PORT:15) (CMDKEY:"abcd") (IP:IPV6) (CONTEXT:BASE) OK
                         */
@@ -217,19 +235,32 @@ namespace GSM_NBIoT_Module.classes.modemConfig.ZPORT_protochol {
 
             List<byte> CMDKEYwithoutEscaping = new List<byte>();
 
-            //Убираю все экранирующие знаки "/"
+            //Убираю все экранирующие знаки "/" для отображения во вью
             for (int i = 0; i < CMDKEY_dataBytes.Length; i++) {
+                //Если найден экранирующий
+                if (CMDKEY_dataBytes[i] == 92) {
 
-                try {
-                    if (CMDKEY_dataBytes[i] == 47 && CMDKEY_dataBytes[i + 1] != 47) {
-                        continue;
+                    //И это не последний символ
+                    if (CMDKEY_dataBytes[i] != CMDKEY_dataBytes.Length - 1) {
+
+                        byte b = CMDKEY_dataBytes[i + 1];
+
+                        //Если в текстовом диапазоне и экранирующий
+                        if (b >= 48 && b <= 79) {
+                            b -= 48;
+                        }
+
+                        CMDKEYwithoutEscaping.Add(b);
+                        i++;
                     }
-                } catch (IndexOutOfRangeException) { }
 
-                CMDKEYwithoutEscaping.Add(CMDKEY_dataBytes[i]);
+                    // Если без экранировки, то просто добавляю
+                } else {
+                    CMDKEYwithoutEscaping.Add(CMDKEY_dataBytes[i]);
+                }
             }
 
-            return string.Join(" ", CMDKEYwithoutEscaping.Select(i => i.ToString("X2"))); ;
+            return string.Join(" ", CMDKEYwithoutEscaping.Select(i => i.ToString("X2")));
         }
     }
 }

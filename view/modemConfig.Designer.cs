@@ -33,8 +33,8 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel15 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox18 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel19 = new System.Windows.Forms.TableLayoutPanel();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.priorityIPv6rb = new System.Windows.Forms.RadioButton();
+            this.priorityIPv4rb = new System.Windows.Forms.RadioButton();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel20 = new System.Windows.Forms.TableLayoutPanel();
             this.cmdKeyTxtBx = new System.Windows.Forms.TextBox();
@@ -46,7 +46,7 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel21 = new System.Windows.Forms.TableLayoutPanel();
             this.label24 = new System.Windows.Forms.Label();
             this.IncomingConnectionPortTxtBx = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.writeServerParametersBtn = new System.Windows.Forms.Button();
             this.connectingTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
@@ -280,7 +280,7 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel15.Controls.Add(this.groupBox18, 0, 2);
             this.tableLayoutPanel15.Controls.Add(this.groupBox19, 0, 1);
             this.tableLayoutPanel15.Controls.Add(this.groupBox20, 0, 0);
-            this.tableLayoutPanel15.Controls.Add(this.button1, 1, 3);
+            this.tableLayoutPanel15.Controls.Add(this.writeServerParametersBtn, 1, 3);
             this.tableLayoutPanel15.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel15.Name = "tableLayoutPanel15";
             this.tableLayoutPanel15.RowCount = 4;
@@ -312,8 +312,8 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel19.ColumnCount = 2;
             this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.tableLayoutPanel19.Controls.Add(this.radioButton2, 1, 0);
-            this.tableLayoutPanel19.Controls.Add(this.radioButton1, 0, 0);
+            this.tableLayoutPanel19.Controls.Add(this.priorityIPv6rb, 1, 0);
+            this.tableLayoutPanel19.Controls.Add(this.priorityIPv4rb, 0, 0);
             this.tableLayoutPanel19.Location = new System.Drawing.Point(6, 15);
             this.tableLayoutPanel19.Name = "tableLayoutPanel19";
             this.tableLayoutPanel19.RowCount = 1;
@@ -321,27 +321,27 @@ namespace GSM_NBIoT_Module.view {
             this.tableLayoutPanel19.Size = new System.Drawing.Size(508, 25);
             this.tableLayoutPanel19.TabIndex = 12;
             // 
-            // radioButton2
+            // priorityIPv6rb
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(104, 3);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(47, 17);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.Text = "IPv6";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.priorityIPv6rb.AutoSize = true;
+            this.priorityIPv6rb.Location = new System.Drawing.Point(104, 3);
+            this.priorityIPv6rb.Name = "priorityIPv6rb";
+            this.priorityIPv6rb.Size = new System.Drawing.Size(47, 17);
+            this.priorityIPv6rb.TabIndex = 1;
+            this.priorityIPv6rb.Text = "IPv6";
+            this.priorityIPv6rb.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // priorityIPv4rb
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(3, 3);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(47, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "IPv4";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.priorityIPv4rb.AutoSize = true;
+            this.priorityIPv4rb.Checked = true;
+            this.priorityIPv4rb.Location = new System.Drawing.Point(3, 3);
+            this.priorityIPv4rb.Name = "priorityIPv4rb";
+            this.priorityIPv4rb.Size = new System.Drawing.Size(47, 17);
+            this.priorityIPv4rb.TabIndex = 0;
+            this.priorityIPv4rb.TabStop = true;
+            this.priorityIPv4rb.Text = "IPv4";
+            this.priorityIPv4rb.UseVisualStyleBackColor = true;
             // 
             // groupBox19
             // 
@@ -467,15 +467,16 @@ namespace GSM_NBIoT_Module.view {
             this.IncomingConnectionPortTxtBx.Size = new System.Drawing.Size(162, 20);
             this.IncomingConnectionPortTxtBx.TabIndex = 25;
             // 
-            // button1
+            // writeServerParametersBtn
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(427, 456);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(97, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Записать";
-            this.button1.UseVisualStyleBackColor = true;
+            this.writeServerParametersBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.writeServerParametersBtn.Location = new System.Drawing.Point(427, 456);
+            this.writeServerParametersBtn.Name = "writeServerParametersBtn";
+            this.writeServerParametersBtn.Size = new System.Drawing.Size(97, 23);
+            this.writeServerParametersBtn.TabIndex = 7;
+            this.writeServerParametersBtn.Text = "Записать";
+            this.writeServerParametersBtn.UseVisualStyleBackColor = true;
+            this.writeServerParametersBtn.Click += new System.EventHandler(this.writeServerParametersBtn_Click);
             // 
             // connectingTableLayoutPanel
             // 
@@ -1888,14 +1889,14 @@ namespace GSM_NBIoT_Module.view {
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel19;
         private System.Windows.Forms.GroupBox groupBox19;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel20;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button writeServerParametersBtn;
         private System.Windows.Forms.GroupBox groupBox20;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel21;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TextBox cmdKeyTxtBx;
         private System.Windows.Forms.TextBox IncomingConnectionPortTxtBx;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton priorityIPv6rb;
+        private System.Windows.Forms.RadioButton priorityIPv4rb;
         private System.Windows.Forms.TextBox IMSItxtBx;
         private System.Windows.Forms.TextBox IndexTxtBx;
         private System.Windows.Forms.GroupBox groupBox15;
