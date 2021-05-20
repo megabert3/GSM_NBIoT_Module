@@ -41,7 +41,7 @@ namespace GSM_NBIoT_Module.view {
                     "\nПример записи: 66.254.114.41" +
                     "\nПри записи полностью пустого значения параметры сервера полностью удаляются";
 
-        private const string ipV6toolTipMess = "Формат записи IPv6 XXXX:XXXX:XXXX:XXXX:XXXX:XXXX:XXXX:XXXX, диапазон каждого значения X в одном поле (XXXX)\nдолжен быть в диапазоне от 0..F (HEX) " +
+        private const string ipV6toolTipMess = "Формат записи IPv6 XXXX:XXXX:XXXX:XXXX:XXXX:XXXX:XXXX:XXXX, диапазон каждого значения X в одном поле (XXXX)\nдолжен быть в диапазоне 0..F (HEX) " +
                     "\nПримеры записи:" +
                     "\n2001:0DB0:0000:123A:0000:0000:0000:0030" +
                     "\n2001:DB0:0:123A:0:0:0:30" +
@@ -132,6 +132,18 @@ namespace GSM_NBIoT_Module.view {
             toolTipForUserHostParam.ReshowDelay = 0;
             toolTipForUserHostParam.ShowAlways = true;
 
+            //Подсказака для вкладки порт входящего соединения
+            ToolTip toolTipProprtsiesServerCommand = new ToolTip();
+
+            toolTipProprtsiesServerCommand.SetToolTip(cmdKeyHexRdBt, "Режим ввода HEX\nПример: 05 A4 3B 12 8C FF");
+            toolTipProprtsiesServerCommand.SetToolTip(cmdKeyTextRdBt, "Режим ввода Text\nПример: Zk12=\")5");
+            toolTipProprtsiesServerCommand.SetToolTip(groupBox18, "Тип IP адреса, который необходимо использовать если оператор предоставляет оба возможных");
+
+            toolTipProprtsiesServerCommand.AutoPopDelay = 10000;
+            toolTipProprtsiesServerCommand.InitialDelay = 0;
+            toolTipProprtsiesServerCommand.ReshowDelay = 0;
+            toolTipProprtsiesServerCommand.ShowAlways = true;
+
             refreshInfoBtn.PerformClick();
         }
 
@@ -150,16 +162,25 @@ namespace GSM_NBIoT_Module.view {
             switch (i) {
                 case 0: {
                         userHostTableLayoutPanel.BringToFront();
+                        userHostTableLayoutPanel.Visible = true;
+                        connectingTableLayoutPanel.Visible = false;
+                        serverTabLytPnl.Visible = false;
                     }
                     break;
 
                 case 1: {
                         connectingTableLayoutPanel.BringToFront();
+                        userHostTableLayoutPanel.Visible = false;
+                        connectingTableLayoutPanel.Visible = true;
+                        serverTabLytPnl.Visible = false;
                     }
                     break;
 
                 case 2: {
                         serverTabLytPnl.BringToFront();
+                        userHostTableLayoutPanel.Visible = false;
+                        connectingTableLayoutPanel.Visible = false;
+                        serverTabLytPnl.Visible = true;
                     }
                     break;
             }
@@ -2387,15 +2408,30 @@ namespace GSM_NBIoT_Module.view {
         }
 
         private void writeServerParametersBtn_Click(object sender, EventArgs e) {
+            
+            connectOnCOMterminal = flasMainForm.getStateConnectionOnCOMofTerminalForm();
+
+            if (connectOnCOMterminal) {
+                flasMainForm.performClickConnOfTerminalForm();
+            }
 
             try {
                 writeServerCommandParameters();
+                if (serialPort.IsOpen) serialPort.Close();
+
+                if (connectOnCOMterminal) {
+                    flasMainForm.performClickConnOfTerminalForm();
+                }
 
                 refreshInfoBtn.PerformClick();
 
                 Flasher.successfullyDialog("Параметры входящего соединения успешно записаны", "Параметры входящего соединения");
 
             } catch (Exception ex) {
+
+                if (connectOnCOMterminal) {
+                    flasMainForm.performClickConnOfTerminalForm();
+                }
                 Flasher.exceptionDialog(ex.Message);
             }
         }
